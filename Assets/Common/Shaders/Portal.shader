@@ -36,7 +36,7 @@
 
 			half4 LightingUnlit(SurfaceOutput s, half3 lightDir, half atten)
 			{
-				half4 c;
+				half4 c = 1;
 				c.rgb = -s.Albedo/2; 
 				return c;
 			}
