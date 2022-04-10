@@ -10,6 +10,7 @@ public class Cell : MonoBehaviour
     public Color emptyColor;
 
     public void SetFieldCell(FieldCell fieldCell) {
-        sprite.color = fieldCell.wall ? wallColor : emptyColor;
+        //sprite.color = fieldCell.wall ? wallColor : emptyColor;
+        sprite.color = fieldCell.color;
     }
 }

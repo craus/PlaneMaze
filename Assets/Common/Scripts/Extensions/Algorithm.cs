@@ -22,13 +22,18 @@ public static class Algorithm
 		return result;
 	}
 
-	public class Weighted<Vertex> 
+	public class Weighted<Vertex> : IComparable
 	{
 		public Vertex to;
 		public float weight;
 		public Weighted(Vertex to, float weight) {
 			this.to = to;
 			this.weight = weight;
+		}
+
+		public int CompareTo(object obj) {
+			Weighted<Vertex> other = obj as Weighted<Vertex>;
+			return weight.CompareTo(other.weight);
 		}
 	}
 
@@ -50,5 +55,32 @@ public static class Algorithm
 			});
 		}
 		return result;
+	}
+
+	public static void Prim<Vertex>(Vertex start, Func<Vertex, IEnumerable<Weighted<Vertex>>> edges, Func<Vertex, bool> terminalVertex = null, Action<Vertex> visit = null) {
+		terminalVertex ??= v => false;
+		visit ??= v => { };
+
+		PriorityQueue<Weighted<Vertex>> candidates = new PriorityQueue<Weighted<Vertex>>();
+		HashSet<Vertex> visited = new HashSet<Vertex>();
+
+		visited.Add(start);
+		edges(start).ForEach(candidates.Enqueue);
+		visit(start);
+
+		while (candidates.Count > 0) {
+			var current = candidates.Dequeue();
+			if (visited.Contains(current.to)) {
+				continue;
+			}
+
+			visited.Add(current.to);
+			edges(current.to).ForEach(candidates.Enqueue);
+			visit(current.to);
+
+			if (terminalVertex(current.to)) {
+				return;
+			}
+		}
 	}
 }

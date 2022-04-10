@@ -5,5 +5,6 @@ using UnityEngine;
 
 public class FieldCell
 {
-    public bool wall;
+    //public bool wall;
+    public Color color;
 }
