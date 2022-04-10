@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-    SparseCollections.Sparse2DMatrix<int, int, Cell> map = new SparseCollections.Sparse2DMatrix<int, int, Cell>();
+    SparseCollections.Sparse2DChunkBasedMatrix<Cell> map = new SparseCollections.Sparse2DChunkBasedMatrix<Cell>();
 
     public Field field;
     public Cell cellSample;
