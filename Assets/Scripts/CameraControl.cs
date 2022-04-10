@@ -22,7 +22,7 @@ public class CameraControl : MonoBehaviour
         }
 
         var oldWorldMousePoint = WorldMousePoint;
-        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize * Mathf.Pow(1.25f, -Input.mouseScrollDelta.y), 1, 100);
+        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize * Mathf.Pow(1.25f, -Input.mouseScrollDelta.y), 1, 50);
         RestoreCameraPosition(oldWorldMousePoint);
     }
 }

@@ -19,6 +19,19 @@ public class Board : MonoBehaviour
         }
     }
 
+    private void Update() {
+        int xMin = (int)Mathf.Round(Camera.main.transform.position.x - Camera.main.orthographicSize * Camera.main.aspect);
+        int xMax = (int)Mathf.Round(Camera.main.transform.position.x + Camera.main.orthographicSize * Camera.main.aspect);
+        int yMin = (int)Mathf.Round(Camera.main.transform.position.y - Camera.main.orthographicSize);
+        int yMax = (int)Mathf.Round(Camera.main.transform.position.y + Camera.main.orthographicSize);
+
+        for (int i = xMin; i <= xMax; i++) {
+            for (int j = yMin; j <= yMax; j++) {
+                ShowCell(i, j);
+            }
+        }
+    }
+
     private Cell GenerateCell(int x, int y) {
         var cell = Instantiate(cellSample);
         cell.SetFieldCell(field[x, y]);
