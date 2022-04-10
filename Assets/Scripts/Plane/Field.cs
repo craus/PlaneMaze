@@ -31,20 +31,18 @@ public class Field : MonoBehaviour
     }
 
     private bool Core(int x, int y) {
-        return core[x, y] < 0.01f;
+        return core[x, y] < 0.00001f;
     }
 
     private Color GenerateNewBiome() {
         return new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
     }
 
-    private FieldCell Generate(int x, int y) {
-        var result = new FieldCell();
-        //result.wall = Rand.rndEvent(1 / (1 + Mathf.Sqrt(2))) ? true : false;
-
-        List<(int, int)> visitedCells = new List<(int, int)>();
-
+    private void EnsureBiome(int x, int y) {
         if (!biome.ContainsKey(x, y)) {
+
+            List<(int, int)> visitedCells = new List<(int, int)>();
+
             Algorithm.Prim(
                 start: (x, y),
                 edges: Edges,
@@ -58,6 +56,14 @@ public class Field : MonoBehaviour
             }
             visitedCells.ForEach(v => biome[v.Item1, v.Item2] = biome[end.Item1, end.Item2]);
         }
+    }
+
+    private FieldCell Generate(int x, int y) {
+        var result = new FieldCell();
+        //result.wall = Rand.rndEvent(1 / (1 + Mathf.Sqrt(2))) ? true : false;
+
+        EnsureBiome(x, y);
+
 
         result.color = biome[x, y];
 
