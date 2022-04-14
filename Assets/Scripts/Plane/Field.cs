@@ -9,6 +9,7 @@ public class Field : MonoBehaviour
     RandomField rightCost = new RandomField();
     RandomField upCost = new RandomField();
     RandomField core = new RandomField();
+    RandomField wall = new RandomField();
 
     SparseCollections.Sparse2DMatrix<int, int, Color> biome = new SparseCollections.Sparse2DMatrix<int, int, Color>();
 
@@ -58,14 +59,46 @@ public class Field : MonoBehaviour
         }
     }
 
+    private bool Wall(int x, int y) {
+        float horizontal = 1;
+
+        int delta = 3;
+
+        for (int i = -delta; i <= delta; i++) {
+            horizontal = Mathf.Min(horizontal, wall[x + i, y]);
+        }
+
+        float vertical = 1;
+        for (int i = -delta; i <= delta; i++) {
+            vertical = Mathf.Min(vertical, wall[x, y + i]);
+        }
+
+        float threshold = 0.2f;
+
+        return horizontal >= threshold || vertical >= threshold;
+    }
+
+    private bool StrongerThanNeighbours(int x, int y) {
+        float neighbours = 0;
+        neighbours += wall[x + 1, y];
+        neighbours += wall[x - 1, y];
+        neighbours += wall[x, y + 1];
+        neighbours += wall[x, y - 1];
+        return wall[x, y] > neighbours;
+    }
+
+    private bool RandomBalanced(int x, int y) {
+        return Rand.rndEvent(1 / (1 + Mathf.Sqrt(2)));
+    }
+
     private FieldCell Generate(int x, int y) {
         var result = new FieldCell();
-        //result.wall = Rand.rndEvent(1 / (1 + Mathf.Sqrt(2))) ? true : false;
+        //result.wall =  ? true : false;
 
-        EnsureBiome(x, y);
+        //EnsureBiome(x, y);
 
-
-        result.color = biome[x, y];
+        result.wall = RandomBalanced(x, y);
+            //? Color.black : Color.white;
 
         return result;
     }

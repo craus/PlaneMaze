@@ -9,7 +9,13 @@ public class Board : MonoBehaviour
 
     public Field field;
     public Cell cellSample;
+    public Gem gemSample;
     public Transform cellParent;
+
+    public Cell GetCell(Vector2Int position) {
+        ShowCell(position.x, position.y);
+        return map[position.x, position.y];
+    }
 
     private void Start() {
         for (int i = 0; i < 10; i++) {
@@ -37,6 +43,16 @@ public class Board : MonoBehaviour
         cell.SetFieldCell(field[x, y]);
         cell.transform.SetParent(cellParent);
         cell.transform.position = new Vector3(x, y, 0);
+        cell.position = new Vector2Int(x, y);
+        cell.board = this;
+
+        if (!cell.fieldCell.wall) {
+            if (Rand.rndEvent(0.01f)) {
+                var gem = Instantiate(gemSample);
+                gem.GetComponent<Figure>().Move(cell);
+            }
+        }
+
         return cell;
     }
 
