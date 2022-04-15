@@ -8,16 +8,21 @@ public class Figure : MonoBehaviour
 {
     public Cell location;
 
-    public UnityEvent afterMove;
+    public UnityEvent<bool> afterMove;
 
     public void TryMove(Vector2Int delta) {
         var newPosition = location.Shift(delta);
         if (!newPosition.fieldCell.wall) {
             Move(newPosition);
+        } else {
+            var jumpPosition = location.Shift(delta * 2);
+            if (!jumpPosition.fieldCell.wall) {
+                Move(jumpPosition);
+            }
         }
     }
 
-    public void Move(Cell newPosition) {
+    public void Move(Cell newPosition, bool isTeleport = false) {
         if (location != null) {
             location.figures.Remove(this);
         }
@@ -25,7 +30,7 @@ public class Figure : MonoBehaviour
         if (location != null) {
             location.figures.Add(this);
         }
-        afterMove.Invoke();
+        afterMove.Invoke(isTeleport);
         UpdateTransform();
     }
 

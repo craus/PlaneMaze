@@ -93,6 +93,7 @@ MonoBehaviour:
   field: {fileID: 4431957464519080037}
   cellSample: {fileID: 6261679022186997066, guid: 2a99463cb29833d488be55938bbc2d16, type: 3}
   gemSample: {fileID: -5931720104371548630, guid: 5dd0e56d03f85e0428917ae2cf43f2d0, type: 3}
+  teleportSample: {fileID: 8425685543436722961, guid: a39f3242f827a2c43b2abb62c095939f, type: 3}
   cellParent: {fileID: 4431957465220916857}
 --- !u!1 &4431957465220916862
 GameObject:

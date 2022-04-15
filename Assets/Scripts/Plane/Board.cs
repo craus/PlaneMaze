@@ -10,6 +10,7 @@ public class Board : MonoBehaviour
     public Field field;
     public Cell cellSample;
     public Gem gemSample;
+    public Teleport teleportSample;
     public Transform cellParent;
 
     public Cell GetCell(Vector2Int position) {
@@ -46,7 +47,12 @@ public class Board : MonoBehaviour
         cell.position = new Vector2Int(x, y);
         cell.board = this;
 
-        if (!cell.fieldCell.wall) {
+        if (cell.fieldCell.teleport) {
+            var teleport = Instantiate(teleportSample);
+            teleport.GetComponent<Figure>().Move(cell);
+        }
+
+        if (!cell.fieldCell.wall && !cell.fieldCell.teleport) {
             if (Rand.rndEvent(0.01f)) {
                 var gem = Instantiate(gemSample);
                 gem.GetComponent<Figure>().Move(cell);

@@ -14,7 +14,13 @@ public class Player : MonoBehaviour
         figure.afterMove.AddListener(AfterMove);
     }
 
-    public void AfterMove() {
+    public void AfterMove(bool isTeleport) {
+        if (!isTeleport) {
+            if (figure.location.fieldCell.teleport) {
+                figure.Move(figure.location.board.GetCell(figure.location.fieldCell.teleportTarget), isTeleport: true);
+            }
+        }
+
         figure.location.figures.Select(f => f.GetComponent<Gem>()).Where(g => g != null).ForEach(Take);
     }
 

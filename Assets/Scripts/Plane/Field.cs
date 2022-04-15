@@ -18,7 +18,7 @@ public class Field : MonoBehaviour
         get
         {
             if (map[x, y] == null) {
-                map[x,y] = Generate(x, y);
+                Generate(x, y);
             }
             return map[x, y];
         }
@@ -91,15 +91,42 @@ public class Field : MonoBehaviour
         return Rand.rndEvent(1 / (1 + Mathf.Sqrt(2)));
     }
 
-    private FieldCell Generate(int x, int y) {
+    private void AddRandomTeleport(FieldCell cell, int x, int y) {
+        if (Rand.rndEvent(0.05)) {
+            int radius = 4;
+            while (Rand.rndEvent(0.45f)) {
+                radius *= 2;
+            }
+            var target = new Vector2Int(x + Random.Range(-radius, radius), y + Random.Range(-radius, radius));
+            if (map[target.x, target.y] != null) {
+                return;
+            }
+            cell.teleport = true;
+            cell.teleportTarget = target;
+            Generate(target.x, target.y, new Vector2Int(x, y));
+        }
+    }
+
+    private FieldCell Generate(int x, int y, Vector2Int? knownTeleport = null) {
         var result = new FieldCell();
         //result.wall =  ? true : false;
 
         //EnsureBiome(x, y);
 
-        result.wall = RandomBalanced(x, y);
-            //? Color.black : Color.white;
+        //? Color.black : Color.white;
 
+        if (knownTeleport.HasValue) {
+            result.teleport = true;
+            result.teleportTarget = knownTeleport.Value;
+            result.wall = false;
+        } else {
+            result.wall = Rand.rndEvent(2 / (2 + Mathf.Sqrt(2)));
+            if (!result.wall) {
+                AddRandomTeleport(result, x, y);
+            }
+        }
+
+        map[x, y] = result;
         return result;
     }
 }
