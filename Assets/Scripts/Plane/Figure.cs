@@ -14,12 +14,16 @@ public class Figure : MonoBehaviour
         var newPosition = location.Shift(delta);
         if (!newPosition.fieldCell.wall) {
             Move(newPosition);
-        } else {
-            var jumpPosition = location.Shift(delta * 2);
-            if (!jumpPosition.fieldCell.wall) {
-                Move(jumpPosition);
-            }
+            return;
+        } 
+
+        var jumpPosition = location.Shift(delta * 2);
+        if (!jumpPosition.fieldCell.wall) {
+            Move(jumpPosition);
+            return;
         }
+
+        Move(location);
     }
 
     public void Move(Cell newPosition, bool isTeleport = false) {

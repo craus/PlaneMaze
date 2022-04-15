@@ -92,7 +92,7 @@ public class Field : MonoBehaviour
     }
 
     private void AddRandomTeleport(FieldCell cell, int x, int y) {
-        if (Rand.rndEvent(0.05)) {
+        if (Rand.rndEvent(0.01)) {
             int radius = 4;
             while (Rand.rndEvent(0.45f)) {
                 radius *= 2;
@@ -109,7 +109,6 @@ public class Field : MonoBehaviour
 
     private FieldCell Generate(int x, int y, Vector2Int? knownTeleport = null) {
         var result = new FieldCell();
-        //result.wall =  ? true : false;
 
         //EnsureBiome(x, y);
 
@@ -120,10 +119,10 @@ public class Field : MonoBehaviour
             result.teleportTarget = knownTeleport.Value;
             result.wall = false;
         } else {
-            result.wall = Rand.rndEvent(2 / (2 + Mathf.Sqrt(2)));
-            if (!result.wall) {
-                AddRandomTeleport(result, x, y);
-            }
+            result.wall = Rand.rndEvent(0.65f);
+            //if (!result.wall) {
+            //    AddRandomTeleport(result, x, y);
+            //}
         }
 
         map[x, y] = result;
