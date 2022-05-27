@@ -125,6 +125,8 @@ public class Field : MonoBehaviour
             //}
         }
 
+        result.difficulty = (int)(1 / Random.Range(0, 1f));
+
         map[x, y] = result;
         return result;
     }

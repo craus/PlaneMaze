@@ -11,8 +11,15 @@ public class GameManager : Singletone<GameManager>
     public Board boardSample;
     public Board board;
 
+    public Game gameSample;
+    public Game game;
+
     public void Start() {
         NewGame();
+
+        int x = 3;
+        x += 4 - 2;
+        Debug.Log(x);
     }
 
     public void Update() {
@@ -27,13 +34,18 @@ public class GameManager : Singletone<GameManager>
     }
 
     public void NewGame() {
-        player = Instantiate(playerSample);
         board = Instantiate(boardSample);
-        player.figure.Move(board.GetCell(Vector2Int.zero));
+        game = Instantiate(gameSample);
+
+        var start = board.GetCell(new Vector2Int(0, 0));
+        start.fieldCell.wall = false;
+        start.Capture(forced: true);
     }
 
     public void DestroyGame() {
-        Destroy(player.gameObject);
+        if (player) {
+            Destroy(player.gameObject);
+        }
         Destroy(board.gameObject);
     }
 }

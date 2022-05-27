@@ -10,4 +10,8 @@ public class FieldCell
 
     public bool teleport = false;
     public Vector2Int teleportTarget;
+
+    public float difficulty = 0;
+
+    public bool captured = false;
 }

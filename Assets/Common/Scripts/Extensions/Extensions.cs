@@ -10,6 +10,8 @@ using UnityEditor;
 
 public static class Extensions
 {
+    public static string Digits(this float x, int digits) => string.Format("{0:F" + digits + "}", x);
+
     public static string ExtToString(this Matrix4x4 mx) {
         var s = "\t";
         const int x = -12;

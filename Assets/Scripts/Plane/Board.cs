@@ -14,6 +14,8 @@ public class Board : MonoBehaviour
     public Transform cellParent;
     public Transform figureParent;
 
+    public List<Cell> cellsList = new List<Cell>();
+
     public Cell GetCell(Vector2Int position) {
         ShowCell(position.x, position.y);
         return map[position.x, position.y];
@@ -50,6 +52,14 @@ public class Board : MonoBehaviour
         teleport.transform.SetParent(figureParent);
     }
 
+    private void GenerateGem(Cell cell) {
+        if (!cell.fieldCell.wall && !cell.fieldCell.teleport) {
+            if (Rand.rndEvent(0.01f)) {
+                GenerateFigure(cell, gemSample);
+            }
+        }
+    }
+
     private Cell GenerateCell(int x, int y) {
         var cell = Instantiate(cellSample);
         cell.gameObject.name = $"Cell ({x}, {y})";
@@ -63,11 +73,7 @@ public class Board : MonoBehaviour
             GenerateFigure(cell, teleportSample);
         }
 
-        if (!cell.fieldCell.wall && !cell.fieldCell.teleport) {
-            if (Rand.rndEvent(0.01f)) {
-                GenerateFigure(cell, gemSample);
-            }
-        }
+        //GenerateGem();
 
         return cell;
     }
@@ -75,6 +81,11 @@ public class Board : MonoBehaviour
     private void ShowCell(int x, int y) {
         if (map[x, y] == null) {
             map[x, y] = GenerateCell(x, y);
+            cellsList.Add(map[x, y]);
         }
+    }
+
+    public void UpdateAllCells() {
+        cellsList.ForEach(c => c.UpdateCell());
     }
 }

@@ -29,5 +29,11 @@ public class Controls : Singletone<Controls>
 
     public void Update() {
         Hovered = GameManager.instance.board.GetCellByPosition(WorldCursor);
+
+        if (Input.GetMouseButtonDown(0)) {
+            if (Hovered) {
+                Hovered.Capture();
+            }
+        }
     }
 }

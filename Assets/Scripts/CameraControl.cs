@@ -25,7 +25,7 @@ public class CameraControl : Singletone<CameraControl>
         }
 
         var oldWorldMousePoint = WorldMousePoint;
-        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize * Mathf.Pow(1.25f, -Input.mouseScrollDelta.y), 1, 50);
+        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize * Mathf.Pow(1.25f, -Input.mouseScrollDelta.y), 1, 16);
         RestoreCameraPosition(oldWorldMousePoint);
 
         if (followPlayer) {
