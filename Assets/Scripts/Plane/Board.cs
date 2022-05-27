@@ -19,6 +19,10 @@ public class Board : MonoBehaviour
         return map[position.x, position.y];
     }
 
+    public Cell GetCellByPosition(Vector3 position) {
+        return map[Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y)];
+    }
+
     private void Start() {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
@@ -48,6 +52,7 @@ public class Board : MonoBehaviour
 
     private Cell GenerateCell(int x, int y) {
         var cell = Instantiate(cellSample);
+        cell.gameObject.name = $"Cell ({x}, {y})";
         cell.SetFieldCell(field[x, y]);
         cell.transform.SetParent(cellParent);
         cell.transform.position = new Vector3(x, y, 0);
