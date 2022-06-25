@@ -54,7 +54,7 @@ public class Cell : MonoBehaviour
         }
     }
 
-    public bool Capturable => !Captured && !fieldCell.wall && Neighbours.Any(c => c.Captured);
+    public bool Capturable => !Game.instance.lost && !Captured && !fieldCell.wall && Neighbours.Any(c => c.Captured);
 
     public void UpdateCell() {
         sprite.color = SpriteColor;
@@ -93,6 +93,10 @@ public class Cell : MonoBehaviour
         GameManager.instance.game.area++;
         GameManager.instance.game.border += Neighbours.Count(c => c.Capturable) - Neighbours.Count(c => c.Captured);
         GameManager.instance.board.UpdateAllCells();
+        Game.instance.strengthPeak = Mathf.Max(Game.instance.strengthPeak, Game.instance.Strength);
+        if (Game.instance.EnemyStrength > Game.instance.strengthPeak) {
+            Game.instance.Lose();
+        }
 
         UpdateCell();
     }
