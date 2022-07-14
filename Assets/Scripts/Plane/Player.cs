@@ -21,12 +21,14 @@ public class Player : MonoBehaviour
             }
         }
 
-        figure.location.figures.Select(f => f.GetComponent<Gem>()).Where(g => g != null).ForEach(Take);
+        figure.location.figures.Select(f => f.GetComponent<Gem>()).Where(g => g != null).ToList().ForEach(Take);
+        
     }
 
     public void Take(Gem gem) {
         Destroy(gem.gameObject);
         gems++;
+        GameManager.instance.OnGemTaken();
     }
 
     public void Update() {

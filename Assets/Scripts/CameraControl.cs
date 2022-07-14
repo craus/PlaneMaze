@@ -36,4 +36,8 @@ public class CameraControl : Singletone<CameraControl>
             );
         }
     }
+
+    public void TeleportToPlayer() {
+        Camera.main.transform.position = GameManager.instance.player.transform.position.Change(z: Camera.main.transform.position.z);
+    }
 }

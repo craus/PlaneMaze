@@ -57,16 +57,28 @@ public static class Algorithm
 		return result;
 	}
 
-	public static void Prim<Vertex>(Vertex start, Func<Vertex, IEnumerable<Weighted<Vertex>>> edges, Func<Vertex, bool> terminalVertex = null, Action<Vertex> visit = null) {
+	public static IEnumerable<Vertex> Prim<Vertex>(
+		Vertex start, 
+		Func<Vertex, IEnumerable<Weighted<Vertex>>> edges, 
+		Func<Vertex, bool> terminalVertex = null,
+		int maxSteps = (int)1e9,
+		Action<Vertex> visit = null
+	) {
 		terminalVertex ??= v => false;
 		visit ??= v => { };
 
 		PriorityQueue<Weighted<Vertex>> candidates = new PriorityQueue<Weighted<Vertex>>();
 		HashSet<Vertex> visited = new HashSet<Vertex>();
+		var steps = 0;
 
 		visited.Add(start);
 		edges(start).ForEach(candidates.Enqueue);
 		visit(start);
+		yield return start;
+		steps++; 
+		if (steps == maxSteps) {
+			yield break;
+		}
 
 		while (candidates.Count > 0) {
 			var current = candidates.Dequeue();
@@ -77,9 +89,14 @@ public static class Algorithm
 			visited.Add(current.to);
 			edges(current.to).ForEach(candidates.Enqueue);
 			visit(current.to);
+			yield return current.to; 
+			steps++;
+			if (steps == maxSteps) {
+				yield break;
+			}
 
 			if (terminalVertex(current.to)) {
-				return;
+				yield break;
 			}
 		}
 	}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9120431168356598881}
   - component: {fileID: 4690609130972069141}
   - component: {fileID: -5931720104371548630}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,6 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   location: {fileID: 0}
+  savePoint: {fileID: 0}
+  afterMove:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &-5931720104371548630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,7 +72,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1744255195421331600}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +105,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8703228107603755514}
   - component: {fileID: 8656043385480417195}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

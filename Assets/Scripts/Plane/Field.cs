@@ -119,7 +119,17 @@ public class Field : MonoBehaviour
             result.teleportTarget = knownTeleport.Value;
             result.wall = false;
         } else {
-            result.wall = Rand.rndEvent(0.65f);
+            //result.wall = Rand.rndEvent(0.65f);
+            result.wall = Rand.rndEvent(1f / (Mathf.Sqrt(2) + 1));
+            if (x == 0 && y == 0) {
+                result.wall = false;
+            }
+            if (result.wall) {
+                //if (Rand.rndEvent(0.1f)) {
+                //    result.wall = false;
+                //    result.trap = true;
+                //}
+            }
             //if (!result.wall) {
             //    AddRandomTeleport(result, x, y);
             //}
