@@ -30,7 +30,7 @@ public class CameraControl : Singletone<CameraControl>
 
         if (followPlayer) {
             Camera.main.transform.position = Vector3.Lerp(
-                GameManager.instance.player.transform.position.Change(z: Camera.main.transform.position.z),
+                Game.instance.player.transform.position.Change(z: Camera.main.transform.position.z),
                 Camera.main.transform.position, 
                 Mathf.Pow(0.5f, Time.deltaTime / lerpHalfLife)
             );
@@ -38,6 +38,6 @@ public class CameraControl : Singletone<CameraControl>
     }
 
     public void TeleportToPlayer() {
-        Camera.main.transform.position = GameManager.instance.player.transform.position.Change(z: Camera.main.transform.position.z);
+        Camera.main.transform.position = Game.instance.player.transform.position.Change(z: Camera.main.transform.position.z);
     }
 }

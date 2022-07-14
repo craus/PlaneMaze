@@ -10,6 +10,6 @@ public class UI : MonoBehaviour
     public TextMeshProUGUI gemsCounter;
 
     public void Update() {
-        gemsCounter.text = GameManager.instance.player.gems.ToString();
+        gemsCounter.text = Game.instance.player.gems.ToString();
     }
 }
