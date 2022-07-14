@@ -23,7 +23,6 @@ public class Player : MonoBehaviour
 
         figure.location.figures.Select(f => f.GetComponent<Gem>()).Where(g => g != null).ToList().ForEach(Take);
 
-
         Game.instance.AfterPlayerMove();
     }
 

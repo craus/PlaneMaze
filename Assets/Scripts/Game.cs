@@ -21,6 +21,7 @@ public class Game : Singletone<Game>
     public Cell lastLocation;
 
     public HashSet<(Cell, Cell)> contaminations = new HashSet<(Cell, Cell)>();
+    public HashSet<Cell> clearedCells = new HashSet<Cell>();
 
     public void Start() {
         player = Instantiate(playerSample, transform);
@@ -29,7 +30,7 @@ public class Game : Singletone<Game>
         player.figure.Move(board.GetCell(Vector2Int.zero));
         Debug.LogFormat("New game started");
 
-        //LockCells();
+        LockCells();
         //PlaceGem();
 
         player.figure.location.Dark = false;
@@ -58,16 +59,16 @@ public class Game : Singletone<Game>
     }
 
     public void OnGemTaken() {
-        unlockedCells += 50;
-        cellOrder.ForEach(c => c.UpdateCell());
-        PlaceGem();
+        //unlockedCells += 50;
+        //cellOrder.ForEach(c => c.UpdateCell());
+        //PlaceGem();
     }
 
     public void AfterPlayerMove() {
         player.figure.location.Dark = false;
 
         foreach (var c in contaminations.ToList()) {
-            if (Rand.rndEvent(0.01f) && c.Item2 != player.figure.location) {
+            if (Rand.rndEvent(0.02f) && c.Item2 != player.figure.location && !c.Item1.Locked) {
                 c.Item2.Dark = true;
             }
         }
@@ -87,6 +88,15 @@ public class Game : Singletone<Game>
         foreach (var n in cell.Neighbours().Where(c => !c.Wall)) {
             UpdateContamination(cell, n);
             UpdateContamination(n, cell);
+        }
+        if (cell.Dark) {
+            clearedCells.Remove(cell);
+        } else {
+            clearedCells.Add(cell);
+        }
+        if (unlockedCells < clearedCells.Count() * 2) {
+            unlockedCells = clearedCells.Count() * 2;
+            cellOrder.Take(unlockedCells).ForEach(c => c.UpdateCell());
         }
     }
 }

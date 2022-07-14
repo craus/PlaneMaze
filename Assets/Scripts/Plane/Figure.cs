@@ -94,7 +94,7 @@ public class Figure : MonoBehaviour
         //    return;
         //}
 
-        Move(location);
+        //Move(location);
     }
 
     public void Move(Cell newPosition, bool isTeleport = false) {
