@@ -72,8 +72,6 @@ public class Game : Singletone<Game>
                 c.Item2.Dark = true;
             }
         }
-
-        Debug.Log($"Contamination: {contaminations.Count()}");
     }
 
     private void UpdateContamination(Cell from, Cell to) {
