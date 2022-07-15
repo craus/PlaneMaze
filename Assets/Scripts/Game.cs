@@ -53,18 +53,35 @@ public class Game : Singletone<Game>
         Debug.LogFormat($"Cells: {cellOrder.Count()}");
     }
 
+    public void Contaminate(Cell cell) {
+        if (cell.figures.Any(f => f.GetComponent<Player>())) {
+            return;
+        }
+        if (cell.figures.Any(f => f.GetComponent<Wall>())) {
+            if (Rand.rndEvent(0.8f)) {
+                return;
+            }
+            Destroy(cell.figures.First(f => f.GetComponent<Wall>()).gameObject);
+            return;
+        }
+        cell.Dark = true;
+        foreach (var f in cell.figures.Where(f => f.GetComponent<Building>())) {
+            Destroy(f.gameObject);
+        }
+    }
+
     public void AfterPlayerMove() {
         player.figure.location.Dark = false;
 
         foreach (var c in contaminations.ToList()) {
-            if (Rand.rndEvent(0.02f) && c.Item2 != player.figure.location && !c.Item1.Locked) {
-                c.Item2.Dark = true;
+            if (Rand.rndEvent(0.02f) && !c.Item1.Locked) {
+                Contaminate(c.Item2);
             }
         }
 
         foreach (var c in clearedCells.ToList()) {
             if (c.figures.Count() == 0) {
-                if (Rand.rndEvent(0.01f)) {
+                if (Rand.rndEvent(0.0002f)) {
                     var gem = Instantiate(gemSample, figureParent);
                     gem.GetComponent<Figure>().Move(c);
                     gems.Add(gem);
