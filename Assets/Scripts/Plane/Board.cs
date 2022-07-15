@@ -59,9 +59,9 @@ public class Board : MonoBehaviour
         }
 
         if (!cell.fieldCell.wall && !cell.fieldCell.teleport) {
-            if (Rand.rndEvent(0.01f)) {
-                GenerateFigure(cell, gemSample);
-            }
+            //if (Rand.rndEvent(0.01f)) {
+            //    GenerateFigure(cell, gemSample);
+            //}
         }
 
         return cell;
