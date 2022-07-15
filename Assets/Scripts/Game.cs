@@ -30,7 +30,7 @@ public class Game : Singletone<Game>
         player.figure.Move(board.GetCell(Vector2Int.zero));
         Debug.LogFormat("New game started");
 
-        LockCells();
+        //LockCells();
         //PlaceGem();
 
         player.figure.location.Dark = false;
