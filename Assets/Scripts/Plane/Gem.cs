@@ -7,6 +7,8 @@ using UnityEngine;
 public class Gem : MonoBehaviour
 {
     public void OnDestroy() {
-        Game.instance.gems.Remove(this);
+        if (Game.instance) {
+            Game.instance.gems.Remove(this);
+        }
     }
 }
