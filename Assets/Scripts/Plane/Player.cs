@@ -7,8 +7,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Figure figure;
-    public int mana;
+    public int totalGems;
     public int gems;
+
+    public int wallCost = 2;
+
+    public Wall wallSample;
 
     public void Awake() {
         if (figure == null) figure = GetComponent<Figure>();
@@ -29,22 +33,36 @@ public class Player : MonoBehaviour
 
     public void Take(Gem gem) {
         Destroy(gem.gameObject);
-        mana++;
+        totalGems++;
         gems++;
     }
 
     public void Update() {
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
+        if (Input.GetKeyDown(KeyCode.UpArrow)) {
             figure.TryMove(Vector2Int.up);
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
+        if (Input.GetKeyDown(KeyCode.DownArrow)) {
             figure.TryMove(Vector2Int.down);
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) {
+        if (Input.GetKeyDown(KeyCode.RightArrow)) {
             figure.TryMove(Vector2Int.right);
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) {
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) {
             figure.TryMove(Vector2Int.left);
         }
+        if (Input.GetKeyDown(KeyCode.W)) {
+            BuildWall(figure.location);
+        }
+    }
+
+    public void BuildWall(Cell place) {
+        if (gems < wallCost) {
+            return;
+        }
+        if (place.figures.Any(p => p.GetComponent<Building>())) {
+            return;
+        }
+        gems -= wallCost;
+        Instantiate(wallSample, Game.instance.figureParent).GetComponent<Figure>().Move(place);
     }
 }
