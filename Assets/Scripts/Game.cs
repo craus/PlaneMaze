@@ -18,10 +18,11 @@ public class Game : Singletone<Game>
     public Gem gemSample;
     public Gem gem;
 
-    public Cell lastLocation;
+    public Transform figureParent;
 
     public HashSet<(Cell, Cell)> contaminations = new HashSet<(Cell, Cell)>();
     public HashSet<Cell> clearedCells = new HashSet<Cell>();
+    public HashSet<Gem> gems = new HashSet<Gem>();
 
     public void Start() {
         player = Instantiate(playerSample, transform);
@@ -52,24 +53,29 @@ public class Game : Singletone<Game>
         Debug.LogFormat($"Cells: {cellOrder.Count()}");
     }
 
-    private void PlaceGem() {
-        gem = Instantiate(gemSample);
-        gem.GetComponent<Figure>().Move(cellOrder.Take(unlockedCells).Rnd());
-        lastLocation = player.figure.location;
-    }
-
-    public void OnGemTaken() {
-        //unlockedCells += 50;
-        //cellOrder.ForEach(c => c.UpdateCell());
-        //PlaceGem();
-    }
-
     public void AfterPlayerMove() {
         player.figure.location.Dark = false;
 
         foreach (var c in contaminations.ToList()) {
             if (Rand.rndEvent(0.02f) && c.Item2 != player.figure.location && !c.Item1.Locked) {
                 c.Item2.Dark = true;
+            }
+        }
+
+        foreach (var c in clearedCells.ToList()) {
+            if (c.figures.Count() == 0) {
+                if (Rand.rndEvent(0.01f)) {
+                    var gem = Instantiate(gemSample, figureParent);
+                    gem.GetComponent<Figure>().Move(c);
+                    gems.Add(gem);
+                }
+            }
+        }
+
+        foreach (var g in gems.ToList()) {
+            if (Rand.rndEvent(0.02f)) {
+                Destroy(g.gameObject);
+                gems.Remove(g);
             }
         }
     }

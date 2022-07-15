@@ -7,6 +7,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Figure figure;
+    public int mana;
     public int gems;
 
     public void Awake() {
@@ -28,8 +29,8 @@ public class Player : MonoBehaviour
 
     public void Take(Gem gem) {
         Destroy(gem.gameObject);
+        mana++;
         gems++;
-        Game.instance.OnGemTaken();
     }
 
     public void Update() {
