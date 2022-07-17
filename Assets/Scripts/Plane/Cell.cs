@@ -68,4 +68,6 @@ public class Cell : MonoBehaviour
         yield return Shift(Vector2Int.left);
         yield return Shift(Vector2Int.right);
     }
+
+    public T GetFigure<T>() => figures.Select(f => f.GetComponent<T>()).FirstOrDefault(t => t != null);
 }

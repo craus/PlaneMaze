@@ -10,6 +10,7 @@ public class Board : MonoBehaviour
     public Field field;
     public Cell cellSample;
     public Gem gemSample;
+    public Figure cracksSample;
     public Teleport teleportSample;
     public Transform cellParent;
     public Transform figureParent;
@@ -41,9 +42,9 @@ public class Board : MonoBehaviour
     }
 
     private void GenerateFigure(Cell cell, MonoBehaviour sample) {
-        var teleport = Instantiate(sample);
-        teleport.GetComponent<Figure>().Move(cell);
-        teleport.transform.SetParent(figureParent);
+        var f = Instantiate(sample);
+        f.GetComponent<Figure>().Move(cell);
+        f.transform.SetParent(figureParent);
     }
 
     private Cell GenerateCell(int x, int y) {
@@ -59,9 +60,9 @@ public class Board : MonoBehaviour
         }
 
         if (!cell.fieldCell.wall && !cell.fieldCell.teleport) {
-            //if (Rand.rndEvent(0.01f)) {
-            //    GenerateFigure(cell, gemSample);
-            //}
+            if (Rand.rndEvent(0.07f)) {
+                GenerateFigure(cell, cracksSample);
+            }
         }
 
         return cell;

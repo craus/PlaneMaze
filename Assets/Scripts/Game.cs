@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Game : Singletone<Game>
+public class Game : MonoBehaviour
 {
+    public static Game instance => GameManager.instance.game;
+
     public Player playerSample;
     public Player player;
 
@@ -31,7 +33,7 @@ public class Game : Singletone<Game>
         player.figure.Move(board.GetCell(Vector2Int.zero));
         Debug.LogFormat("New game started");
 
-        //LockCells();
+        LockCells();
         //PlaceGem();
 
         player.figure.location.Dark = false;
@@ -44,7 +46,7 @@ public class Game : Singletone<Game>
             edges: c => c.Neighbours().Where(c => !c.Wall).Select(c => new Algorithm.Weighted<Cell>(c, UnityEngine.Random.Range(0, 1f))),
             maxSteps: 10000
         ).ToList();
-        unlockedCells = 50;
+        unlockedCells = 100500;
         cellOrder.ForEach((i, c) => {
             c.order = i;
             c.UpdateCell();
@@ -58,10 +60,10 @@ public class Game : Singletone<Game>
             return;
         }
         if (cell.figures.Any(f => f.GetComponent<Wall>())) {
-            if (Rand.rndEvent(0.8f)) {
+            if (Rand.rndEvent(0.5f)) {
                 return;
             }
-            Destroy(cell.figures.First(f => f.GetComponent<Wall>()).gameObject);
+            cell.figures.First(f => f.GetComponent<Wall>()).GetComponent<Wall>().Hit();
             return;
         }
         cell.Dark = true;
@@ -81,20 +83,24 @@ public class Game : Singletone<Game>
 
         foreach (var c in clearedCells.ToList()) {
             if (c.figures.Count() == 0) {
-                if (Rand.rndEvent(0.0002f)) {
-                    var gem = Instantiate(gemSample, figureParent);
-                    gem.GetComponent<Figure>().Move(c);
-                    gems.Add(gem);
+                if (Rand.rndEvent(0.00008f)) {
+                    //var gem = Instantiate(gemSample, figureParent);
+                    //gem.GetComponent<Figure>().Move(c);
+                    //gems.Add(gem);
+                    ++player.gems;
                 }
             }
         }
-
-        foreach (var g in gems.ToList()) {
-            if (Rand.rndEvent(0.02f)) {
-                Destroy(g.gameObject);
-                gems.Remove(g);
-            }
+        if (Rand.rndEvent(0.008f)) {
+            ++player.gems;
         }
+
+        //foreach (var g in gems.ToList()) {
+        //    if (Rand.rndEvent(0.02f)) {
+        //        Destroy(g.gameObject);
+        //        gems.Remove(g);
+        //    }
+        //}
     }
 
     private void UpdateContamination(Cell from, Cell to) {

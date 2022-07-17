@@ -10,9 +10,8 @@ public class Player : MonoBehaviour
     public int totalGems;
     public int gems;
 
-    public int wallCost = 2;
-
     public Wall wallSample;
+    public Building markSample;
 
     public void Awake() {
         if (figure == null) figure = GetComponent<Figure>();
@@ -51,18 +50,36 @@ public class Player : MonoBehaviour
             figure.TryMove(Vector2Int.left);
         }
         if (Input.GetKeyDown(KeyCode.W)) {
-            BuildWall(figure.location);
+            Build(figure.location, wallSample);
+        }
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            Build(figure.location, markSample);
+        }
+        if (Input.GetKeyDown(KeyCode.X)) {
+            DestroyBuilding(figure.location);
         }
     }
 
-    public void BuildWall(Cell place) {
-        if (gems < wallCost) {
+    public void Build(Cell place, Building sample) {
+        if (gems < sample.cost) {
             return;
         }
         if (place.figures.Any(p => p.GetComponent<Building>())) {
             return;
         }
-        gems -= wallCost;
-        Instantiate(wallSample, Game.instance.figureParent).GetComponent<Figure>().Move(place);
+        gems -= sample.cost;
+        Instantiate(sample, Game.instance.figureParent).GetComponent<Figure>().Move(place);
+    }
+
+    public void DestroyBuilding(Cell place) {
+        var building = place.GetFigure<Building>();
+        if (building == null) {
+            return;
+        }
+        if (building.undestructible) {
+            return;
+        }
+        gems += building.SellCost;
+        Destroy(building.gameObject);
     }
 }
