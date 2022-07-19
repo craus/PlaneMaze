@@ -23,11 +23,10 @@ public class Player : MonoBehaviour
             if (figure.location.fieldCell.teleport) {
                 figure.Move(figure.location.board.GetCell(figure.location.fieldCell.teleportTarget), isTeleport: true);
             }
+            Game.instance.AfterPlayerMove();
         }
 
         figure.location.figures.Select(f => f.GetComponent<Gem>()).Where(g => g != null).ToList().ForEach(Take);
-
-        Game.instance.AfterPlayerMove();
     }
 
     public void Take(Gem gem) {

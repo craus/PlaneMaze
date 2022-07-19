@@ -14,6 +14,8 @@ public class Game : MonoBehaviour
     public IEnumerable<Cell> cellOrder;
     public int unlockedCells = (int)1e9;
 
+    public int time = 0;
+
     public Board boardSample;
     public Board board;
 
@@ -30,7 +32,7 @@ public class Game : MonoBehaviour
         player = Instantiate(playerSample, transform);
         board = Instantiate(boardSample, transform);
         player.figure.savePoint = board.GetCell(Vector2Int.zero);
-        player.figure.Move(board.GetCell(Vector2Int.zero));
+        player.figure.Move(board.GetCell(Vector2Int.zero), isTeleport: true);
         Debug.LogFormat("New game started");
 
         LockCells();
@@ -101,6 +103,8 @@ public class Game : MonoBehaviour
         //        gems.Remove(g);
         //    }
         //}
+
+        time++;
     }
 
     private void UpdateContamination(Cell from, Cell to) {

@@ -60,7 +60,7 @@ public class Board : MonoBehaviour
         }
 
         if (!cell.fieldCell.wall && !cell.fieldCell.teleport) {
-            if (Rand.rndEvent(0.07f)) {
+            if (Rand.rndEvent(0.15f)) {
                 GenerateFigure(cell, cracksSample);
             }
         }
