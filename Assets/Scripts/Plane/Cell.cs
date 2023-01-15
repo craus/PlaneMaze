@@ -6,13 +6,15 @@ using UnityEngine;
 public class Cell : MonoBehaviour
 {
     public SpriteRenderer sprite;
+    public TMPro.TextMeshProUGUI orderText;
+    public TMPro.TextMeshProUGUI priceText;
     public Color wallColor;
     public Color emptyColor;
     public Color lockedColor;
     public Color darknessColor;
 
     public Vector2Int position;
-    public int order;
+    public int order = -1;
 
     public FieldCell fieldCell;
     public Board board;
@@ -51,6 +53,10 @@ public class Cell : MonoBehaviour
 
     public void UpdateCell() {
         sprite.color = Color();
+        orderText.text = order.ToString();
+        orderText.gameObject.SetActive(!Wall);
+        priceText.gameObject.SetActive(!Wall);
+        priceText.text = Game.instance.CellPrice(this).ToString("0.000");
     }
 
     public void SetFieldCell(FieldCell fieldCell) {

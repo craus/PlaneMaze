@@ -120,7 +120,8 @@ public class Field : MonoBehaviour
             result.wall = false;
         } else {
             //result.wall = Rand.rndEvent(0.65f);
-            result.wall = Rand.rndEvent(1f / (Mathf.Sqrt(2) + 1));
+            //result.wall = Rand.rndEvent(1f / (Mathf.Sqrt(2) + 1));
+            result.wall = false;
             if (x == 0 && y == 0) {
                 result.wall = false;
             }

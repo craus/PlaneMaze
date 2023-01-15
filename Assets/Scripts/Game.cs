@@ -44,7 +44,7 @@ public class Game : MonoBehaviour
 
     private Dictionary<Cell, float> cellPrices = new Dictionary<Cell, float>();
 
-    private float CellPrice(Cell cell) {
+    public float CellPrice(Cell cell) {
         if (!cellPrices.ContainsKey(cell)) {
             cellPrices[cell] = UnityEngine.Random.Range(0, 1f);
         }
@@ -57,13 +57,14 @@ public class Game : MonoBehaviour
             edges: c => c.Neighbours().Where(c => !c.Wall).Select(c => new Algorithm.Weighted<Cell>(c, CellPrice(c))),
             maxSteps: 10000
         ).ToList();
-        unlockedCells = 6;
+        unlockedCells = 0;
         cellOrder.ForEach((i, c) => {
             c.order = i;
             c.UpdateCell();
         });
 
         Debug.LogFormat($"Cells: {cellOrder.Count()}");
+        Debug.LogFormat($"Taken Cells Max Price: {cellOrder.Max(CellPrice)}");
     }
 
     public void Contaminate(Cell cell) {
