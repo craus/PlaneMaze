@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -51,17 +52,27 @@ public class Game : MonoBehaviour
         return cellPrices[cell];
     }
 
-    private void EnumerateCells() {
+    private async Task CommandToContinue() {
+        await Task.Delay(1000);
+    }
+
+    private async void EnumerateCells() {
+        unlockedCells = 0;
         cellOrder = Algorithm.Prim(
             start: board.GetCell(Vector2Int.zero),
             edges: c => c.Neighbours().Where(c => !c.Wall).Select(c => new Algorithm.Weighted<Cell>(c, CellPrice(c))),
-            maxSteps: 10000
-        ).ToList();
-        unlockedCells = 0;
-        cellOrder.ForEach((i, c) => {
+            maxSteps: 1000
+        );
+
+        int i = 0;
+        foreach (Cell c in cellOrder) {
+
             c.order = i;
             c.UpdateCell();
-        });
+            await CommandToContinue();
+
+            ++i;
+        }
 
         Debug.LogFormat($"Cells: {cellOrder.Count()}");
         Debug.LogFormat($"Taken Cells Max Price: {cellOrder.Max(CellPrice)}");
