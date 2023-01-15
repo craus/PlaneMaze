@@ -21,11 +21,11 @@ public class Board : MonoBehaviour
     }
 
     private void Start() {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                ShowCell(i, j);
-            }
-        }
+        //for (int i = 0; i < 10; i++) {
+        //    for (int j = 0; j < 10; j++) {
+        //        ShowCell(i, j);
+        //    }
+        //}
     }
 
     private void Update() {
@@ -36,7 +36,7 @@ public class Board : MonoBehaviour
 
         for (int i = xMin; i <= xMax; i++) {
             for (int j = yMin; j <= yMax; j++) {
-                ShowCell(i, j);
+                //ShowCell(i, j);
             }
         }
     }
