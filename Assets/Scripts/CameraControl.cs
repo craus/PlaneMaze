@@ -28,7 +28,7 @@ public class CameraControl : Singletone<CameraControl>
         Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize * Mathf.Pow(1.25f, -Input.mouseScrollDelta.y), 1, 50);
         RestoreCameraPosition(oldWorldMousePoint);
 
-        if (followPlayer && !Input.GetMouseButton(1)) {
+        if (Game.instance.player && followPlayer && !Input.GetMouseButton(1)) {
             Camera.main.transform.position = Vector3.Lerp(
                 Game.instance.player.transform.position.Change(z: Camera.main.transform.position.z),
                 Camera.main.transform.position, 

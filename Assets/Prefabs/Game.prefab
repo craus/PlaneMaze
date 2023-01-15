@@ -47,7 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSample: {fileID: 275157002869536168, guid: 370aeef2518095a448365046aa1e4453, type: 3}
   player: {fileID: 0}
-  unlockedCells: 1000000000
+  unlockedCells: 6
+  time: 0
   boardSample: {fileID: 4431957465168648574, guid: fcb2ff9050c98424e87f885026a6af7b, type: 3}
   board: {fileID: 0}
   gemSample: {fileID: -5931720104371548630, guid: 5dd0e56d03f85e0428917ae2cf43f2d0, type: 3}

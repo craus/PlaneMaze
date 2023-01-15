@@ -38,7 +38,7 @@ public class Cell : MonoBehaviour
         }
     }
 
-    public bool Locked => order > Game.instance.unlockedCells;
+    public bool Locked => order >= Game.instance.unlockedCells;
 
     public HashSet<Figure> figures = new HashSet<Figure>();
 

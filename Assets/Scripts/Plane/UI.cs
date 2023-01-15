@@ -12,7 +12,9 @@ public class UI : MonoBehaviour
     public TextMeshProUGUI timeCounter;
 
     public void Update() {
-        gemsCounter.text = Game.instance.player.gems.ToString();
+        if (Game.instance.player) {
+            gemsCounter.text = Game.instance.player.gems.ToString();
+        }
         areaCounter.text = Game.instance.clearedCells.Count.ToString();
         timeCounter.text = Game.instance.time.ToString();
     }

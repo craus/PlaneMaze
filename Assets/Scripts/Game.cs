@@ -29,26 +29,35 @@ public class Game : MonoBehaviour
     public HashSet<Gem> gems = new HashSet<Gem>();
 
     public void Start() {
-        player = Instantiate(playerSample, transform);
+        //player = Instantiate(playerSample, transform);
         board = Instantiate(boardSample, transform);
-        player.figure.savePoint = board.GetCell(Vector2Int.zero);
-        player.figure.Move(board.GetCell(Vector2Int.zero), isTeleport: true);
+        //player.figure.savePoint = board.GetCell(Vector2Int.zero);
+        //player.figure.Move(board.GetCell(Vector2Int.zero), isTeleport: true);
         Debug.LogFormat("New game started");
 
         LockCells();
         //PlaceGem();
 
-        player.figure.location.Dark = false;
-        player.figure.location.UpdateCell();
+        //player.figure.location.Dark = false;
+        //player.figure.location.UpdateCell();
+    }
+
+    private Dictionary<Cell, float> cellPrices = new Dictionary<Cell, float>();
+
+    private float CellPrice(Cell cell) {
+        if (!cellPrices.ContainsKey(cell)) {
+            cellPrices[cell] = UnityEngine.Random.Range(0, 1f);
+        }
+        return cellPrices[cell];
     }
 
     private void LockCells() {
         cellOrder = Algorithm.Prim(
-            start: player.figure.location,
-            edges: c => c.Neighbours().Where(c => !c.Wall).Select(c => new Algorithm.Weighted<Cell>(c, UnityEngine.Random.Range(0, 1f))),
+            start: board.GetCell(Vector2Int.zero),
+            edges: c => c.Neighbours().Where(c => !c.Wall).Select(c => new Algorithm.Weighted<Cell>(c, CellPrice(c))),
             maxSteps: 10000
         ).ToList();
-        unlockedCells = 100500;
+        unlockedCells = 6;
         cellOrder.ForEach((i, c) => {
             c.order = i;
             c.UpdateCell();
