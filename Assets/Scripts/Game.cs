@@ -35,7 +35,7 @@ public class Game : MonoBehaviour
         //player.figure.Move(board.GetCell(Vector2Int.zero), isTeleport: true);
         Debug.LogFormat("New game started");
 
-        LockCells();
+        EnumerateCells();
         //PlaceGem();
 
         //player.figure.location.Dark = false;
@@ -51,7 +51,7 @@ public class Game : MonoBehaviour
         return cellPrices[cell];
     }
 
-    private void LockCells() {
+    private void EnumerateCells() {
         cellOrder = Algorithm.Prim(
             start: board.GetCell(Vector2Int.zero),
             edges: c => c.Neighbours().Where(c => !c.Wall).Select(c => new Algorithm.Weighted<Cell>(c, CellPrice(c))),
