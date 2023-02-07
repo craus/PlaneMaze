@@ -43,39 +43,124 @@ public class Game : MonoBehaviour
         //player.figure.location.UpdateCell();
     }
 
-    private Dictionary<Cell, float> cellPrices = new Dictionary<Cell, float>();
+    private Dictionary<Vector2Int, float> cellPrices = new Dictionary<Vector2Int, float>();
 
-    public float CellPrice(Cell cell) {
+    private Vector2 Rotate(Vector2 v, float angle) {
+        return new Vector2(
+            v.x * Mathf.Cos(angle) - v.y * Mathf.Sin(angle),
+            v.x * Mathf.Sin(angle) + v.y * Mathf.Cos(angle)
+        );
+    }
+
+    private float CalculateCellPriceGrid(Vector2Int cell) {
+        Vector2 cv = cell;
+
+        return UnityEngine.Random.Range(0, 1f) + 0.5f * Mathf.Min(Mathf.Sin(cv.x / 4f), Mathf.Sin(cv.y / 4f));
+    }
+
+    private float CalculateCellPriceSpiralGrid(Vector2Int cell) {
+        Vector2 cv = cell;
+
+        cv = Rotate(cv, cv.magnitude / 10f);
+
+        return UnityEngine.Random.Range(0, 1f) + 0.5f * Mathf.Min(Mathf.Sin(cv.x / 4f), Mathf.Sin(cv.y / 4f));
+    }
+
+    public Color GetCellColor(Vector2Int cell) {
+        var image = GameManager.instance.mazeSample;
+        var pixel = image.GetPixel(
+            (image.width / 2 + cell.x * 4) % image.width,
+            (image.height / 2 + cell.y * 4) % image.height
+        );
+        return pixel.withAlpha(1);
+    }
+
+    public bool CellInsideImage(Vector2Int cell) {
+        var image = GameManager.instance.mazeSample;
+        var x = image.width / 2 + cell.x * 4;
+        var y = image.height / 2 + cell.y * 4;
+        return 0 <= x && x < image.width && 0 <= y && y < image.height;
+    }
+
+
+    private float CalculateCellPriceImage(Vector2Int cell) {
+        return UnityEngine.Random.Range(0, 1f) + 5f * GetCellColor(cell).grayscale + (CellInsideImage(cell) ? 0 : 10);
+    }
+
+    private float CalculateCellPriceRandom(Vector2Int cell) {
+        return UnityEngine.Random.Range(0, 1f);
+    }
+
+    private float CalculateCellPriceSinTime(Vector2Int cell) {
+        return UnityEngine.Random.Range(0, 1f) + Mathf.Sin(Time.time);
+    }
+
+    public float CellPrice(Vector2Int cell) {
         if (!cellPrices.ContainsKey(cell)) {
-            cellPrices[cell] = UnityEngine.Random.Range(0, 1f);
+            cellPrices[cell] = CalculateCellPriceRandom(cell);
         }
         return cellPrices[cell];
     }
 
+    public float speed = 1;
+    public Task commandToContinue;
+
     private async Task CommandToContinue() {
-        await Task.Delay(1000);
+        await Task.Delay(Math.Max(1, (int)(1000/speed)));
+        //commandToContinue = new Task(() => { });
+        //await commandToContinue;
+    }
+
+    public void Update() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            if (commandToContinue != null) {
+                commandToContinue.RunSynchronously();
+            }
+        }
+    }
+
+    private bool MakesCross(Cell cell, Vector2Int direction) => cell.Shift(direction + direction.RotateRight()).Ordered && !cell.Shift(direction).Ordered && !cell.Shift(direction.RotateRight()).Ordered;
+    private bool MakesCross(Cell cell) => MakesCross(cell, Vector2Int.up) || MakesCross(cell, Vector2Int.right) || MakesCross(cell, Vector2Int.down) || MakesCross(cell, Vector2Int.left);
+
+    public IEnumerable<Cell> Diagonals(Cell cell) {
+        yield return cell.Shift(1, 1);
+        yield return cell.Shift(1, -1);
+        yield return cell.Shift(-1, -1);
+        yield return cell.Shift(-1, 1);
     }
 
     private async void EnumerateCells() {
+        int i = 0;
+
         unlockedCells = 0;
-        cellOrder = Algorithm.Prim(
+        cellOrder = Algorithm.PrimDynamic(
             start: board.GetCell(Vector2Int.zero),
-            edges: c => c.Neighbours().Where(c => !c.Wall).Select(c => new Algorithm.Weighted<Cell>(c, CellPrice(c))),
-            maxSteps: 1000
+            edges: c => c.Neighbours().Where(c => !MakesCross(c)).Where(c => !c.Wall).Select(c => new Algorithm.Weighted<Cell>(c, CellPrice(c.position))),
+            antiEdges: c => Diagonals(c).Where(MakesCross),
+            maxSteps: 100000
         );
 
-        int i = 0;
         foreach (Cell c in cellOrder) {
 
             c.order = i;
             c.UpdateCell();
-            await CommandToContinue();
+            CameraControl.instance.followPoint = true;
+            CameraControl.instance.pointToFollow = c.transform.position;
+
+            int iterations = Math.Max(1, (int)(speed/1000));
+            if (i % iterations == 0) {
+                await CommandToContinue();
+            }
+
+            if (Game.instance == null) {
+                return;
+            }
 
             ++i;
         }
 
         Debug.LogFormat($"Cells: {cellOrder.Count()}");
-        Debug.LogFormat($"Taken Cells Max Price: {cellOrder.Max(CellPrice)}");
+        Debug.LogFormat($"Taken Cells Max Price: {cellOrder.Max(c => CellPrice(c.position))}");
     }
 
     public void Contaminate(Cell cell) {

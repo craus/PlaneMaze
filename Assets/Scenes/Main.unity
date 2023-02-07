@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   game: {fileID: 0}
   gameSample: {fileID: 2069624272807861708, guid: 75831aefca06fbf4ba0cd032f87f522e, type: 3}
+  mazeSample: {fileID: 0}
 --- !u!4 &58254548
 Transform:
   m_ObjectHideFlags: 0
@@ -1350,6 +1351,9 @@ MonoBehaviour:
   dragPoint: {x: 0, y: 0}
   followPlayer: 1
   lerpHalfLife: 0.2
+  followPoint: 0
+  pointToFollow: {x: 0, y: 0, z: 0}
+  followDistance: 0
 --- !u!4 &1709739718
 Transform:
   m_ObjectHideFlags: 0

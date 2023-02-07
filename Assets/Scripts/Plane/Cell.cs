@@ -40,11 +40,15 @@ public class Cell : MonoBehaviour
         }
     }
 
+    public bool Ordered => order != -1;
+
     public bool Locked => order >= Game.instance.unlockedCells;
 
     public HashSet<Figure> figures = new HashSet<Figure>();
 
     public Color Color() {
+        //return Game.instance.GetCellColor(position);
+
         if (Wall) return wallColor;
         if (Locked) return lockedColor;
         if (dark) return darknessColor;
@@ -53,16 +57,22 @@ public class Cell : MonoBehaviour
 
     public void UpdateCell() {
         sprite.color = Color();
-        orderText.text = order.ToString();
-        orderText.gameObject.SetActive(!Wall);
-        priceText.gameObject.SetActive(!Wall);
-        priceText.text = Game.instance.CellPrice(this).ToString("0.000");
+        if (orderText != null) {
+            orderText.text = order.ToString();
+            orderText.gameObject.SetActive(!Wall);
+        }
+        if (priceText != null) {
+            priceText.gameObject.SetActive(!Wall);
+            priceText.text = Game.instance.CellPrice(position).ToString("0.000");
+        }
     }
 
     public void SetFieldCell(FieldCell fieldCell) {
         this.fieldCell = fieldCell;
         UpdateCell();
     }
+
+    public Cell Shift(int dx, int dy) => Shift(new Vector2Int(dx, dy));
 
     public Cell Shift(Vector2Int delta) {
         return board.GetCell(position + delta);

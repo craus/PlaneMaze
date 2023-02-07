@@ -49,10 +49,10 @@ public class Board : MonoBehaviour
 
     private Cell GenerateCell(int x, int y) {
         var cell = Instantiate(cellSample);
+        cell.position = new Vector2Int(x, y);
         cell.SetFieldCell(field[x, y]);
         cell.transform.SetParent(cellParent);
         cell.transform.position = new Vector3(x, y, 0);
-        cell.position = new Vector2Int(x, y);
         cell.board = this;
 
         if (cell.fieldCell.teleport) {

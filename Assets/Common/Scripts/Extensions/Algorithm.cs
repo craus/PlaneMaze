@@ -72,9 +72,9 @@ public static class Algorithm
 		var steps = 0;
 
 		visited.Add(start);
+		yield return start;
 		edges(start).ForEach(candidates.Enqueue);
 		visit(start);
-		yield return start;
 		steps++; 
 		if (steps == maxSteps) {
 			yield break;
@@ -87,9 +87,64 @@ public static class Algorithm
 			}
 
 			visited.Add(current.to);
+			yield return current.to;
 			edges(current.to).ForEach(candidates.Enqueue);
 			visit(current.to);
-			yield return current.to; 
+			steps++;
+			if (steps == maxSteps) {
+				yield break;
+			}
+
+			if (terminalVertex(current.to)) {
+				yield break;
+			}
+		}
+	}
+
+	public static IEnumerable<Vertex> PrimDynamic<Vertex>(
+		Vertex start,
+		Func<Vertex, IEnumerable<Weighted<Vertex>>> edges,
+		Func<Vertex, IEnumerable<Vertex>> antiEdges,
+		Func<Vertex, bool> terminalVertex = null,
+		int maxSteps = (int)1e9,
+		Action<Vertex> visit = null
+	) {
+		terminalVertex ??= v => false;
+		visit ??= v => { };
+
+		SortedSet<Weighted<Vertex>> candidates = new SortedSet<Weighted<Vertex>>();
+		Map<Vertex, List<Weighted<Vertex>>> vertexCandidates = new Map<Vertex, List<Weighted<Vertex>>>(() => new List<Weighted<Vertex>>());
+		HashSet<Vertex> visited = new HashSet<Vertex>();
+		var steps = 0;
+
+		visited.Add(start);
+		yield return start;
+		edges(start).ForEach(c => {
+			candidates.Add(c);
+			vertexCandidates[c.to].Add(c);
+		});
+		antiEdges(start).ForEach(c => vertexCandidates[c].ForEach(cand => candidates.Remove(cand)));
+		visit(start);
+		steps++;
+		if (steps == maxSteps) {
+			yield break;
+		}
+
+		while (candidates.Count > 0) {
+			var current = candidates.Min;
+			candidates.Remove(current);
+			if (visited.Contains(current.to)) {
+				continue;
+			}
+
+			visited.Add(current.to);
+			yield return current.to;
+			edges(current.to).ForEach(c => {
+				candidates.Add(c);
+				vertexCandidates[c.to].Add(c);
+			});
+			antiEdges(current.to).ForEach(c => vertexCandidates[c].ForEach(cand => candidates.Remove(cand)));
+			visit(current.to);
 			steps++;
 			if (steps == maxSteps) {
 				yield break;
