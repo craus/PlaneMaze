@@ -11,7 +11,7 @@ public class Figure : MonoBehaviour
 
     public Cell savePoint;
 
-    public UnityEvent<bool> afterMove;
+    public UnityEvent<Cell, bool> afterMove;
 
     public void TryMoveWall(Cell from, Cell to) {
         if (from.fieldCell.wall && !to.fieldCell.wall) {
@@ -99,6 +99,7 @@ public class Figure : MonoBehaviour
     }
 
     public void Move(Cell newPosition, bool isTeleport = false, Cell fakeMove = null) {
+        var from = location;
         if (location != null) {
             location.figures.Remove(this);
         }
@@ -106,7 +107,7 @@ public class Figure : MonoBehaviour
         if (location != null) {
             location.figures.Add(this);
         }
-        afterMove.Invoke(isTeleport);
+        afterMove.Invoke(from, isTeleport);
 
         if (newPosition != null) {
             if (newPosition.fieldCell.trap) {

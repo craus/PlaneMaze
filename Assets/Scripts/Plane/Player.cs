@@ -12,12 +12,14 @@ public class Player : Unit
     public Wall wallSample;
     public Building markSample;
 
-    public override void AfterMove(bool isTeleport) {
+    public override void AfterMove(Cell from, bool isTeleport) {
         if (!isTeleport) {
-            if (figure.location.fieldCell.teleport) {
-                figure.Move(figure.location.board.GetCell(figure.location.fieldCell.teleportTarget), isTeleport: true);
+            if (from != figure.location) {
+                if (figure.location.fieldCell.teleport) {
+                    figure.Move(figure.location.board.GetCell(figure.location.fieldCell.teleportTarget), isTeleport: true);
+                }
+                figure.location.figures.Select(f => f.GetComponent<Item>()).Where(g => g != null).ToList().ForEach(Take);
             }
-            figure.location.figures.Select(f => f.GetComponent<Item>()).Where(g => g != null).ToList().ForEach(Take);
             Game.instance.AfterPlayerMove();
         }
     }

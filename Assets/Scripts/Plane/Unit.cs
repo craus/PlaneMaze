@@ -13,7 +13,7 @@ public class Unit : MonoBehaviour
         figure.afterMove.AddListener(AfterMove);
     }
 
-    public virtual void AfterMove(bool isTeleport) {
+    public virtual void AfterMove(Cell from, bool isTeleport) {
         if (!isTeleport) {
             if (figure.location.fieldCell.teleport) {
                 figure.Move(figure.location.board.GetCell(figure.location.fieldCell.teleportTarget), isTeleport: true);
