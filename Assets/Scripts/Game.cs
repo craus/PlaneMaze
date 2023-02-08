@@ -235,59 +235,8 @@ public class Game : MonoBehaviour
 
     public void AfterPlayerMove() {
         monsters.ForEach(m => m.Move());
-        //player.figure.location.Dark = false;
-
-        //foreach (var c in contaminations.ToList()) {
-        //    if (Rand.rndEvent(0.02f) && !c.Item1.Locked) {
-        //        Contaminate(c.Item2);
-        //    }
-        //}
-
-        foreach (var c in clearedCells.ToList()) {
-            if (c.figures.Count() == 0) {
-                if (Rand.rndEvent(0.00008f)) {
-                    //var gem = Instantiate(gemSample, figureParent);
-                    //gem.GetComponent<Figure>().Move(c);
-                    //gems.Add(gem);
-                    ++player.gems;
-                }
-            }
-        }
-        if (Rand.rndEvent(0.008f)) {
-            ++player.gems;
-        }
-
-        //foreach (var g in gems.ToList()) {
-        //    if (Rand.rndEvent(0.02f)) {
-        //        Destroy(g.gameObject);
-        //        gems.Remove(g);
-        //    }
-        //}
+        afterPlayerMove.Invoke();
 
         time++;
-    }
-
-    private void UpdateContamination(Cell from, Cell to) {
-        //if (from.Dark && !to.Dark) {
-        //    contaminations.Add((from, to));
-        //} else {
-        //    contaminations.Remove((from, to));
-        //}
-    }
-
-    public void OnCellDarknessChanged(Cell cell) {
-        //foreach (var n in cell.Neighbours().Where(c => !c.Wall)) {
-        //    UpdateContamination(cell, n);
-        //    UpdateContamination(n, cell);
-        //}
-        //if (cell.Dark) {
-        //    clearedCells.Remove(cell);
-        //} else {
-        //    clearedCells.Add(cell);
-        //}
-        //if (unlockedCells < clearedCells.Count() * 2) {
-        //    unlockedCells = clearedCells.Count() * 2;
-        //    cellOrderList.Take(unlockedCells).ForEach(c => c.UpdateCell());
-        //}
     }
 }

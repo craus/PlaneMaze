@@ -16,10 +16,7 @@ public class Item : MonoBehaviour
     }
 
     private void AfterPlayerMove() {
-        if (Game.instance.player.figure.location == GetComponent<Figure>().location) {
-            GetComponent<Figure>().gameObject.SetActive(false);
-        } else {
-        }
+        UpdateModelVisible();
     }
 
     [ContextMenu("Pick")]
@@ -29,6 +26,7 @@ public class Item : MonoBehaviour
         icon.SetParent(Inventory.instance.itemsFolder);
         Inventory.instance.items.Add(this);
         GetComponent<Figure>().Move(null, isTeleport: true);
+        UpdateModelVisible();
     }
 
     [ContextMenu("Drop")]
@@ -36,5 +34,11 @@ public class Item : MonoBehaviour
         icon.SetParent(iconParent);
         Inventory.instance.items.Remove(this);
         GetComponent<Figure>().Move(Game.instance.player.figure.location, isTeleport: true);
+        UpdateModelVisible();
+    }
+
+    private void UpdateModelVisible() {
+        //gameObject.SetActive(!Inventory.instance.items.Contains(this) && Game.instance.player.figure.location != GetComponent<Figure>().location);
+        gameObject.SetActive(!Inventory.instance.items.Contains(this));
     }
 }

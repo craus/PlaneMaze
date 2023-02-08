@@ -26,7 +26,6 @@ public class Cell : MonoBehaviour
         set
         {
             dark = value;
-            Game.instance.OnCellDarknessChanged(this);
             UpdateCell();
         }
     }
