@@ -50,6 +50,7 @@ public class Board : MonoBehaviour
     private Cell GenerateCell(int x, int y) {
         var cell = Instantiate(cellSample);
         cell.position = new Vector2Int(x, y);
+        field[x, y].wall = true;
         cell.SetFieldCell(field[x, y]);
         cell.transform.SetParent(cellParent);
         cell.transform.position = new Vector3(x, y, 0);

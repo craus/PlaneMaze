@@ -34,7 +34,7 @@ public class GameManager : Singletone<GameManager>
 
     public void NewGame() {
         game = Instantiate(gameSample, transform);
-        game.speed = 1;
+        game.speed = 100;
     }
 
     public void DestroyGame() {

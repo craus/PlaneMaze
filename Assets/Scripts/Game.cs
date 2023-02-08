@@ -12,7 +12,7 @@ public class Game : MonoBehaviour
     public Player playerSample;
     public Player player;
 
-    public IEnumerable<Cell> cellOrder;
+    public List<Cell> cellOrderList;
     public int unlockedCells = (int)1e9;
 
     public int time = 0;
@@ -30,13 +30,16 @@ public class Game : MonoBehaviour
     public HashSet<Gem> gems = new HashSet<Gem>();
 
     public void Start() {
-        //player = Instantiate(playerSample, transform);
         board = Instantiate(boardSample, transform);
-        //player.figure.savePoint = board.GetCell(Vector2Int.zero);
-        //player.figure.Move(board.GetCell(Vector2Int.zero), isTeleport: true);
         Debug.LogFormat("New game started");
+        
+        speed = 10000;
+        EnumerateCells(10000, pauses: true);
 
-        EnumerateCells();
+        player = Instantiate(playerSample, transform);
+        player.figure.savePoint = board.GetCell(Vector2Int.zero);
+        player.figure.Move(board.GetCell(Vector2Int.zero), isTeleport: true);
+
         //PlaceGem();
 
         //player.figure.location.Dark = false;
@@ -96,7 +99,7 @@ public class Game : MonoBehaviour
     }
 
     public float CellPrice(Vector2Int cell) {
-        if (!cellPrices.ContainsKey(cell)) {
+        if (!cellPrices.ContainsKey(cell) || true) {
             cellPrices[cell] = CalculateCellPriceRandom(cell);
         }
         return cellPrices[cell];
@@ -106,7 +109,11 @@ public class Game : MonoBehaviour
     public Task commandToContinue;
 
     private async Task CommandToContinue() {
-        await Task.Delay(Math.Max(1, (int)(1000/speed)));
+        if (speed * Time.deltaTime > 1) {
+            await Task.Delay(1);
+        } else {
+            await Task.Delay((int)(1000 / speed));
+        }
         //commandToContinue = new Task(() => { });
         //await commandToContinue;
     }
@@ -122,6 +129,10 @@ public class Game : MonoBehaviour
     private bool MakesCross(Cell cell, Vector2Int direction) => cell.Shift(direction + direction.RotateRight()).Ordered && !cell.Shift(direction).Ordered && !cell.Shift(direction.RotateRight()).Ordered;
     private bool MakesCross(Cell cell) => MakesCross(cell, Vector2Int.up) || MakesCross(cell, Vector2Int.right) || MakesCross(cell, Vector2Int.down) || MakesCross(cell, Vector2Int.left);
 
+    private bool MakesSquare(Cell cell, Vector2Int direction) => cell.Shift(direction + direction.RotateRight()).Ordered && cell.Shift(direction).Ordered && cell.Shift(direction.RotateRight()).Ordered;
+    private bool MakesSquare(Cell cell) => MakesSquare(cell, Vector2Int.up) || MakesSquare(cell, Vector2Int.right) || MakesSquare(cell, Vector2Int.down) || MakesSquare(cell, Vector2Int.left);
+
+
     public IEnumerable<Cell> Diagonals(Cell cell) {
         yield return cell.Shift(1, 1);
         yield return cell.Shift(1, -1);
@@ -129,27 +140,41 @@ public class Game : MonoBehaviour
         yield return cell.Shift(-1, 1);
     }
 
-    private async void EnumerateCells() {
-        int i = 0;
+    public IEnumerable<Cell> Forbidden(Cell cell) {
+        yield break;
+        yield return cell.Shift(5, 0);
+        yield return cell.Shift(-5, 0);
+        yield return cell.Shift(0, 5);
+        yield return cell.Shift(0, -5);
+    }
 
-        unlockedCells = 0;
-        cellOrder = Algorithm.PrimDynamic(
+    public IEnumerable<Cell> AntiEdgesSquare(Cell cell) => cell.Neighbours().Where(MakesSquare).Union(Diagonals(cell).Where(MakesSquare));
+
+    private async void EnumerateCells(int cnt, bool pauses = false) {
+
+        var cellOrder = Algorithm.PrimDynamic(
             start: board.GetCell(Vector2Int.zero),
-            edges: c => c.Neighbours().Where(c => !MakesCross(c)).Where(c => !c.Wall).Select(c => new Algorithm.Weighted<Cell>(c, CellPrice(c.position))),
-            antiEdges: c => Diagonals(c).Where(MakesCross),
+            edges: c => c.Neighbours().Where(c => !MakesCross(c) && !Forbidden(c).Any(f => f.Ordered)).Select(c => new Algorithm.Weighted<Cell>(c, CellPrice(c.position))),
+            antiEdges: c => Diagonals(c).Where(MakesCross).Union(Forbidden(c)),
             maxSteps: 100000
-        );
+        ).Take(cnt);
 
+        cellOrderList = new List<Cell>();
+        int i = 0;
         foreach (Cell c in cellOrder) {
 
             c.order = i;
+            c.fieldCell.wall = false;
             c.UpdateCell();
+            cellOrderList.Add(c);
             CameraControl.instance.followPoint = true;
             CameraControl.instance.pointToFollow = c.transform.position;
 
-            int iterations = Math.Max(1, (int)(speed/1000));
-            if (i % iterations == 0) {
-                await CommandToContinue();
+            if (pauses) {
+                int iterations = Math.Max(1, (int)(speed * Time.deltaTime));
+                if (i % iterations == 0) {
+                    await CommandToContinue();
+                }
             }
 
             if (Game.instance == null) {
@@ -158,9 +183,10 @@ public class Game : MonoBehaviour
 
             ++i;
         }
+        CameraControl.instance.followPoint = false;
 
-        Debug.LogFormat($"Cells: {cellOrder.Count()}");
-        Debug.LogFormat($"Taken Cells Max Price: {cellOrder.Max(c => CellPrice(c.position))}");
+        Debug.LogFormat($"Cells: {i}");
+        Debug.LogFormat($"Taken Cells Max Price: {cellOrderList.Max(c => CellPrice(c.position))}");
     }
 
     public void Contaminate(Cell cell) {
@@ -233,7 +259,7 @@ public class Game : MonoBehaviour
         }
         if (unlockedCells < clearedCells.Count() * 2) {
             unlockedCells = clearedCells.Count() * 2;
-            cellOrder.Take(unlockedCells).ForEach(c => c.UpdateCell());
+            cellOrderList.Take(unlockedCells).ForEach(c => c.UpdateCell());
         }
     }
 }
