@@ -16,6 +16,9 @@ public class Game : MonoBehaviour
     public Monster monsterSample;
     public List<Monster> monsters;
 
+    public Dagger daggerSample;
+    public Stiletto stilettoSample;
+
     public List<Cell> cellOrderList;
     public int unlockedCells = (int)1e9;
 
@@ -33,16 +36,20 @@ public class Game : MonoBehaviour
     public HashSet<Cell> clearedCells = new HashSet<Cell>();
     public HashSet<Gem> gems = new HashSet<Gem>();
 
-    public void Start() {
+    public async void Start() {
         board = Instantiate(boardSample, transform);
         Debug.LogFormat("New game started");
         
         speed = 10000;
-        EnumerateCells(10000, pauses: true);
+        await EnumerateCells(1000, pauses: true);
 
         player = Instantiate(playerSample, transform);
         player.figure.savePoint = board.GetCell(Vector2Int.zero);
         player.figure.Move(board.GetCell(Vector2Int.zero), isTeleport: true);
+
+        GenerateFigure(cellOrderList[12], daggerSample);
+        GenerateFigure(cellOrderList[33], stilettoSample);
+        
 
         //PlaceGem();
 
@@ -154,7 +161,7 @@ public class Game : MonoBehaviour
 
     public IEnumerable<Cell> AntiEdgesSquare(Cell cell) => cell.Neighbours().Where(MakesSquare).Union(Diagonals(cell).Where(MakesSquare));
 
-    private async void EnumerateCells(int cnt, bool pauses = false) {
+    private async Task EnumerateCells(int cnt, bool pauses = false) {
 
         var cellOrder = Algorithm.PrimDynamic(
             start: board.GetCell(Vector2Int.zero),

@@ -24,6 +24,9 @@ public static class Animate
             if (phase > endPhase) {
                 break;
             }
+            if (transform == null) {
+                return;
+            }
             transform.position = Vector3.Lerp(startPosition, endPosition, phase);
             await Task.Delay((int)(duration / steps * 1000));
         }

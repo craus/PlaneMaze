@@ -49,6 +49,8 @@ MonoBehaviour:
   player: {fileID: 0}
   monsterSample: {fileID: 6565577784567678388, guid: b834d2cf4ffc4634c9be7218e7213ef1, type: 3}
   monsters: []
+  daggerSample: {fileID: 7331329206652780110, guid: 93bf611611e4b8345bf2eee9ffcbd6b3, type: 3}
+  stilettoSample: {fileID: 567202662088743728, guid: 8ce3a139fc16a3b43bf3a6598c89bc53, type: 3}
   cellOrderList: []
   unlockedCells: 1000000000
   time: 0
