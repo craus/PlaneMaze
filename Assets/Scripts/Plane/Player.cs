@@ -4,21 +4,15 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
-public class Player : MonoBehaviour
+public class Player : Unit
 {
-    public Figure figure;
     public int totalGems;
     public int gems;
 
     public Wall wallSample;
     public Building markSample;
 
-    public void Awake() {
-        if (figure == null) figure = GetComponent<Figure>();
-        figure.afterMove.AddListener(AfterMove);
-    }
-
-    public void AfterMove(bool isTeleport) {
+    public override void AfterMove(bool isTeleport) {
         if (!isTeleport) {
             if (figure.location.fieldCell.teleport) {
                 figure.Move(figure.location.board.GetCell(figure.location.fieldCell.teleportTarget), isTeleport: true);

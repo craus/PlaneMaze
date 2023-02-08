@@ -12,6 +12,10 @@ public class Game : MonoBehaviour
     public Player playerSample;
     public Player player;
 
+
+    public Monster monsterSample;
+    public List<Monster> monsters;
+
     public List<Cell> cellOrderList;
     public int unlockedCells = (int)1e9;
 
@@ -167,6 +171,7 @@ public class Game : MonoBehaviour
             c.fieldCell.wall = false;
             c.UpdateCell();
             cellOrderList.Add(c);
+            AfterCellAdded(c);
             CameraControl.instance.followPoint = true;
             CameraControl.instance.pointToFollow = c.transform.position;
 
@@ -206,7 +211,21 @@ public class Game : MonoBehaviour
         }
     }
 
+    private T GenerateFigure<T>(Cell cell, T sample) where T: MonoBehaviour {
+        var f = Instantiate(sample);
+        f.GetComponent<Figure>().Move(cell);
+        f.transform.SetParent(figureParent);
+        return f;
+    }
+
+    public void AfterCellAdded(Cell cell) {
+        if (Rand.rndEvent(0.1f)) {
+            monsters.Add(GenerateFigure(cell, monsterSample));
+        }
+    }
+
     public void AfterPlayerMove() {
+        monsters.ForEach(m => m.Move());
         //player.figure.location.Dark = false;
 
         //foreach (var c in contaminations.ToList()) {

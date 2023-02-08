@@ -27,7 +27,7 @@ public class Figure : MonoBehaviour
 
     private bool TryWalk(Vector2Int delta) {
         var newPosition = location.Shift(delta);
-        if (!newPosition.Wall && !newPosition.Locked) {
+        if (!newPosition.Wall && !newPosition.Locked && !newPosition.figures.Any(f => f.GetComponent<Unit>() != null)) {
             //TryMoveWall(location.Shift(delta.RotateLeft()), delta);
             //TryMoveWall(location.Shift(delta.RotateRight()), delta);
             Move(newPosition);
