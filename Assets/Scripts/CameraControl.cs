@@ -44,7 +44,7 @@ public class CameraControl : Singletone<CameraControl>
 
         if (Game.instance.player && followPlayer && !Input.GetMouseButton(1)) {
             Camera.main.transform.position = Vector3.Lerp(
-                Game.instance.player.transform.position.Change(z: Camera.main.transform.position.z),
+                Game.instance.player.figure.location.transform.position.Change(z: Camera.main.transform.position.z),
                 Camera.main.transform.position, 
                 Mathf.Pow(0.5f, Time.deltaTime / lerpHalfLife)
             );

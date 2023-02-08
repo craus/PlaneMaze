@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -114,8 +115,15 @@ public class Figure : MonoBehaviour
         UpdateTransform();
     }
 
-    private void UpdateTransform() {
-        transform.position = location.transform.position.Change(z: location.transform.position.z - 1);
+    private async void UpdateTransform() {
+        var startPosition = transform.position;
+        var endPosition = location.transform.position.Change(z: location.transform.position.z - 1);
+        var steps = 7;
+        var duration = 0.1f;
+        for (int i = 1; i <= steps; i++) {
+            transform.position = Vector3.Lerp(startPosition, endPosition, i * 1f / steps);
+            await Task.Delay((int)(duration / steps * 1000));
+        }
     }
 
     public void OnDestroy() {
