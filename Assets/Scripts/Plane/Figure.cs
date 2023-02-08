@@ -95,10 +95,10 @@ public class Figure : MonoBehaviour
         //    return;
         //}
 
-        //Move(location);
+        Move(location, fakeMove: location.Shift(delta));
     }
 
-    public void Move(Cell newPosition, bool isTeleport = false) {
+    public void Move(Cell newPosition, bool isTeleport = false, Cell fakeMove = null) {
         if (location != null) {
             location.figures.Remove(this);
         }
@@ -112,17 +112,15 @@ public class Figure : MonoBehaviour
             Move(savePoint);
         }
 
-        UpdateTransform();
+        UpdateTransform(fakeMove);
     }
 
-    private async void UpdateTransform() {
-        var startPosition = transform.position;
-        var endPosition = location.transform.position.Change(z: location.transform.position.z - 1);
-        var steps = 7;
-        var duration = 0.05f;
-        for (int i = 1; i <= steps; i++) {
-            transform.position = Vector3.Lerp(startPosition, endPosition, i * 1f / steps);
-            await Task.Delay((int)(duration / steps * 1000));
+    private async void UpdateTransform(Cell fakeMove) {
+        if (fakeMove == null) {
+            await transform.Move(location.transform.position, 0.05f);
+        } else {
+            await transform.Move(fakeMove.transform.position, 0.05f, endPhase: 0.33f);
+            await transform.Move(location.transform.position, 0.05f, startPhase: 0.67f);
         }
     }
 
