@@ -19,7 +19,7 @@ public class Cell : MonoBehaviour
     public FieldCell fieldCell;
     public Board board;
 
-    [SerializeField] private bool dark = true;
+    [SerializeField] private bool dark = false;
     public bool Dark
     {
         get => dark;
