@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 7990721949260384047}
+  slot: {fileID: 0}
 --- !u!1 &7427004701293729960
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Game : MonoBehaviour
 {
@@ -11,7 +12,6 @@ public class Game : MonoBehaviour
 
     public Player playerSample;
     public Player player;
-
 
     public Monster monsterSample;
     public List<Monster> monsters;
@@ -31,6 +31,8 @@ public class Game : MonoBehaviour
     public Gem gem;
 
     public Transform figureParent;
+
+    public UnityEvent afterPlayerMove;
 
     public HashSet<(Cell, Cell)> contaminations = new HashSet<(Cell, Cell)>();
     public HashSet<Cell> clearedCells = new HashSet<Cell>();

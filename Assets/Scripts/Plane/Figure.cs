@@ -109,6 +109,7 @@ public class Figure : MonoBehaviour
         afterMove.Invoke(isTeleport);
 
         if (newPosition != null) {
+            gameObject.SetActive(true);
             if (newPosition.fieldCell.trap) {
                 Move(savePoint);
             }
