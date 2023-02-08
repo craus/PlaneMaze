@@ -119,7 +119,7 @@ public class Figure : MonoBehaviour
         var startPosition = transform.position;
         var endPosition = location.transform.position.Change(z: location.transform.position.z - 1);
         var steps = 7;
-        var duration = 0.1f;
+        var duration = 0.05f;
         for (int i = 1; i <= steps; i++) {
             transform.position = Vector3.Lerp(startPosition, endPosition, i * 1f / steps);
             await Task.Delay((int)(duration / steps * 1000));
