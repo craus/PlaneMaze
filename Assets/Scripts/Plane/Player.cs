@@ -20,13 +20,11 @@ public class Player : Unit
             Game.instance.AfterPlayerMove();
         }
 
-        figure.location.figures.Select(f => f.GetComponent<Gem>()).Where(g => g != null).ToList().ForEach(Take);
+        figure.location.figures.Select(f => f.GetComponent<Item>()).Where(g => g != null).ToList().ForEach(Take);
     }
 
-    public void Take(Gem gem) {
-        Destroy(gem.gameObject);
-        totalGems++;
-        gems++;
+    public void Take(Item item) {
+        item.Pick();
     }
 
     public void Update() {

@@ -11,5 +11,8 @@ public class Item : MonoBehaviour
     [ContextMenu("Pick")]
     public void Pick() {
         icon.SetParent(Inventory.instance.itemsFolder);
+        Inventory.instance.items.Add(this);
+        GetComponent<Figure>().Move(null, isTeleport: true);
+
     }
 }

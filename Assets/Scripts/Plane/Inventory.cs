@@ -7,5 +7,6 @@ using UnityEngine.UI;
 
 public class Inventory : Singletone<Inventory>
 {
+    public List<Item> items;
     public RectTransform itemsFolder;
 }

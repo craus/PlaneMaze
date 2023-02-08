@@ -108,11 +108,14 @@ public class Figure : MonoBehaviour
         }
         afterMove.Invoke(isTeleport);
 
-        if (newPosition.fieldCell.trap) {
-            Move(savePoint);
+        if (newPosition != null) {
+            if (newPosition.fieldCell.trap) {
+                Move(savePoint);
+            }
+            UpdateTransform(fakeMove);
+        } else {
+            gameObject.SetActive(false);
         }
-
-        UpdateTransform(fakeMove);
     }
 
     private async void UpdateTransform(Cell fakeMove) {
