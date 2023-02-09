@@ -12,7 +12,7 @@ public class Dagger : MonoBehaviour
     public GameObject attackProjectile;
 
     public void Awake() {
-        GetComponent<Item>().afterFailedWalk.AddListener(TryAttack);
+        GetComponent<Item>().afterFailedWalk = TryAttack;
         attackProjectile.SetActive(false);
     }
 
@@ -28,10 +28,12 @@ public class Dagger : MonoBehaviour
         attackProjectile.SetActive(false);
     }
 
-    public void TryAttack(Vector2Int delta) {
+    public bool TryAttack(Vector2Int delta) {
         var newPosition = Owner.figure.location.Shift(delta);
         if (newPosition.figures.Any(f => f.GetComponent<Unit>() != null)) {
             Attack(newPosition.GetFigure<Unit>());
+            return true;
         }
+        return false;
     }
 }

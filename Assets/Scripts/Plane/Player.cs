@@ -22,7 +22,6 @@ public class Player : Unit
                 }
                 figure.location.figures.Select(f => f.GetComponent<Item>()).Where(g => g != null).ToList().ForEach(Take);
             }
-            Game.instance.AfterPlayerMove();
         }
     }
 
@@ -30,12 +29,19 @@ public class Player : Unit
         item.Pick();
     }
 
-    private void Move(Vector2Int delta) {
+    private void MoveTakeActions(Vector2Int delta) {
         if (figure.TryWalk(delta)) {
             return;
         }
-        Inventory.instance.items.ForEach(item => item.afterFailedWalk.Invoke(delta));
+        if (Inventory.instance.items.Any(item => item.afterFailedWalk(delta))) {
+            return;
+        }
         figure.FakeMove(delta);
+    }
+
+    private void Move(Vector2Int delta) {
+        MoveTakeActions(delta);
+        Game.instance.AfterPlayerMove();
     }
 
     public void Update() {

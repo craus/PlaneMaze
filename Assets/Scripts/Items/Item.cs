@@ -14,7 +14,7 @@ public class Item : MonoBehaviour
 
     public GameObject model;
 
-    public UnityEvent<Vector2Int> afterFailedWalk;
+    public Func<Vector2Int, bool> afterFailedWalk;
 
     public void Awake() {
         Game.instance.afterPlayerMove.AddListener(AfterPlayerMove);
