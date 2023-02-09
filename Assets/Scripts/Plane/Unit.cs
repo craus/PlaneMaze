@@ -20,4 +20,8 @@ public class Unit : MonoBehaviour
             }
         }
     }
+
+    public void Hit(int damage) {
+        GetComponent<Health>().Current -= damage;
+    }
 }

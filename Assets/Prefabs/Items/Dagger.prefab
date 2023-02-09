@@ -80,7 +80,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6920552994628180911}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2315d6257bfca2641905c75ac97c5bd2, type: 3}
+  m_Script: {fileID: 11500000, guid: 5cbf794c401e9024392ef0515835d06c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 1
   attackProjectile: {fileID: 5729505263438451507}

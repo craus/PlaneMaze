@@ -5,12 +5,8 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Item))]
-public class Dagger : MonoBehaviour
+public class Stiletto : Weapon
 {
-    public Unit Owner => Player.instance;
-
-    public GameObject attackProjectile;
-
     public void Awake() {
         GetComponent<Item>().afterFailedWalk = TryAttack;
         attackProjectile.SetActive(false);
@@ -32,6 +28,9 @@ public class Dagger : MonoBehaviour
         var newPosition = Owner.figure.location.Shift(delta);
         if (newPosition.figures.Any(f => f.GetComponent<Unit>() != null)) {
             Attack(newPosition.GetFigure<Unit>());
+            if (!Owner.figure.TryWalk(-delta)) {
+                Owner.figure.FakeMove(-delta);
+            }
             return true;
         }
         return false;
