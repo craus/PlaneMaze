@@ -8,20 +8,23 @@ public class Unit : MonoBehaviour
 {
     public Figure figure;
 
-    public void Awake() {
+    public virtual void Awake() {
         if (figure == null) figure = GetComponent<Figure>();
         figure.afterMove.AddListener(AfterMove);
     }
 
-    public virtual void AfterMove(Cell from, bool isTeleport) {
+    public virtual async void AfterMove(Cell from, bool isTeleport) {
         if (!isTeleport) {
             if (figure.location.fieldCell.teleport) {
-                figure.Move(figure.location.board.GetCell(figure.location.fieldCell.teleportTarget), isTeleport: true);
+                await figure.Move(figure.location.board.GetCell(figure.location.fieldCell.teleportTarget), isTeleport: true);
             }
         }
     }
 
     public void Hit(int damage) {
+        if (this == null) {
+            return;
+        }
         GetComponent<Health>().Current -= damage;
     }
 

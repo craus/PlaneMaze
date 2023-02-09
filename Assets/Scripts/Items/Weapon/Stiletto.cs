@@ -29,11 +29,11 @@ public class Stiletto : Weapon
         var newPosition = Owner.figure.location.Shift(delta);
         if (newPosition.figures.Any(f => f.GetComponent<Unit>() != null)) {
             await Attack(newPosition.GetFigure<Unit>());
-            if (!Owner.figure.TryWalk(-delta)) {
-                Owner.figure.FakeMove(-delta);
+            if (!await Owner.figure.TryWalk(-delta)) {
+                await Owner.figure.FakeMove(-delta);
             }
             return true;
-        }
+        } 
         return false;
     }
 }

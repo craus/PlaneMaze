@@ -26,10 +26,10 @@ public class Figure : MonoBehaviour
         TryMoveWall(from, from.Shift(delta));
     }
 
-    public bool TryWalk(Vector2Int delta) {
+    public async Task<bool> TryWalk(Vector2Int delta) {
         var newPosition = location.Shift(delta);
         if (!newPosition.Wall && !newPosition.Locked && !newPosition.figures.Any(f => f.GetComponent<Unit>() != null)) {
-            Move(newPosition);
+            await Move(newPosition);
             return true;
         }
         return false;
@@ -80,12 +80,12 @@ public class Figure : MonoBehaviour
         TrySwitch(cell, Vector2Int.down);
     }
 
-    public bool FakeMove(Vector2Int delta) {
-        Move(location, fakeMove: location.Shift(delta));
+    public async Task<bool> FakeMove(Vector2Int delta) {
+        await Move(location, fakeMove: location.Shift(delta));
         return true;
     }
 
-    public void Move(Cell newPosition, bool isTeleport = false, Cell fakeMove = null) {
+    public async Task Move(Cell newPosition, bool isTeleport = false, Cell fakeMove = null) {
         var from = location;
         if (location != null) {
             location.figures.Remove(this);
@@ -98,13 +98,13 @@ public class Figure : MonoBehaviour
 
         if (newPosition != null) {
             if (newPosition.fieldCell.trap) {
-                Move(savePoint);
+                await Move(savePoint);
             }
-            UpdateTransform(fakeMove, isTeleport);
+            await UpdateTransform(fakeMove, isTeleport);
         }
     }
 
-    private async void UpdateTransform(Cell fakeMove, bool isTeleport) {
+    private async Task UpdateTransform(Cell fakeMove, bool isTeleport) {
         if (isTeleport) {
             transform.position = location.transform.position;
             return;

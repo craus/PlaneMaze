@@ -32,7 +32,7 @@ public class Player : Unit
 
     private async Task MoveTakeActions(Vector2Int delta) {
         var time = Game.instance.time;
-        if (figure.TryWalk(delta)) {
+        if (await figure.TryWalk(delta)) {
             return;
         }
         Debug.LogFormat($"[{time}] Failed walk");
@@ -43,12 +43,12 @@ public class Player : Unit
         }
         Debug.LogFormat($"[{time}] Failed items use on failed walk");
 
-        figure.FakeMove(delta);
+        await figure.FakeMove(delta);
     }
 
     private async void Move(Vector2Int delta) {
         await MoveTakeActions(delta);
-        Game.instance.AfterPlayerMove();
+        await Game.instance.AfterPlayerMove();
     }
 
     public void Update() {
