@@ -17,4 +17,9 @@ public class Monster : Unit
         var delta = moves.Rnd();
         figure.TryWalk(delta);
     }
+
+    public override void Die() {
+        base.Die();
+        Game.instance.monsters.Remove(this);
+    }
 }

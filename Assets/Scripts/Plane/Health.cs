@@ -19,7 +19,11 @@ public class Health : MonoBehaviour
         set
         {
             current = value;
-            UpdateHearts();
+            if (current == 0) {
+                GetComponent<Unit>().Die();
+            } else {
+                UpdateHearts();
+            }
         }
     }
 
