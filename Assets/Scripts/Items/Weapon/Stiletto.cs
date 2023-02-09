@@ -21,6 +21,8 @@ public class Stiletto : Weapon
         attackProjectile.transform.position = endPosition;
 
         await Task.Delay(100);
+        target.Hit(damage);
+
         attackProjectile.SetActive(false);
     }
 
