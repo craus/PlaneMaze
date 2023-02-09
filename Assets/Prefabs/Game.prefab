@@ -1099,7 +1099,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSample: {fileID: 2542263783767913581, guid: 370aeef2518095a448365046aa1e4453, type: 3}
   player: {fileID: 0}
-  monsterSample: {fileID: 4175614662866055290, guid: 9bfa59c0dddfd244ab486a5a960146e6, type: 3}
+  monsterSamples:
+  - {fileID: 792451774977223643, guid: 9bfa59c0dddfd244ab486a5a960146e6, type: 3}
+  - {fileID: 6890977442324438375, guid: a833328bf3c02ca45989ccef640d4fd6, type: 3}
   monsters: []
   daggerSample: {fileID: 7331329206652780110, guid: 93bf611611e4b8345bf2eee9ffcbd6b3, type: 3}
   stilettoSample: {fileID: 567202662088743728, guid: 8ce3a139fc16a3b43bf3a6598c89bc53, type: 3}

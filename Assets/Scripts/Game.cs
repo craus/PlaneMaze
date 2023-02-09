@@ -13,7 +13,8 @@ public class Game : MonoBehaviour
     public Player playerSample;
     public Player player;
 
-    public Monster monsterSample;
+    public List<Monster> monsterSamples;
+
     public List<Monster> monsters;
 
     public Dagger daggerSample;
@@ -47,9 +48,9 @@ public class Game : MonoBehaviour
 
         player = Instantiate(playerSample, transform);
         player.figure.savePoint = board.GetCell(Vector2Int.zero);
-        player.figure.Move(board.GetCell(Vector2Int.zero), isTeleport: true);
+        await player.figure.Move(board.GetCell(Vector2Int.zero), isTeleport: true);
 
-        GenerateFigure(cellOrderList[12], daggerSample);
+        GenerateFigure(cellOrderList[4], daggerSample);
         GenerateFigure(cellOrderList[33], stilettoSample);
         
 
@@ -222,14 +223,14 @@ public class Game : MonoBehaviour
 
     private T GenerateFigure<T>(Cell cell, T sample) where T: MonoBehaviour {
         var f = Instantiate(sample);
-        f.GetComponent<Figure>().Move(cell);
+        _ = f.GetComponent<Figure>().Move(cell);
         f.transform.SetParent(figureParent);
         return f;
     }
 
     public void AfterCellAdded(Cell cell) {
         if (Rand.rndEvent(0.1f)) {
-            monsters.Add(GenerateFigure(cell, monsterSample));
+            monsters.Add(GenerateFigure(cell, monsterSamples.rnd()));
         }
     }
 

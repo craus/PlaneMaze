@@ -4,25 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
-[RequireComponent(typeof(Figure))]
-public class Monster : Unit
+public class Goblin : Monster
 {
-    public GameObject attackProjectile;
-    public int damage = 1;
-
-    public override void Awake() {
-        base.Awake();
-    }
-
-    private List<Vector2Int> moves = new List<Vector2Int>() {
-        Vector2Int.up,
-        Vector2Int.down,
-        Vector2Int.right,
-        Vector2Int.left,
-    };
-
     public async void Attack(Unit target) {
-        Debug.LogFormat($"Attack {target}"); 
         var ap = Instantiate(attackProjectile);
         ap.gameObject.SetActive(true); // object was inactive for unknown reason
         ap.transform.position = target.transform.position;
@@ -45,7 +29,7 @@ public class Monster : Unit
         return false;
     }
 
-    public async Task Move() {
+    public override async Task Move() {
         var delta = moves.Rnd();
         if (!(await figure.TryWalk(delta))) {
             if (!TryAttack(delta)) {
@@ -56,6 +40,7 @@ public class Monster : Unit
 
     public override void Die() {
         base.Die();
+        Player.instance.gems++;
         Game.instance.monsters.Remove(this);
     }
 }
