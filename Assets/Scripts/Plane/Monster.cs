@@ -14,6 +14,7 @@ public class Monster : Unit
     };
 
     public void Move() {
-        figure.TryMove(moves.Rnd());
+        var delta = moves.Rnd();
+        figure.TryWalk(delta);
     }
 }

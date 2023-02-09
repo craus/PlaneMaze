@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Figure))]
 public class Player : Unit
 {
+    public static Player instance => Game.instance.player;
+
     public int totalGems;
     public int gems;
 
@@ -28,18 +30,26 @@ public class Player : Unit
         item.Pick();
     }
 
+    private void Move(Vector2Int delta) {
+        if (figure.TryWalk(delta)) {
+            return;
+        }
+        Inventory.instance.items.ForEach(item => item.afterFailedWalk.Invoke(delta));
+        figure.FakeMove(delta);
+    }
+
     public void Update() {
         if (Input.GetKeyDown(KeyCode.UpArrow)) {
-            figure.TryMove(Vector2Int.up);
+            Move(Vector2Int.up);
         }
         if (Input.GetKeyDown(KeyCode.DownArrow)) {
-            figure.TryMove(Vector2Int.down);
+            Move(Vector2Int.down);
         }
         if (Input.GetKeyDown(KeyCode.RightArrow)) {
-            figure.TryMove(Vector2Int.right);
+            Move(Vector2Int.right);
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-            figure.TryMove(Vector2Int.left);
+            Move(Vector2Int.left);
         }
         if (Input.GetKeyDown(KeyCode.W)) {
             Build(figure.location, wallSample);

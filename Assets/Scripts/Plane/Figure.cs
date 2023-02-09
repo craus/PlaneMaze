@@ -17,7 +17,7 @@ public class Figure : MonoBehaviour
         if (from.fieldCell.wall && !to.fieldCell.wall) {
             from.fieldCell.wall = false;
             from.UpdateCell();
-            
+
             to.fieldCell.wall = true;
             to.UpdateCell();
         }
@@ -26,11 +26,9 @@ public class Figure : MonoBehaviour
         TryMoveWall(from, from.Shift(delta));
     }
 
-    private bool TryWalk(Vector2Int delta) {
+    public bool TryWalk(Vector2Int delta) {
         var newPosition = location.Shift(delta);
         if (!newPosition.Wall && !newPosition.Locked && !newPosition.figures.Any(f => f.GetComponent<Unit>() != null)) {
-            //TryMoveWall(location.Shift(delta.RotateLeft()), delta);
-            //TryMoveWall(location.Shift(delta.RotateRight()), delta);
             Move(newPosition);
             return true;
         }
@@ -38,12 +36,12 @@ public class Figure : MonoBehaviour
     }
 
     private bool Deadend(Cell cell, Vector2Int delta) {
-        return 
-            !cell.fieldCell.wall && 
+        return
+            !cell.fieldCell.wall &&
             //!cell.Shift(-delta).fieldCell.wall &&
             cell.Shift(delta).fieldCell.wall &&
             cell.Shift(delta.RotateLeft()).fieldCell.wall &&
-            cell.Shift(delta.RotateRight()).fieldCell.wall; 
+            cell.Shift(delta.RotateRight()).fieldCell.wall;
     }
 
     private bool TrySlip(Vector2Int delta) {
@@ -82,20 +80,9 @@ public class Figure : MonoBehaviour
         TrySwitch(cell, Vector2Int.down);
     }
 
-    public void TryMove(Vector2Int delta) {
-        if (TryWalk(delta)) {
-            //TrySwitch(location);
-            return;
-        }
-        //if (TrySlip(delta)) return;
-
-        //var jumpPosition = location.Shift(delta * 2);
-        //if (!jumpPosition.fieldCell.wall) {
-        //    Move(jumpPosition);
-        //    return;
-        //}
-
+    public bool FakeMove(Vector2Int delta) {
         Move(location, fakeMove: location.Shift(delta));
+        return true;
     }
 
     public void Move(Cell newPosition, bool isTeleport = false, Cell fakeMove = null) {

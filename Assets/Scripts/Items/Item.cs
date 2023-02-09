@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Figure))]
 public class Item : MonoBehaviour
@@ -10,6 +11,10 @@ public class Item : MonoBehaviour
     public RectTransform iconParent;
     public RectTransform icon;
     public ItemSlot slot;
+
+    public GameObject model;
+
+    public UnityEvent<Vector2Int> afterFailedWalk;
 
     public void Awake() {
         Game.instance.afterPlayerMove.AddListener(AfterPlayerMove);
@@ -39,6 +44,6 @@ public class Item : MonoBehaviour
 
     private void UpdateModelVisible() {
         //gameObject.SetActive(!Inventory.instance.items.Contains(this) && Game.instance.player.figure.location != GetComponent<Figure>().location);
-        gameObject.SetActive(!Inventory.instance.items.Contains(this));
+        model.SetActive(!Inventory.instance.items.Contains(this));
     }
 }
