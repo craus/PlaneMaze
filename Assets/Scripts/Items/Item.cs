@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,7 +15,13 @@ public class Item : MonoBehaviour
 
     public GameObject model;
 
-    public Func<Vector2Int, bool> afterFailedWalk;
+    public async Task<bool> AfterFailedWalk(Vector2Int delta) {
+        var weapon = GetComponent<Weapon>();
+        if (weapon) {
+            return await weapon.TryAttack(delta);
+        }
+        return false;
+    }
 
     public void Awake() {
         Game.instance.afterPlayerMove.AddListener(AfterPlayerMove);

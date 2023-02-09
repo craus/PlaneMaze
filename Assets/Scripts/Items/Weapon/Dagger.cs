@@ -8,11 +8,10 @@ using UnityEngine;
 public class Dagger : Weapon
 {
     public void Awake() {
-        GetComponent<Item>().afterFailedWalk = TryAttack;
         attackProjectile.SetActive(false);
     }
 
-    public async void Attack(Unit target) {
+    public async Task Attack(Unit target) {
         var startPosition = Vector3.Lerp(Owner.transform.position, target.transform.position, 0.25f);
         var endPosition = Vector3.Lerp(Owner.transform.position, target.transform.position, 0.75f);
 
@@ -27,12 +26,14 @@ public class Dagger : Weapon
         attackProjectile.SetActive(false);
     }
 
-    public bool TryAttack(Vector2Int delta) {
+    public override async Task<bool> TryAttack(Vector2Int delta) {
         var newPosition = Owner.figure.location.Shift(delta);
         if (newPosition.figures.Any(f => f.GetComponent<Unit>() != null)) {
-            Attack(newPosition.GetFigure<Unit>());
+            await Attack(newPosition.GetFigure<Unit>());
+            Debug.LogFormat("Dagger attacked");
             return true;
         }
+        Debug.LogFormat("Dagger use failed");
         return false;
     }
 }

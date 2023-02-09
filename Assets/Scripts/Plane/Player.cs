@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
@@ -29,18 +30,24 @@ public class Player : Unit
         item.Pick();
     }
 
-    private void MoveTakeActions(Vector2Int delta) {
+    private async Task MoveTakeActions(Vector2Int delta) {
+        var time = Game.instance.time;
         if (figure.TryWalk(delta)) {
             return;
         }
-        if (Inventory.instance.items.Any(item => item.afterFailedWalk(delta))) {
+        Debug.LogFormat($"[{time}] Failed walk");
+
+        if ((await Task.WhenAll(Inventory.instance.items.Select(item => item.AfterFailedWalk(delta)))).Any(b => b)) {
+            Debug.LogFormat($"[{time}] Item used on failed walk");
             return;
         }
+        Debug.LogFormat($"[{time}] Failed items use on failed walk");
+
         figure.FakeMove(delta);
     }
 
-    private void Move(Vector2Int delta) {
-        MoveTakeActions(delta);
+    private async void Move(Vector2Int delta) {
+        await MoveTakeActions(delta);
         Game.instance.AfterPlayerMove();
     }
 
