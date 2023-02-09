@@ -1097,9 +1097,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f593587dd2421f246bea9652578e4734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSample: {fileID: 275157002869536168, guid: 370aeef2518095a448365046aa1e4453, type: 3}
+  playerSample: {fileID: 2542263783767913581, guid: 370aeef2518095a448365046aa1e4453, type: 3}
   player: {fileID: 0}
-  monsterSample: {fileID: 6565577784567678388, guid: b834d2cf4ffc4634c9be7218e7213ef1, type: 3}
+  monsterSample: {fileID: 4175614662866055290, guid: 9bfa59c0dddfd244ab486a5a960146e6, type: 3}
   monsters: []
   daggerSample: {fileID: 7331329206652780110, guid: 93bf611611e4b8345bf2eee9ffcbd6b3, type: 3}
   stilettoSample: {fileID: 567202662088743728, guid: 8ce3a139fc16a3b43bf3a6598c89bc53, type: 3}
@@ -1111,6 +1111,9 @@ MonoBehaviour:
   gemSample: {fileID: -5931720104371548630, guid: 5dd0e56d03f85e0428917ae2cf43f2d0, type: 3}
   gem: {fileID: 0}
   figureParent: {fileID: 2828773098761964938}
+  afterPlayerMove:
+    m_PersistentCalls:
+      m_Calls: []
   speed: 1
 --- !u!1 &5934059384545418333
 GameObject:
