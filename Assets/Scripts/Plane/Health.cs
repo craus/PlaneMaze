@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Figure))]
 public class Health : MonoBehaviour
 {
+    [SerializeField] private bool showHeartsOnFullHealth = false;
+
     public List<Transform> hearts;
 
     [SerializeField] private int current = 3;
@@ -26,9 +28,13 @@ public class Health : MonoBehaviour
     }
 
     private void UpdateHearts() {
-        for (int i = 0; i < hearts.Count; i++) {
-            hearts[i].gameObject.SetActive(current >= i + 1);
-            hearts[i].localPosition = new Vector3(i - current * 0.5f + 0.5f, 0, 0);
+        if (current < max || showHeartsOnFullHealth) {
+            for (int i = 0; i < hearts.Count; i++) {
+                hearts[i].gameObject.SetActive(current >= i + 1);
+                hearts[i].localPosition = new Vector3(i - current * 0.5f + 0.5f, 0, 0);
+            }
+        } else {
+            hearts.ForEach(h => h.gameObject.SetActive(false));
         }
     }
 }
