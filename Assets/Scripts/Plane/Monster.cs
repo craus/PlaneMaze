@@ -23,16 +23,11 @@ public class Monster : Unit
 
     public async void Attack(Unit target) {
         Debug.LogFormat($"Attack {target}"); 
-        if (attackProjectile.activeSelf != true) {
-            Debug.LogError($"attackProjectile.activeSelf != true");
-        }
         var ap = Instantiate(attackProjectile);
+        ap.gameObject.SetActive(true); // object was inactive for unknown reason
         ap.transform.position = target.transform.position;
-        if (ap.activeSelf != true) {
-            Debug.LogError($"ap.activeSelf != true");
-        }
 
-        await Task.Delay(10000);
+        await Task.Delay(100);
 
         target.Hit(damage);
 
