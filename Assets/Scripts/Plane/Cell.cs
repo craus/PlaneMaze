@@ -85,4 +85,6 @@ public class Cell : MonoBehaviour
     }
 
     public T GetFigure<T>() => figures.Select(f => f.GetComponent<T>()).FirstOrDefault(t => t != null);
+
+    public bool Free => !Wall && !Locked && !figures.Any(f => f.GetComponent<Unit>() != null);
 }

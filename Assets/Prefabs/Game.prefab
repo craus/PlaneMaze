@@ -1103,8 +1103,10 @@ MonoBehaviour:
   - {fileID: 792451774977223643, guid: 9bfa59c0dddfd244ab486a5a960146e6, type: 3}
   - {fileID: 6890977442324438375, guid: a833328bf3c02ca45989ccef640d4fd6, type: 3}
   monsters: []
-  daggerSample: {fileID: 7331329206652780110, guid: 93bf611611e4b8345bf2eee9ffcbd6b3, type: 3}
-  stilettoSample: {fileID: 567202662088743728, guid: 8ce3a139fc16a3b43bf3a6598c89bc53, type: 3}
+  weaponSamples:
+  - {fileID: 8761000423821239552, guid: 0a90607df9e38f946b1b280e25a3780b, type: 3}
+  - {fileID: 567202662088743728, guid: 8ce3a139fc16a3b43bf3a6598c89bc53, type: 3}
+  - {fileID: 7331329206652780110, guid: 93bf611611e4b8345bf2eee9ffcbd6b3, type: 3}
   cellOrderList: []
   unlockedCells: 1000000000
   time: 0

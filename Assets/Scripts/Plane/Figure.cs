@@ -28,7 +28,7 @@ public class Figure : MonoBehaviour
 
     public async Task<bool> TryWalk(Vector2Int delta) {
         var newPosition = location.Shift(delta);
-        if (!newPosition.Wall && !newPosition.Locked && !newPosition.figures.Any(f => f.GetComponent<Unit>() != null)) {
+        if (newPosition.Free) {
             await Move(newPosition);
             return true;
         }

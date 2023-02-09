@@ -17,8 +17,7 @@ public class Game : MonoBehaviour
 
     public List<Monster> monsters;
 
-    public Dagger daggerSample;
-    public Stiletto stilettoSample;
+    public List<Weapon> weaponSamples;
 
     public List<Cell> cellOrderList;
     public int unlockedCells = (int)1e9;
@@ -50,9 +49,7 @@ public class Game : MonoBehaviour
         player.figure.savePoint = board.GetCell(Vector2Int.zero);
         await player.figure.Move(board.GetCell(Vector2Int.zero), isTeleport: true);
 
-        GenerateFigure(cellOrderList[4], daggerSample);
-        GenerateFigure(cellOrderList[33], stilettoSample);
-        
+        GenerateFigure(cellOrderList[4], weaponSamples.rnd());
 
         //PlaceGem();
 
@@ -231,6 +228,8 @@ public class Game : MonoBehaviour
     public void AfterCellAdded(Cell cell) {
         if (Rand.rndEvent(0.1f)) {
             monsters.Add(GenerateFigure(cell, monsterSamples.rnd()));
+        } else if (Rand.rndEvent(0.03f)) {
+            GenerateFigure(cell, weaponSamples.rnd());
         }
     }
 

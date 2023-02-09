@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(Item))]
 public abstract class Weapon : MonoBehaviour
 {
-    public int damage;
+    public int damage = 1;
 
     public Unit Owner => Player.instance;
 
