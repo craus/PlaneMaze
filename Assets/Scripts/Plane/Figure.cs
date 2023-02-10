@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ public class Figure : MonoBehaviour
     public Cell savePoint;
 
     public UnityEvent<Cell, bool> afterMove;
+    public Func<Cell, Figure, Task> collide = (c, f) => Task.CompletedTask;
 
     public void TryMoveWall(Cell from, Cell to) {
         if (from.fieldCell.wall && !to.fieldCell.wall) {
@@ -93,6 +95,10 @@ public class Figure : MonoBehaviour
         location = newPosition;
         if (location != null) {
             location.figures.Add(this);
+        }
+
+        if (from != location) {
+            location.figures.ToList().ForEach(async f => await f.collide(from, this));
         }
         afterMove.Invoke(from, isTeleport);
 

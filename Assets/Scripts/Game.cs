@@ -19,6 +19,9 @@ public class Game : MonoBehaviour
 
     public List<Weapon> weaponSamples;
 
+    public List<Store> storeSamples;
+    public List<Figure> terrainSamples;
+
     public List<Cell> cellOrderList;
     public int unlockedCells = (int)1e9;
 
@@ -51,10 +54,22 @@ public class Game : MonoBehaviour
 
         GenerateFigure(cellOrderList[4], weaponSamples.rnd());
 
+        cellOrderList.ForEach(cell => SecondStep(cell));
+
         //PlaceGem();
 
         //player.figure.location.Dark = false;
         //player.figure.location.UpdateCell();
+    }
+
+    private void SecondStep(Cell cell) {
+        return;
+        if (!cell.Free || cell.Neighbours8().Any(c => !c.Free)) {
+            return;
+        }
+        if (Rand.rndEvent(0.05f)) {
+            GenerateFigure(cell, storeSamples.rnd());
+        }
     }
 
     private Dictionary<Vector2Int, float> cellPrices = new Dictionary<Vector2Int, float>();
@@ -230,6 +245,8 @@ public class Game : MonoBehaviour
             monsters.Add(GenerateFigure(cell, monsterSamples.rnd()));
         } else if (Rand.rndEvent(0.03f)) {
             GenerateFigure(cell, weaponSamples.rnd());
+        } else if (Rand.rndEvent(0.1f)) {
+            GenerateFigure(cell, terrainSamples.rnd());
         }
     }
 

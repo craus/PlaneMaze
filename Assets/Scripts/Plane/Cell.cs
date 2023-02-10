@@ -84,6 +84,25 @@ public class Cell : MonoBehaviour
         yield return Shift(Vector2Int.right);
     }
 
+    public IEnumerable<Cell> Neighbours8() {
+        yield return Shift(Vector2Int.up);
+        yield return Shift(Vector2Int.down);
+        yield return Shift(Vector2Int.left);
+        yield return Shift(Vector2Int.right);
+        yield return Shift(new Vector2Int(1, 1));
+        yield return Shift(new Vector2Int(1, -1));
+        yield return Shift(new Vector2Int(-1, 1));
+        yield return Shift(new Vector2Int(-1, -1));
+    }
+
+    public IEnumerable<Cell> Vicinity(int maxDx, int maxDy) {
+        for (int i = -maxDx; i <= maxDx; i++) {
+            for (int j = -maxDy; j <= maxDy; j++) {
+                yield return Shift(i, j);
+            }
+        }
+    }
+
     public T GetFigure<T>() => figures.Select(f => f.GetComponent<T>()).FirstOrDefault(t => t != null);
 
     public bool Free => !Wall && !Locked && !figures.Any(f => f.GetComponent<Unit>() != null);

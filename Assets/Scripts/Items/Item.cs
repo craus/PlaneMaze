@@ -24,6 +24,12 @@ public class Item : MonoBehaviour
     }
 
     public void Awake() {
+        GetComponent<Figure>().collide = async (from, figure) => {
+            var player = figure.GetComponent<Player>();
+            if (player != null && from != GetComponent<Figure>().location) {
+                Pick();
+            }
+        };
         Game.instance.afterPlayerMove.AddListener(AfterPlayerMove);
     }
 
@@ -37,7 +43,7 @@ public class Item : MonoBehaviour
 
         icon.SetParent(Inventory.instance.itemsFolder);
         Inventory.instance.items.Add(this);
-        GetComponent<Figure>().Move(null, isTeleport: true);
+        _ = GetComponent<Figure>().Move(null, isTeleport: true);
         UpdateModelVisible();
     }
 
@@ -45,7 +51,7 @@ public class Item : MonoBehaviour
     public void Drop() {
         icon.SetParent(iconParent);
         Inventory.instance.items.Remove(this);
-        GetComponent<Figure>().Move(Game.instance.player.figure.location, isTeleport: true);
+        _ = GetComponent<Figure>().Move(Game.instance.player.figure.location, isTeleport: true);
         UpdateModelVisible();
     }
 

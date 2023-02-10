@@ -21,7 +21,6 @@ public class Player : Unit
                 if (figure.location.fieldCell.teleport) {
                     figure.Move(figure.location.board.GetCell(figure.location.fieldCell.teleportTarget), isTeleport: true);
                 }
-                figure.location.figures.Select(f => f.GetComponent<Item>()).Where(g => g != null).ToList().ForEach(Take);
             }
         }
     }
