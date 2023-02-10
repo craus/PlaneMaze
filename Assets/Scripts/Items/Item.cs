@@ -18,7 +18,15 @@ public class Item : MonoBehaviour
     public async Task<bool> AfterFailedWalk(Vector2Int delta) {
         var weapon = GetComponent<Weapon>();
         if (weapon) {
-            return await weapon.TryAttack(delta);
+            return await weapon.AfterFailedWalk(delta);
+        }
+        return false;
+    }
+
+    public async Task<bool> BeforeWalk(Vector2Int delta) {
+        var weapon = GetComponent<Weapon>();
+        if (weapon) {
+            return await weapon.BeforeWalk(delta);
         }
         return false;
     }

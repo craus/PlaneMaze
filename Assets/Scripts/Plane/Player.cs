@@ -31,6 +31,12 @@ public class Player : Unit
 
     private async Task MoveTakeActions(Vector2Int delta) {
         var time = Game.instance.time;
+
+        if ((await Task.WhenAll(Inventory.instance.items.Select(item => item.BeforeWalk(delta)))).Any(b => b)) {
+            Debug.LogFormat($"[{time}] Item used instead walk");
+            return;
+        }
+
         if (await figure.TryWalk(delta)) {
             return;
         }

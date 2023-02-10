@@ -241,7 +241,7 @@ public class Game : MonoBehaviour
     }
 
     public void AfterCellAdded(Cell cell) {
-        if (Rand.rndEvent(0.1f)) {
+        if (cell.order > 20 && Rand.rndEvent(0.1f)) {
             monsters.Add(GenerateFigure(cell, monsterSamples.rnd()));
         } else if (Rand.rndEvent(0.03f)) {
             GenerateFigure(cell, weaponSamples.rnd());
