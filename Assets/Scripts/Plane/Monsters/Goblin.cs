@@ -21,6 +21,10 @@ public class Goblin : Monster
     }
 
     public bool TryAttack(Vector2Int delta) {
+        if (figure.location.GetFigure<PeaceTrap>() != null) {
+            return false;
+        }
+
         var newPosition = figure.location.Shift(delta);
         if (newPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
             Attack(newPosition.GetFigure<Player>());

@@ -26,6 +26,10 @@ public class Club : Weapon
     }
 
     public override async Task<bool> TryAttack(Vector2Int delta) {
+        if (Owner.figure.location.GetFigure<PeaceTrap>() != null) {
+            return false;
+        }
+
         var newPosition = Owner.figure.location.Shift(delta);
         var target = newPosition.GetFigure<Unit>();
         if (target != null) {

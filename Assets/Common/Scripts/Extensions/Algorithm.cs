@@ -22,6 +22,7 @@ public static class Algorithm
 		return result;
 	}
 
+	[Serializable]
 	public class Weighted<Vertex> : IComparable
 	{
 		public Vertex to;

@@ -96,6 +96,20 @@ public static class Rand
 		return list[UnityEngine.Random.Range(0, list.Count)];
 	}
 
+	public static T weightedRnd<T>(this List<Weighted<T>> list) where T : class {
+		if (list.Count == 0) return null;
+		float weightSum = list.Sum(x => x.weight);
+		float resultWeight = UnityEngine.Random.value * weightSum;
+		float currentWeight = 0;
+		foreach (var x in list) {
+			currentWeight += x.weight;
+			if (currentWeight > resultWeight) {
+				return x.to;
+			}
+		}
+		throw new Exception("Failed to normalize weights!");
+	}
+
 	public static T rndExcept<T>(this List<T> list, ICollection<T> except) where T : class {
 		return list.Except(except).ToList().rnd();
 	}

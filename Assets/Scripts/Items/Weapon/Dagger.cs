@@ -27,6 +27,10 @@ public class Dagger : Weapon
     }
 
     public override async Task<bool> TryAttack(Vector2Int delta) {
+        if (Owner.figure.location.GetFigure<PeaceTrap>() != null) {
+            return false;
+        }
+
         var newPosition = Owner.figure.location.Shift(delta);
         if (newPosition.figures.Any(f => f.GetComponent<Unit>() != null)) {
             await Attack(newPosition.GetFigure<Unit>());

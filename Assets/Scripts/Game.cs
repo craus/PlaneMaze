@@ -20,7 +20,7 @@ public class Game : MonoBehaviour
     public List<Weapon> weaponSamples;
 
     public List<Store> storeSamples;
-    public List<Figure> terrainSamples;
+    public List<Weighted<Figure>> terrainSamples;
 
     public List<Cell> cellOrderList;
     public int unlockedCells = (int)1e9;
@@ -246,7 +246,7 @@ public class Game : MonoBehaviour
         } else if (Rand.rndEvent(0.03f)) {
             GenerateFigure(cell, weaponSamples.rnd());
         } else if (Rand.rndEvent(0.1f)) {
-            GenerateFigure(cell, terrainSamples.rnd());
+            GenerateFigure(cell, terrainSamples.weightedRnd());
         }
     }
 
