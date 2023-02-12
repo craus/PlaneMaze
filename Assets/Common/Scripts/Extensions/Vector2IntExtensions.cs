@@ -26,4 +26,8 @@ public static class Vector2IntExtensions
     public static Vector2Int RotateRight(this Vector2Int v) {
         return new Vector2Int(-v.y, v.x);
     }
+
+    public static int MaxDelta(this Vector2Int v) {
+        return Math.Max(Math.Abs(v.x), Math.Abs(v.y));
+    }
 }

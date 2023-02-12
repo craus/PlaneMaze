@@ -95,6 +95,8 @@ public class Cell : MonoBehaviour
         yield return Shift(new Vector2Int(-1, -1));
     }
 
+    public IEnumerable<Cell> Vicinity(int radius) => Vicinity(radius, radius);
+
     public IEnumerable<Cell> Vicinity(int maxDx, int maxDy) {
         for (int i = -maxDx; i <= maxDx; i++) {
             for (int j = -maxDy; j <= maxDy; j++) {

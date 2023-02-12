@@ -9,6 +9,8 @@ public class Unit : MonoBehaviour
 {
     public Figure figure;
 
+    public bool alive = true;
+
     public virtual void Awake() {
         if (figure == null) figure = GetComponent<Figure>();
         figure.afterMove.AddListener(AfterMove);
@@ -30,6 +32,11 @@ public class Unit : MonoBehaviour
     }
 
     public virtual void Die() {
+        if (!alive) {
+            return;
+        }
+        alive = false;
         Destroy(gameObject);
+        GameEvents.instance.onUnitDeath.Invoke(this);
     }
 }
