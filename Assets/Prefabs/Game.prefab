@@ -1102,6 +1102,7 @@ MonoBehaviour:
   monsterSamples:
   - {fileID: 792451774977223643, guid: 9bfa59c0dddfd244ab486a5a960146e6, type: 3}
   - {fileID: 6890977442324438375, guid: a833328bf3c02ca45989ccef640d4fd6, type: 3}
+  - {fileID: 6890977442324438375, guid: 397be5e282dbe5c449605312aa07e719, type: 3}
   monsters: []
   weaponSamples:
   - {fileID: 8761000423821239552, guid: 0a90607df9e38f946b1b280e25a3780b, type: 3}
