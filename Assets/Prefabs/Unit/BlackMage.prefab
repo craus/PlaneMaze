@@ -215,6 +215,7 @@ MonoBehaviour:
   damageRadius: 4
   deathDamage: 1
   soulSample: {fileID: 7558257676500238022, guid: 09600dfc7b55c2a44bb8a6a21e6f1852, type: 3}
+  healSample: {fileID: 7558257676500238022, guid: 79599bf405c35dc44bc7c36a841474b8, type: 3}
 --- !u!4 &8590397742989534751 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1674795090200609426, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}

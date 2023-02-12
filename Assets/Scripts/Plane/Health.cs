@@ -16,13 +16,18 @@ public class Health : MonoBehaviour
 
     public int Current => current;
 
-    public async Task SetCurrent(int value) {
-        current = value;
+    public async Task Hit(int amount) {
+        current = Mathf.Clamp(current - amount, 0, max); 
         if (current <= 0) {
             await GetComponent<Unit>().Die();
         } else {
             UpdateHearts();
         }
+    }
+
+    public async Task Heal(int amount) {
+        current = Mathf.Clamp(current + amount, 0, max);
+        UpdateHearts();
     }
 
     public void Awake() {

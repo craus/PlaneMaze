@@ -12,6 +12,7 @@ public class BlackMage : Monster
     public int deathDamage = 1;
 
     public GameObject soulSample;
+    public GameObject healSample;
 
     public override async Task Hit(int damage) {
         await base.Hit(damage);
@@ -50,6 +51,12 @@ public class BlackMage : Monster
             Destroy(soul);
         }
 
+        var heal = Instantiate(healSample);
+        heal.transform.position = transform.position;
+        await Task.Delay(100);
+        Destroy(heal);
+        await GetComponent<Health>().Heal(1);
+
         foreach (var u in figure.location.Vicinity(damageRadius)
             .Select(c => c.GetFigure<Unit>())
             .Where(u => u != null && u != this)
@@ -59,6 +66,9 @@ public class BlackMage : Monster
     }
 
     public async Task OnUnitDeath(Unit unit) {
+        if (!alive) {
+            return;
+        }
         if ((unit.figure.location.position - figure.location.position).MaxDelta() <= deathDetectionRadius && unit is Monster) {
             await ConsumeSoul(unit);
         }
