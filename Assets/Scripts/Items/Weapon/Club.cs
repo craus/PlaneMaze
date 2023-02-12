@@ -7,10 +7,6 @@ using UnityEngine;
 [RequireComponent(typeof(Item))]
 public class Club : Weapon
 {
-    public void Awake() {
-        attackProjectile.SetActive(false);
-    }
-
     public override async Task<bool> TryAttack(Vector2Int delta) {
         if (Owner.figure.location.GetFigure<PeaceTrap>() != null) {
             return false;

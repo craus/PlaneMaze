@@ -89,7 +89,7 @@ PrefabInstance:
       objectReference: {fileID: 529709666661010183, guid: eb002f15fa144a743808a6ada095df7c, type: 3}
     - target: {fileID: 6325338422616382079, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Name
-      value: Chris
+      value: Kris
       objectReference: {fileID: 0}
     - target: {fileID: 8585933247312828475, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Sprite
@@ -113,11 +113,6 @@ PrefabInstance:
       objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
---- !u!1 &5729505263438451507 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8665463542482408163, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
-  m_PrefabInstance: {fileID: 4017953589501215184}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6920552994628180911 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6325338422616382079, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
@@ -136,4 +131,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  attackProjectile: {fileID: 5729505263438451507}
+  attackProjectileSample: {fileID: 7722422181804232934, guid: 9226b0c3cafaf074b9246aa63d6cec95, type: 3}

@@ -11,18 +11,17 @@ public abstract class Weapon : MonoBehaviour
 
     public Unit Owner => Player.instance;
 
-    public GameObject attackProjectile;
+    public GameObject attackProjectileSample;
 
     public virtual async Task Attack(Unit target) {
-        var startPosition = Vector3.Lerp(Owner.transform.position, target.transform.position, 0.25f);
-        var endPosition = Vector3.Lerp(Owner.transform.position, target.transform.position, 0.75f);
-
-        attackProjectile.SetActive(true);
-        attackProjectile.transform.rotation = Quaternion.LookRotation(Vector3.forward, target.transform.position - Owner.transform.position);
-        attackProjectile.transform.position = endPosition;
+        var ap = Instantiate(attackProjectileSample);
+        ap.transform.rotation = Quaternion.LookRotation(Vector3.forward, target.transform.position - Owner.transform.position);
+        ap.transform.position = Vector3.Lerp(Owner.transform.position, target.transform.position, 0.75f);
 
         await Task.Delay(100);
-        attackProjectile.SetActive(false);
+        if (ap != null) {
+            Destroy(ap);
+        }
         await target.Hit(damage);
     }
 
