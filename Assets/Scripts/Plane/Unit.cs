@@ -28,15 +28,17 @@ public class Unit : MonoBehaviour
         if (this == null) {
             return;
         }
-        GetComponent<Health>().Current -= damage;
+        await GetComponent<Health>().SetCurrent(GetComponent<Health>().Current - damage);
     }
 
-    public virtual void Die() {
+    public virtual async Task Die() {
         if (!alive) {
             return;
         }
         alive = false;
         Destroy(gameObject);
-        GameEvents.instance.onUnitDeath.Invoke(this);
+        foreach (var listener in GameEvents.instance.onUnitDeath) {
+            await listener(this);
+        }
     }
 }

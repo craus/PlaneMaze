@@ -8,5 +8,5 @@ using UnityEngine.Events;
 
 public class GameEvents : Singletone<GameEvents>
 {
-    public UnityEvent<Unit> onUnitDeath;
+    public List<Func<Unit, Task>> onUnitDeath = new List<Func<Unit, Task>>();
 }

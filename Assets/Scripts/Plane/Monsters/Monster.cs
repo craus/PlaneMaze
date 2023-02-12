@@ -38,8 +38,8 @@ public abstract class Monster : Unit
     public virtual async Task Move() {
     }
 
-    public override void Die() {
-        base.Die();
+    public override async Task Die() {
+        await base.Die();
         Player.instance.gems++;
         Game.instance.monsters.Remove(this);
     }

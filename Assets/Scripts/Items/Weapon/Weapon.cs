@@ -22,9 +22,8 @@ public abstract class Weapon : MonoBehaviour
         attackProjectile.transform.position = endPosition;
 
         await Task.Delay(100);
-        target.Hit(damage);
-
         attackProjectile.SetActive(false);
+        await target.Hit(damage);
     }
 
     public async virtual Task<bool> BeforeWalk(Vector2Int delta) {

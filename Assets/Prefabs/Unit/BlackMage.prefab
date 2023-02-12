@@ -119,5 +119,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   figure: {fileID: 0}
-  attackProjectile: {fileID: 0}
+  alive: 1
+  attackProjectile: {fileID: 67467469717759535, guid: a78f821786ba0264093e0de0aca7a282, type: 3}
   damage: 1
+  deathDetectionRadius: 4
+  teleportRadius: 8
+  damageRadius: 4
+  deathDamage: 1
+  soulSample: {fileID: 7558257676500238022, guid: 09600dfc7b55c2a44bb8a6a21e6f1852, type: 3}

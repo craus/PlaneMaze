@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
@@ -13,17 +14,14 @@ public class Health : MonoBehaviour
     [SerializeField] private int current = 3;
     [SerializeField] private int max = 3;
 
-    public int Current
-    {
-        get => current;
-        set
-        {
-            current = value;
-            if (current <= 0) {
-                GetComponent<Unit>().Die();
-            } else {
-                UpdateHearts();
-            }
+    public int Current => current;
+
+    public async Task SetCurrent(int value) {
+        current = value;
+        if (current <= 0) {
+            await GetComponent<Unit>().Die();
+        } else {
+            UpdateHearts();
         }
     }
 
