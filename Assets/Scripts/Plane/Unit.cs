@@ -28,7 +28,7 @@ public class Unit : MonoBehaviour
         }
         alive = false;
         Destroy(gameObject);
-        foreach (var listener in GameEvents.instance.onUnitDeath) {
+        foreach (var listener in GameEvents.instance.onUnitDeath.ToList()) {
             await listener(this);
         }
     }

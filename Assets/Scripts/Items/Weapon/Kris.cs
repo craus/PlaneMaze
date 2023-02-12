@@ -16,17 +16,13 @@ public class Kris : Weapon
             return false;
         }
 
-        Debug.LogFormat($"Kris attacks from location {Owner.figure.location} at direction {delta}");
-
         var leftPosition = Owner.figure.location.Shift(delta.Relative(1, 1));
-        Debug.LogFormat($"left position is {leftPosition}");
         if (leftPosition.figures.Any(f => f.GetComponent<Unit>() != null)) {
             await Attack(leftPosition.GetFigure<Unit>());
             return true;
         }
 
         var rightPosition = Owner.figure.location.Shift(delta.Relative(1, -1));
-        Debug.LogFormat($"right position is {rightPosition}");
         if (rightPosition.figures.Any(f => f.GetComponent<Unit>() != null)) {
             await Attack(rightPosition.GetFigure<Unit>());
             return true;
