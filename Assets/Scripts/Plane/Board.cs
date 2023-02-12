@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Board : MonoBehaviour
+public class Board : Singletone<Board>
 {
     SparseCollections.Sparse2DChunkBasedMatrix<Cell> map = new SparseCollections.Sparse2DChunkBasedMatrix<Cell>();
 
@@ -14,6 +14,8 @@ public class Board : MonoBehaviour
     public Teleport teleportSample;
     public Transform cellParent;
     public Transform figureParent;
+
+    public bool silentMode = false;
 
     public Cell GetCell(Vector2Int position) {
         ShowCell(position.x, position.y);
@@ -49,6 +51,9 @@ public class Board : MonoBehaviour
 
     private Cell GenerateCell(int x, int y) {
         var cell = Instantiate(cellSample);
+        if (silentMode) {
+            cell.gameObject.SetActive(false);
+        }
         cell.position = new Vector2Int(x, y);
         field[x, y].wall = true;
         cell.SetFieldCell(field[x, y]);

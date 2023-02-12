@@ -10,8 +10,7 @@ public class TeleportTrap : MonoBehaviour
         GetComponent<Figure>().collide = async (from, figure) => {
             var victim = figure.GetComponent<Unit>();
             if (victim != null) {
-                var destination = GetComponent<Figure>().location.Vicinity(maxDx: 2, maxDy: 2).Where(c => c.Free).Rnd();
-                await victim.GetComponent<Figure>().Move(destination, isTeleport: true);
+                await Helpers.TeleportAway(victim.figure, 2);
             }
         };
     }

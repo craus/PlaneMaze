@@ -212,6 +212,8 @@ public class Game : MonoBehaviour
         }
         CameraControl.instance.followPoint = false;
 
+        Board.instance.silentMode = true;
+
         Debug.LogFormat($"Cells: {i}");
         Debug.LogFormat($"Taken Cells Max Price: {cellOrderList.Max(c => CellPrice(c.position))}");
     }

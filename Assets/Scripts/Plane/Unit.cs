@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
@@ -21,7 +22,7 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public void Hit(int damage) {
+    public virtual async Task Hit(int damage) {
         if (this == null) {
             return;
         }
