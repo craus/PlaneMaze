@@ -19,7 +19,7 @@ public class Unit : MonoBehaviour
         if (this == null) {
             return;
         }
-        await GetComponent<Health>().Hit(1);
+        await GetComponent<Health>().Hit(damage);
     }
 
     public virtual async Task Die() {

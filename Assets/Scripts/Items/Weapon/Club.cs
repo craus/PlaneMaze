@@ -17,7 +17,9 @@ public class Club : Weapon
         if (target != null) {
             if (target.figure.location.Shift(delta).Free) {
                 await Attack(target);
-                await target.figure.TryWalk(delta);
+                if (target.alive) {
+                    await target.figure.TryWalk(delta);
+                }
                 return true;
             } else {
                 await target.figure.FakeMove(delta);
