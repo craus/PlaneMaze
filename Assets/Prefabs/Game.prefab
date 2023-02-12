@@ -1105,6 +1105,7 @@ MonoBehaviour:
   - {fileID: 6890977442324438375, guid: a833328bf3c02ca45989ccef640d4fd6, type: 3}
   - {fileID: 6890977442324438375, guid: 397be5e282dbe5c449605312aa07e719, type: 3}
   - {fileID: 6214775180543025106, guid: 90cced61ae27bdb4f9e1d33a278c46c1, type: 3}
+  - {fileID: 6890977442324438375, guid: 8221258f627dc424dae631737f19066b, type: 3}
   monsters: []
   weaponSamples:
   - {fileID: 8761000423821239552, guid: 0a90607df9e38f946b1b280e25a3780b, type: 3}
@@ -1204,9 +1205,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84503f709f3de894eae5bafe6b9b5e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onUnitDeath:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &1216881208533290261
 PrefabInstance:
   m_ObjectHideFlags: 0

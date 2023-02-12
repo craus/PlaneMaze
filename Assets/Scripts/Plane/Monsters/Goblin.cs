@@ -6,14 +6,14 @@ using UnityEngine;
 
 public class Goblin : Monster
 {
-    public bool TryAttack(Vector2Int delta) {
+    public async Task<bool> TryAttack(Vector2Int delta) {
         if (figure.location.GetFigure<PeaceTrap>() != null) {
             return false;
         }
 
         var newPosition = figure.location.Shift(delta);
         if (newPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
-            Attack(newPosition.GetFigure<Player>());
+            await Attack(newPosition.GetFigure<Player>());
             return true;
         }
         return false;
@@ -22,7 +22,7 @@ public class Goblin : Monster
     public override async Task Move() {
         var delta = moves.Rnd();
         if (!(await figure.TryWalk(delta))) {
-            if (!TryAttack(delta)) {
+            if (!await TryAttack(delta)) {
                 await figure.FakeMove(delta);
             }
         }
