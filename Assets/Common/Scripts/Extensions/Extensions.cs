@@ -502,9 +502,18 @@ public static class Extensions
         int cnt = collection.Count();
         if (cnt == 0)
         {
-            return default(T);
+            return default;
         }
         return collection.ElementAt(UnityEngine.Random.Range(0, cnt));
+    }
+
+    public static T Rnd<T>(this IEnumerable<T> collection, Func<T, bool> preferrable) {
+        var preferrableElements = collection.Where(preferrable).ToList();
+        if (preferrableElements.Count > 0) {
+            return preferrableElements.Rnd();
+        } else {
+            return collection.Rnd();
+        }
     }
 
     public static T Rnd<T>(this List<T> collection)

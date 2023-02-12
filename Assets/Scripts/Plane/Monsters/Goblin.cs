@@ -6,6 +6,13 @@ using UnityEngine;
 
 public class Goblin : Monster
 {
+    public Vector2Int currentDirection;
+
+    public override void Awake() {
+        base.Awake();
+        currentDirection = moves.Rnd();
+    }
+
     public async Task<bool> TryAttack(Vector2Int delta) {
         if (figure.location.GetFigure<PeaceTrap>() != null) {
             return false;
@@ -19,11 +26,16 @@ public class Goblin : Monster
         return false;
     }
 
+    //сделай паттерн движения такой: 
+    //пускай едет в каком-нибудь направлении, а когда не может, 
+    //меняет направление на случайное из тех, 
+    //в которые можно ехать.
+    //чтобы она не билась в стену много раз.
     public override async Task Move() {
-        var delta = moves.Rnd();
-        if (!(await figure.TryWalk(delta))) {
-            if (!await TryAttack(delta)) {
-                await figure.FakeMove(delta);
+        if (!await figure.TryWalk(currentDirection)) {
+            if (!await TryAttack(currentDirection)) {
+                await figure.FakeMove(currentDirection);
+                currentDirection = moves.Rnd(m => figure.location.Shift(m).Free);
             }
         }
     }
