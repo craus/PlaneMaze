@@ -37,6 +37,9 @@ public class Dart : Weapon
                 await Attack(enemy);
                 return true;
             }
+            if (!currentPosition.Free) {
+                return false;
+            }
         }
         return false;
     }
