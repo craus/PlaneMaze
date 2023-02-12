@@ -15,16 +15,6 @@ public class Player : Unit
     public Wall wallSample;
     public Building markSample;
 
-    public override void AfterMove(Cell from, bool isTeleport) {
-        if (!isTeleport) {
-            if (from != figure.location) {
-                if (figure.location.fieldCell.teleport) {
-                    figure.Move(figure.location.board.GetCell(figure.location.fieldCell.teleportTarget), isTeleport: true);
-                }
-            }
-        }
-    }
-
     public void Take(Item item) {
         item.Pick();
     }

@@ -12,7 +12,6 @@ public class Figure : MonoBehaviour
 
     public Cell savePoint;
 
-    public UnityEvent<Cell, bool> afterMove;
     public Func<Cell, Figure, Task> collide = (c, f) => Task.CompletedTask;
 
     public void TryMoveWall(Cell from, Cell to) {
@@ -87,33 +86,42 @@ public class Figure : MonoBehaviour
         return true;
     }
 
-    public async Task Move(Cell newPosition, bool isTeleport = false, Cell fakeMove = null) {
+    public async Task Move(Cell newPosition, bool isTeleport = false, Cell fakeMove = null, bool teleportAnimation = false) {
         var from = location;
         if (location != null) {
             location.figures.Remove(this);
         }
         location = newPosition;
+
+        if (from != location) {
+            foreach (var f in location.figures.ToList()) {
+                await f.collide(from, this);
+                if (this == null) {
+                    return;
+                }
+            }
+        }
+
         if (location != null) {
             location.figures.Add(this);
         }
 
-        if (from != location) {
-            location.figures.ToList().ForEach(async f => await f.collide(from, this));
-        }
-        afterMove.Invoke(from, isTeleport);
-
         if (newPosition != null) {
-            if (newPosition.fieldCell.trap) {
-                await Move(savePoint);
-            }
-            await UpdateTransform(fakeMove, isTeleport);
+            await UpdateTransform(fakeMove, isTeleport, teleportAnimation);
         }
     }
 
-    private async Task UpdateTransform(Cell fakeMove, bool isTeleport) {
+    private async Task UpdateTransform(Cell fakeMove, bool isTeleport, bool teleportAnimation = false) {
         if (isTeleport) {
-            transform.position = location.transform.position;
-            return;
+            if (!teleportAnimation) {
+                transform.position = location.transform.position;
+                return;
+            } else {
+                await transform.Zoom(Vector3.zero, 0.1f);
+                transform.position = location.transform.position;
+                await transform.Zoom(Vector3.one, 0.1f);
+                return;
+            }
         }
         if (fakeMove == null) {
             await transform.Move(location.transform.position, 0.05f);

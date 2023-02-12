@@ -10,6 +10,7 @@ public static class Helpers
 {
     public async static Task TeleportAway(Figure figure, int radius) {
         var destination = figure.location.Vicinity(maxDx: radius, maxDy: radius).Where(c => c.Free).Rnd();
-        await figure.Move(destination, isTeleport: true);
+
+        await figure.Move(destination, isTeleport: true, teleportAnimation: true);
     }
 }

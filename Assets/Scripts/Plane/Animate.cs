@@ -31,4 +31,30 @@ public static class Animate
             await Task.Delay((int)(duration / steps * 1000));
         }
     }
+
+    public async static Task Zoom(
+        this Transform transform,
+        Vector3 endZoom,
+        float duration,
+        int steps = 7,
+        float startPhase = 0,
+        float endPhase = 1
+    ) {
+        var startZoom = transform.localScale;
+
+        for (int i = 1; i <= steps; i++) {
+            var phase = i * 1f / steps;
+            if (phase < startPhase) {
+                continue;
+            }
+            if (phase > endPhase) {
+                break;
+            }
+            if (transform == null) {
+                return;
+            }
+            transform.localScale = Vector3.Lerp(startZoom, endZoom, phase);
+            await Task.Delay((int)(duration / steps * 1000));
+        }
+    }
 }

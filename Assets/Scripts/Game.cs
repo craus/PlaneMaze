@@ -255,7 +255,6 @@ public class Game : MonoBehaviour
     public async Task AfterPlayerMove() {
         await Task.WhenAll(monsters.Select(m => m.Move()));
         afterPlayerMove.Invoke();
-
         time++;
     }
 }
