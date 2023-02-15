@@ -93,6 +93,10 @@ public class Figure : MonoBehaviour
         }
         location = newPosition;
 
+        if (newPosition != null) {
+            await UpdateTransform(fakeMove, isTeleport, teleportAnimation);
+        }
+
         if (from != location) {
             foreach (var f in location.figures.ToList()) {
                 await f.collide(from, this);
@@ -104,10 +108,6 @@ public class Figure : MonoBehaviour
 
         if (location != null) {
             location.figures.Add(this);
-        }
-
-        if (newPosition != null) {
-            await UpdateTransform(fakeMove, isTeleport, teleportAnimation);
         }
     }
 

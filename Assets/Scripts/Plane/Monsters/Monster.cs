@@ -39,14 +39,23 @@ public abstract class Monster : Unit
     }
 
     public async Task Move() {
+        if (!alive) {
+            return;
+        }
         if (GetComponent<MovesReserve>().Current < 0) {
             await GetComponent<MovesReserve>().Haste(1);
             return;
         }
         await MakeMove();
+        if (!alive) {
+            return;
+        }
         for (int i = 0; i < 10 && GetComponent<MovesReserve>().Current > 0; i++) {
             await GetComponent<MovesReserve>().Freeze(1);
-            await MakeMove();
+            await MakeMove(); 
+            if (!alive) {
+                return;
+            }
         }
     }
 

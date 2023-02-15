@@ -47,6 +47,9 @@ public class Player : Unit
         } else {
             await MoveTakeActions(delta);
         }
+        if (!alive) {
+            return;
+        }
         if (GetComponent<MovesReserve>().Current > 0) {
             await GetComponent<MovesReserve>().Freeze(1);
         } else {
