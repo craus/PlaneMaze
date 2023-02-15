@@ -22,6 +22,9 @@ public class WolfTrap : MonoBehaviour
     }
 
     private async Task Attack(Unit victim) {
+        if (!Game.CanAttack(null, victim)) {
+            return;
+        }
         var ap = Instantiate(attackProjectileSample);
         ap.transform.position = victim.transform.position;
         await Task.Delay(100);

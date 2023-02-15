@@ -62,6 +62,7 @@ public abstract class Monster : Unit
         if (!alive) {
             return;
         }
+        await GetComponent<Invulnerability>().Spend(1);
         if (GetComponent<MovesReserve>().Current < 0) {
             await GetComponent<MovesReserve>().Haste(1);
             return;

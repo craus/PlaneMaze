@@ -42,6 +42,7 @@ public class Player : Unit
     }
 
     private async void Move(Vector2Int delta) {
+        await GetComponent<Invulnerability>().Spend(1);
         if (GetComponent<MovesReserve>().Current < 0) {
             await GetComponent<MovesReserve>().Haste(1);
         } else {

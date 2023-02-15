@@ -247,7 +247,7 @@ public class Game : MonoBehaviour
             monsters.Add(GenerateFigure(cell, monsterSamples.rnd()));
         } else if (Rand.rndEvent(0.03f)) {
             GenerateFigure(cell, weaponSamples.rnd());
-        } else if (Rand.rndEvent(0.1f)) {
+        } else if (Rand.rndEvent(0.4f)) {
             GenerateFigure(cell, terrainSamples.weightedRnd());
         }
     }
@@ -258,7 +258,10 @@ public class Game : MonoBehaviour
         time++;
     }
 
+    private static bool CanAttack(Unit attacker) => attacker == null || attacker.figure.location.GetFigure<PeaceTrap>() == null;
+    private static bool CanBeAttacked(Unit defender) => defender != null && defender.figure.location.GetFigure<Hill>() == null && defender.Vulnerable;
+
     public static bool CanAttack(Unit attacker, Unit defender) {
-        return attacker.figure.location.GetFigure<PeaceTrap>() == null && defender.figure.location.GetFigure<Hill>() == null;
+        return CanAttack(attacker) && CanBeAttacked(defender);
     }
 }

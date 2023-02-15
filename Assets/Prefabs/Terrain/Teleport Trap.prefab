@@ -164,9 +164,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   location: {fileID: 0}
   savePoint: {fileID: 0}
-  afterMove:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &6966650289289424777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,3 +176,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e264cdd0264c72458cbea863b238488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  teleportRadius: 6
+  invulnerabilityTurns: 3

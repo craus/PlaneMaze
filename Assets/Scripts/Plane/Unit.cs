@@ -9,6 +9,8 @@ public class Unit : MonoBehaviour
 {
     public virtual bool Flying => false;
 
+    public bool Vulnerable => GetComponent<Invulnerability>().Current == 0;
+
     public Figure figure;
 
     public bool alive = true;
