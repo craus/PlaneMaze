@@ -9,12 +9,14 @@ public abstract class Weapon : MonoBehaviour
 {
     public int damage = 1;
 
+    public virtual bool CanAttackOnHill => false;
+
     public Unit Owner => Player.instance;
 
     public GameObject attackProjectileSample;
 
     public virtual async Task<bool> Attack(Unit target) {
-        if (!Game.CanAttack(Owner, target)) {
+        if (!Game.CanAttack(Owner, target, this)) {
             return false;
         }
 

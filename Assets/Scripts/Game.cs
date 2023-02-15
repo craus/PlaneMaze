@@ -259,9 +259,12 @@ public class Game : MonoBehaviour
     }
 
     private static bool CanAttack(Unit attacker) => attacker == null || attacker.figure.location.GetFigure<PeaceTrap>() == null;
-    private static bool CanBeAttacked(Unit defender) => defender != null && defender.figure.location.GetFigure<Hill>() == null && defender.Vulnerable;
+    private static bool CanBeAttacked(Unit defender, Weapon weapon) => 
+        defender != null && 
+        (defender.figure.location.GetFigure<Hill>() == null || weapon != null &&weapon.CanAttackOnHill) && 
+        defender.Vulnerable;
 
-    public static bool CanAttack(Unit attacker, Unit defender) {
-        return CanAttack(attacker) && CanBeAttacked(defender);
+    public static bool CanAttack(Unit attacker, Unit defender, Weapon weapon = null) {
+        return CanAttack(attacker) && CanBeAttacked(defender, weapon);
     }
 }

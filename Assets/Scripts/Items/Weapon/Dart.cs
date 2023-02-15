@@ -9,8 +9,10 @@ public class Dart : Weapon
 {
     public int range = 4;
 
+    public override bool CanAttackOnHill => true;
+
     public override async Task<bool> Attack(Unit target) {
-        if (!Game.CanAttack(Owner, target)) {
+        if (!Game.CanAttack(Owner, target, this)) {
             return false;
         }
 
