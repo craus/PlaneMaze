@@ -261,10 +261,16 @@ public class Game : MonoBehaviour
     private static bool CanAttack(Unit attacker) => attacker == null || attacker.figure.location.GetFigure<PeaceTrap>() == null;
     private static bool CanBeAttacked(Unit defender, Weapon weapon) => 
         defender != null && 
-        (defender.figure.location.GetFigure<Hill>() == null || weapon != null &&weapon.CanAttackOnHill) && 
         defender.Vulnerable;
 
-    public static bool CanAttack(Unit attacker, Unit defender, Weapon weapon = null) {
-        return CanAttack(attacker) && CanBeAttacked(defender, weapon);
-    }
+    private static bool IsRanged(Unit attacker, Unit defender) => 
+        (defender.figure.location.position - attacker.figure.location.position).MaxDelta() >= 2;
+
+    private static bool Highground(Unit attacker, Unit defender) => 
+        defender.figure.location.GetFigure<Hill>() != null && attacker.figure.location.GetFigure<Hill>() == null;
+
+    public static bool CanAttack(Unit attacker, Unit defender, Weapon weapon = null) =>
+        CanAttack(attacker) &&
+        CanBeAttacked(defender, weapon) &&
+        (IsRanged(attacker, defender) || !Highground(attacker, defender));
 }
