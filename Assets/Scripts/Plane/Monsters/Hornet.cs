@@ -9,20 +9,18 @@ public class Hornet : Monster
     public override bool Flying => true;
 
     public async Task<bool> TryAttack(Vector2Int delta) {
-        if (figure.location.GetFigure<PeaceTrap>() != null) {
-            return false;
-        }
-
         var leftPosition = figure.location.Shift(delta.Relative(1, 1));
         if (leftPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
-            await Attack(leftPosition.GetFigure<Unit>());
-            return true;
+            if (await Attack(leftPosition.GetFigure<Unit>())) {
+                return true;
+            }
         }
 
         var rightPosition = figure.location.Shift(delta.Relative(1, -1));
         if (rightPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
-            await Attack(rightPosition.GetFigure<Unit>());
-            return true;
+            if (await Attack(rightPosition.GetFigure<Unit>())) {
+                return true;
+            }
         }
 
         return false;

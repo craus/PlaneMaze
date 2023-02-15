@@ -257,4 +257,8 @@ public class Game : MonoBehaviour
         afterPlayerMove.Invoke();
         time++;
     }
+
+    public static bool CanAttack(Unit attacker, Unit defender) {
+        return attacker.figure.location.GetFigure<PeaceTrap>() == null && defender.figure.location.GetFigure<Hill>() == null;
+    }
 }

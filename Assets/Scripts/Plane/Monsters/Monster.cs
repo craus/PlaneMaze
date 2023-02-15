@@ -28,18 +28,24 @@ public abstract class Monster : Unit
         base.Awake();
     }
 
-    public async Task Attack(Unit target) {
+    public async Task<bool> Attack(Unit target) {
+        if (!Game.CanAttack(this, target)) {
+            return false;
+        }
+
         var ap = Instantiate(attackProjectile);
         ap.gameObject.SetActive(true); // object was inactive for unknown reason
         ap.transform.position = target.transform.position;
 
         await Task.Delay(100);
 
-        target.Hit(damage);
+        await target.Hit(damage);
 
         if (ap != null) {
             Destroy(ap);
         }
+
+        return true;
     }
 
     protected List<Vector2Int> moves = new List<Vector2Int>() {

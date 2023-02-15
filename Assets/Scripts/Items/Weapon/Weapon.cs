@@ -13,7 +13,11 @@ public abstract class Weapon : MonoBehaviour
 
     public GameObject attackProjectileSample;
 
-    public virtual async Task Attack(Unit target) {
+    public virtual async Task<bool> Attack(Unit target) {
+        if (!Game.CanAttack(Owner, target)) {
+            return false;
+        }
+
         var ap = Instantiate(attackProjectileSample);
         ap.transform.rotation = Quaternion.LookRotation(Vector3.forward, target.transform.position - Owner.transform.position);
         ap.transform.position = Vector3.Lerp(Owner.transform.position, target.transform.position, 0.75f);
@@ -23,6 +27,8 @@ public abstract class Weapon : MonoBehaviour
             Destroy(ap);
         }
         await target.Hit(damage);
+
+        return true;
     }
 
     public async virtual Task<bool> BeforeWalk(Vector2Int delta) {

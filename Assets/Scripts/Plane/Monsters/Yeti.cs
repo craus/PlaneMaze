@@ -16,14 +16,9 @@ public class Yeti : Monster
     }
 
     public async Task<bool> TryAttack(Vector2Int delta) {
-        if (figure.location.GetFigure<PeaceTrap>() != null) {
-            return false;
-        }
-
         var newPosition = figure.location.Shift(delta);
         if (newPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
-            await Attack(newPosition.GetFigure<Player>());
-            return true;
+            return await Attack(newPosition.GetFigure<Player>());
         }
         return false;
     }

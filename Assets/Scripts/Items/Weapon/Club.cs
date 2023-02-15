@@ -8,26 +8,22 @@ using UnityEngine;
 public class Club : Weapon
 {
     public override async Task<bool> TryAttack(Vector2Int delta) {
-        if (Owner.figure.location.GetFigure<PeaceTrap>() != null) {
-            return false;
-        }
-
         var newPosition = Owner.figure.location.Shift(delta);
         var target = newPosition.GetFigure<Unit>();
-        if (target != null) {
-            if (target.figure.location.Shift(delta).Free) {
-                await Attack(target);
-                if (target.alive) {
-                    await target.figure.TryWalk(delta);
-                }
-                return true;
-            } else {
-                await target.figure.FakeMove(delta);
-                return true;
-            }
-        } else {
+        if (target == null) {
             return false;
         }
+        if (!target.figure.location.Shift(delta).Free) {
+            await target.figure.FakeMove(delta);
+            return true;
+        } 
+        if (!await Attack(target)) {
+            return false;
+        }
+        if (target.alive) {
+            await target.figure.TryWalk(delta);
+        }
+        return true;
     }
 
     public override Task<bool> AfterFailedWalk(Vector2Int delta) => TryAttack(delta);
