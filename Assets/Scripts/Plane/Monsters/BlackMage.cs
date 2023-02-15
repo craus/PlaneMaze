@@ -30,15 +30,7 @@ public class BlackMage : Monster
     }
 
     public async Task DealDeathDamage(Unit target) {
-        var ap = Instantiate(attackProjectile);
-        ap.transform.position = target.figure.location.transform.position;
-
-        await Task.Delay(100);
-        await target.Hit(deathDamage);
-
-        if (ap != null) {
-            Destroy(ap);
-        }
+        await Attack(target);
     }
 
     public async Task ConsumeSoul(Unit unit) {
