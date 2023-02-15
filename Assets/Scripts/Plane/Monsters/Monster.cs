@@ -35,7 +35,19 @@ public abstract class Monster : Unit
         Vector2Int.left,
     };
 
-    public virtual async Task Move() {
+    protected virtual async Task MakeMove() {
+    }
+
+    public async Task Move() {
+        if (GetComponent<MovesReserve>().Current < 0) {
+            await GetComponent<MovesReserve>().Haste(1);
+            return;
+        }
+        await MakeMove();
+        for (int i = 0; i < 10 && GetComponent<MovesReserve>().Current > 0; i++) {
+            await GetComponent<MovesReserve>().Freeze(1);
+            await MakeMove();
+        }
     }
 
     public override async Task Die() {

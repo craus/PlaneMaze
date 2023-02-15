@@ -31,7 +31,7 @@ public class Goblin : Monster
     //меняет направление на случайное из тех, 
     //в которые можно ехать.
     //чтобы она не билась в стену много раз.
-    public override async Task Move() {
+    protected override async Task MakeMove() {
         if (!await figure.TryWalk(currentDirection)) {
             if (!await TryAttack(currentDirection)) {
                 await figure.FakeMove(currentDirection);

@@ -38,7 +38,7 @@ public class Yeti : Monster
         }
     }
 
-    public override async Task Move() {
+    protected override async Task MakeMove() {
         if (!await figure.TryWalk(currentDirection)) {
             if (!await TryAttack(currentDirection)) {
                 await figure.FakeMove(currentDirection);

@@ -26,7 +26,7 @@ public class Hornet : Monster
         return false;
     }
 
-    public override async Task Move() {
+    protected override async Task MakeMove() {
         var delta = moves.Rnd();
         if (!(await TryAttack(delta))) {
             if (!await figure.TryWalk(delta)) {

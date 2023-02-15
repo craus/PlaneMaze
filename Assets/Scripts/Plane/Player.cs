@@ -42,8 +42,16 @@ public class Player : Unit
     }
 
     private async void Move(Vector2Int delta) {
-        await MoveTakeActions(delta);
-        await Game.instance.AfterPlayerMove();
+        if (GetComponent<MovesReserve>().Current < 0) {
+            await GetComponent<MovesReserve>().Haste(1);
+        } else {
+            await MoveTakeActions(delta);
+        }
+        if (GetComponent<MovesReserve>().Current > 0) {
+            await GetComponent<MovesReserve>().Freeze(1);
+        } else {
+            await Game.instance.AfterPlayerMove();
+        }
     }
 
     public void Update() {
