@@ -88,10 +88,14 @@ public class Figure : MonoBehaviour
 
     public async Task Move(Cell newPosition, bool isTeleport = false, Cell fakeMove = null, bool teleportAnimation = false) {
         var from = location;
-        if (location != null) {
+        if (!fakeMove && location != null) {
             location.figures.Remove(this);
         }
         location = newPosition;
+
+        if (!fakeMove && location != null) {
+            location.figures.Add(this);
+        }
 
         if (newPosition != null) {
             await UpdateTransform(fakeMove, isTeleport, teleportAnimation);
@@ -104,10 +108,6 @@ public class Figure : MonoBehaviour
                     return;
                 }
             }
-        }
-
-        if (location != null) {
-            location.figures.Add(this);
         }
     }
 
