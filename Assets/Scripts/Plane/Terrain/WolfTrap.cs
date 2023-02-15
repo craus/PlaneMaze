@@ -15,7 +15,7 @@ public class WolfTrap : MonoBehaviour
     public void Awake() {
         GetComponent<Figure>().collide = async (from, figure) => {
             var victim = figure.GetComponent<Unit>();
-            if (victim != null) {
+            if (victim != null && !victim.Flying) {
                 await Attack(victim);
             }
         };

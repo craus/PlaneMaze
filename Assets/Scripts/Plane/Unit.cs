@@ -7,6 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(Figure))]
 public class Unit : MonoBehaviour
 {
+    public virtual bool Flying => false;
+
     public Figure figure;
 
     public bool alive = true;

@@ -39,9 +39,9 @@ public class Yeti : Monster
     }
 
     protected override async Task MakeMove() {
-        if (!await figure.TryWalk(currentDirection)) {
+        if (!await SmartWalk(currentDirection)) {
             if (!await TryAttack(currentDirection)) {
-                await figure.FakeMove(currentDirection);
+                await SmartFakeMove(currentDirection);
                 currentDirection *= -1;
                 UpdateSprite();
             }

@@ -32,9 +32,9 @@ public class Goblin : Monster
     //в которые можно ехать.
     //чтобы она не билась в стену много раз.
     protected override async Task MakeMove() {
-        if (!await figure.TryWalk(currentDirection)) {
+        if (!await SmartWalk(currentDirection)) {
             if (!await TryAttack(currentDirection)) {
-                await figure.FakeMove(currentDirection);
+                await SmartFakeMove(currentDirection);
                 currentDirection = moves.Rnd(m => figure.location.Shift(m).Free);
             }
         }

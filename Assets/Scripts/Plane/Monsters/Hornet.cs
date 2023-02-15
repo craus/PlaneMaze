@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Hornet : Monster
 {
+    public override bool Flying => true;
+
     public async Task<bool> TryAttack(Vector2Int delta) {
         if (figure.location.GetFigure<PeaceTrap>() != null) {
             return false;
@@ -28,7 +30,7 @@ public class Hornet : Monster
 
     protected override async Task MakeMove() {
         var delta = moves.Rnd();
-        if (!(await TryAttack(delta))) {
+        if (!await TryAttack(delta)) {
             if (!await figure.TryWalk(delta)) {
                 await figure.FakeMove(delta);
             }

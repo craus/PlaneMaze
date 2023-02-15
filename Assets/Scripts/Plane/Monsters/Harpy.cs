@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Harpy : Monster
 {
+    public override bool Flying => true;
+
     public async Task<bool> TryAttack(Vector2Int delta) {
         if (figure.location.GetFigure<PeaceTrap>() != null) {
             return false;

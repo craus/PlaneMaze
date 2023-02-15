@@ -7,6 +7,20 @@ using UnityEngine;
 [RequireComponent(typeof(Figure))]
 public abstract class Monster : Unit
 {
+    protected async Task<bool> SmartWalk(Vector2Int delta) {
+        if (figure.location.Shift(delta).GetFigure<WolfTrap>() != null) {
+            return false;
+        }
+        return await figure.TryWalk(delta);
+    }
+
+    protected async Task<bool> SmartFakeMove(Vector2Int delta) {
+        //if (figure.location.Shift(delta).GetFigure<WolfTrap>() != null) {
+        //    return false;
+        //}
+        return await figure.FakeMove(delta);
+    }
+
     public GameObject attackProjectile;
     public int damage = 1;
 
