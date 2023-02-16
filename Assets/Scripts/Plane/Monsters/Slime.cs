@@ -44,7 +44,9 @@ public class Slime : Monster
         Vector2Int playerDelta = Player.instance.figure.location.position - figure.location.position;
 
         if (playerDelta.SumDelta() == 1) {
-            await TryAttack(playerDelta);
+            if (!await TryAttack(playerDelta)) {
+                await figure.FakeMove(playerDelta);
+            }
         } else {
             var delta = moves.Rnd();
             if (!await TryAttack(delta)) {

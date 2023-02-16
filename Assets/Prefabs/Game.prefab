@@ -1135,7 +1135,7 @@ MonoBehaviour:
   cellOrderList: []
   unlockedCells: 1000000000
   time: 0
-  ghostSpawnTimeReductionHalfLife: 2000
+  ghostSpawnTimeReductionHalfLife: 8000
   ghostSpawnProbabilityPerTurn: 0
   boardSample: {fileID: 4431957465168648574, guid: fcb2ff9050c98424e87f885026a6af7b, type: 3}
   board: {fileID: 0}
