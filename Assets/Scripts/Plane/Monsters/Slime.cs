@@ -78,6 +78,7 @@ public class Slime : Monster
             var child = Instantiate(childSample);
             Game.instance.monsters.Add(child);
             child.size = size - 1;
+            await child.GetComponent<MovesReserve>().Freeze(1);
             child.Init();
             await child.figure.Move(p);
         }
