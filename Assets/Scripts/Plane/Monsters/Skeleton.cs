@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class Skeleton : Monster
 {
+    public override bool HasSoul => false;
+    public override int Money => 0;
+
     public SpriteRenderer sprite;
 
     public async Task<bool> TryAttack(Vector2Int delta) {
