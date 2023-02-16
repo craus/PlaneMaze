@@ -8,7 +8,7 @@ using UnityEngine;
 public abstract class Monster : Unit
 {
     protected async Task<bool> SmartWalk(Vector2Int delta) {
-        if (figure.location.Shift(delta).GetFigure<WolfTrap>() != null) {
+        if (!Flying && figure.location.Shift(delta).GetFigure<WolfTrap>() != null) {
             return false;
         }
         return await figure.TryWalk(delta);
