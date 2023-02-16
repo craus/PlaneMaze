@@ -149,9 +149,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   location: {fileID: 0}
   savePoint: {fileID: 0}
-  afterMove:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &6709523031005257608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,6 +166,8 @@ MonoBehaviour:
   damagedSellCost: 13
   health: 5
   maxHealth: 5
+  undestructible: 0
+  wallSample: {fileID: 6709523031005257608}
   healthText: {fileID: 5542553448972784706}
 --- !u!1 &1122280676006126057
 GameObject:

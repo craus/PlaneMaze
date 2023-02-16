@@ -29,14 +29,22 @@ public class Unit : MonoBehaviour
         await GetComponent<Health>().Hit(damage);
     }
 
+    protected virtual async Task BeforeDie() {
+    }
+
+    protected virtual async Task AfterDie() {
+    }
+
     public virtual async Task Die() {
         if (!alive) {
             return;
         }
+        await BeforeDie();
         alive = false;
         Destroy(gameObject);
         foreach (var listener in GameEvents.instance.onUnitDeath.ToList()) {
             await listener(this);
         }
+        await AfterDie();
     }
 }

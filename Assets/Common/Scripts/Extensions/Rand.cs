@@ -54,21 +54,24 @@ public static class Rand
 		return rnd(matrix);
 	}
 
-	public static List<T> RndSelection<T>(this List<T> collection, int cnt) {
-		if (cnt > collection.Count) {
-			return collection;
-		}
-		List<T> result = new List<T>();
-		int trash = collection.Count - cnt;
-		collection.ForEach(x => {
+	/// <summary>
+	/// возвращает случайное подмножество коллекции заданного размера
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="collection"></param>
+	/// <param name="cnt"></param>
+	/// <returns></returns>
+	public static IEnumerable<T> RndSelection<T>(this IEnumerable<T> collection, int cnt) {
+		cnt = Mathf.Clamp(cnt, 0, collection.Count()); 
+		int trash = collection.Count() - cnt;
+		foreach (var x in collection) {
 			if (UnityEngine.Random.Range(0, cnt + trash) < cnt) {
-				result.Add(x);
+				yield return x;
 				--cnt;
 			} else {
 				--trash;
 			}
-		});
-		return result;
+		};
 	}
 
 	public static List<T> RndSelection<T>(this List<T> collection, int cnt, IEnumerable<T> alwaysInclude) {

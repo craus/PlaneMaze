@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -103,6 +104,16 @@ public class Cell : MonoBehaviour
                 yield return Shift(i, j);
             }
         }
+    }
+
+    internal IEnumerable<Cell> SmallestVicinity(Func<IEnumerable<Cell>, bool> criteria) {
+        for (int i = 1; i < 10; i++) {
+            var v = Vicinity(i);
+            if (criteria(v)) {
+                return v;
+            }
+        }
+        return null;
     }
 
     public T GetFigure<T>() => figures.Select(f => f.GetComponent<T>()).FirstOrDefault(t => t != null);

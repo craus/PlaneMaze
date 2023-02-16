@@ -7,16 +7,28 @@ using UnityEngine;
 public class Slime : Monster
 {
     public int size = 1;
+    public int childrenCount = 2;
 
     public int cooldown;
     public int currentCooldown;
 
+    [SerializeField] private Slime childSample;
+    [SerializeField] private Transform slimeSizeTransform;
+
+    public override bool HasSoul => size == 0;
+    public override int Money => size == 0 ? 1 : 0;
+
     public override void Awake() {
         base.Awake();
-        UpdateSprite();
-        damage += size;
+        Init();
+    }
+
+    public void Init() {
+        damage = size;
         cooldown = 1 + size;
         currentCooldown = cooldown;
+        GetComponent<Health>().current = GetComponent<Health>().max = 1 + size;
+        UpdateSprite();
     }
 
     public async Task<bool> TryAttack(Vector2Int delta) {
@@ -28,6 +40,7 @@ public class Slime : Monster
     }
 
     private void UpdateSprite() {
+        slimeSizeTransform.localScale = 0.5f * (1 + size) * Vector3.one;
     }
 
     protected override async Task MakeMove() {
@@ -50,5 +63,23 @@ public class Slime : Monster
         }
 
         currentCooldown = cooldown;
+    }
+
+    protected async override Task AfterDie() {
+        await base.AfterDie();
+        if (size == 0) {
+            return;
+        }
+        foreach (
+            var p in 
+            Rand.RndSelection(figure.location.SmallestVicinity(v => v.Count(c => c.Free) >= childrenCount)
+            .Where(c => c.Free), childrenCount)
+        ) {
+            var child = Instantiate(childSample);
+            Game.instance.monsters.Add(child);
+            child.size = size - 1;
+            child.Init();
+            await child.figure.Move(p);
+        }
     }
 }

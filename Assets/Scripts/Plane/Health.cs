@@ -11,8 +11,8 @@ public class Health : MonoBehaviour
 
     public List<Transform> hearts;
 
-    [SerializeField] private int current = 3;
-    [SerializeField] private int max = 3;
+    public int current = 3;
+    public int max = 3;
 
     public int Current => current;
 

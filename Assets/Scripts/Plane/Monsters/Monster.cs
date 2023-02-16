@@ -80,8 +80,7 @@ public abstract class Monster : Unit
         }
     }
 
-    public override async Task Die() {
-        await base.Die();
+    protected override async Task AfterDie() {
         Player.instance.gems += Money;
         Game.instance.monsters.Remove(this);
     }
