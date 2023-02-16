@@ -264,10 +264,13 @@ public class Game : MonoBehaviour
         defender.Vulnerable;
 
     private static bool IsRanged(Unit attacker, Unit defender) => 
+        attacker != null &&
         (defender.figure.location.position - attacker.figure.location.position).MaxDelta() >= 2;
 
-    private static bool Highground(Unit attacker, Unit defender) => 
-        defender.figure.location.GetFigure<Hill>() != null && attacker.figure.location.GetFigure<Hill>() == null;
+    private static bool Highground(Unit attacker, Unit defender) =>
+        attacker != null &&
+        defender.figure.location.GetFigure<Hill>() != null && 
+        attacker.figure.location.GetFigure<Hill>() == null;
 
     public static bool CanAttack(Unit attacker, Unit defender, Weapon weapon = null) =>
         CanAttack(attacker) &&
