@@ -1110,7 +1110,6 @@ MonoBehaviour:
   - {fileID: 5504667808349519680, guid: 14d5395e5f9830046ae12a7cd973091d, type: 3}
   - {fileID: 5504667808349519680, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
   - {fileID: 6890977442324438375, guid: 638b307a4da242e4f83533adda2c4c9c, type: 3}
-  - {fileID: 5504667808349519680, guid: 26b7e0628829b604684f5107a4a9a1ff, type: 3}
   monsters: []
   weaponSamples:
   - {fileID: 8761000423821239552, guid: 0a90607df9e38f946b1b280e25a3780b, type: 3}
@@ -1132,9 +1131,12 @@ MonoBehaviour:
     weight: 0.3
   - to: {fileID: 1881276151569630265, guid: 223d624819fa4cb48b529497b8cd0899, type: 3}
     weight: 0.3
+  ghostSample: {fileID: 5504667808349519680, guid: 26b7e0628829b604684f5107a4a9a1ff, type: 3}
   cellOrderList: []
   unlockedCells: 1000000000
   time: 0
+  ghostSpawnTimeReductionHalfLife: 2000
+  ghostSpawnProbabilityPerTurn: 0
   boardSample: {fileID: 4431957465168648574, guid: fcb2ff9050c98424e87f885026a6af7b, type: 3}
   board: {fileID: 0}
   gemSample: {fileID: -5931720104371548630, guid: 5dd0e56d03f85e0428917ae2cf43f2d0, type: 3}

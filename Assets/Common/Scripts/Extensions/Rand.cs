@@ -113,7 +113,7 @@ public static class Rand
 		throw new Exception("Failed to normalize weights!");
 	}
 
-	public static T rndExcept<T>(this List<T> list, ICollection<T> except) where T : class {
+	public static T rndExcept<T>(this List<T> list, IEnumerable<T> except) where T : class {
 		return list.Except(except).ToList().rnd();
 	}
 

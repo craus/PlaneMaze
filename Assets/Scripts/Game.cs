@@ -22,10 +22,14 @@ public class Game : MonoBehaviour
     public List<Store> storeSamples;
     public List<Weighted<Figure>> terrainSamples;
 
+    public Ghost ghostSample;
+
     public List<Cell> cellOrderList;
     public int unlockedCells = (int)1e9;
 
     public int time = 0;
+    public int ghostSpawnTimeReductionHalfLife = 1000;
+    public float ghostSpawnProbabilityPerTurn;
 
     public Board boardSample;
     public Board board;
@@ -235,9 +239,9 @@ public class Game : MonoBehaviour
         }
     }
 
-    private T GenerateFigure<T>(Cell cell, T sample) where T: MonoBehaviour {
+    public T GenerateFigure<T>(Cell cell, T sample) where T: MonoBehaviour {
         var f = Instantiate(sample);
-        _ = f.GetComponent<Figure>().Move(cell);
+        _ = f.GetComponent<Figure>().Move(cell, isTeleport: true);
         f.transform.SetParent(figureParent);
         return f;
     }
@@ -256,6 +260,17 @@ public class Game : MonoBehaviour
         await Task.WhenAll(monsters.Select(m => m.Move()));
         afterPlayerMove.Invoke();
         time++;
+
+        ghostSpawnProbabilityPerTurn = 1 - Mathf.Pow(0.5f, time * 1f / ghostSpawnTimeReductionHalfLife);
+        for (int i = 0; i < 4 && Rand.rndEvent(ghostSpawnProbabilityPerTurn); i++) {
+            await SpawnGhost();
+        }
+    }
+
+    private async Task SpawnGhost() {
+        var center = Player.instance.figure.location;
+        var ghost = GenerateFigure(Rand.rndExcept(center.Vicinity(11).Where(c => c.Free).ToList(), center.Vicinity(7)), ghostSample);
+        monsters.Add(ghost);
     }
 
     private static bool CanAttack(Unit attacker) => attacker == null || attacker.figure.location.GetFigure<PeaceTrap>() == null;

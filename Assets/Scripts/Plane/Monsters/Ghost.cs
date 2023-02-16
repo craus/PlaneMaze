@@ -7,7 +7,6 @@ using UnityEngine;
 public class Ghost : Monster
 {
     public override bool Flying => true;
-    public override bool HasSoul => false;
     public override int Money => 0;
     public override bool FreeCell(Cell cell) => !cell.figures.Any(f => f.GetComponent<Unit>() != null && f.GetComponent<Unit>().OccupiesPlace);
 

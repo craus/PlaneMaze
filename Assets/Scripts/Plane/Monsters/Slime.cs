@@ -24,7 +24,7 @@ public class Slime : Monster
     }
 
     public void Init() {
-        damage = size;
+        damage = 1 + size;
         cooldown = 1 + size;
         currentCooldown = cooldown;
         GetComponent<Health>().current = GetComponent<Health>().max = 1 + size;
@@ -67,12 +67,11 @@ public class Slime : Monster
             Rand.RndSelection(figure.location.SmallestVicinity(v => v.Count(c => c.Free) >= childrenCount)
             .Where(c => c.Free), childrenCount)
         ) {
-            var child = Instantiate(childSample);
+            var child = Game.instance.GenerateFigure(p, childSample);
             Game.instance.monsters.Add(child);
             child.size = size - 1;
             await child.GetComponent<MovesReserve>().Freeze(1);
             child.Init();
-            await child.figure.Move(p);
         }
     }
 }
