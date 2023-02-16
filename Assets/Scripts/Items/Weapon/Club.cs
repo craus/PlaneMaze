@@ -20,7 +20,7 @@ public class Club : Weapon
         if (!await Attack(target)) {
             return false;
         }
-        if (target.alive) {
+        if (target.alive && target.Movable) {
             await target.figure.TryWalk(delta);
         }
         return true;

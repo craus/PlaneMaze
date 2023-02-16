@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class BlackMage : Monster
 {
+    public override bool HasSoul => false;
+
     public int deathDetectionRadius = 4;
     public int teleportRadius = 8;
     public int damageRadius = 4;
@@ -34,6 +36,9 @@ public class BlackMage : Monster
     }
 
     public async Task ConsumeSoul(Unit unit) {
+        if (!unit.HasSoul) {
+            return;
+        }
 
         var soul = Instantiate(soulSample);
         soul.transform.position = unit.figure.location.transform.position;

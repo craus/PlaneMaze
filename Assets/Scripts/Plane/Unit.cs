@@ -8,6 +8,9 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
     public virtual bool Flying => false;
+    public virtual bool HasSoul => true;
+    public virtual int Money => 1;
+    public virtual bool Movable => true;
 
     public bool Vulnerable => GetComponent<Invulnerability>().Current == 0;
 

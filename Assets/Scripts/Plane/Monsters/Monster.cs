@@ -82,7 +82,7 @@ public abstract class Monster : Unit
 
     public override async Task Die() {
         await base.Die();
-        Player.instance.gems++;
+        Player.instance.gems += Money;
         Game.instance.monsters.Remove(this);
     }
 }
