@@ -7,11 +7,13 @@ using UnityEngine;
 [RequireComponent(typeof(Figure))]
 public abstract class Monster : Unit
 {
+    public virtual bool FreeCell(Cell cell) => cell.Free;
+
     protected async Task<bool> SmartWalk(Vector2Int delta) {
         if (!Flying && figure.location.Shift(delta).GetFigure<WolfTrap>() != null) {
             return false;
         }
-        return await figure.TryWalk(delta);
+        return await figure.TryWalk(delta, FreeCell);
     }
 
     protected async Task<bool> SmartFakeMove(Vector2Int delta) {
@@ -26,6 +28,14 @@ public abstract class Monster : Unit
 
     public override void Awake() {
         base.Awake();
+    }
+
+    public virtual async Task<bool> TryAttack(Vector2Int delta) {
+        var newPosition = figure.location.Shift(delta);
+        if (newPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
+            return await Attack(newPosition.GetFigure<Player>());
+        }
+        return false;
     }
 
     public async Task<bool> Attack(Unit target) {

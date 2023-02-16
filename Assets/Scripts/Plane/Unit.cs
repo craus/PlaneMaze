@@ -11,6 +11,7 @@ public class Unit : MonoBehaviour
     public virtual bool HasSoul => true;
     public virtual int Money => 1;
     public virtual bool Movable => true;
+    public virtual bool GhostForm => false;
 
     public virtual bool Vulnerable => GetComponent<Invulnerability>().Current == 0;
 

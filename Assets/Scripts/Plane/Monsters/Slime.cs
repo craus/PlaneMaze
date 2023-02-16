@@ -31,14 +31,6 @@ public class Slime : Monster
         UpdateSprite();
     }
 
-    public async Task<bool> TryAttack(Vector2Int delta) {
-        var newPosition = figure.location.Shift(delta);
-        if (newPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
-            return await Attack(newPosition.GetFigure<Player>());
-        }
-        return false;
-    }
-
     private void UpdateSprite() {
         slimeSizeTransform.localScale = (0.75f + 0.25f * size) * Vector3.one;
     }

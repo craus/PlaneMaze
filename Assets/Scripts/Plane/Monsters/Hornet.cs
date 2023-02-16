@@ -8,7 +8,7 @@ public class Hornet : Monster
 {
     public override bool Flying => true;
 
-    public async Task<bool> TryAttack(Vector2Int delta) {
+    public override async Task<bool> TryAttack(Vector2Int delta) {
         var leftPosition = figure.location.Shift(delta.Relative(1, 1));
         if (leftPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
             if (await Attack(leftPosition.GetFigure<Unit>())) {

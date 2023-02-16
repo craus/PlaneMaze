@@ -15,14 +15,6 @@ public class Yeti : Monster
         UpdateSprite();
     }
 
-    public async Task<bool> TryAttack(Vector2Int delta) {
-        var newPosition = figure.location.Shift(delta);
-        if (newPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
-            return await Attack(newPosition.GetFigure<Player>());
-        }
-        return false;
-    }
-
     private void UpdateSprite() {
         if (currentDirection.x < 0) {
             sprite.flipX = false;

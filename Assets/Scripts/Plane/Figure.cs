@@ -27,9 +27,10 @@ public class Figure : MonoBehaviour
         TryMoveWall(from, from.Shift(delta));
     }
 
-    public async Task<bool> TryWalk(Vector2Int delta) {
+    public async Task<bool> TryWalk(Vector2Int delta, Func<Cell, bool> free = null) {
+        free ??= c => c.Free;
         var newPosition = location.Shift(delta);
-        if (newPosition.Free) {
+        if (free(newPosition)) {
             await Move(newPosition);
             return true;
         }

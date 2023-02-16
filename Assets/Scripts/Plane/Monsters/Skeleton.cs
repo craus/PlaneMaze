@@ -26,14 +26,6 @@ public class Skeleton : Monster
         UpdateSprite();
     }
 
-    public async Task<bool> TryAttack(Vector2Int delta) {
-        var newPosition = figure.location.Shift(delta);
-        if (newPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
-            return await Attack(newPosition.GetFigure<Player>());
-        }
-        return false;
-    }
-
     private async Task Revive() {
         active = true;
         await GetComponent<MovesReserve>().Freeze(1);

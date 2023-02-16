@@ -8,7 +8,7 @@ public class Harpy : Monster
 {
     public override bool Flying => true;
 
-    public async Task<bool> TryAttack(Vector2Int delta) {
+    public override async Task<bool> TryAttack(Vector2Int delta) {
         var newPosition = figure.location.Shift(2*delta);
         if (newPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
             return await Attack(newPosition.GetFigure<Player>());

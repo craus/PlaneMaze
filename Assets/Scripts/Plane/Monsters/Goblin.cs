@@ -13,14 +13,6 @@ public class Goblin : Monster
         currentDirection = moves.Rnd();
     }
 
-    public async Task<bool> TryAttack(Vector2Int delta) {
-        var newPosition = figure.location.Shift(delta);
-        if (newPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
-            return await Attack(newPosition.GetFigure<Player>());
-        }
-        return false;
-    }
-
     //сделай паттерн движения такой: 
     //пускай едет в каком-нибудь направлении, а когда не может, 
     //меняет направление на случайное из тех, 
