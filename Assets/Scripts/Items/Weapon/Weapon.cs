@@ -15,6 +15,15 @@ public abstract class Weapon : MonoBehaviour
 
     public GameObject attackProjectileSample;
 
+    public virtual async Task<bool> TryAttack(Vector2Int delta) {
+        var newPosition = Owner.figure.location.Shift(delta);
+        var target = newPosition.GetFigure<Unit>(u => u.Vulnerable);
+        if (target == null) {
+            return false;
+        }
+        return await Attack(target);
+    }
+
     public virtual async Task<bool> Attack(Unit target) {
         if (!Game.CanAttack(Owner, target, this)) {
             return false;
@@ -38,10 +47,6 @@ public abstract class Weapon : MonoBehaviour
     }
 
     public async virtual Task<bool> AfterFailedWalk(Vector2Int delta) {
-        return false;
-    }
-
-    public async virtual Task<bool> TryAttack(Vector2Int delta) {
         return false;
     }
 }

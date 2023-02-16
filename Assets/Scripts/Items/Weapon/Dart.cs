@@ -37,7 +37,7 @@ public class Dart : Weapon
         var currentPosition = Owner.figure.location;
         for (int i = 0; i < range; i++) {
             currentPosition = currentPosition.Shift(delta);
-            var enemy = currentPosition.GetFigure<Monster>();
+            var enemy = currentPosition.GetFigure<Monster>(m => m.Vulnerable);
             if (enemy != null) {
                 if (await Attack(enemy)) {
                     return true;

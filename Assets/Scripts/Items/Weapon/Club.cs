@@ -9,7 +9,7 @@ public class Club : Weapon
 {
     public override async Task<bool> TryAttack(Vector2Int delta) {
         var newPosition = Owner.figure.location.Shift(delta);
-        var target = newPosition.GetFigure<Unit>();
+        var target = newPosition.GetFigure<Unit>(u => u.Vulnerable);
         if (target == null) {
             return false;
         }

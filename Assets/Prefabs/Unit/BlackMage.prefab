@@ -95,6 +95,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlackMage
       objectReference: {fileID: 0}
+    - target: {fileID: 4484631268678590638, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8185433379572143715, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_RootOrder
       value: 0

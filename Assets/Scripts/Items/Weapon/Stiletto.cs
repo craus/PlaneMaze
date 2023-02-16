@@ -8,19 +8,15 @@ using UnityEngine;
 public class Stiletto : Weapon
 {
     public override async Task<bool> TryAttack(Vector2Int delta) {
-        var newPosition = Owner.figure.location.Shift(delta);
-        if (newPosition.figures.Any(f => f.GetComponent<Unit>() != null)) {
-            if (!await Attack(newPosition.GetFigure<Unit>())) {
-                return false;
+        if (!await base.TryAttack(delta)) {
+            return false;
+        }
+        if (Owner.alive) {
+            if (!await Owner.figure.TryWalk(-delta)) {
+                await Owner.figure.FakeMove(-delta);
             }
-            if (Owner.alive) {
-                if (!await Owner.figure.TryWalk(-delta)) {
-                    await Owner.figure.FakeMove(-delta);
-                }
-            }
-            return true;
-        } 
-        return false;
+        }
+        return true;
     }
 
     public override Task<bool> AfterFailedWalk(Vector2Int delta) => TryAttack(delta);

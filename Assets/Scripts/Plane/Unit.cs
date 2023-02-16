@@ -12,7 +12,9 @@ public class Unit : MonoBehaviour
     public virtual int Money => 1;
     public virtual bool Movable => true;
 
-    public bool Vulnerable => GetComponent<Invulnerability>().Current == 0;
+    public virtual bool Vulnerable => GetComponent<Invulnerability>().Current == 0;
+
+    public virtual bool OccupiesPlace => true;
 
     public Figure figure;
 
