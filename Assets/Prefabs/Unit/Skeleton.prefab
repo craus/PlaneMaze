@@ -208,7 +208,7 @@ MonoBehaviour:
   attackProjectile: {fileID: 7558257676500238022, guid: cfc4e3f00b8a52448b747c87fa87ae29, type: 3}
   damage: 1
   active: 1
-  reviveCooldown: 30
+  reviveCooldown: 16
   currentReviveCooldown: 0
   modelActive: {fileID: 2076000881234852102}
   modelInactive: {fileID: 1322410271555565838}
