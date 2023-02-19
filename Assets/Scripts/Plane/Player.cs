@@ -103,4 +103,16 @@ public class Player : Unit
         gems += building.SellCost;
         Destroy(building.gameObject);
     }
+
+    public override async Task Hit(int damage) {
+        if (this == null) {
+            return;
+        }
+        var bubbleArmor = Inventory.instance.GetItem<BubbleArmor>();
+        if (bubbleArmor != null) {
+            Destroy(bubbleArmor.gameObject);
+            return;
+        }
+        await GetComponent<Health>().Hit(damage);
+    }
 }

@@ -67,4 +67,16 @@ public class Item : MonoBehaviour
         //gameObject.SetActive(!Inventory.instance.items.Contains(this) && Game.instance.player.figure.location != GetComponent<Figure>().location);
         model.SetActive(!Inventory.instance.items.Contains(this));
     }
+
+    [ContextMenu("DestroyIcon")]
+    public void DestroyIcon() {
+    }
+
+    public void OnDestroy() {
+        if (Inventory.instance == null) {
+            return;
+        }
+        Inventory.instance.items.Remove(this);
+        Destroy(icon.gameObject);
+    }
 }

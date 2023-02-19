@@ -28,7 +28,7 @@ public class WolfTrap : MonoBehaviour
         var ap = Instantiate(attackProjectileSample);
         ap.transform.position = victim.transform.position;
         await Task.Delay(100);
-        await victim.GetComponent<Health>().Hit(damage);
+        await victim.Hit(damage);
         Destroy(ap);
     }
 }
