@@ -7,6 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(Figure))]
 public class Unit : MonoBehaviour
 {
+    public Vector2Int lastMove;
+
     public virtual bool Flying => false;
     public virtual bool HasSoul => true;
     public virtual int Money => 1;
@@ -25,11 +27,11 @@ public class Unit : MonoBehaviour
         if (figure == null) figure = GetComponent<Figure>();
     }
 
-    public virtual async Task Hit(int damage) {
+    public virtual async Task Hit(Attack attack) {
         if (this == null) {
             return;
         }
-        await GetComponent<Health>().Hit(damage);
+        await GetComponent<Health>().Hit(attack.damage);
     }
 
     protected virtual async Task BeforeDie() {

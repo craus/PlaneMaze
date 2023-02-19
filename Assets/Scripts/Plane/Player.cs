@@ -21,6 +21,7 @@ public class Player : Unit
 
     private async Task MoveTakeActions(Vector2Int delta) {
         var time = Game.instance.time;
+        lastMove = delta;
 
         if ((await Task.WhenAll(Inventory.instance.items.Select(item => item.BeforeWalk(delta)))).Any(b => b)) {
             return;
@@ -104,15 +105,16 @@ public class Player : Unit
         Destroy(building.gameObject);
     }
 
-    public override async Task Hit(int damage) {
+    public override async Task Hit(Attack attack) {
         if (this == null) {
             return;
         }
-        var bubbleArmor = Inventory.instance.GetItem<BubbleArmor>();
-        if (bubbleArmor != null) {
-            Destroy(bubbleArmor.gameObject);
-            return;
-        }
-        await GetComponent<Health>().Hit(damage);
+        Inventory.instance.items
+            .Select(item => item.GetComponent<IReceiveAttackModifier>())
+            .Where(x => x != null)
+            .OrderBy(x => x.Priority)
+            .ForEach(x => x.ModifyAttack(attack));
+
+        await GetComponent<Health>().Hit(attack.damage);
     }
 }

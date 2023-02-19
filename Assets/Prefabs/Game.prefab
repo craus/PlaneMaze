@@ -1124,6 +1124,7 @@ MonoBehaviour:
   itemSamples:
   - {fileID: 8508492893450686176, guid: 2d9d59c3f1537c542a8a544e1f45bc55, type: 3}
   - {fileID: 8508492893450686176, guid: 608a7c46c5149ea4c886f5f3d5db6232, type: 3}
+  - {fileID: 8508492893450686176, guid: aaf39e84a86d51e4eba1c7948a0c03a0, type: 3}
   storeSamples: []
   terrainSamples:
   - to: {fileID: 1881276151569630265, guid: e7936b0df5ffd3f4880e94713105b336, type: 3}

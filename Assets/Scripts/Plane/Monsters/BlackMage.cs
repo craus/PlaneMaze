@@ -16,8 +16,8 @@ public class BlackMage : Monster
     public GameObject soulSample;
     public GameObject healSample;
 
-    public override async Task Hit(int damage) {
-        await base.Hit(damage);
+    public override async Task Hit(Attack attack) {
+        await base.Hit(attack);
         if (alive) {
             await Helpers.TeleportAway(figure, teleportRadius);
         }

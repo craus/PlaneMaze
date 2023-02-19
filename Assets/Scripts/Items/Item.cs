@@ -79,4 +79,6 @@ public class Item : MonoBehaviour
         Inventory.instance.items.Remove(this);
         Destroy(icon.gameObject);
     }
+
+    public Unit Owner => Inventory.instance.items.Contains(this) ? Player.instance : null;
 }

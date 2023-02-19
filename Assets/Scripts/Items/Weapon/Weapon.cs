@@ -33,7 +33,7 @@ public abstract class Weapon : MonoBehaviour
         if (Inventory.instance.GetItem<RingOfStrength>()) {
             currentDamage++;
         }
-        await target.Hit(currentDamage);
+        await target.Hit(new Attack(Owner.figure.location, target.figure.location, currentDamage));
     }
 
     public virtual async Task<bool> Attack(Unit target) {
