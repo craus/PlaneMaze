@@ -118,17 +118,17 @@ public class Figure : MonoBehaviour
                 transform.position = location.transform.position;
                 return;
             } else {
-                await transform.Zoom(Vector3.zero, 0.025f);
+                await transform.Zoom(Vector3.zero, 0.05f);
                 transform.position = location.transform.position;
-                await transform.Zoom(Vector3.one, 0.025f);
+                await transform.Zoom(Vector3.one, 0.05f);
                 return;
             }
         }
         if (fakeMove == null) {
-            await transform.Move(location.transform.position, 0.025f);
+            await transform.Move(location.transform.position, 0.05f);
         } else {
-            await transform.Move(fakeMove.transform.position, 0.025f, endPhase: 0.33f);
-            await transform.Move(location.transform.position, 0.025f, startPhase: 0.67f);
+            await transform.Move(fakeMove.transform.position, 0.05f, endPhase: 0.33f);
+            await transform.Move(location.transform.position, 0.05f, startPhase: 0.67f);
         }
     }
 
