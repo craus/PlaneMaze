@@ -15,13 +15,17 @@ public abstract class Weapon : MonoBehaviour
 
     public GameObject attackProjectileSample;
 
+    public virtual IEnumerable<Vector2Int> AttackVectors()
+    {
+        yield return new Vector2Int(1, 0);
+    }
+
     public virtual async Task<bool> TryAttack(Vector2Int delta) {
-        var newPosition = Owner.figure.location.Shift(delta);
-        var target = newPosition.GetFigure<Unit>(u => u.Vulnerable);
-        if (target == null) {
-            return false;
-        }
-        return await Attack(target);
+        var targets = AttackVectors()
+            .Select(d => Owner.figure.location.Shift(delta.Relative(d)).GetFigure<Unit>(u => u.Vulnerable))
+            .Where(u => u != null);
+
+        return (await Task.WhenAll(targets.Select(t => Attack(t)))).Any(a => a);
     }
 
     public virtual async Task<bool> Attack(Unit target) {
