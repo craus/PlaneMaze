@@ -20,7 +20,9 @@ public class PhaseArmor : MonoBehaviour
 
     private async void GainInvulnerabilityAfterAnimations(int turnNumber) {
         await Game.instance.completedTurns[turnNumber].Task;
-
+        if (!GetComponent<Item>().Owner.alive) {
+            return;
+        }
         if (currentPhase == invulnerabilityPeriod) {
             currentPhase = 0;
             highlightedIcon.fillAmount = 0;
