@@ -14,7 +14,7 @@ public static class Helpers
         await figure.Move(destination, isTeleport: true, teleportAnimation: true);
     }
 
-    public static bool RayCast(Cell startPosition, Vector2Int delta, Func<Cell, bool> free = null, Func<Cell, bool> target = null, int distance = 99) {
+    public static Cell RayCast(Cell startPosition, Vector2Int delta, Func<Cell, bool> free = null, Func<Cell, bool> target = null, int distance = 99) {
         free ??= c => c.Free;
         target ??= c => false;
 
@@ -22,12 +22,12 @@ public static class Helpers
         for (int i = 0; i < distance; i++) {
             current = current.Shift(delta);
             if (target(current)) {
-                return true;
+                return current;
             }
             if (!free(current)) {
-                return false;
+                return null;
             }
         }
-        return false;
+        return null;
     }
 }

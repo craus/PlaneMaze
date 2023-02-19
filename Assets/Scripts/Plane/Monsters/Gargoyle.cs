@@ -41,7 +41,7 @@ public class Gargoyle : Monster
             }
             playerDelta /= (int)(playerDelta.magnitude + .5f);
 
-            if (Helpers.RayCast(figure.location, playerDelta, target: c => c.GetFigure<Player>() != null, distance: range)) {
+            if (Helpers.RayCast(figure.location, playerDelta, target: c => c.GetFigure<Player>() != null, distance: range) != null) {
                 currentDirection = playerDelta;
                 UpdateSprite();
             }
