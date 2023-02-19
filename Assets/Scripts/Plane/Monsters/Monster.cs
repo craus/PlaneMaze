@@ -81,7 +81,7 @@ public abstract class Monster : Unit
         if (!alive) {
             return;
         }
-        for (int i = 0; i < 10 && GetComponent<MovesReserve>().Current > 0; i++) {
+        for (int i = 0; i < 10 && this != null && GetComponent<MovesReserve>().Current > 0; i++) {
             await GetComponent<MovesReserve>().Freeze(1);
             await MakeMove(); 
             if (!alive) {

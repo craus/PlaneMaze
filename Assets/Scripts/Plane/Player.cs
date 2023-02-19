@@ -51,6 +51,10 @@ public class Player : Unit
             ongoingAnimations = false;
             return;
         }
+        if (this == null) {
+            ongoingAnimations = false;
+            return;
+        }
         if (GetComponent<MovesReserve>().Current > 0) {
             await GetComponent<MovesReserve>().Freeze(1);
         } else {

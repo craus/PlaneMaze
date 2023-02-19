@@ -16,6 +16,9 @@ public class Yeti : Monster
     }
 
     private void UpdateSprite() {
+        if (this == null) {
+            return;
+        }
         if (currentDirection.x < 0) {
             sprite.flipX = false;
         } else if (currentDirection.x > 0) {
