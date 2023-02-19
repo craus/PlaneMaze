@@ -41,6 +41,7 @@ public class Game : MonoBehaviour
     public Transform figureParent;
 
     public List<Func<int, Task>> afterPlayerMove = new List<Func<int, Task>>();
+    public List<Func<int, Task>> afterMonsterMove = new List<Func<int, Task>>();
 
     public HashSet<(Cell, Cell)> contaminations = new HashSet<(Cell, Cell)>();
     public HashSet<Cell> clearedCells = new HashSet<Cell>();
@@ -271,6 +272,7 @@ public class Game : MonoBehaviour
 
     private async Task MonstersAndItemsTick(int turnNumber) {
         await Task.WhenAll(monsters.Select(m => m.Move()).Concat(afterPlayerMove.Select(listener => listener(turnNumber))));
+        await Task.WhenAll(afterMonsterMove.Select(listener => listener(turnNumber)));
     }
 
     public async Task AfterPlayerMove() {

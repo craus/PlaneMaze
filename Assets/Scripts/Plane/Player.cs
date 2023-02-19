@@ -129,11 +129,13 @@ public class Player : Unit
         if (this == null) {
             return;
         }
-        Inventory.instance.items
-            .Select(item => item.GetComponent<IReceiveAttackModifier>())
-            .Where(x => x != null)
-            .OrderBy(x => x.Priority)
-            .ForEach(x => x.ModifyAttack(attack));
+        await Task.WhenAll(
+            Inventory.instance.items
+                .Select(item => item.GetComponent<IReceiveAttackModifier>())
+                .Where(x => x != null)
+                .OrderBy(x => x.Priority)
+                .Select(x => x.ModifyAttack(attack))
+        );
 
         await GetComponent<Health>().Hit(attack.damage);
     }
