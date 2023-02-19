@@ -59,8 +59,6 @@ public class Game : MonoBehaviour
         player.figure.savePoint = board.GetCell(Vector2Int.zero);
         await player.figure.Move(board.GetCell(Vector2Int.zero), isTeleport: true);
 
-        GenerateFigure(cellOrderList[4], weaponSamples.rnd());
-
         cellOrderList.ForEach(cell => SecondStep(cell));
 
         //PlaceGem();
@@ -250,6 +248,16 @@ public class Game : MonoBehaviour
     }
 
     public void AfterCellAdded(Cell cell) {
+        if (cell.order == 4) {
+            GenerateFigure(cell, weaponSamples.rnd());
+            return;
+        } else if (cell.order == 1) {
+            GenerateFigure(cell, itemSamples.Last());
+            return;
+        } else if (cell.order == 0) {
+            return;
+        }
+
         if (cell.order > 20 && Rand.rndEvent(0.1f)) {
             monsters.Add(GenerateFigure(cell, monsterSamples.rnd()));
         } else if (Rand.rndEvent(0.03f)) {

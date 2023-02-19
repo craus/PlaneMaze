@@ -11,6 +11,7 @@ public class Item : MonoBehaviour
 {
     public RectTransform iconParent;
     public RectTransform icon;
+    public Canvas iconCanvas;
     public ItemSlot slot;
 
     public GameObject model;
@@ -32,6 +33,8 @@ public class Item : MonoBehaviour
     }
 
     public void Awake() {
+        iconCanvas.enabled = false;
+
         GetComponent<Figure>().collide = async (from, figure) => {
             var player = figure.GetComponent<Player>();
             if (player != null && from != GetComponent<Figure>().location) {

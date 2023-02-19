@@ -179,6 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iconParent: {fileID: 0}
   icon: {fileID: 7990721949260384047}
+  iconCanvas: {fileID: 2252660109841114050}
   slot: {fileID: 0}
   model: {fileID: 2172690894414466492}
 --- !u!1 &7427004701293729960
