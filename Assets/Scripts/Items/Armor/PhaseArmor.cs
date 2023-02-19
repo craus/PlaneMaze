@@ -18,18 +18,25 @@ public class PhaseArmor : MonoBehaviour
         Game.instance.afterPlayerMove.Add(AfterPlayerMove);
     }
 
-    private async Task AfterPlayerMove() {
-        if (!GetComponent<Item>().Equipped) {
-            return;
-        }
-
-        currentPhase++;
-        await highlightedIcon.RadialFill(1f * currentPhase / invulnerabilityPeriod, 0.1f);
+    private async void GainInvulnerabilityAfterAnimations(int turnNumber) {
+        await Game.instance.completedTurns[turnNumber].Task;
 
         if (currentPhase == invulnerabilityPeriod) {
             currentPhase = 0;
             highlightedIcon.fillAmount = 0;
-            GetComponent<Item>().Owner.GetComponent<Invulnerability>().Gain(invulnerabilityDuration+1);
+            await GetComponent<Item>().Owner.GetComponent<Invulnerability>().Gain(invulnerabilityDuration + 1);
         }
+    }
+
+    private async Task AfterPlayerMove(int turnNumber) {
+        if (!GetComponent<Item>().Equipped) {
+            return;
+        }
+
+        // do not await this
+        GainInvulnerabilityAfterAnimations(turnNumber);
+
+        currentPhase++;
+        await highlightedIcon.RadialFill(1f * currentPhase / invulnerabilityPeriod, 0.1f);
     }
 }

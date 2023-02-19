@@ -40,11 +40,13 @@ public class Game : MonoBehaviour
 
     public Transform figureParent;
 
-    public List<Func<Task>> afterPlayerMove = new List<Func<Task>>();
+    public List<Func<int, Task>> afterPlayerMove = new List<Func<int, Task>>();
 
     public HashSet<(Cell, Cell)> contaminations = new HashSet<(Cell, Cell)>();
     public HashSet<Cell> clearedCells = new HashSet<Cell>();
     public HashSet<Gem> gems = new HashSet<Gem>();
+
+    public Map<int, TaskCompletionSource<bool>> completedTurns = new Map<int, TaskCompletionSource<bool>>(() => new TaskCompletionSource<bool>());
 
     public async void Start() {
         board = Instantiate(boardSample, transform);
@@ -259,9 +261,13 @@ public class Game : MonoBehaviour
         }
     }
 
+    private async Task MonstersAndItemsTick(int turnNumber) {
+        await Task.WhenAll(monsters.Select(m => m.Move()).Concat(afterPlayerMove.Select(listener => listener(turnNumber))));
+    }
+
     public async Task AfterPlayerMove() {
-        await Task.WhenAll(monsters.Select(m => m.Move()));
-        await Task.WhenAll(afterPlayerMove.Select(listener => listener()));
+        await MonstersAndItemsTick(time);
+        completedTurns[time].SetResult(true);
         time++;
 
         ghostSpawnProbabilityPerTurn = 1 - Mathf.Pow(0.5f, time * 1f / ghostSpawnTimeReductionHalfLife);

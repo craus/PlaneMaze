@@ -41,7 +41,7 @@ public class Item : MonoBehaviour
         Game.instance.afterPlayerMove.Add(AfterPlayerMove);
     }
 
-    private async Task AfterPlayerMove() {
+    private async Task AfterPlayerMove(int turnNumber) {
         UpdateModelVisible();
     }
 
