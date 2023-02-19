@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class Animate
 {
@@ -54,6 +55,32 @@ public static class Animate
                 return;
             }
             transform.localScale = Vector3.Lerp(startZoom, endZoom, phase);
+            await Task.Delay((int)(duration / steps * 1000));
+        }
+    }
+
+    public async static Task RadialFill(
+        this Image image,
+        float endFillAmount,
+        float duration,
+        int steps = 7,
+        float startPhase = 0,
+        float endPhase = 1
+    ) {
+        var startFillAmount = image.fillAmount;
+
+        for (int i = 1; i <= steps; i++) {
+            var phase = i * 1f / steps;
+            if (phase < startPhase) {
+                continue;
+            }
+            if (phase > endPhase) {
+                break;
+            }
+            if (image == null) {
+                return;
+            }
+            image.fillAmount = Mathf.Lerp(startFillAmount, endFillAmount, phase);
             await Task.Delay((int)(duration / steps * 1000));
         }
     }

@@ -1125,6 +1125,8 @@ MonoBehaviour:
   - {fileID: 8508492893450686176, guid: 2d9d59c3f1537c542a8a544e1f45bc55, type: 3}
   - {fileID: 8508492893450686176, guid: 608a7c46c5149ea4c886f5f3d5db6232, type: 3}
   - {fileID: 8508492893450686176, guid: aaf39e84a86d51e4eba1c7948a0c03a0, type: 3}
+  - {fileID: 8508492893450686176, guid: 6aff10b07cd939641a1d15ddccf1fee8, type: 3}
+  - {fileID: 8508492893450686176, guid: a7e41f2b980d1be48aadb46aa0d983fe, type: 3}
   storeSamples: []
   terrainSamples:
   - to: {fileID: 1881276151569630265, guid: e7936b0df5ffd3f4880e94713105b336, type: 3}
@@ -1150,9 +1152,6 @@ MonoBehaviour:
   gemSample: {fileID: -5931720104371548630, guid: 5dd0e56d03f85e0428917ae2cf43f2d0, type: 3}
   gem: {fileID: 0}
   figureParent: {fileID: 2828773098761964938}
-  afterPlayerMove:
-    m_PersistentCalls:
-      m_Calls: []
   speed: 1
 --- !u!1 &5934059384545418333
 GameObject:

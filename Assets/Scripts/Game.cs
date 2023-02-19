@@ -40,7 +40,7 @@ public class Game : MonoBehaviour
 
     public Transform figureParent;
 
-    public UnityEvent afterPlayerMove;
+    public List<Func<Task>> afterPlayerMove = new List<Func<Task>>();
 
     public HashSet<(Cell, Cell)> contaminations = new HashSet<(Cell, Cell)>();
     public HashSet<Cell> clearedCells = new HashSet<Cell>();
@@ -261,7 +261,7 @@ public class Game : MonoBehaviour
 
     public async Task AfterPlayerMove() {
         await Task.WhenAll(monsters.Select(m => m.Move()));
-        afterPlayerMove.Invoke();
+        await Task.WhenAll(afterPlayerMove.Select(listener => listener()));
         time++;
 
         ghostSpawnProbabilityPerTurn = 1 - Mathf.Pow(0.5f, time * 1f / ghostSpawnTimeReductionHalfLife);

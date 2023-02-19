@@ -15,6 +15,8 @@ public class Player : Unit
     public Wall wallSample;
     public Building markSample;
 
+    public bool ongoingAnimations = false;
+
     public void Take(Item item) {
         item.Pick();
     }
@@ -39,12 +41,14 @@ public class Player : Unit
     }
 
     private async void Move(Vector2Int delta) {
+        //ongoingAnimations = true;
         if (GetComponent<MovesReserve>().Current < 0) {
             await GetComponent<MovesReserve>().Haste(1);
         } else {
             await MoveTakeActions(delta);
         }
         if (!alive) {
+            ongoingAnimations = false;
             return;
         }
         if (GetComponent<MovesReserve>().Current > 0) {
@@ -53,12 +57,17 @@ public class Player : Unit
             await Game.instance.AfterPlayerMove();
         }
         if (!alive) {
+            ongoingAnimations = false;
             return;
         }
         await GetComponent<Invulnerability>().Spend(1);
+        ongoingAnimations = false;
     }
 
     public void Update() {
+        if (ongoingAnimations) {
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.UpArrow)) {
             Move(Vector2Int.up);
         }

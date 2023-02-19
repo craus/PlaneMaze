@@ -38,12 +38,14 @@ public class Item : MonoBehaviour
                 Pick();
             }
         };
-        Game.instance.afterPlayerMove.AddListener(AfterPlayerMove);
+        Game.instance.afterPlayerMove.Add(AfterPlayerMove);
     }
 
-    private void AfterPlayerMove() {
+    private async Task AfterPlayerMove() {
         UpdateModelVisible();
     }
+
+    public bool Equipped => Inventory.instance.items.Contains(this);
 
     [ContextMenu("Pick")]
     public void Pick() {

@@ -7,5 +7,5 @@ using UnityEngine;
 public interface IReceiveAttackModifier 
 {
     public int Priority { get; }
-    public void ModifyAttack(Attack attack);
+    public Task ModifyAttack(Attack attack);
 }
