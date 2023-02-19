@@ -32,7 +32,7 @@ public class Slime : Monster
     }
 
     private void UpdateSprite() {
-        slimeSizeTransform.localScale = (0.75f + 0.25f * size) * Vector3.one;
+        slimeSizeTransform.localScale = ((0.75f + 0.25f * size) * Vector3.one).Change(z: 1);
     }
 
     protected override async Task MakeMove() {
