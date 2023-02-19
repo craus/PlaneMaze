@@ -18,6 +18,7 @@ public class Game : MonoBehaviour
     public List<Monster> monsters;
 
     public List<Weapon> weaponSamples;
+    public List<Item> itemSamples;
 
     public List<Store> storeSamples;
     public List<Weighted<Figure>> terrainSamples;
@@ -251,6 +252,8 @@ public class Game : MonoBehaviour
             monsters.Add(GenerateFigure(cell, monsterSamples.rnd()));
         } else if (Rand.rndEvent(0.03f)) {
             GenerateFigure(cell, weaponSamples.rnd());
+        } else if (Rand.rndEvent(0.03f)) {
+            GenerateFigure(cell, itemSamples.rnd());
         } else if (Rand.rndEvent(0.4f)) {
             GenerateFigure(cell, terrainSamples.weightedRnd());
         }
