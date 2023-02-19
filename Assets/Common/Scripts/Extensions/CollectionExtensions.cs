@@ -10,6 +10,10 @@ using System.Linq;
 
 public static class CollectionExtensions
 {
+    public static IEnumerable<T2> SelectAll<T1, T2>(this IEnumerable<T1> collection, Func<T1, T2> selector) {
+        return collection.Select(selector).Where(x => x != null);
+    }
+
     public static IEnumerable<T> Single<T>(this T element)
     {
         yield return element;

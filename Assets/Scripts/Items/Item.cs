@@ -53,6 +53,8 @@ public class Item : MonoBehaviour
         Inventory.instance.items.Add(this);
         _ = GetComponent<Figure>().Move(null, isTeleport: true);
         UpdateModelVisible();
+
+        Task.WaitAll(Inventory.instance.onPick.Select(listener => listener()).ToArray());
     }
 
     [ContextMenu("Drop")]
@@ -61,6 +63,8 @@ public class Item : MonoBehaviour
         Inventory.instance.items.Remove(this);
         _ = GetComponent<Figure>().Move(Game.instance.player.figure.location, isTeleport: true);
         UpdateModelVisible();
+
+        Task.WaitAll(Inventory.instance.onDrop.Select(listener => listener()).ToArray());
     }
 
     private void UpdateModelVisible() {
@@ -68,16 +72,14 @@ public class Item : MonoBehaviour
         model.SetActive(!Inventory.instance.items.Contains(this));
     }
 
-    [ContextMenu("DestroyIcon")]
-    public void DestroyIcon() {
-    }
-
     public void OnDestroy() {
         if (Inventory.instance == null) {
             return;
         }
         Inventory.instance.items.Remove(this);
-        Destroy(icon.gameObject);
+        if (icon != null) {
+            Destroy(icon.gameObject);
+        }
     }
 
     public Unit Owner => Inventory.instance.items.Contains(this) ? Player.instance : null;
