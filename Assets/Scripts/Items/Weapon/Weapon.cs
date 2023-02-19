@@ -28,6 +28,14 @@ public abstract class Weapon : MonoBehaviour
         return (await Task.WhenAll(targets.Select(t => Attack(t)))).Any(a => a);
     }
 
+    public async Task DealDamage(Unit target) {
+        var currentDamage = damage;
+        if (Inventory.instance.GetItem<RingOfStrength>()) {
+            currentDamage++;
+        }
+        await target.Hit(currentDamage);
+    }
+
     public virtual async Task<bool> Attack(Unit target) {
         if (!Game.CanAttack(Owner, target, this)) {
             return false;
@@ -41,7 +49,7 @@ public abstract class Weapon : MonoBehaviour
         if (ap != null) {
             Destroy(ap);
         }
-        await target.Hit(damage);
+        await DealDamage(target);
 
         return true;
     }

@@ -26,7 +26,7 @@ public class Dart : Weapon
         if (ap != null) {
             Destroy(ap);
         }
-        await target.Hit(damage);
+        await DealDamage(target);
         GetComponent<Item>().Drop();
         await GetComponent<Figure>().Move(target.figure.location, isTeleport: true);
 
