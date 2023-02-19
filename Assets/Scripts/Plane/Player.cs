@@ -17,6 +17,8 @@ public class Player : Unit
 
     public bool ongoingAnimations = false;
 
+    public Queue<Vector2Int> commands = new Queue<Vector2Int>();
+
     public void Take(Item item) {
         item.Pick();
     }
@@ -40,19 +42,16 @@ public class Player : Unit
         await figure.FakeMove(delta);
     }
 
-    private async void Move(Vector2Int delta) {
-        //ongoingAnimations = true;
+    private async Task MoveInternal(Vector2Int delta) {
         if (GetComponent<MovesReserve>().Current < 0) {
             await GetComponent<MovesReserve>().Haste(1);
         } else {
             await MoveTakeActions(delta);
         }
         if (!alive) {
-            ongoingAnimations = false;
             return;
         }
         if (this == null) {
-            ongoingAnimations = false;
             return;
         }
         if (GetComponent<MovesReserve>().Current > 0) {
@@ -61,17 +60,22 @@ public class Player : Unit
             await Game.instance.AfterPlayerMove();
         }
         if (!alive) {
-            ongoingAnimations = false;
             return;
         }
         await GetComponent<Invulnerability>().Spend(1);
+    }
+
+    private async void Move(Vector2Int delta) {
+        if (ongoingAnimations == true) {
+            commands.Enqueue(delta);
+            return;
+        }
+        ongoingAnimations = true;
+        await MoveInternal(delta);
         ongoingAnimations = false;
     }
 
     public void Update() {
-        if (ongoingAnimations) {
-            return;
-        }
         if (Input.GetKeyDown(KeyCode.UpArrow)) {
             Move(Vector2Int.up);
         }
@@ -83,6 +87,9 @@ public class Player : Unit
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow)) {
             Move(Vector2Int.left);
+        }
+        if (ongoingAnimations == false && commands.Count > 0) {
+            Move(commands.Dequeue());
         }
         if (Input.GetKeyDown(KeyCode.W)) {
             Build(figure.location, wallSample);
