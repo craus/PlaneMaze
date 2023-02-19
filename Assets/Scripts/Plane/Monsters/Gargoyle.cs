@@ -10,6 +10,7 @@ public class Gargoyle : Monster
 
     public Vector2Int currentDirection;
     public SpriteRenderer sprite;
+    public SpriteRenderer awakenSprite;
 
     public int range = 18;
 
@@ -20,6 +21,7 @@ public class Gargoyle : Monster
     }
 
     private void UpdateSprite() {
+        awakenSprite.gameObject.SetActive(currentDirection != Vector2Int.zero);
     }
 
     protected override async Task MakeMove() {
