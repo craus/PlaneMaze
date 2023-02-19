@@ -23,20 +23,16 @@ public class Player : Unit
         var time = Game.instance.time;
 
         if ((await Task.WhenAll(Inventory.instance.items.Select(item => item.BeforeWalk(delta)))).Any(b => b)) {
-            Debug.LogFormat($"[{time}] Item used instead walk");
             return;
         }
 
         if (await figure.TryWalk(delta)) {
             return;
         }
-        Debug.LogFormat($"[{time}] Failed walk");
 
         if ((await Task.WhenAll(Inventory.instance.items.Select(item => item.AfterFailedWalk(delta)))).Any(b => b)) {
-            Debug.LogFormat($"[{time}] Item used on failed walk");
             return;
         }
-        Debug.LogFormat($"[{time}] Failed items use on failed walk");
 
         await figure.FakeMove(delta);
     }
