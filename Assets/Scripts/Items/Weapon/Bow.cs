@@ -9,13 +9,14 @@ public class Bow : Weapon
 {
     public int range = 4;
 
+    public bool charged = false;
+
     public override bool CanAttackOnHill => true;
 
-    public override async Task<bool> Attack(Unit target) {
-        if (!Game.CanAttack(Owner, target, this)) {
-            return false;
-        }
+    public GameObject iconCharged;
+    public GameObject iconUncharged;
 
+    public override async Task<bool> Attack(Unit target) {
         var delta = target.transform.position - Owner.transform.position;
 
         var ap = Instantiate(attackProjectileSample);
@@ -31,14 +32,37 @@ public class Bow : Weapon
         return true;
     }
 
+    public void Awake() {
+        UpdateIcon();
+    }
+
+    private void UpdateIcon() {
+        iconCharged.SetActive(charged);
+        iconUncharged.SetActive(!charged);
+    }
+
     public override async Task<bool> TryAttack(Vector2Int delta) {
         var currentPosition = Owner.figure.location;
         var target = Helpers.RayCast(Owner.figure.location, delta, target: c => c.GetFigure<Monster>(m => m.Vulnerable) != null, distance: range);
         if (target != null) {
-            if (await Attack(target.GetFigure<Monster>(m => m.Vulnerable))) {
+            var victim = target.GetFigure<Monster>(m => m.Vulnerable);
+            if (!Game.CanAttack(Owner, victim, this)) {
+                charged = false;
+                UpdateIcon();
+                return false;
+            }
+            if (!charged) {
+                charged = true;
+                UpdateIcon();
                 return true;
+            } else {
+                charged = false;
+                UpdateIcon();
+                return await Attack(victim);
             }
         }
+        charged = false;
+        UpdateIcon();
         return false;
     }
 
