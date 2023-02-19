@@ -29,7 +29,7 @@ public static class Animate
                 return;
             }
             transform.position = Vector3.Lerp(startPosition, endPosition, phase);
-            await Task.Delay((int)(duration / steps * 1000));
+            await Helpers.Delay(duration / steps);
         }
     }
 
@@ -55,7 +55,7 @@ public static class Animate
                 return;
             }
             transform.localScale = Vector3.Lerp(startZoom, endZoom, phase);
-            await Task.Delay((int)(duration / steps * 1000));
+            await Helpers.Delay(duration / steps);
         }
     }
 
@@ -81,7 +81,7 @@ public static class Animate
                 return;
             }
             image.fillAmount = Mathf.Lerp(startFillAmount, endFillAmount, phase);
-            await Task.Delay((int)(duration / steps * 1000));
+            await Helpers.Delay(duration / steps);
         }
     }
 }

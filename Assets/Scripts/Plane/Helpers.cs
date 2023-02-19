@@ -30,4 +30,8 @@ public static class Helpers
         }
         return null;
     }
+
+    public static async Task Delay(float seconds) {
+        await Task.Delay((int)(1000 * seconds / Mathf.Pow(2, Player.instance.commands.Count)));
+    }
 }

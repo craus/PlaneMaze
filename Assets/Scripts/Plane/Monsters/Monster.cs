@@ -47,7 +47,7 @@ public abstract class Monster : Unit
         ap.gameObject.SetActive(true); // object was inactive for unknown reason
         ap.transform.position = target.transform.position;
 
-        await Task.Delay(100);
+        await Helpers.Delay(0.1f);
 
         await target.Hit(new Attack(figure.location, target.figure.location, damage));
 

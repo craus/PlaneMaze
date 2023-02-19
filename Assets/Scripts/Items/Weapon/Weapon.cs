@@ -45,7 +45,7 @@ public abstract class Weapon : MonoBehaviour
         ap.transform.rotation = Quaternion.LookRotation(Vector3.forward, target.transform.position - Owner.transform.position);
         ap.transform.position = Vector3.Lerp(Owner.transform.position, target.transform.position, 0.75f);
 
-        await Task.Delay(100);
+        await Helpers.Delay(0.1f);
         if (ap != null) {
             Destroy(ap);
         }

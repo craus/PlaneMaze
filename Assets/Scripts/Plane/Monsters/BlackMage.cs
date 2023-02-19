@@ -50,7 +50,7 @@ public class BlackMage : Monster
 
         var heal = Instantiate(healSample);
         heal.transform.position = transform.position;
-        await Task.Delay(100);
+        await Helpers.Delay(0.1f);
         Destroy(heal);
         await GetComponent<Health>().Heal(1);
 
