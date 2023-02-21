@@ -54,7 +54,7 @@ public class BlackMage : Monster
         Destroy(heal);
         await GetComponent<Health>().Heal(1);
 
-        foreach (var u in figure.location.Vicinity(damageRadius)
+        foreach (var u in figure.location.Vicinity(damageRadius).ToList()
             .Select(c => c.GetFigure<Unit>())
             .Where(u => u != null && u != this)
         ) {

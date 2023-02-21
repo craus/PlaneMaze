@@ -1208,6 +1208,7 @@ MonoBehaviour:
   - {fileID: 8508492893450686176, guid: 6aff10b07cd939641a1d15ddccf1fee8, type: 3}
   - {fileID: 8508492893450686176, guid: a7e41f2b980d1be48aadb46aa0d983fe, type: 3}
   - {fileID: 8508492893450686176, guid: 3b87fbe06cbe6674d86d2ebffa77ad1c, type: 3}
+  - {fileID: 8508492893450686176, guid: c843b341a89e89d4c84aa138bd247a45, type: 3}
   storeSamples: []
   terrainSamples:
   - to: {fileID: 1881276151569630265, guid: e7936b0df5ffd3f4880e94713105b336, type: 3}

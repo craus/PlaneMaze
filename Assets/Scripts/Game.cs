@@ -261,11 +261,11 @@ public class Game : MonoBehaviour
 
         if (cell.order > 20 && Rand.rndEvent(0.1f)) {
             monsters.Add(GenerateFigure(cell, monsterSamples.rnd()));
-        } else if (Rand.rndEvent(0.03f)) {
+        } else if (Rand.rndEvent(0.02f)) {
             GenerateFigure(cell, weaponSamples.rnd());
-        } else if (Rand.rndEvent(0.03f)) {
+        } else if (Rand.rndEvent(0.02f)) {
             GenerateFigure(cell, itemSamples.rnd());
-        } else if (Rand.rndEvent(0.4f)) {
+        } else if (Rand.rndEvent(0.3f)) {
             GenerateFigure(cell, terrainSamples.weightedRnd());
         }
     }
