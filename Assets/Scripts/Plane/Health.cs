@@ -34,7 +34,7 @@ public class Health : MonoBehaviour
         UpdateHearts();
     }
 
-    private void UpdateHearts() {
+    public void UpdateHearts() {
         if (current < max || showHeartsOnFullHealth) {
             for (int i = 0; i < hearts.Count; i++) {
                 hearts[i].gameObject.SetActive(current >= i + 1);

@@ -14,6 +14,9 @@ public class Item : MonoBehaviour
     public Canvas iconCanvas;
     public ItemSlot slot;
 
+    public List<Func<Task>> onPick = new List<Func<Task>>();
+    public List<Func<Task>> onDrop = new List<Func<Task>>();
+
     public GameObject model;
 
     public async Task<bool> AfterFailedWalk(Vector2Int delta) {
@@ -56,9 +59,12 @@ public class Item : MonoBehaviour
 
         icon.SetParent(Inventory.instance.itemsFolder);
         Inventory.instance.items.Add(this);
+        Debug.LogFormat("item is picked");
+        Debug.LogFormat($"item owner is {Owner}");
         _ = GetComponent<Figure>().Move(null, isTeleport: true);
         UpdateModelVisible();
 
+        Task.WaitAll(onPick.Select(listener => listener()).ToArray());
         Task.WaitAll(Inventory.instance.onPick.Select(listener => listener()).ToArray());
     }
 
@@ -69,6 +75,7 @@ public class Item : MonoBehaviour
         _ = GetComponent<Figure>().Move(Game.instance.player.figure.location, isTeleport: true);
         UpdateModelVisible();
 
+        Task.WaitAll(onDrop.Select(listener => listener()).ToArray());
         Task.WaitAll(Inventory.instance.onDrop.Select(listener => listener()).ToArray());
     }
 

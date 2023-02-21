@@ -255,6 +255,9 @@ public class Game : MonoBehaviour
         } else if (cell.order == 1) {
             GenerateFigure(cell, itemSamples.Last());
             return;
+        } else if (cell.order == 2) {
+            GenerateFigure(cell, itemSamples.First(item => item.GetComponent<RingOfStrength>() != null));
+            return;
         } else if (cell.order == 0) {
             return;
         }
