@@ -7,30 +7,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2252660109841114050, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b01a95c8da98f3f469b6a687c8f8e323, type: 3}
+      objectReference: {fileID: 21300000, guid: 49037eace85dcff4488ef15136199b32, type: 3}
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.b
-      value: 0.44250622
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.g
-      value: 0.741992
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.r
-      value: 0.8301887
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7826b0bfc02d31a4bb47ef794d876f86, type: 2}
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 2579389736101165270, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2579389736101165270, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 2707086984399568205, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -78,15 +82,15 @@ PrefabInstance:
     - target: {fileID: 4744153755596459824, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: slot
       value: 
-      objectReference: {fileID: 529709666661010183, guid: d4dda62caad898d4cbab1aa9cb44b416, type: 3}
+      objectReference: {fileID: 529709666661010183, guid: c9b76426eed017641aecc3a37c1d99b4, type: 3}
     - target: {fileID: 6325338422616382079, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Name
-      value: Bubble Armor
+      value: Ring of Protection
       objectReference: {fileID: 0}
     - target: {fileID: 8585933247312828475, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b01a95c8da98f3f469b6a687c8f8e323, type: 3}
+      objectReference: {fileID: 21300000, guid: 49037eace85dcff4488ef15136199b32, type: 3}
     - target: {fileID: 8585933247312828475, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.b
       value: 0.44313726
@@ -99,6 +103,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.83137256
       objectReference: {fileID: 0}
+    - target: {fileID: 8585933247312828475, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
 --- !u!1 &6920552994628180911 stripped

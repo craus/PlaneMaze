@@ -19,6 +19,7 @@ public class Game : MonoBehaviour
 
     public List<Weapon> weaponSamples;
     public List<Item> itemSamples;
+    public List<Figure> startingItemsSamples;
 
     public List<Store> storeSamples;
     public List<Weighted<Figure>> terrainSamples;
@@ -255,12 +256,13 @@ public class Game : MonoBehaviour
         } else if (cell.order == 1) {
             GenerateFigure(cell, itemSamples.Last());
             return;
-        } else if (cell.order == 2) {
-            GenerateFigure(cell, itemSamples.First(item => item.GetComponent<RingOfStrength>() != null));
-            return;
         } else if (cell.order == 0) {
             return;
-        }
+        } else if (startingItemsSamples.Count () > 0) {
+            GenerateFigure(cell, startingItemsSamples.First());
+            startingItemsSamples.RemoveAt(0);
+            return;
+        } 
 
         if (cell.order > 20 && Rand.rndEvent(0.1f)) {
             monsters.Add(GenerateFigure(cell, monsterSamples.rnd()));

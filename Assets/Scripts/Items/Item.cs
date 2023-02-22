@@ -44,11 +44,6 @@ public class Item : MonoBehaviour
                 Pick();
             }
         };
-        Game.instance.afterPlayerMove.Add(AfterPlayerMove);
-    }
-
-    private async Task AfterPlayerMove(int turnNumber) {
-        UpdateModelVisible();
     }
 
     public bool Equipped => Inventory.instance.items.Contains(this);
@@ -80,7 +75,6 @@ public class Item : MonoBehaviour
     }
 
     private void UpdateModelVisible() {
-        //gameObject.SetActive(!Inventory.instance.items.Contains(this) && Game.instance.player.figure.location != GetComponent<Figure>().location);
         model.SetActive(!Inventory.instance.items.Contains(this));
     }
 
