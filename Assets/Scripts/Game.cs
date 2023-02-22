@@ -34,7 +34,7 @@ public class Game : MonoBehaviour
     public float ghostSpawnProbabilityPerTurn;
 
     public Board boardSample;
-    public Board board;
+    public Board mainWorld;
 
     public Gem gemSample;
     public Gem gem;
@@ -51,15 +51,15 @@ public class Game : MonoBehaviour
     public Map<int, TaskCompletionSource<bool>> completedTurns = new Map<int, TaskCompletionSource<bool>>(() => new TaskCompletionSource<bool>());
 
     public async void Start() {
-        board = Instantiate(boardSample, transform);
+        mainWorld = Instantiate(boardSample, transform);
         Debug.LogFormat("New game started");
         
         speed = 10000;
         await EnumerateCells(1000, pauses: true);
 
         player = Instantiate(playerSample, transform);
-        player.figure.savePoint = board.GetCell(Vector2Int.zero);
-        await player.figure.Move(board.GetCell(Vector2Int.zero), isTeleport: true);
+        player.figure.savePoint = mainWorld.GetCell(Vector2Int.zero);
+        await player.figure.Move(mainWorld.GetCell(Vector2Int.zero), isTeleport: true);
 
         cellOrderList.ForEach(cell => SecondStep(cell));
 
@@ -186,7 +186,7 @@ public class Game : MonoBehaviour
     private async Task EnumerateCells(int cnt, bool pauses = false) {
 
         var cellOrder = Algorithm.PrimDynamic(
-            start: board.GetCell(Vector2Int.zero),
+            start: mainWorld.GetCell(Vector2Int.zero),
             edges: c => c.Neighbours().Where(c => !MakesCross(c) && !Forbidden(c).Any(f => f.Ordered)).Select(c => new Algorithm.Weighted<Cell>(c, CellPrice(c.position))),
             antiEdges: c => Diagonals(c).Where(MakesCross).Union(Forbidden(c)),
             maxSteps: 100000
@@ -219,7 +219,7 @@ public class Game : MonoBehaviour
         }
         CameraControl.instance.followPoint = false;
 
-        Board.instance.silentMode = true;
+        mainWorld.silentMode = true;
 
         Debug.LogFormat($"Cells: {i}");
         Debug.LogFormat($"Taken Cells Max Price: {cellOrderList.Max(c => CellPrice(c.position))}");
