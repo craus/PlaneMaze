@@ -1213,7 +1213,6 @@ MonoBehaviour:
   - {fileID: 8508492893450686176, guid: c843b341a89e89d4c84aa138bd247a45, type: 3}
   - {fileID: 8508492893450686176, guid: 78369bc638b45f0438b2301e1ceee89e, type: 3}
   - {fileID: 8508492893450686176, guid: 92909b329d85bb44899844215dde8e2e, type: 3}
-  - {fileID: 8508492893450686176, guid: c54196d8a6cfbdc49a2ae0a059098cd4, type: 3}
   startingItemsSamples:
   - {fileID: 3303673112297539049, guid: 2d9d59c3f1537c542a8a544e1f45bc55, type: 3}
   - {fileID: 3303673112297539049, guid: 3b87fbe06cbe6674d86d2ebffa77ad1c, type: 3}
@@ -1232,6 +1231,7 @@ MonoBehaviour:
   - to: {fileID: 1881276151569630265, guid: 223d624819fa4cb48b529497b8cd0899, type: 3}
     weight: 0.3
   portalSample: {fileID: 7110139304582582606, guid: 89231564c7a6d1940a474861eddb4b29, type: 3}
+  healingPotionSample: {fileID: 2665230306910546025, guid: c54196d8a6cfbdc49a2ae0a059098cd4, type: 3}
   ghostSample: {fileID: 5504667808349519680, guid: 26b7e0628829b604684f5107a4a9a1ff, type: 3}
   cellOrderList: []
   unlockedCells: 1000000000

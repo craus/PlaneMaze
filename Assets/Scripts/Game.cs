@@ -27,6 +27,7 @@ public class Game : MonoBehaviour
     public List<Store> storeSamples;
     public List<Weighted<Figure>> terrainSamples;
     public Portal portalSample;
+    public HealingPotion healingPotionSample;
 
     public Ghost ghostSample;
 
@@ -83,9 +84,10 @@ public class Game : MonoBehaviour
 
         var entry = GenerateFigure(mainWorld.cells.Where(c => c.figures.Count() == 0 && !c.Wall).Rnd(), portalSample);
         var exit = GenerateFigure(newStore.GetCell(Vector2Int.zero), portalSample);
-
         entry.second = exit;
         exit.second = entry;
+
+        GenerateFigure(newStore.GetCell(new Vector2Int(3, -3)), healingPotionSample);
     }
 
     private void SecondStep(Cell cell) {
