@@ -46,7 +46,6 @@ public class Board : MonoBehaviour
     private void GenerateFigure(Cell cell, MonoBehaviour sample) {
         var f = Instantiate(sample);
         f.GetComponent<Figure>().Move(cell);
-        f.transform.SetParent(figureParent);
     }
 
     private Cell GenerateCell(int x, int y) {

@@ -39,8 +39,6 @@ public class Game : MonoBehaviour
     public Gem gemSample;
     public Gem gem;
 
-    public Transform figureParent;
-
     public List<Func<int, Task>> afterPlayerMove = new List<Func<int, Task>>();
     public List<Func<int, Task>> afterMonsterMove = new List<Func<int, Task>>();
 
@@ -245,7 +243,6 @@ public class Game : MonoBehaviour
     public T GenerateFigure<T>(Cell cell, T sample) where T: MonoBehaviour {
         var f = Instantiate(sample);
         _ = f.GetComponent<Figure>().Move(cell, isTeleport: true);
-        f.transform.SetParent(figureParent);
         return f;
     }
 

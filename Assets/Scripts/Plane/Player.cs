@@ -110,7 +110,7 @@ public class Player : Unit
             return;
         }
         gems -= sample.cost;
-        Instantiate(sample, Game.instance.figureParent).GetComponent<Figure>().Move(place);
+        Instantiate(sample, place.board.figureParent).GetComponent<Figure>().Move(place);
     }
 
     public void DestroyBuilding(Cell place) {

@@ -93,6 +93,7 @@ public class Figure : MonoBehaviour
             location.figures.Remove(this);
         }
         location = newPosition;
+        transform.SetParent(location.board.figureParent);
 
         if (!fakeMove && location != null) {
             location.figures.Add(this);
