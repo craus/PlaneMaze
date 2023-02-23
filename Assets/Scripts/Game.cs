@@ -89,7 +89,16 @@ public class Game : MonoBehaviour
         exit.second = entry;
 
         GenerateFigure(newStore.GetCell(new Vector2Int(-3, 3)), healingPotionSample);
-        GenerateFigure(newStore.GetCell(new Vector2Int(-3, 3)), paidCellSample).SetPrice(2);
+        GenerateFigure(newStore.GetCell(new Vector2Int(-3, 3)), paidCellSample).SetPrice(10);
+
+        GenerateFigure(newStore.GetCell(new Vector2Int(-1, 3)), weaponSamples.rnd());
+        GenerateFigure(newStore.GetCell(new Vector2Int(-1, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(20, 30));
+
+        GenerateFigure(newStore.GetCell(new Vector2Int(1, 3)), itemSamples.rnd());
+        GenerateFigure(newStore.GetCell(new Vector2Int(1, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(20, 30));
+
+        GenerateFigure(newStore.GetCell(new Vector2Int(3, 3)), itemSamples.rnd());
+        GenerateFigure(newStore.GetCell(new Vector2Int(3, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(20, 30));
     }
 
     private void SecondStep(Cell cell) {
@@ -276,7 +285,7 @@ public class Game : MonoBehaviour
             GenerateFigure(cell, weaponSamples.rnd());
             return;
         } else if (cell.order == 1) {
-            GenerateFigure(cell, itemSamples.Last());
+            //GenerateFigure(cell, itemSamples.Last());
             return;
         } else if (cell.order == 0) {
             return;
@@ -288,9 +297,9 @@ public class Game : MonoBehaviour
 
         if (cell.order > 20 && Rand.rndEvent(0.1f)) {
             monsters.Add(GenerateFigure(cell, monsterSamples.rnd()));
-        } else if (Rand.rndEvent(0.02f)) {
+        } else if (Rand.rndEvent(0.007f)) {
             GenerateFigure(cell, weaponSamples.rnd());
-        } else if (Rand.rndEvent(0.02f)) {
+        } else if (Rand.rndEvent(0.007f)) {
             GenerateFigure(cell, itemSamples.rnd());
         } else if (Rand.rndEvent(0.3f)) {
             GenerateFigure(cell, terrainSamples.weightedRnd());
@@ -307,9 +316,11 @@ public class Game : MonoBehaviour
         completedTurns[time].SetResult(true);
         time++;
 
-        ghostSpawnProbabilityPerTurn = 1 - Mathf.Pow(0.5f, time * 1f / ghostSpawnTimeReductionHalfLife);
-        for (int i = 0; i < 4 && Rand.rndEvent(ghostSpawnProbabilityPerTurn); i++) {
-            await SpawnGhost();
+        if (player.figure.location.board == mainWorld) {
+            ghostSpawnProbabilityPerTurn = 1 - Mathf.Pow(0.5f, time * 1f / ghostSpawnTimeReductionHalfLife);
+            for (int i = 0; i < 4 && Rand.rndEvent(ghostSpawnProbabilityPerTurn); i++) {
+                await SpawnGhost();
+            }
         }
     }
 
