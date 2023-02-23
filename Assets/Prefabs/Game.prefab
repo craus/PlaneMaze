@@ -1180,6 +1180,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSample: {fileID: 2542263783767913581, guid: 370aeef2518095a448365046aa1e4453, type: 3}
   player: {fileID: 0}
+  storeCount: 4
+  storeRadius: 5
   monsterSamples:
   - {fileID: 792451774977223643, guid: 9bfa59c0dddfd244ab486a5a960146e6, type: 3}
   - {fileID: 6890977442324438375, guid: a833328bf3c02ca45989ccef640d4fd6, type: 3}
@@ -1228,6 +1230,7 @@ MonoBehaviour:
     weight: 0.3
   - to: {fileID: 1881276151569630265, guid: 223d624819fa4cb48b529497b8cd0899, type: 3}
     weight: 0.3
+  portalSample: {fileID: 7110139304582582606, guid: 89231564c7a6d1940a474861eddb4b29, type: 3}
   ghostSample: {fileID: 5504667808349519680, guid: 26b7e0628829b604684f5107a4a9a1ff, type: 3}
   cellOrderList: []
   unlockedCells: 1000000000
@@ -1235,10 +1238,10 @@ MonoBehaviour:
   ghostSpawnTimeReductionHalfLife: 8000
   ghostSpawnProbabilityPerTurn: 0
   boardSample: {fileID: 4431957465168648574, guid: fcb2ff9050c98424e87f885026a6af7b, type: 3}
-  board: {fileID: 0}
+  mainWorld: {fileID: 0}
+  stores: []
   gemSample: {fileID: -5931720104371548630, guid: 5dd0e56d03f85e0428917ae2cf43f2d0, type: 3}
   gem: {fileID: 0}
-  figureParent: {fileID: 2828773098761964938}
   completedTurns:
     keys: 
   speed: 1

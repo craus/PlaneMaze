@@ -10,7 +10,7 @@ namespace SparseCollections
     [Serializable]
     public class Sparse2DChunkBasedMatrix<TValue>
     {
-        Sparse2DMatrix<int, int, TValue[,]> chunks = new SparseCollections.Sparse2DMatrix<int, int, TValue[,]>();
+        public Sparse2DMatrix<int, int, TValue[,]> chunks = new SparseCollections.Sparse2DMatrix<int, int, TValue[,]>();
 
         TValue[,] lastChunk;
         int lastChunkX;

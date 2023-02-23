@@ -14,6 +14,8 @@ public class Figure : MonoBehaviour
 
     public Func<Cell, Figure, Task> collide = (c, f) => Task.CompletedTask;
 
+    public List<Func<Board, Board, Task>> afterBoardChange = new List<Func<Board, Board, Task>>();
+
     public void TryMoveWall(Cell from, Cell to) {
         if (from.fieldCell.wall && !to.fieldCell.wall) {
             from.fieldCell.wall = false;
@@ -89,11 +91,16 @@ public class Figure : MonoBehaviour
 
     public async Task Move(Cell newPosition, bool isTeleport = false, Cell fakeMove = null, bool teleportAnimation = false) {
         var from = location;
+        var fromBoard = from != null ? from.board : null;
         if (!fakeMove && location != null) {
             location.figures.Remove(this);
         }
         location = newPosition;
+        var toBoard = location != null ? location.board : null;
         transform.SetParent(location.board.figureParent);
+        if (fromBoard != toBoard) {
+            await Task.WhenAll(afterBoardChange.Select(listener => listener(fromBoard, toBoard)));
+        }
 
         if (!fakeMove && location != null) {
             location.figures.Add(this);

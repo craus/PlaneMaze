@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -138,5 +139,19 @@ public class Player : Unit
         );
 
         await GetComponent<Health>().Hit(attack.damage);
+    }
+
+    public override void Awake() {
+        base.Awake();
+        figure.afterBoardChange.Add(AfterBoardChange);
+    }
+
+    private async Task AfterBoardChange(Board from, Board to) {
+        if (from != null) {
+            from.gameObject.SetActive(false);
+        }
+        if (to != null) {
+            to.gameObject.SetActive(true);
+        }
     }
 }

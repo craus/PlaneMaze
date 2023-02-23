@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-    SparseCollections.Sparse2DChunkBasedMatrix<Cell> map = new SparseCollections.Sparse2DChunkBasedMatrix<Cell>();
+    public SparseCollections.Sparse2DChunkBasedMatrix<Cell> map = new SparseCollections.Sparse2DChunkBasedMatrix<Cell>();
 
     public Field field;
     public Cell cellSample;
@@ -14,6 +14,8 @@ public class Board : MonoBehaviour
     public Teleport teleportSample;
     public Transform cellParent;
     public Transform figureParent;
+
+    public List<Cell> cells;
 
     public bool silentMode = false;
 
@@ -50,6 +52,7 @@ public class Board : MonoBehaviour
 
     private Cell GenerateCell(int x, int y) {
         var cell = Instantiate(cellSample);
+        cells.Add(cell);
         if (silentMode) {
             cell.gameObject.SetActive(false);
         }

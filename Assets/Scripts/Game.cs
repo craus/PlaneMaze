@@ -13,6 +13,9 @@ public class Game : MonoBehaviour
     public Player playerSample;
     public Player player;
 
+    public int storeCount = 4;
+    public int storeRadius = 5;
+
     public List<Monster> monsterSamples;
 
     public List<Monster> monsters;
@@ -23,6 +26,7 @@ public class Game : MonoBehaviour
 
     public List<Store> storeSamples;
     public List<Weighted<Figure>> terrainSamples;
+    public Portal portalSample;
 
     public Ghost ghostSample;
 
@@ -35,6 +39,7 @@ public class Game : MonoBehaviour
 
     public Board boardSample;
     public Board mainWorld;
+    public List<Board> stores;
 
     public Gem gemSample;
     public Gem gem;
@@ -51,7 +56,8 @@ public class Game : MonoBehaviour
     public async void Start() {
         mainWorld = Instantiate(boardSample, transform);
         Debug.LogFormat("New game started");
-        
+
+
         speed = 10000;
         await EnumerateCells(1000, pauses: true);
 
@@ -59,12 +65,27 @@ public class Game : MonoBehaviour
         player.figure.savePoint = mainWorld.GetCell(Vector2Int.zero);
         await player.figure.Move(mainWorld.GetCell(Vector2Int.zero), isTeleport: true);
 
-        cellOrderList.ForEach(cell => SecondStep(cell));
+        for (int i = 0; i < storeCount; i++) {
+            GenerateStore(); 
+        }
+    }
 
-        //PlaceGem();
+    private void GenerateStore() {
+        var newStore = Instantiate(boardSample, transform);
+        newStore.silentMode = true;
+        newStore.GetCell(Vector2Int.zero).Vicinity(storeRadius + 1).ForEach(cell => cell.gameObject.SetActive(true));
+        newStore.GetCell(Vector2Int.zero).Vicinity(storeRadius).ForEach(cell => {
+            cell.fieldCell.wall = false;
+            cell.UpdateCell();
+        });
+        newStore.gameObject.SetActive(false);
+        stores.Add(newStore);
 
-        //player.figure.location.Dark = false;
-        //player.figure.location.UpdateCell();
+        var entry = GenerateFigure(mainWorld.cells.Where(c => c.figures.Count() == 0 && !c.Wall).Rnd(), portalSample);
+        var exit = GenerateFigure(newStore.GetCell(Vector2Int.zero), portalSample);
+
+        entry.second = exit;
+        exit.second = entry;
     }
 
     private void SecondStep(Cell cell) {
@@ -255,11 +276,11 @@ public class Game : MonoBehaviour
             return;
         } else if (cell.order == 0) {
             return;
-        } else if (startingItemsSamples.Count () > 0) {
+        } else if (startingItemsSamples.Count() > 0) {
             GenerateFigure(cell, startingItemsSamples.First());
             startingItemsSamples.RemoveAt(0);
             return;
-        } 
+        }
 
         if (cell.order > 20 && Rand.rndEvent(0.1f)) {
             monsters.Add(GenerateFigure(cell, monsterSamples.rnd()));
