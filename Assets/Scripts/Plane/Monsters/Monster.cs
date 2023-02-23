@@ -69,7 +69,7 @@ public abstract class Monster : Unit
     }
 
     public async Task Move() {
-        if (!alive) {
+        if (!alive || figure.location.board != Player.instance.figure.location.board) {
             return;
         }
         await GetComponent<Invulnerability>().Spend(1);
