@@ -89,16 +89,16 @@ public class Game : MonoBehaviour
         exit.second = entry;
 
         GenerateFigure(newStore.GetCell(new Vector2Int(-3, 3)), healingPotionSample);
-        GenerateFigure(newStore.GetCell(new Vector2Int(-3, 3)), paidCellSample).SetPrice(10);
+        GenerateFigure(newStore.GetCell(new Vector2Int(-3, 3)), paidCellSample).SetPrice(5);
 
         GenerateFigure(newStore.GetCell(new Vector2Int(-1, 3)), weaponSamples.rnd());
-        GenerateFigure(newStore.GetCell(new Vector2Int(-1, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(20, 30));
+        GenerateFigure(newStore.GetCell(new Vector2Int(-1, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(10, 20));
 
         GenerateFigure(newStore.GetCell(new Vector2Int(1, 3)), itemSamples.rnd());
-        GenerateFigure(newStore.GetCell(new Vector2Int(1, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(20, 30));
+        GenerateFigure(newStore.GetCell(new Vector2Int(1, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(10, 20));
 
         GenerateFigure(newStore.GetCell(new Vector2Int(3, 3)), itemSamples.rnd());
-        GenerateFigure(newStore.GetCell(new Vector2Int(3, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(20, 30));
+        GenerateFigure(newStore.GetCell(new Vector2Int(3, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(10, 20));
     }
 
     private void SecondStep(Cell cell) {
@@ -297,9 +297,9 @@ public class Game : MonoBehaviour
 
         if (cell.order > 20 && Rand.rndEvent(0.1f)) {
             monsters.Add(GenerateFigure(cell, monsterSamples.rnd()));
-        } else if (Rand.rndEvent(0.007f)) {
+        } else if (Rand.rndEvent(0.004f)) {
             GenerateFigure(cell, weaponSamples.rnd());
-        } else if (Rand.rndEvent(0.007f)) {
+        } else if (Rand.rndEvent(0.004f)) {
             GenerateFigure(cell, itemSamples.rnd());
         } else if (Rand.rndEvent(0.3f)) {
             GenerateFigure(cell, terrainSamples.weightedRnd());
