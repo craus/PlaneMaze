@@ -50,7 +50,9 @@ public class Item : MonoBehaviour
 
     [ContextMenu("Pick")]
     public void Pick() {
-        Inventory.instance.items.Where(item => item.slot == slot).ToList().ForEach(item => item.Drop());
+        if (slot != null) {
+            Inventory.instance.items.Where(item => item.slot == slot).ToList().ForEach(item => item.Drop());
+        }
 
         icon.SetParent(Inventory.instance.itemsFolder);
         Inventory.instance.items.Add(this);
