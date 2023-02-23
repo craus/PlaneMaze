@@ -28,6 +28,7 @@ public class Game : MonoBehaviour
     public List<Weighted<Figure>> terrainSamples;
     public Portal portalSample;
     public HealingPotion healingPotionSample;
+    public PaidCell paidCellSample;
 
     public Ghost ghostSample;
 
@@ -87,7 +88,8 @@ public class Game : MonoBehaviour
         entry.second = exit;
         exit.second = entry;
 
-        GenerateFigure(newStore.GetCell(new Vector2Int(3, -3)), healingPotionSample);
+        GenerateFigure(newStore.GetCell(new Vector2Int(-3, 3)), healingPotionSample);
+        GenerateFigure(newStore.GetCell(new Vector2Int(-3, 3)), paidCellSample).SetPrice(2);
     }
 
     private void SecondStep(Cell cell) {

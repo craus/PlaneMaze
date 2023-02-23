@@ -1232,6 +1232,7 @@ MonoBehaviour:
     weight: 0.3
   portalSample: {fileID: 7110139304582582606, guid: 89231564c7a6d1940a474861eddb4b29, type: 3}
   healingPotionSample: {fileID: 2665230306910546025, guid: c54196d8a6cfbdc49a2ae0a059098cd4, type: 3}
+  paidCellSample: {fileID: 3795892648448291814, guid: a1a62b1b04267d3448d1031ee1297b0f, type: 3}
   ghostSample: {fileID: 5504667808349519680, guid: 26b7e0628829b604684f5107a4a9a1ff, type: 3}
   cellOrderList: []
   unlockedCells: 1000000000

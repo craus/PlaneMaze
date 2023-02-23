@@ -32,7 +32,7 @@ public class Player : Unit
             return;
         }
 
-        if (await figure.TryWalk(delta)) {
+        if (await figure.TryWalk(delta, c => c.Free && (c.GetFigure<PaidCell>() == null || c.GetFigure<PaidCell>().price <= gems))) {
             return;
         }
 

@@ -69,6 +69,12 @@ public abstract class Monster : Unit
     }
 
     public async Task Move() {
+        var figureLocation = figure.location;
+        var board = figureLocation.board;
+        var player = Player.instance;
+        var playerFigure = player.figure;
+        var playerLocation = playerFigure.location;
+        var playerBoard = playerLocation.board;
         if (!alive || figure.location.board != Player.instance.figure.location.board) {
             return;
         }
