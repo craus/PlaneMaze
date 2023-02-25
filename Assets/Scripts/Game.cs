@@ -58,10 +58,16 @@ public class Game : MonoBehaviour
 
     public Map<int, TaskCompletionSource<bool>> completedTurns = new Map<int, TaskCompletionSource<bool>>(() => new TaskCompletionSource<bool>());
 
+    public GameObject startPanel;
+    public GameObject winPanel;
+    public GameObject losePanel;
+
+    public bool win = false;
+    public bool lose = false;
+
     public async void Start() {
         mainWorld = Instantiate(boardSample, transform);
         Debug.LogFormat("New game started");
-
 
         speed = 10000;
         await EnumerateCells(worldSize, pauses: true);
@@ -77,6 +83,28 @@ public class Game : MonoBehaviour
         monsters.ToList().ForEach(m => {
             m.OnGameStart();
         });
+
+        startPanel.SetActive(true);
+    }
+
+    public void ClosePanel() {
+        startPanel.SetActive(false);
+        losePanel.SetActive(false);
+        winPanel.SetActive(false);
+
+        if (win || lose) {
+            GameManager.instance.Restart();
+        }
+    }
+
+    public async Task Win() {
+        win = true;
+        winPanel.SetActive(true);
+    }
+
+    public async Task Lose() {
+        lose = true;
+        losePanel.SetActive(true);
     }
 
     private void GenerateStore() {

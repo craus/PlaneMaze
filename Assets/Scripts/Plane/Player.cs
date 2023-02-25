@@ -67,6 +67,13 @@ public class Player : Unit
     }
 
     private async void Move(Vector2Int delta) {
+        if (Game.instance.startPanel.activeSelf) {
+            Game.instance.ClosePanel();
+            return;
+        }
+        if (Game.instance.winPanel.activeSelf || Game.instance.losePanel.activeSelf) {
+            return;
+        }
         if (ongoingAnimations == true) {
             commands.Enqueue(delta);
             return;
@@ -77,29 +84,20 @@ public class Player : Unit
     }
 
     public void Update() {
-        if (Input.GetKeyDown(KeyCode.UpArrow)) {
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
             Move(Vector2Int.up);
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow)) {
+        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
             Move(Vector2Int.down);
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow)) {
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) {
             Move(Vector2Int.right);
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) {
             Move(Vector2Int.left);
         }
         if (ongoingAnimations == false && commands.Count > 0) {
             Move(commands.Dequeue());
-        }
-        if (Input.GetKeyDown(KeyCode.W)) {
-            Build(figure.location, wallSample);
-        }
-        if (Input.GetKeyDown(KeyCode.Q)) {
-            Build(figure.location, markSample);
-        }
-        if (Input.GetKeyDown(KeyCode.X)) {
-            DestroyBuilding(figure.location);
         }
     }
 
@@ -153,5 +151,10 @@ public class Player : Unit
         if (to != null) {
             to.gameObject.SetActive(true);
         }
+    }
+
+    public override async Task Die() {
+        await base.Die();
+        await Game.instance.Lose();
     }
 }

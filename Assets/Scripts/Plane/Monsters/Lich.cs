@@ -97,4 +97,9 @@ public class Lich : Monster
 
         currentCooldown = cooldown;
     }
+
+    public override async Task Die() {
+        await base.Die();
+        await Game.instance.Win();
+    }
 }
