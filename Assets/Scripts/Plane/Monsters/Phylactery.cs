@@ -7,4 +7,5 @@ using UnityEngine;
 public class Phylactery : Monster
 {
     public override bool HasSoul => false;
+    public override int Money => 0;
 }
