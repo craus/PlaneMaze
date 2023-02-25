@@ -31,6 +31,7 @@ public class Game : MonoBehaviour
     public PaidCell paidCellSample;
 
     public Ghost ghostSample;
+    public Lich lichSample;
 
     public List<Cell> cellOrderList;
     public int unlockedCells = (int)1e9;
@@ -38,6 +39,8 @@ public class Game : MonoBehaviour
     public int time = 0;
     public int ghostSpawnTimeReductionHalfLife = 1000;
     public float ghostSpawnProbabilityPerTurn;
+
+    public int worldSize = 1000;
 
     public Board boardSample;
     public Board mainWorld;
@@ -61,7 +64,7 @@ public class Game : MonoBehaviour
 
 
         speed = 10000;
-        await EnumerateCells(1000, pauses: true);
+        await EnumerateCells(worldSize, pauses: true);
 
         player = Instantiate(playerSample, transform);
         player.figure.savePoint = mainWorld.GetCell(Vector2Int.zero);
@@ -293,6 +296,9 @@ public class Game : MonoBehaviour
             GenerateFigure(cell, startingItemsSamples.First());
             startingItemsSamples.RemoveAt(0);
             return;
+        } else if (cell.order == 30) {
+            monsters.Add(GenerateFigure(cell, lichSample));
+            return;
         }
 
         if (cell.position.magnitude > 6 && Rand.rndEvent(0.1f)) {
@@ -307,7 +313,7 @@ public class Game : MonoBehaviour
     }
 
     private async Task MonstersAndItemsTick(int turnNumber) {
-        await Task.WhenAll(monsters.Select(m => m.Move()).Concat(afterPlayerMove.Select(listener => listener(turnNumber))));
+        await Task.WhenAll(monsters.ToList().Select(m => m.Move()).Concat(afterPlayerMove.Select(listener => listener(turnNumber))));
         await Task.WhenAll(afterMonsterMove.Select(listener => listener(turnNumber)));
     }
 

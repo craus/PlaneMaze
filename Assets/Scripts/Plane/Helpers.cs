@@ -34,4 +34,14 @@ public static class Helpers
     public static async Task Delay(float seconds) {
         await Task.Delay((int)(1000 * seconds / Mathf.Pow(2, Player.instance.commands.Count)));
     }
+
+    public static Vector2Int StepAtDirection(this Vector2Int v) {
+        if (Mathf.Abs(v.x) > Mathf.Abs(v.y)) {
+            v.y = 0;
+        } else {
+            v.x = 0;
+        }
+        v /= (int)v.magnitude;
+        return v;
+    }
 }

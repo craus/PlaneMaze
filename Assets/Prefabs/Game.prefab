@@ -1232,11 +1232,13 @@ MonoBehaviour:
   healingPotionSample: {fileID: 2665230306910546025, guid: c54196d8a6cfbdc49a2ae0a059098cd4, type: 3}
   paidCellSample: {fileID: 3795892648448291814, guid: a1a62b1b04267d3448d1031ee1297b0f, type: 3}
   ghostSample: {fileID: 5504667808349519680, guid: 26b7e0628829b604684f5107a4a9a1ff, type: 3}
+  lichSample: {fileID: 8536777542681899615, guid: ece9098977d4b71458ae84b7d52f91f9, type: 3}
   cellOrderList: []
   unlockedCells: 1000000000
   time: 0
   ghostSpawnTimeReductionHalfLife: 8000
   ghostSpawnProbabilityPerTurn: 0
+  worldSize: 1000
   boardSample: {fileID: 4431957465168648574, guid: fcb2ff9050c98424e87f885026a6af7b, type: 3}
   mainWorld: {fileID: 0}
   stores: []
