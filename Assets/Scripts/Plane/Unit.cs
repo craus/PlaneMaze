@@ -16,12 +16,16 @@ public class Unit : MonoBehaviour
     public virtual bool GhostForm => false;
 
     public virtual bool Vulnerable => GetComponent<Invulnerability>().Current == 0;
+    public virtual bool ShowInvulnerability => true;
 
     public virtual bool OccupiesPlace => true;
 
     public Figure figure;
 
     public bool alive = true;
+
+    public virtual void OnGameStart() {
+    }
 
     public virtual void Awake() {
         if (figure == null) figure = GetComponent<Figure>();

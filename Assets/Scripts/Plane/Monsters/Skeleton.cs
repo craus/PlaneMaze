@@ -20,6 +20,7 @@ public class Skeleton : Monster
     public override bool OccupiesPlace => active;
 
     public override bool Vulnerable => base.Vulnerable && active;
+    public override bool ShowInvulnerability => active;
 
     public override void Awake() {
         base.Awake();

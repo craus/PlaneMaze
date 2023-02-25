@@ -11,6 +11,8 @@ public class Lich : Monster
     public int teleportRadius = 8;
 
     public Skeleton skeletonSample;
+    public Phylactery phylacterySample;
+    public Phylactery phylactery;
 
     public int cooldown = 2;
     public int currentCooldown;
@@ -20,10 +22,20 @@ public class Lich : Monster
     public int minAttackRange = 3;
     public int maxAttackRange = 4;
 
+    public override bool Vulnerable => base.Vulnerable && (phylactery == null || !phylactery.alive);
+
     public override void Awake() {
         base.Awake();
         currentCooldown = cooldown;
         UpdateSprite();
+    }
+
+    public override void OnGameStart() {
+        base.OnGameStart();
+        var phylacteryLocation = Game.instance.mainWorld.cells.Range(0, 20).Where(c => !c.Wall && c.figures.Count() == 0).Rnd();
+        phylactery = Game.instance.GenerateFigure(phylacteryLocation, phylacterySample);
+        Game.instance.monsters.Add(phylactery);
+        GetComponent<Invulnerability>().UpdateIcons();
     }
 
     private void UpdateSprite() {

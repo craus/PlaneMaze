@@ -73,6 +73,10 @@ public class Game : MonoBehaviour
         for (int i = 0; i < storeCount; i++) {
             GenerateStore(); 
         }
+
+        monsters.ToList().ForEach(m => {
+            m.OnGameStart();
+        });
     }
 
     private void GenerateStore() {
