@@ -32,7 +32,7 @@ public class Lich : Monster
 
     public override void OnGameStart() {
         base.OnGameStart();
-        var phylacteryLocation = Game.instance.mainWorld.cells.Range(0, 20).Where(c => !c.Wall && c.figures.Count() == 0).Rnd();
+        var phylacteryLocation = Game.instance.mainWorld.cells.Where(c => !c.Wall && c.figures.Count() == 0).Rnd();
         phylactery = Game.instance.GenerateFigure(phylacteryLocation, phylacterySample);
         Game.instance.monsters.Add(phylactery);
         GetComponent<Invulnerability>().UpdateIcons();

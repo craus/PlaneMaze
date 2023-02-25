@@ -300,7 +300,7 @@ public class Game : MonoBehaviour
             GenerateFigure(cell, startingItemsSamples.First());
             startingItemsSamples.RemoveAt(0);
             return;
-        } else if (cell.order == 30) {
+        } else if (cell.order == worldSize - 1) {
             monsters.Add(GenerateFigure(cell, lichSample));
             return;
         }
