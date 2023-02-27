@@ -124,7 +124,7 @@ public class Game : MonoBehaviour
         exit.second = entry;
 
         GenerateFigure(newStore.GetCell(new Vector2Int(-3, 3)), healingPotionSample);
-        GenerateFigure(newStore.GetCell(new Vector2Int(-3, 3)), paidCellSample).SetPrice(5);
+        GenerateFigure(newStore.GetCell(new Vector2Int(-3, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(8, 10));
 
         GenerateFigure(newStore.GetCell(new Vector2Int(-1, 3)), weaponSamples.rnd());
         GenerateFigure(newStore.GetCell(new Vector2Int(-1, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(10, 20));

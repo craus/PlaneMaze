@@ -127,4 +127,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  attackProjectileSample: {fileID: 7558257676500238022, guid: cfc4e3f00b8a52448b747c87fa87ae29, type: 3}
+  attackProjectileSample: {fileID: 7722422181804232934, guid: 9226b0c3cafaf074b9246aa63d6cec95, type: 3}
