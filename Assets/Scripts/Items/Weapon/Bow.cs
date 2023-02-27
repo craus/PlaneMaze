@@ -9,7 +9,7 @@ public class Bow : Weapon
 {
     public int range = 4;
 
-    public bool charged = false;
+    public Vector2Int chargedDirection;
 
     public override bool CanAttackOnHill => true;
 
@@ -37,8 +37,8 @@ public class Bow : Weapon
     }
 
     private void UpdateIcon() {
-        iconCharged.SetActive(charged);
-        iconUncharged.SetActive(!charged);
+        iconCharged.SetActive(chargedDirection != Vector2Int.zero);
+        iconUncharged.SetActive(chargedDirection == Vector2Int.zero);
     }
 
     public override async Task<bool> TryAttack(Vector2Int delta) {
@@ -47,21 +47,21 @@ public class Bow : Weapon
         if (target != null) {
             var victim = target.GetFigure<Monster>(m => m.Vulnerable);
             if (!Game.CanAttack(Owner, victim, this)) {
-                charged = false;
+                chargedDirection = Vector2Int.zero;
                 UpdateIcon();
                 return false;
             }
-            if (!charged) {
-                charged = true;
-                UpdateIcon();
-                return true;
-            } else {
-                charged = false;
+            if (chargedDirection == delta) {
+                chargedDirection = Vector2Int.zero;
                 UpdateIcon();
                 return await Attack(victim);
+            } else {
+                chargedDirection = delta;
+                UpdateIcon();
+                return true;
             }
         }
-        charged = false;
+        chargedDirection = Vector2Int.zero;
         UpdateIcon();
         return false;
     }
