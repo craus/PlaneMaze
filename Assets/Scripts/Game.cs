@@ -381,7 +381,8 @@ public class Game : MonoBehaviour
     private static bool CanAttack(Unit attacker) => attacker == null || attacker.figure.location.GetFigure<PeaceTrap>() == null;
     private static bool CanBeAttacked(Unit defender, Weapon weapon) => 
         defender != null && 
-        defender.Vulnerable;
+        defender.Vulnerable &&
+        !defender.figure.location.Wall;
 
     private static bool IsRanged(Unit attacker, Unit defender) => 
         attacker != null &&
