@@ -28,30 +28,31 @@ public class CameraControl : Singletone<CameraControl>
     }
 
     public void Update() {
-        if (Input.GetMouseButtonDown(1)) {
-            dragPoint = WorldMousePoint;
-        }
-        if (Input.GetMouseButton(1)) {
-            RestoreCameraPosition(dragPoint);
-        }
-        if (Input.GetKeyDown(KeyCode.F)) {
-            followPoint = false;
-        }
+        if (Cheats.on) {
+            if (Input.GetMouseButtonDown(1)) {
+                dragPoint = WorldMousePoint;
+            }
+            if (Input.GetMouseButton(1)) {
+                RestoreCameraPosition(dragPoint);
+            }
+            if (Input.GetKeyDown(KeyCode.F)) {
+                followPoint = false;
+            }
 
-        var oldWorldMousePoint = WorldMousePoint;
-        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize * Mathf.Pow(1.25f, -Input.mouseScrollDelta.y), 1, 50);
-        RestoreCameraPosition(oldWorldMousePoint);
+            var oldWorldMousePoint = WorldMousePoint;
+            Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize * Mathf.Pow(1.25f, -Input.mouseScrollDelta.y), 1, 50);
+            RestoreCameraPosition(oldWorldMousePoint);
+        }
 
         if (Game.instance.player && followPlayer && !Input.GetMouseButton(1)) {
             Camera.main.transform.position = Vector3.Lerp(
                 Game.instance.player.figure.location.transform.position.Change(z: Camera.main.transform.position.z),
-                Camera.main.transform.position, 
+                Camera.main.transform.position,
                 Mathf.Pow(0.5f, Time.deltaTime / lerpHalfLife)
             );
         }
 
         if (followPoint && !Input.GetMouseButton(1)) {
-
             Camera.main.transform.position = Vector3.Lerp(
                 MoveTo(pointToFollow.Change(z: Camera.main.transform.position.z), Camera.main.transform.position, Camera.main.orthographicSize/2),
                 Camera.main.transform.position,
