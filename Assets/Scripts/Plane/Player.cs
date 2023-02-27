@@ -67,11 +67,8 @@ public class Player : Unit
     }
 
     private async void Move(Vector2Int delta) {
-        if (Game.instance.startPanel.activeSelf) {
+        if (Game.instance.startPanel.activeSelf || Game.instance.winPanel.activeSelf || Game.instance.losePanel.activeSelf) {
             Game.instance.ClosePanel();
-            return;
-        }
-        if (Game.instance.winPanel.activeSelf || Game.instance.losePanel.activeSelf) {
             return;
         }
         if (ongoingAnimations == true) {

@@ -224,6 +224,12 @@ public class Game : MonoBehaviour
                 commandToContinue.RunSynchronously();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Return)) {
+            if (startPanel.activeSelf || winPanel.activeSelf || losePanel.activeSelf) {
+                ClosePanel();
+            }
+        }
     }
 
     private bool MakesCross(Cell cell, Vector2Int direction) => cell.Shift(direction + direction.RotateRight()).Ordered && !cell.Shift(direction).Ordered && !cell.Shift(direction.RotateRight()).Ordered;
