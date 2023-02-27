@@ -347,7 +347,7 @@ public class Game : MonoBehaviour
             monsters.Add(GenerateFigure(cell, monsterSamples.rnd()));
         } else if (Rand.rndEvent(0.004f)) {
             GenerateFigure(cell, weaponSamples.rnd());
-        } else if (Rand.rndEvent(0.004f)) {
+        } else if (Rand.rndEvent(0.000f)) {
             GenerateFigure(cell, itemSamples.rnd());
         } else if (Rand.rndEvent(0.3f)) {
             GenerateFigure(cell, terrainSamples.weightedRnd());
