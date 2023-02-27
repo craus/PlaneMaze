@@ -230,6 +230,10 @@ public class Game : MonoBehaviour
                 ClosePanel();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            ConfirmationPanel.instance.DoWithConfirmation(() => Application.Quit(), "Are you sure you want to quit now?");
+        }
     }
 
     private bool MakesCross(Cell cell, Vector2Int direction) => cell.Shift(direction + direction.RotateRight()).Ordered && !cell.Shift(direction).Ordered && !cell.Shift(direction.RotateRight()).Ordered;
