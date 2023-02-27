@@ -48,15 +48,6 @@ public class Lich : Monster
         }
     }
 
-    public override async Task<bool> TryAttack(Vector2Int delta) {
-        var newPosition = figure.location.Shift(2 * delta);
-        if (newPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
-            return await Attack(newPosition.GetFigure<Player>());
-        }
-        return false;
-    }
-
-
     private async Task TryWalkFromPlayer() {
         var playerDelta = Player.instance.figure.location.position - figure.location.position;
 
