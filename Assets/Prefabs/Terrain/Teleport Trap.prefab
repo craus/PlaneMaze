@@ -177,6 +177,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportRadius: 6
-  invulnerabilityTurns: 3
+  invulnerabilityTurns: 2
   triggerVisibilityRadius: 4
   sprite: {fileID: 2940646852088297125}
