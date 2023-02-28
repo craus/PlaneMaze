@@ -1712,7 +1712,7 @@ MonoBehaviour:
   cellOrderList: []
   unlockedCells: 1000000000
   time: 0
-  ghostSpawnTimeReductionHalfLife: 8000
+  ghostSpawnTimeReductionHalfLife: 16000
   ghostSpawnProbabilityPerTurn: 0
   worldSize: 1000
   boardSample: {fileID: 4431957465168648574, guid: fcb2ff9050c98424e87f885026a6af7b, type: 3}
