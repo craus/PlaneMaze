@@ -19,7 +19,9 @@ public class Flail : Weapon
         if (!await base.Attack(target)) {
             return false;
         }
-        await target.GetComponent<MovesReserve>().Freeze(1);
+        if (target.alive) {
+            await target.GetComponent<MovesReserve>().Freeze(1);
+        }
         return true;
     }
 
