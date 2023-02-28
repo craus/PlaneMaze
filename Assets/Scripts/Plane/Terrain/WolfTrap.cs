@@ -25,6 +25,8 @@ public class WolfTrap : MonoBehaviour
         if (!Game.CanAttack(null, victim)) {
             return;
         }
+        SoundManager.instance.wolftrapAttack.Play();
+
         var ap = Instantiate(attackProjectileSample);
         ap.transform.position = victim.transform.position;
         await Helpers.Delay(0.1f);

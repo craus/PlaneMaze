@@ -18,6 +18,8 @@ public class Dart : Weapon
 
         var delta = target.transform.position - Owner.transform.position;
 
+        SoundManager.instance.rangedAttack.Play();
+
         var ap = Instantiate(attackProjectileSample);
         ap.transform.rotation = Quaternion.LookRotation(Vector3.forward, delta.normalized);
         ap.transform.position = Owner.transform.position + delta * 0.5f;

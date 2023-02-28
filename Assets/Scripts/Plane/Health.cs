@@ -19,13 +19,26 @@ public class Health : MonoBehaviour
     public async Task Hit(int amount) {
         current = Mathf.Clamp(current - amount, 0, max); 
         if (current <= 0) {
+            if (GetComponent<Player>() != null) {
+                SoundManager.instance.playerDeath.Play();
+            } else if (GetComponent<Lich>() != null) {
+                SoundManager.instance.lichDeath.Play();
+            } else {
+                SoundManager.instance.monsterDeath.Play();
+            }
             await GetComponent<Unit>().Die();
         } else {
+            if (GetComponent<Player>() != null) {
+                SoundManager.instance.heroDamaged.Play();
+            }
             UpdateHearts();
         }
     }
 
     public async Task Heal(int amount) {
+        if (GetComponent<Player>() != null) {
+            SoundManager.instance.heal.Play();
+        } 
         current = Mathf.Clamp(current + amount, 0, max);
         UpdateHearts();
     }

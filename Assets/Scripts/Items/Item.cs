@@ -54,6 +54,8 @@ public class Item : MonoBehaviour
             Inventory.instance.items.Where(item => item.slot == slot).ToList().ForEach(item => item.Drop());
         }
 
+        SoundManager.instance.itemPick.Play();
+
         icon.SetParent(Inventory.instance.itemsFolder);
         Inventory.instance.items.Add(this);
         Debug.LogFormat("item is picked");

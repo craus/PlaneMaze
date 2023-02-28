@@ -38,10 +38,14 @@ public abstract class Monster : Unit
         return false;
     }
 
+    public virtual void PlayAttackSound() => SoundManager.instance.monsterMeleeAttack.Play();
+
     public async Task<bool> Attack(Unit target) {
         if (!Game.CanAttack(this, target)) {
             return false;
         }
+
+        PlayAttackSound();
 
         var ap = Instantiate(attackProjectile);
         ap.gameObject.SetActive(true); // object was inactive for unknown reason

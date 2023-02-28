@@ -26,6 +26,7 @@ public class PaidCell : MonoBehaviour
             return;
         }
         player.gems -= price;
+        SoundManager.instance.buy.Play();
         Destroy(gameObject);
     }
 

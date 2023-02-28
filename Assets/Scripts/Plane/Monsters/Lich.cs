@@ -41,6 +41,8 @@ public class Lich : Monster
     private void UpdateSprite() {
     }
 
+    public override void PlayAttackSound() => SoundManager.instance.monsterRangedAttack.Play();
+
     public override async Task Hit(Attack attack) {
         await base.Hit(attack);
         if (alive) {

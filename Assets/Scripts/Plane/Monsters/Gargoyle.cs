@@ -45,6 +45,7 @@ public class Gargoyle : Monster
 
             if (Helpers.RayCast(figure.location, playerDelta, target: c => c.GetFigure<Player>() != null, distance: range) != null) {
                 currentDirection = playerDelta;
+                SoundManager.instance.gargoyleWakeup.Play();
                 UpdateSprite();
             }
         }

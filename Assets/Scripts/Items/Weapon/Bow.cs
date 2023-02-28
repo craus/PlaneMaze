@@ -19,6 +19,8 @@ public class Bow : Weapon
     public override async Task<bool> Attack(Unit target) {
         var delta = target.transform.position - Owner.transform.position;
 
+        SoundManager.instance.rangedAttack.Play();
+
         var ap = Instantiate(attackProjectileSample);
         ap.transform.rotation = Quaternion.LookRotation(Vector3.forward, delta.normalized);
         ap.transform.position = Owner.transform.position + delta * 0.5f;
@@ -57,6 +59,7 @@ public class Bow : Weapon
                 return await Attack(victim);
             } else {
                 chargedDirection = delta;
+                SoundManager.instance.bowCharge.Play();
                 UpdateIcon();
                 return true;
             }

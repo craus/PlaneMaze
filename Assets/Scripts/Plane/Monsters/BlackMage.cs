@@ -31,6 +31,8 @@ public class BlackMage : Monster
         GameEvents.instance.onUnitDeath.Remove(OnUnitDeath);
     }
 
+    public override void PlayAttackSound() => SoundManager.instance.monsterRangedAttack.Play();
+
     public async Task DealDeathDamage(Unit target) {
         await Attack(target);
     }
@@ -39,6 +41,8 @@ public class BlackMage : Monster
         if (!unit.HasSoul) {
             return;
         }
+
+        SoundManager.instance.consumeSoul.Play();
 
         var soul = Instantiate(soulSample);
         soul.transform.position = unit.figure.location.transform.position;

@@ -11,6 +11,14 @@ public static class Helpers
     public async static Task TeleportAway(Figure figure, int radius) {
         var destination = figure.location.Vicinity(maxDx: radius, maxDy: radius).Where(c => c.Free).Rnd();
 
+        if (
+            figure.GetComponent<BlackMage>() != null ||
+            figure.GetComponent<Lich>() != null ||
+            figure.GetComponent<Player>() != null
+        ) {
+            SoundManager.instance.teleport.Play();
+        }
+
         await figure.Move(destination, isTeleport: true, teleportAnimation: true);
     }
 
