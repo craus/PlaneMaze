@@ -84,6 +84,8 @@ public class Game : MonoBehaviour
             m.OnGameStart();
         });
 
+        MusicManager.instance.Switch(MusicManager.instance.playlist);
+
         startPanel.SetActive(true);
     }
 
@@ -99,11 +101,13 @@ public class Game : MonoBehaviour
 
     public async Task Win() {
         win = true;
+        MusicManager.instance.Switch(MusicManager.instance.winPlaylist);
         winPanel.SetActive(true);
     }
 
     public async Task Lose() {
         lose = true;
+        MusicManager.instance.Switch(MusicManager.instance.losePlaylist);
         losePanel.SetActive(true);
     }
 

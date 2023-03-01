@@ -148,6 +148,11 @@ public class Player : Unit
         if (to != null) {
             to.gameObject.SetActive(true);
         }
+        if (to == Game.instance.mainWorld) {
+            MusicManager.instance.Switch(MusicManager.instance.playlist);
+        } else {
+            MusicManager.instance.Switch(MusicManager.instance.storePlaylist);
+        }
     }
 
     public override async Task Die() {
