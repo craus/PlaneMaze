@@ -41,7 +41,7 @@ public class MusicManager : Singletone<MusicManager>
     }
 
     public void PlayNext() {
-        var next = currentPlaylist.rndExcept(last);
+        var next = currentPlaylist.rndExcept(last) ?? currentPlaylist.rnd();
         next.Play();
         last = next;
         last.timeSamples = 0;
