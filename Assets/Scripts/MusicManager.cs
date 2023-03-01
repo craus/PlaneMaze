@@ -27,6 +27,7 @@ public class MusicManager : Singletone<MusicManager>
         if (all.Any(a => a.isPlaying)) {
             return;
         }
+        PlayNext();
 
         //if (Player.instance != null) {
         //    if (Player.instance.figure.location.board == Game.instance.mainWorld) {
@@ -43,6 +44,7 @@ public class MusicManager : Singletone<MusicManager>
         var next = currentPlaylist.rndExcept(last);
         next.Play();
         last = next;
+        last.timeSamples = 0;
     }
 
     public void ToRandomPlace() {
@@ -52,6 +54,9 @@ public class MusicManager : Singletone<MusicManager>
     }
 
     public void Switch(List<AudioSource> playlist) {
+        if (currentPlaylist == playlist) {
+            return;
+        }
         if (last != null) {
             last.Stop();
         }
