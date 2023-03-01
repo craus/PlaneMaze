@@ -1273,8 +1273,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: An Evil Lich strangled your relatives with his own hands and threatens
-    the whole world. You must find him and kill him!
+  m_text: The Evil Lich strangled your relatives with his own hands and now he threatens
+    the whole world. You must find and kill him!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2140,8 +2140,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game over! You died so the Evil Lich will kill all living beings and take
-    over the world!
+  m_text: Game over! You died and now the Evil Lich will kill all living beings and
+    take over the world!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
