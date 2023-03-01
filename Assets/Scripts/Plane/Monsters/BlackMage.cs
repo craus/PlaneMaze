@@ -60,7 +60,7 @@ public class BlackMage : Monster
 
         foreach (var u in figure.location.Vicinity(damageRadius).ToList()
             .Select(c => c.GetFigure<Unit>())
-            .Where(u => u != null && u != this)
+            .Where(u => u != null && !(u is BlackMage))
         ) {
             await DealDeathDamage(u);
         }
