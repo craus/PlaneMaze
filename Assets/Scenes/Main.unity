@@ -728,6 +728,7 @@ MonoBehaviour:
     sounds: 0
     music: 0
     master: 0
+  settingsFilename: settings.dat
 --- !u!1 &136392323
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,7 +841,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -3737606820668465044, guid: 65d39619679e9744c87f09b7c14e0bea, type: 2}
   m_audioClip: {fileID: 8300000, guid: b361078083d326d41a09dd6b6422565a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.514
+  m_Volume: 0.232
   m_Pitch: 3
   Loop: 0
   Mute: 0
@@ -1318,10 +1319,10 @@ AudioSource:
   m_GameObject: {fileID: 160302031}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -3737606820668465044, guid: 65d39619679e9744c87f09b7c14e0bea, type: 2}
+  OutputAudioMixerGroup: {fileID: 1318657541735699337, guid: 65d39619679e9744c87f09b7c14e0bea, type: 2}
   m_audioClip: {fileID: 8300000, guid: 2d06d897f056baf4396c5a59ca1c3663, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.514
   m_Pitch: 1
   Loop: 0
   Mute: 0
