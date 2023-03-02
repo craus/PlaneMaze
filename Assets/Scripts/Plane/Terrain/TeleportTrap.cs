@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
@@ -24,6 +25,18 @@ public class TeleportTrap : Terrain
                 await Helpers.TeleportAway(victim.figure, teleportRadius);
             }
         };
+
+        Player.instance.figure.afterMove.Add(AfterPlayerMove);
+    }
+
+    public void OnDestroy() {
+        Player.instance.figure.afterMove.Remove(AfterPlayerMove);
+    }
+
+    private async Task AfterPlayerMove(Cell from, Cell to) {
+        if (Mathf.Abs((to.position - GetComponent<Figure>().location.position).magnitude - 1) < 1e-4) {
+            Show();
+        }
     }
 
     public void Show() {
