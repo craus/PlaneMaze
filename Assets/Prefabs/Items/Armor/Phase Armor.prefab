@@ -79,6 +79,13 @@ PrefabInstance:
       propertyPath: slot
       value: 
       objectReference: {fileID: 529709666661010183, guid: d4dda62caad898d4cbab1aa9cb44b416, type: 3}
+    - target: {fileID: 4744153755596459824, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
+      propertyPath: description
+      value: '<b>Phase armor</b>
+
+
+        Gains invulnerability each 4 turns.'
+      objectReference: {fileID: 0}
     - target: {fileID: 6325338422616382079, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Name
       value: Phase Armor

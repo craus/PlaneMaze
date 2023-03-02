@@ -182,7 +182,12 @@ MonoBehaviour:
   iconCanvas: {fileID: 2252660109841114050}
   slot: {fileID: 0}
   iconImage: {fileID: 8585933247312828475}
-  description: Some item.
+  description: '<b>Axe</b>
+
+
+    Straight and diagonal attack.
+
+    Multiple targets.'
   model: {fileID: 2172690894414466492}
 --- !u!1 &7427004701293729960
 GameObject:

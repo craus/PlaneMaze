@@ -16,7 +16,7 @@ public class Item : MonoBehaviour, IExplainable
     public ItemSlot slot;
     public Image iconImage;
 
-    [Multiline(5)]
+    [Multiline(8)]
     public string description;
 
     public List<Func<Task>> onPick = new List<Func<Task>>();

@@ -87,6 +87,15 @@ PrefabInstance:
       propertyPath: slot
       value: 
       objectReference: {fileID: 529709666661010183, guid: eb002f15fa144a743808a6ada095df7c, type: 3}
+    - target: {fileID: 4744153755596459824, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
+      propertyPath: description
+      value: '<b>Bow</b>
+
+
+        Attack range 4.
+
+        Two turns to attack.'
+      objectReference: {fileID: 0}
     - target: {fileID: 6325338422616382079, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Name
       value: Bow
@@ -139,7 +148,7 @@ MonoBehaviour:
   damage: 1
   attackProjectileSample: {fileID: 573928835983385558, guid: d3f45a99b8e42da4b88cef1704fc060d, type: 3}
   range: 4
-  charged: 0
+  chargedDirection: {x: 0, y: 0}
   iconCharged: {fileID: 3903051695269738447}
   iconUncharged: {fileID: 5424339472301073483}
 --- !u!1001 &8214455702538198055
