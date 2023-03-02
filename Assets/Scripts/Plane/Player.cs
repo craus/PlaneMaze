@@ -67,7 +67,12 @@ public class Player : Unit
     }
 
     private async void Move(Vector2Int delta) {
-        if (Game.instance.startPanel.activeSelf || Game.instance.winPanel.activeSelf || Game.instance.losePanel.activeSelf) {
+        if (
+            Game.instance.startPanel.activeSelf || 
+            Game.instance.winPanel.activeSelf || 
+            Game.instance.losePanel.activeSelf ||
+            InfoPanel.instance.panel.activeSelf
+        ) {
             Game.instance.ClosePanel();
             return;
         }

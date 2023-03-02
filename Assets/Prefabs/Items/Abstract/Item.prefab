@@ -181,6 +181,8 @@ MonoBehaviour:
   icon: {fileID: 7990721949260384047}
   iconCanvas: {fileID: 2252660109841114050}
   slot: {fileID: 0}
+  iconImage: {fileID: 8585933247312828475}
+  description: Some item.
   model: {fileID: 2172690894414466492}
 --- !u!1 &7427004701293729960
 GameObject:
@@ -492,3 +494,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3ade9bb23b09b142b10e07a3bfbb674, type: 3}
+--- !u!114 &8585933247312828475 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5509917098780268104, guid: f3ade9bb23b09b142b10e07a3bfbb674, type: 3}
+  m_PrefabInstance: {fileID: 4274044297351401075}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -93,6 +93,7 @@ public class Game : MonoBehaviour
         startPanel.SetActive(false);
         losePanel.SetActive(false);
         winPanel.SetActive(false);
+        InfoPanel.instance.panel.SetActive(false);
 
         if (win || lose) {
             GameManager.instance.Restart();
@@ -322,6 +323,12 @@ public class Game : MonoBehaviour
     public T GenerateFigure<T>(Cell cell, T sample) where T: MonoBehaviour {
         var f = Instantiate(sample);
         _ = f.GetComponent<Figure>().Move(cell, isTeleport: true);
+
+        var explainable = f.GetComponent<IExplainable>();
+        if (explainable != null) {
+            explainable.Sample = sample.GetComponent<IExplainable>();
+        }
+
         return f;
     }
 
