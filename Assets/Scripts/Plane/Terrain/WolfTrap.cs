@@ -14,18 +14,25 @@ public class WolfTrap : MonoBehaviour, IMortal
 
     public void Awake() {
 
-        Player.instance.figure.afterMove.Add(AfterPlayerMove);
+        //Player.instance.figure.afterMove.Add(AfterPlayerMove);
 
         GetComponent<Figure>().collide = async (from, figure) => {
             var victim = figure.GetComponent<Unit>();
             if (victim != null && !victim.Flying) {
+                if (victim.GetComponent<Player>() && Inventory.instance.GetItem<RingOfTerraforming>()) {
+                    Destroy(Inventory.instance.GetItem<RingOfTerraforming>().gameObject);
+                    Destroy(gameObject);
+                    SoundManager.instance.terraform.Play();
+                    return;
+                }
+
                 await Attack(victim);
             }
         };
     }
 
     public void OnDestroy() {
-        Player.instance.figure.afterMove.Remove(AfterPlayerMove);
+        //Player.instance.figure.afterMove.Remove(AfterPlayerMove);
     }
 
     private async Task Attack(Unit victim) {

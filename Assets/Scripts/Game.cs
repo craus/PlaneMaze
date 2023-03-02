@@ -29,6 +29,7 @@ public class Game : MonoBehaviour
     public Portal portalSample;
     public HealingPotion healingPotionSample;
     public PaidCell paidCellSample;
+    public RingOfTerraforming ringOfTerraformingSample;
 
     public Ghost ghostSample;
     public Lich lichSample;
@@ -129,17 +130,20 @@ public class Game : MonoBehaviour
         entry.second = exit;
         exit.second = entry;
 
-        GenerateFigure(newStore.GetCell(new Vector2Int(-3, 3)), healingPotionSample);
-        GenerateFigure(newStore.GetCell(new Vector2Int(-3, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(8, 10));
+        GenerateFigure(newStore.GetCell(new Vector2Int(-4, 3)), healingPotionSample);
+        GenerateFigure(newStore.GetCell(new Vector2Int(-4, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(8, 10));
 
-        GenerateFigure(newStore.GetCell(new Vector2Int(-1, 3)), weaponSamples.rnd());
-        GenerateFigure(newStore.GetCell(new Vector2Int(-1, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(10, 20));
+        GenerateFigure(newStore.GetCell(new Vector2Int(-2, 3)), weaponSamples.rnd());
+        GenerateFigure(newStore.GetCell(new Vector2Int(-2, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(10, 20));
 
-        GenerateFigure(newStore.GetCell(new Vector2Int(1, 3)), itemSamples.rnd());
-        GenerateFigure(newStore.GetCell(new Vector2Int(1, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(10, 20));
+        GenerateFigure(newStore.GetCell(new Vector2Int(0, 3)), itemSamples.rnd());
+        GenerateFigure(newStore.GetCell(new Vector2Int(0, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(10, 20));
 
-        GenerateFigure(newStore.GetCell(new Vector2Int(3, 3)), itemSamples.rnd());
-        GenerateFigure(newStore.GetCell(new Vector2Int(3, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(10, 20));
+        GenerateFigure(newStore.GetCell(new Vector2Int(2, 3)), itemSamples.rnd());
+        GenerateFigure(newStore.GetCell(new Vector2Int(2, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(10, 20));
+
+        GenerateFigure(newStore.GetCell(new Vector2Int(4, 3)), ringOfTerraformingSample);
+        GenerateFigure(newStore.GetCell(new Vector2Int(4, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(3, 5));
     }
 
     private void SecondStep(Cell cell) {
