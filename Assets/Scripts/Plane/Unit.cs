@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
-public class Unit : MonoBehaviour
+public class Unit : MonoBehaviour, IMortal
 {
     public Vector2Int lastMove;
 

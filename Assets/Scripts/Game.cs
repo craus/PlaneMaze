@@ -69,12 +69,13 @@ public class Game : MonoBehaviour
         mainWorld = Instantiate(boardSample, transform);
         Debug.LogFormat("New game started");
 
-        speed = 10000;
-        await EnumerateCells(worldSize, pauses: true);
-
         player = Instantiate(playerSample, transform);
         player.figure.savePoint = mainWorld.GetCell(Vector2Int.zero);
         await player.figure.Move(mainWorld.GetCell(Vector2Int.zero), isTeleport: true);
+
+        speed = 10000;
+        await EnumerateCells(worldSize, pauses: true);
+
 
         for (int i = 0; i < storeCount; i++) {
             GenerateStore(); 

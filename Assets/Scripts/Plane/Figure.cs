@@ -15,6 +15,7 @@ public class Figure : MonoBehaviour
     public Func<Cell, Figure, Task> collide = (c, f) => Task.CompletedTask;
 
     public List<Func<Board, Board, Task>> afterBoardChange = new List<Func<Board, Board, Task>>();
+    public List<Func<Cell, Cell, Task>> afterMove = new List<Func<Cell, Cell, Task>>();
 
     public void TryMoveWall(Cell from, Cell to) {
         if (from.fieldCell.wall && !to.fieldCell.wall) {
@@ -101,6 +102,7 @@ public class Figure : MonoBehaviour
         if (fromBoard != toBoard) {
             await Task.WhenAll(afterBoardChange.Select(listener => listener(fromBoard, toBoard)));
         }
+        await Task.WhenAll(afterMove.Select(listener => listener(from, location)));
 
         if (!fakeMove && location != null) {
             location.figures.Add(this);

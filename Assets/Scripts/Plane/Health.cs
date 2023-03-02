@@ -23,10 +23,10 @@ public class Health : MonoBehaviour
                 SoundManager.instance.playerDeath.Play();
             } else if (GetComponent<Lich>() != null) {
                 SoundManager.instance.lichDeath.Play();
-            } else {
+            } else if (GetComponent<Monster>() != null) {
                 SoundManager.instance.monsterDeath.Play();
             }
-            await GetComponent<Unit>().Die();
+            await GetComponent<IMortal>().Die();
         } else {
             if (GetComponent<Player>() != null) {
                 SoundManager.instance.heroDamaged.Play();
