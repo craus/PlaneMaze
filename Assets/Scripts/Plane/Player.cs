@@ -60,7 +60,7 @@ public class Player : Unit
         } else {
             await Game.instance.AfterPlayerMove();
         }
-        if (!alive) {
+        if (this == null || !alive) {
             return;
         }
         await GetComponent<Invulnerability>().Spend(1);

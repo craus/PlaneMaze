@@ -127,6 +127,9 @@ public class Figure : MonoBehaviour
                 return;
             } else {
                 await transform.Zoom(Vector3.zero, 0.05f);
+                if (this == null) {
+                    return;
+                }
                 transform.position = location.transform.position;
                 await transform.Zoom(Vector3.one, 0.05f);
                 return;
@@ -136,6 +139,9 @@ public class Figure : MonoBehaviour
             await transform.Move(location.transform.position, 0.05f);
         } else {
             await transform.Move(fakeMove.transform.position, 0.05f, endPhase: 0.33f);
+            if (this == null) {
+                return;
+            }
             await transform.Move(location.transform.position, 0.05f, startPhase: 0.67f);
         }
     }

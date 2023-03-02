@@ -356,6 +356,9 @@ public class Game : MonoBehaviour
 
     private async Task MonstersAndItemsTick(int turnNumber) {
         await Task.WhenAll(monsters.ToList().Select(m => m.Move()).Concat(afterPlayerMove.Select(listener => listener(turnNumber))));
+        if (this == null) {
+            return;
+        }
         await Task.WhenAll(afterMonsterMove.Select(listener => listener(turnNumber)));
     }
 
