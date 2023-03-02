@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
-public class PeaceTrap : MonoBehaviour
+public class PeaceTrap : Terrain
 {
     public void Awake() {
         GetComponent<Figure>().collide = async (from, figure) => {

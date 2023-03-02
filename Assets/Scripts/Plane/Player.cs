@@ -28,16 +28,20 @@ public class Player : Unit
         var time = Game.instance.time;
         lastMove = delta;
 
-        if ((await Task.WhenAll(Inventory.instance.items.Select(item => item.BeforeWalk(delta)))).Any(b => b)) {
-            return;
+        for (int priority = 0; priority < 2; priority++) {
+            if ((await Task.WhenAll(Inventory.instance.items.Select(item => item.BeforeWalk(delta, priority)))).Any(b => b)) {
+                return;
+            }
         }
 
         if (await figure.TryWalk(delta, c => c.Free && (c.GetFigure<PaidCell>() == null || c.GetFigure<PaidCell>().price <= gems))) {
             return;
         }
 
-        if ((await Task.WhenAll(Inventory.instance.items.Select(item => item.AfterFailedWalk(delta)))).Any(b => b)) {
-            return;
+        for (int priority = 0; priority < 2; priority++) {
+            if ((await Task.WhenAll(Inventory.instance.items.Select(item => item.AfterFailedWalk(delta, priority)))).Any(b => b)) {
+                return;
+            }
         }
 
         await figure.FakeMove(delta);

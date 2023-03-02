@@ -4,6 +4,6 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
-public class Hill : MonoBehaviour
+public class Hill : Terrain
 {
 }

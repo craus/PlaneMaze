@@ -24,18 +24,18 @@ public class Item : MonoBehaviour, IExplainable
 
     public GameObject model;
 
-    public async Task<bool> AfterFailedWalk(Vector2Int delta) {
-        var weapon = GetComponent<Weapon>();
-        if (weapon) {
-            return await weapon.AfterFailedWalk(delta);
+    public async Task<bool> AfterFailedWalk(Vector2Int delta, int priority) {
+        var activatable = GetComponent<IAfterFailedWalk>();
+        if (activatable != null) {
+            return await activatable.AfterFailedWalk(delta, priority);
         }
         return false;
     }
 
-    public async Task<bool> BeforeWalk(Vector2Int delta) {
-        var weapon = GetComponent<Weapon>();
-        if (weapon) {
-            return await weapon.BeforeWalk(delta);
+    public async Task<bool> BeforeWalk(Vector2Int delta, int priority) {
+        var activatable = GetComponent<IBeforeWalk>();
+        if (activatable != null) {
+            return await activatable.BeforeWalk(delta, priority);
         }
         return false;
     }

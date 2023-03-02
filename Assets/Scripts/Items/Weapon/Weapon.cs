@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Item))]
-public abstract class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
 {
     public int damage = 1;
 
@@ -57,6 +57,20 @@ public abstract class Weapon : MonoBehaviour
     }
 
     public async virtual Task<bool> BeforeWalk(Vector2Int delta) {
+        return false;
+    }
+
+    public async virtual Task<bool> BeforeWalk(Vector2Int delta, int priority) {
+        if (priority == 1) {
+            return await BeforeWalk(delta);
+        }
+        return false;
+    }
+
+    public async virtual Task<bool> AfterFailedWalk(Vector2Int delta, int priority) {
+        if (priority == 1) {
+            return await AfterFailedWalk(delta);
+        }
         return false;
     }
 

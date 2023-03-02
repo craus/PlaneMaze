@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
-public class TeleportTrap : MonoBehaviour
+public class TeleportTrap : Terrain
 {
     public int teleportRadius = 6;
     public int invulnerabilityTurns = 1;

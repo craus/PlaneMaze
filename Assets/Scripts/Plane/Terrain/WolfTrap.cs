@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
-public class WolfTrap : MonoBehaviour, IMortal
+public class WolfTrap : Terrain, IMortal
 {
     public int damage = 1;
 
@@ -19,13 +19,6 @@ public class WolfTrap : MonoBehaviour, IMortal
         GetComponent<Figure>().collide = async (from, figure) => {
             var victim = figure.GetComponent<Unit>();
             if (victim != null && !victim.Flying) {
-                if (victim.GetComponent<Player>() && Inventory.instance.GetItem<RingOfTerraforming>()) {
-                    Destroy(Inventory.instance.GetItem<RingOfTerraforming>().gameObject);
-                    Destroy(gameObject);
-                    SoundManager.instance.terraform.Play();
-                    return;
-                }
-
                 await Attack(victim);
             }
         };

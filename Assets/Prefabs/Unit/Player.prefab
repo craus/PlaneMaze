@@ -86,7 +86,7 @@ MonoBehaviour:
   figure: {fileID: 0}
   alive: 1
   totalGems: 0
-  gems: 0
+  gems: 555
   wallSample: {fileID: 0}
   markSample: {fileID: 0}
   ongoingAnimations: 0
