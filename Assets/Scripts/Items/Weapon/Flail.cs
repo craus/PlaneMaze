@@ -27,7 +27,9 @@ public class Flail : Weapon
 
     public override async Task<bool> TryAttack(Vector2Int delta) {
         if (await base.TryAttack(delta)) {
-            await Owner.GetComponent<MovesReserve>().Freeze(1);
+            if (Owner.alive) {
+                await Owner.GetComponent<MovesReserve>().Freeze(1);
+            }
             return true;
         } else {
             return false;

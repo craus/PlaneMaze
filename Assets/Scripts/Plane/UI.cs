@@ -14,6 +14,10 @@ public class UI : MonoBehaviour
 
     public List<GameObject> cheatUI;
 
+    public void Start() {
+        Update();
+    }
+
     public void Update() {
         if (Game.instance.player) {
             gemsCounter.text = Game.instance.player.gems.ToString();
