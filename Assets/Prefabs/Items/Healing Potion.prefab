@@ -137,4 +137,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeca7171d2a66624a869732f3e17ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healSample: {fileID: 7558257676500238022, guid: 79599bf405c35dc44bc7c36a841474b8, type: 3}
   heal: 1

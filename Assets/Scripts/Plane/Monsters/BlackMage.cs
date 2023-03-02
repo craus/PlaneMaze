@@ -44,7 +44,7 @@ public class BlackMage : Monster
 
         SoundManager.instance.consumeSoul.Play();
 
-        var soul = Instantiate(soulSample);
+        var soul = Instantiate(soulSample, Game.instance.transform);
         soul.transform.position = unit.figure.location.transform.position;
         await soul.transform.Move(figure.location.transform.position, 0.1f);
 
@@ -52,7 +52,7 @@ public class BlackMage : Monster
             Destroy(soul);
         }
 
-        var heal = Instantiate(healSample);
+        var heal = Instantiate(healSample, Game.instance.transform);
         heal.transform.position = transform.position;
         await Helpers.Delay(0.1f);
         Destroy(heal);

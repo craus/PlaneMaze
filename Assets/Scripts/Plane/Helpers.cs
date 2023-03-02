@@ -46,8 +46,14 @@ public static class Helpers
     public static Vector2Int StepAtDirection(this Vector2Int v) {
         if (Mathf.Abs(v.x) > Mathf.Abs(v.y)) {
             v.y = 0;
-        } else {
+        } else if (Mathf.Abs(v.x) < Mathf.Abs(v.y)) {
             v.x = 0;
+        } else {
+            if (Rand.rndEvent(0.5f)) {
+                v.x = 0;
+            } else {
+                v.y = 0;
+            }
         }
         v /= (int)v.magnitude;
         return v;

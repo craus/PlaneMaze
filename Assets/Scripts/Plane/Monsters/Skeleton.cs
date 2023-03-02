@@ -50,12 +50,7 @@ public class Skeleton : Monster
         if (playerDelta.MaxDelta() > 4) {
             return;
         }
-        if (Mathf.Abs(playerDelta.x) > Mathf.Abs(playerDelta.y)) {
-            playerDelta.y = 0;
-        } else {
-            playerDelta.x = 0;
-        }
-        playerDelta /= (int)playerDelta.magnitude;
+        playerDelta = Helpers.StepAtDirection(playerDelta);
 
         if (!await SmartWalk(playerDelta)) {
             if (!await TryAttack(playerDelta)) {

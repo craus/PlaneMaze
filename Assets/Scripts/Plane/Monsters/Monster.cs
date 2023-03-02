@@ -47,7 +47,7 @@ public abstract class Monster : Unit
 
         PlayAttackSound();
 
-        var ap = Instantiate(attackProjectile);
+        var ap = Instantiate(attackProjectile, Game.instance.transform);
         ap.gameObject.SetActive(true); // object was inactive for unknown reason
         ap.transform.position = target.transform.position;
 

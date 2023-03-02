@@ -46,7 +46,7 @@ public class Item : MonoBehaviour, IExplainable
         GetComponent<Figure>().collide = async (from, figure) => {
             var player = figure.GetComponent<Player>();
             if (player != null && from != GetComponent<Figure>().location) {
-                Pick();
+                await Pick();
             }
         };
     }
@@ -54,7 +54,7 @@ public class Item : MonoBehaviour, IExplainable
     public bool Equipped => Inventory.instance.items.Contains(this);
 
     [ContextMenu("Pick")]
-    public void Pick() {
+    public async Task Pick() {
         if (slot != null) {
             Inventory.instance.items.Where(item => item.slot == slot).ToList().ForEach(item => item.Drop());
         }
@@ -70,19 +70,19 @@ public class Item : MonoBehaviour, IExplainable
         _ = GetComponent<Figure>().Move(null, isTeleport: true);
         UpdateModelVisible();
 
-        Task.WaitAll(onPick.Select(listener => listener()).ToArray());
-        Task.WaitAll(Inventory.instance.onPick.Select(listener => listener()).ToArray());
+        await Task.WhenAll(onPick.Select(listener => listener()).ToArray());
+        await Task.WhenAll(Inventory.instance.onPick.Select(listener => listener()).ToArray());
     }
 
     [ContextMenu("Drop")]
-    public void Drop() {
+    public async Task Drop() {
         icon.SetParent(iconParent);
         Inventory.instance.items.Remove(this);
         _ = GetComponent<Figure>().Move(Game.instance.player.figure.location, isTeleport: true);
         UpdateModelVisible();
 
-        Task.WaitAll(onDrop.Select(listener => listener()).ToArray());
-        Task.WaitAll(Inventory.instance.onDrop.Select(listener => listener()).ToArray());
+        await Task.WhenAll(onDrop.Select(listener => listener()).ToArray());
+        await Task.WhenAll(Inventory.instance.onDrop.Select(listener => listener()).ToArray());
     }
 
     private void UpdateModelVisible() {

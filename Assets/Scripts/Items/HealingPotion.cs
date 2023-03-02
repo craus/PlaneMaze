@@ -7,6 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(Item))]
 public class HealingPotion : MonoBehaviour
 {
+    public GameObject healSample;
+
     public int heal = 1;
 
     public void OnEnable() {
@@ -18,6 +20,11 @@ public class HealingPotion : MonoBehaviour
     }
 
     private async Task OnPick() {
+        var healEffect = Instantiate(healSample, Game.instance.transform);
+        healEffect.transform.position = transform.position;
+        await Helpers.Delay(0.1f);
+        Destroy(healEffect);
+
         await GetComponent<Item>().Owner.GetComponent<Health>().Heal(heal);
         Destroy(gameObject);
     }

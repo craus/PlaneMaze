@@ -11,13 +11,7 @@ public class Ghost : Monster
     public override bool FreeCell(Cell cell) => !cell.figures.Any(f => f.GetComponent<Unit>() != null && f.GetComponent<Unit>().OccupiesPlace);
 
     protected override async Task MakeMove() {
-        var playerDelta = Player.instance.figure.location.position - figure.location.position;
-        if (Mathf.Abs(playerDelta.x) > Mathf.Abs(playerDelta.y)) {
-            playerDelta.y = 0;
-        } else {
-            playerDelta.x = 0;
-        }
-        playerDelta /= (int)playerDelta.magnitude;
+        var playerDelta = Helpers.StepAtDirection(Player.instance.figure.location.position - figure.location.position);
 
         if (!await SmartWalk(playerDelta)) {
             if (!await TryAttack(playerDelta)) {

@@ -20,8 +20,12 @@ public class Player : Unit
 
     public Queue<Vector2Int> commands = new Queue<Vector2Int>();
 
-    public void Take(Item item) {
-        item.Pick();
+    public bool permanentInvulnerability = false;
+
+    public override bool Vulnerable => base.Vulnerable && !permanentInvulnerability;
+
+    public async Task Take(Item item) {
+        await item.Pick();
     }
 
     private async Task MoveTakeActions(Vector2Int delta) {
@@ -104,6 +108,16 @@ public class Player : Unit
         }
         if (ongoingAnimations == false && commands.Count > 0) {
             Move(commands.Dequeue());
+        }
+
+        if (Cheats.on) {
+            if (Input.GetKeyDown(KeyCode.G)) {
+                gems++;
+            }
+
+            if (Input.GetKeyDown(KeyCode.I)) {
+                permanentInvulnerability ^= true;
+            }
         }
     }
 
