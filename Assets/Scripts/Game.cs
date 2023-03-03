@@ -111,6 +111,15 @@ public class Game : MonoBehaviour
         losePanel.SetActive(true);
     }
 
+    private void Sell(Cell location, MonoBehaviour sample, int price = -1) {
+        var item = GenerateFigure(location, sample);
+        if (price == -1) {
+            var rules = item.GetComponent<ItemGenerationRules>();
+            price = rules != null ? Rand.rnd(rules.minPrice, rules.maxPrice) : 0;
+        }
+        GenerateFigure(location, paidCellSample).SetPrice(price);
+    }
+
     private void GenerateStore() {
         var newStore = Instantiate(boardSample, transform);
         newStore.silentMode = true;
@@ -127,20 +136,11 @@ public class Game : MonoBehaviour
         entry.second = exit;
         exit.second = entry;
 
-        GenerateFigure(newStore.GetCell(new Vector2Int(-4, 3)), healingPotionSample);
-        GenerateFigure(newStore.GetCell(new Vector2Int(-4, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(8, 10));
-
-        GenerateFigure(newStore.GetCell(new Vector2Int(-2, 3)), weaponSamples.rnd());
-        GenerateFigure(newStore.GetCell(new Vector2Int(-2, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(10, 20));
-
-        GenerateFigure(newStore.GetCell(new Vector2Int(0, 3)), itemSamples.rnd());
-        GenerateFigure(newStore.GetCell(new Vector2Int(0, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(10, 20));
-
-        GenerateFigure(newStore.GetCell(new Vector2Int(2, 3)), itemSamples.rnd());
-        GenerateFigure(newStore.GetCell(new Vector2Int(2, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(10, 20));
-
-        GenerateFigure(newStore.GetCell(new Vector2Int(4, 3)), ringOfTerraformingSample);
-        GenerateFigure(newStore.GetCell(new Vector2Int(4, 3)), paidCellSample).SetPrice(UnityEngine.Random.Range(3, 5));
+        Sell(newStore[-4, 3], healingPotionSample, Rand.rnd(8, 10));
+        Sell(newStore[-2, 3], weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
+        Sell(newStore[-0, 3], itemSamples.rnd(), Rand.rnd(10, 20));
+        Sell(newStore[2, 3], itemSamples.rnd(), Rand.rnd(10, 20));
+        Sell(newStore[4, 3], ringOfTerraformingSample, Rand.rnd(3, 5));
     }
 
     private void SecondStep(Cell cell) {
@@ -336,7 +336,7 @@ public class Game : MonoBehaviour
 
     public void AfterCellAdded(Cell cell) {
         if (cell.order == 4) {
-            GenerateFigure(cell, weaponSamples.rnd());
+            GenerateFigure(cell, weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().startingWeight));
             return;
         } else if (cell.order == 0) {
             return;
@@ -352,7 +352,7 @@ public class Game : MonoBehaviour
         if (cell.position.magnitude > 6 && Rand.rndEvent(0.1f)) {
             monsters.Add(GenerateFigure(cell, monsterSamples.rnd()));
         } else if (Rand.rndEvent(0.004f)) {
-            GenerateFigure(cell, weaponSamples.rnd());
+            GenerateFigure(cell, weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().fieldWeight));
         } else if (Rand.rndEvent(0)) {
             GenerateFigure(cell, itemSamples.rnd());
         } else if (Rand.rndEvent(0.3f)) {

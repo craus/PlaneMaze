@@ -193,7 +193,7 @@ public class Player : Unit
         if (this == null) {
             return;
         }
-        Debug.LogFormat($"Player hit by {attack}");
+        Debug.LogFormat($"[{Game.instance.time}] Player hit by {attack}");
         await Task.WhenAll(
             Inventory.instance.items
                 .Select(item => item.GetComponent<IReceiveAttackModifier>())
