@@ -17,6 +17,9 @@ public class Health : MonoBehaviour
     public int Current => current;
 
     public async Task Hit(int amount) {
+        if (amount <= 0) {
+            return;
+        }
         current = Mathf.Clamp(current - amount, 0, max); 
         if (current <= 0) {
             if (GetComponent<Player>() != null) {

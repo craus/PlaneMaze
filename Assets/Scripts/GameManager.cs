@@ -34,6 +34,7 @@ public class GameManager : Singletone<GameManager>
 
     public void NewGame() {
         game = Instantiate(gameSample, transform);
+        Inventory.instance = game.GetComponentInChildren<Inventory>();
         game.speed = 100;
     }
 

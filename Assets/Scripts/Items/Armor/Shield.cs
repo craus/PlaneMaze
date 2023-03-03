@@ -26,6 +26,7 @@ public class Shield : MonoBehaviour, IReceiveAttackModifier, ISideDefence
             backCell.Free
         ) {
             attack.damage -= 1;
+            SoundManager.instance.defence.Play();
             await GetComponent<Item>().Owner.figure.Move(backCell);
         }
     }
