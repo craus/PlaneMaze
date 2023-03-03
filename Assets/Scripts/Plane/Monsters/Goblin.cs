@@ -7,10 +7,16 @@ using UnityEngine;
 public class Goblin : Monster
 {
     public Vector2Int currentDirection;
+    public List<Transform> eyes;
 
     public override void Awake() {
         base.Awake();
         currentDirection = moves.Rnd();
+        UpdateSprite();
+    }
+
+    private void UpdateSprite() {
+        eyes.ForEach(t => t.localPosition = (Vector2)currentDirection);
     }
 
     //сделай паттерн движения такой: 
@@ -23,6 +29,7 @@ public class Goblin : Monster
             if (!await TryAttack(currentDirection)) {
                 await SmartFakeMove(currentDirection);
                 currentDirection = moves.Rnd(m => figure.location.Shift(m).Free);
+                UpdateSprite();
             }
         }
     }
