@@ -17,6 +17,8 @@ public class Dart : Weapon
         }
 
         var delta = target.transform.position - Owner.transform.position;
+        var direction = Helpers.StepAtDirection(target.figure.location.position - Owner.figure.location.position);
+        var attackPosition = target.figure.location;
 
         SoundManager.instance.rangedAttack.Play();
 
@@ -30,7 +32,7 @@ public class Dart : Weapon
         }
         await DealDamage(target);
         GetComponent<Item>().Drop();
-        await GetComponent<Figure>().Move(target.figure.location, isTeleport: true);
+        await GetComponent<Figure>().Move(attackPosition.Shift(-direction), isTeleport: true);
 
         return true;
     }
