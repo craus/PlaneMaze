@@ -9,19 +9,21 @@ public class Harpy : Monster
     public override bool Flying => true;
 
     public override async Task<bool> TryAttack(Vector2Int delta) {
-        var newPosition = figure.location.Shift(2*delta);
+        var newPosition = figure.location.Shift(delta);
         if (newPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
-            return await Attack(newPosition.GetFigure<Player>());
+            if (await Attack(newPosition.GetFigure<Player>())) {
+                await figure.TryWalk(-delta);
+            }
         }
         return false;
     }
 
     protected override async Task MakeMove() {
         var delta = moves.Rnd();
-        if (!await TryAttack(delta)) {
-            if (!await figure.TryWalk(delta)) {
-                await figure.FakeMove(delta);
-            }
+        if (await figure.TryWalk(delta)) {
+            await TryAttack(delta);
+        } else {
+            await figure.FakeMove(delta);
         }
     }
 }
