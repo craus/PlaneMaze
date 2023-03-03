@@ -46,19 +46,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 7274574995342824055}
+  orderText: {fileID: 0}
+  priceText: {fileID: 0}
   wallColor: {r: 0, g: 0, b: 0, a: 1}
   emptyColor: {r: 1, g: 1, b: 1, a: 1}
-  lockedColor: {r: 0.8584906, g: 0.59527415, b: 0.59527415, a: 1}
+  lockedColor: {r: 0.9056604, g: 0.48273405, b: 0.48273405, a: 1}
   darknessColor: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}
   position: {x: 0, y: 0}
-  order: 0
+  order: -1
   fieldCell:
     wall: 0
     trap: 0
     teleport: 0
     teleportTarget: {x: 0, y: 0}
   board: {fileID: 0}
-  dark: 1
+  dark: 0
 --- !u!1 &7274574994703758266
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Figure))]
 public class Wall : Building
 {
+    public Wall wallSample;
 
     public TMPro.TextMeshProUGUI healthText;
 

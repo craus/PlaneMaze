@@ -124,7 +124,9 @@ public class DebugManager : Singletone<DebugManager>
 
         format = "{0} {1}".i(messageID, format);
 
-        instance.Message(string.Format(format, args));
+        if (instance) {
+            instance.Message(string.Format(format, args));
+        }
         Debug.LogFormat(format, args);
 
         if (Input.GetKeyDown(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))

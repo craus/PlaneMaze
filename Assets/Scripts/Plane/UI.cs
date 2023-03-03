@@ -10,10 +10,25 @@ public class UI : MonoBehaviour
     public TextMeshProUGUI gemsCounter;
     public TextMeshProUGUI areaCounter;
     public TextMeshProUGUI timeCounter;
+    public TextMeshProUGUI commandQueueCounter;
+
+    public List<GameObject> cheatUI;
+
+    public void Start() {
+        Update();
+    }
 
     public void Update() {
-        gemsCounter.text = Game.instance.player.gems.ToString();
-        areaCounter.text = Game.instance.clearedCells.Count.ToString();
+        if (Game.instance.player) {
+            gemsCounter.text = Game.instance.player.gems.ToString();
+        }
+        areaCounter.text = Game.instance.ghostSpawnProbabilityPerTurn.ToString("0.000");
         timeCounter.text = Game.instance.time.ToString();
+        if (Player.instance != null) {
+            commandQueueCounter.text = Player.instance.commands.Count.ToString();
+        }
+        foreach (var go in cheatUI) {
+            go.SetActive(Cheats.on);
+        }
     }
 }

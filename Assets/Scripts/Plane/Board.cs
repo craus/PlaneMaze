@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-    SparseCollections.Sparse2DChunkBasedMatrix<Cell> map = new SparseCollections.Sparse2DChunkBasedMatrix<Cell>();
+    public SparseCollections.Sparse2DChunkBasedMatrix<Cell> map = new SparseCollections.Sparse2DChunkBasedMatrix<Cell>();
 
     public Field field;
     public Cell cellSample;
@@ -15,17 +15,23 @@ public class Board : MonoBehaviour
     public Transform cellParent;
     public Transform figureParent;
 
+    public List<Cell> cells;
+
+    public bool silentMode = false;
+
     public Cell GetCell(Vector2Int position) {
         ShowCell(position.x, position.y);
         return map[position.x, position.y];
     }
 
+    public Cell this[int x, int y] => GetCell(new Vector2Int(x, y));
+
     private void Start() {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                ShowCell(i, j);
-            }
-        }
+        //for (int i = 0; i < 10; i++) {
+        //    for (int j = 0; j < 10; j++) {
+        //        ShowCell(i, j);
+        //    }
+        //}
     }
 
     private void Update() {
@@ -36,7 +42,7 @@ public class Board : MonoBehaviour
 
         for (int i = xMin; i <= xMax; i++) {
             for (int j = yMin; j <= yMax; j++) {
-                ShowCell(i, j);
+                //ShowCell(i, j);
             }
         }
     }
@@ -44,15 +50,19 @@ public class Board : MonoBehaviour
     private void GenerateFigure(Cell cell, MonoBehaviour sample) {
         var f = Instantiate(sample);
         f.GetComponent<Figure>().Move(cell);
-        f.transform.SetParent(figureParent);
     }
 
     private Cell GenerateCell(int x, int y) {
         var cell = Instantiate(cellSample);
+        cells.Add(cell);
+        if (silentMode) {
+            cell.gameObject.SetActive(false);
+        }
+        cell.position = new Vector2Int(x, y);
+        field[x, y].wall = true;
         cell.SetFieldCell(field[x, y]);
         cell.transform.SetParent(cellParent);
         cell.transform.position = new Vector3(x, y, 0);
-        cell.position = new Vector2Int(x, y);
         cell.board = this;
 
         if (cell.fieldCell.teleport) {

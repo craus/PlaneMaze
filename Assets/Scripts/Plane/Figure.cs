@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,13 +12,16 @@ public class Figure : MonoBehaviour
 
     public Cell savePoint;
 
-    public UnityEvent<bool> afterMove;
+    public Func<Cell, Figure, Task> collide = (c, f) => Task.CompletedTask;
+
+    public List<Func<Board, Board, Task>> afterBoardChange = new List<Func<Board, Board, Task>>();
+    public List<Func<Cell, Cell, Task>> afterMove = new List<Func<Cell, Cell, Task>>();
 
     public void TryMoveWall(Cell from, Cell to) {
         if (from.fieldCell.wall && !to.fieldCell.wall) {
             from.fieldCell.wall = false;
             from.UpdateCell();
-            
+
             to.fieldCell.wall = true;
             to.UpdateCell();
         }
@@ -25,24 +30,23 @@ public class Figure : MonoBehaviour
         TryMoveWall(from, from.Shift(delta));
     }
 
-    private bool TryWalk(Vector2Int delta) {
+    public async Task<bool> TryWalk(Vector2Int delta, Func<Cell, bool> free = null) {
+        free ??= c => c.Free;
         var newPosition = location.Shift(delta);
-        if (!newPosition.Wall && !newPosition.Locked) {
-            //TryMoveWall(location.Shift(delta.RotateLeft()), delta);
-            //TryMoveWall(location.Shift(delta.RotateRight()), delta);
-            Move(newPosition);
+        if (free(newPosition)) {
+            await Move(newPosition);
             return true;
         }
         return false;
     }
 
     private bool Deadend(Cell cell, Vector2Int delta) {
-        return 
-            !cell.fieldCell.wall && 
+        return
+            !cell.fieldCell.wall &&
             //!cell.Shift(-delta).fieldCell.wall &&
             cell.Shift(delta).fieldCell.wall &&
             cell.Shift(delta.RotateLeft()).fieldCell.wall &&
-            cell.Shift(delta.RotateRight()).fieldCell.wall; 
+            cell.Shift(delta.RotateRight()).fieldCell.wall;
     }
 
     private bool TrySlip(Vector2Int delta) {
@@ -81,41 +85,67 @@ public class Figure : MonoBehaviour
         TrySwitch(cell, Vector2Int.down);
     }
 
-    public void TryMove(Vector2Int delta) {
-        if (TryWalk(delta)) {
-            //TrySwitch(location);
-            return;
-        }
-        //if (TrySlip(delta)) return;
-
-        //var jumpPosition = location.Shift(delta * 2);
-        //if (!jumpPosition.fieldCell.wall) {
-        //    Move(jumpPosition);
-        //    return;
-        //}
-
-        //Move(location);
+    public async Task<bool> FakeMove(Vector2Int delta) {
+        await Move(location, fakeMove: location.Shift(delta));
+        return true;
     }
 
-    public void Move(Cell newPosition, bool isTeleport = false) {
-        if (location != null) {
+    public async Task Move(Cell newPosition, bool isTeleport = false, Cell fakeMove = null, bool teleportAnimation = false) {
+        var from = location;
+        var fromBoard = from != null ? from.board : null;
+        if (!fakeMove && location != null) {
             location.figures.Remove(this);
         }
         location = newPosition;
-        if (location != null) {
+        var toBoard = location != null ? location.board : null;
+        transform.SetParent(location.board.figureParent);
+        if (fromBoard != toBoard) {
+            await Task.WhenAll(afterBoardChange.Select(listener => listener(fromBoard, toBoard)));
+        }
+        await Task.WhenAll(afterMove.Select(listener => listener(from, location)));
+
+        if (!fakeMove && location != null) {
             location.figures.Add(this);
         }
-        afterMove.Invoke(isTeleport);
 
-        if (newPosition.fieldCell.trap) {
-            Move(savePoint);
+        if (newPosition != null) {
+            await UpdateTransform(fakeMove, isTeleport, teleportAnimation);
         }
 
-        UpdateTransform();
+        if (from != location) {
+            foreach (var f in location.figures.ToList()) {
+                await f.collide(from, this);
+                if (this == null) {
+                    return;
+                }
+            }
+        }
     }
 
-    private void UpdateTransform() {
-        transform.position = location.transform.position.Change(z: location.transform.position.z - 1);
+    private async Task UpdateTransform(Cell fakeMove, bool isTeleport, bool teleportAnimation = false) {
+        if (isTeleport) {
+            if (!teleportAnimation) {
+                transform.position = location.transform.position;
+                return;
+            } else {
+                await transform.Zoom(Vector3.zero, 0.05f);
+                if (this == null) {
+                    return;
+                }
+                transform.position = location.transform.position;
+                await transform.Zoom(Vector3.one, 0.05f);
+                return;
+            }
+        }
+        if (fakeMove == null) {
+            await transform.Move(location.transform.position, 0.05f);
+        } else {
+            await transform.Move(fakeMove.transform.position, 0.05f, endPhase: 0.33f);
+            if (this == null) {
+                return;
+            }
+            await transform.Move(location.transform.position, 0.05f, startPhase: 0.67f);
+        }
     }
 
     public void OnDestroy() {
@@ -123,4 +153,6 @@ public class Figure : MonoBehaviour
             location.figures.Remove(this);
         }
     }
+
+    public override string ToString() => $"{gameObject.name} at ({location.position.x}, {location.position.y})";
 }

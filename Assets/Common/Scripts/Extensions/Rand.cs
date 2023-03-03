@@ -54,21 +54,24 @@ public static class Rand
 		return rnd(matrix);
 	}
 
-	public static List<T> RndSelection<T>(this List<T> collection, int cnt) {
-		if (cnt > collection.Count) {
-			return collection;
-		}
-		List<T> result = new List<T>();
-		int trash = collection.Count - cnt;
-		collection.ForEach(x => {
+	/// <summary>
+	/// возвращает случайное подмножество коллекции заданного размера
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="collection"></param>
+	/// <param name="cnt"></param>
+	/// <returns></returns>
+	public static IEnumerable<T> RndSelection<T>(this IEnumerable<T> collection, int cnt) {
+		cnt = Mathf.Clamp(cnt, 0, collection.Count()); 
+		int trash = collection.Count() - cnt;
+		foreach (var x in collection) {
 			if (UnityEngine.Random.Range(0, cnt + trash) < cnt) {
-				result.Add(x);
+				yield return x;
 				--cnt;
 			} else {
 				--trash;
 			}
-		});
-		return result;
+		};
 	}
 
 	public static List<T> RndSelection<T>(this List<T> collection, int cnt, IEnumerable<T> alwaysInclude) {
@@ -96,7 +99,37 @@ public static class Rand
 		return list[UnityEngine.Random.Range(0, list.Count)];
 	}
 
-	public static T rndExcept<T>(this List<T> list, ICollection<T> except) where T : class {
+	public static int rnd(int min, int max) => UnityEngine.Random.Range(min, max+1);
+
+	public static T rnd<T>(this List<T> list, Func<T, float> weight) where T : class {
+		if (list.Count == 0) return null;
+		float weightSum = list.Sum(weight);
+		float resultWeight = UnityEngine.Random.value * weightSum;
+		float currentWeight = 0;
+		foreach (var x in list) {
+			currentWeight += weight(x);
+			if (currentWeight > resultWeight) {
+				return x;
+			}
+		}
+		throw new Exception("Failed to normalize weights!");
+	}
+
+	public static T weightedRnd<T>(this List<Weighted<T>> list) where T : class {
+		if (list.Count == 0) return null;
+		float weightSum = list.Sum(x => x.weight);
+		float resultWeight = UnityEngine.Random.value * weightSum;
+		float currentWeight = 0;
+		foreach (var x in list) {
+			currentWeight += x.weight;
+			if (currentWeight > resultWeight) {
+				return x.to;
+			}
+		}
+		throw new Exception("Failed to normalize weights!");
+	}
+
+	public static T rndExcept<T>(this List<T> list, IEnumerable<T> except) where T : class {
 		return list.Except(except).ToList().rnd();
 	}
 

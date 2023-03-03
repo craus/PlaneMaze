@@ -14,7 +14,9 @@ public class GameLog : Singletone<GameLog>
 
         string message = "{0} {1}".i(messageID, text.i(args));
 
-        instance.Message(message);
+        if (instance != null) {
+            instance.Message(message);
+        }
 
         DebugManager.LogFormat(text, args);
     }

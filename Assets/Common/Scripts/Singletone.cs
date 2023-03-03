@@ -14,6 +14,9 @@ public class Singletone<T> : MonoBehaviour where T : UnityEngine.Object {
 				_instance = FindObjectOfType<T>();
 			}
 			return _instance;
+		} 
+		set	{
+			_instance = value;
 		}
 	}
 
