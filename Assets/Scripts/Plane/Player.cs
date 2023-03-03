@@ -70,6 +70,7 @@ public class Player : Unit
         await figure.FakeMove(delta);
 
         if (target.figure.location.Shift(delta).Free) {
+            SoundManager.instance.push.Play();
             await target.figure.TryWalk(delta);
         } else {
             SoundManager.instance.pushAttack.Play();
