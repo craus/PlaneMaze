@@ -49,6 +49,9 @@ public abstract class Monster : Unit
 
         GetComponent<DangerSprite>().sprite.enabled = true;
         await figure.FakeMove(target.figure.location.position - figure.location.position);
+        if (target == null || !target.alive) {
+            return true;
+        }
 
         var ap = Instantiate(attackProjectile, Game.instance.transform);
         ap.gameObject.SetActive(true); // object was inactive for unknown reason

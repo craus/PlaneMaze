@@ -14,14 +14,18 @@ public class Rapier : Weapon
     }
 
     public override async Task<bool> TryAttack(Vector2Int delta) {
-        var result = await base.TryAttack(delta);
-        if (result) {
-            if (Owner.alive) {
-                if (!await Owner.figure.TryWalk(delta)) {
-                    await Owner.figure.FakeMove(delta);
-                }
+        var longTarget = Owner.figure.location.Shift(2 * delta).GetFigure<Unit>(u => u.Vulnerable);
+        if (longTarget != null) {
+            var moveToward = await Owner.figure.TryWalk(delta);
+            if (!moveToward || !Owner.alive) {
+                return false;
             }
+            if (!await Attack(longTarget)) {
+                return false;
+            }
+            await Owner.GetComponent<MovesReserve>().Haste(1);
+            return true;
         }
-        return result;
+        return false;
     }
 }
