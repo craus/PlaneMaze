@@ -15,6 +15,8 @@ public class Slime : Monster
     [SerializeField] private Slime childSample;
     [SerializeField] private Transform slimeSizeTransform;
 
+    public GameObject activeModel;
+
     public override bool HasSoul => size == 0;
     public override int Money => size == 0 ? 1 : 0;
 
@@ -33,10 +35,12 @@ public class Slime : Monster
 
     private void UpdateSprite() {
         slimeSizeTransform.localScale = ((0.75f + 0.25f * size) * Vector3.one).Change(z: 1);
+        activeModel.SetActive(currentCooldown <= 1);
     }
 
     protected override async Task MakeMove() {
         --currentCooldown;
+        UpdateSprite();
         if (currentCooldown > 0) {
             return;
         }
@@ -57,6 +61,7 @@ public class Slime : Monster
         }
 
         currentCooldown = cooldown;
+        UpdateSprite();
     }
 
     protected async override Task AfterDie() {
