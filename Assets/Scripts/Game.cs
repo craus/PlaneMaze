@@ -8,7 +8,7 @@ using UnityEngine.Events;
 
 public class Game : MonoBehaviour
 {
-    public static Game instance => GameManager.instance.game;
+    public static Game instance => GameManager.instance ? GameManager.instance.game : null;
 
     public Player playerSample;
     public Player player;

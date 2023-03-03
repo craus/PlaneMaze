@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class SoundManager : Singletone<SoundManager>
 {
+    public AudioSource pushAttack;
     public AudioSource meleeAttack;
     public AudioSource rangedAttack;
     public AudioSource monsterMeleeAttack;

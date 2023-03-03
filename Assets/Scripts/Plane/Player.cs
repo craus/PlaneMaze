@@ -67,11 +67,12 @@ public class Player : Unit
             return false;
         }
 
-        _ = figure.FakeMove(delta);
+        await figure.FakeMove(delta);
 
         if (target.figure.location.Shift(delta).Free) {
             await target.figure.TryWalk(delta);
         } else {
+            SoundManager.instance.pushAttack.Play();
             await DealDamage(target);
         }
         return true;

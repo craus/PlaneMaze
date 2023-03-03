@@ -14,8 +14,7 @@ public class Club : Weapon
             return false;
         }
         if (!target.figure.location.Shift(delta).Free) {
-            await target.figure.FakeMove(delta);
-            return true;
+            return false;
         } 
         if (!await Attack(target)) {
             return false;
