@@ -101,7 +101,12 @@ public abstract class Monster : Unit
     }
 
     protected override async Task AfterDie() {
-        Player.instance.gems += Money + (Money > 0 && Inventory.instance.GetItem<RingOfMidas>() != null ? 1 : 0);
         Game.instance.monsters.Remove(this);
+
+        var reward = Money + (Money > 0 && Inventory.instance.GetItem<RingOfMidas>() != null ? 1 : 0);
+        if (reward > 0) {
+            var gem = Game.instance.GenerateFigure(figure.location, Game.instance.gemSample);
+            gem.amount = reward;
+        }
     }
 }

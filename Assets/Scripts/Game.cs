@@ -33,6 +33,7 @@ public class Game : MonoBehaviour
 
     public Ghost ghostSample;
     public Lich lichSample;
+    public Gem gemSample;
 
     public List<Cell> cellOrderList;
     public int unlockedCells = (int)1e9;
@@ -47,15 +48,11 @@ public class Game : MonoBehaviour
     public Board mainWorld;
     public List<Board> stores;
 
-    public Gem gemSample;
-    public Gem gem;
-
     public List<Func<int, Task>> afterPlayerMove = new List<Func<int, Task>>();
     public List<Func<int, Task>> afterMonsterMove = new List<Func<int, Task>>();
 
     public HashSet<(Cell, Cell)> contaminations = new HashSet<(Cell, Cell)>();
     public HashSet<Cell> clearedCells = new HashSet<Cell>();
-    public HashSet<Gem> gems = new HashSet<Gem>();
 
     public Map<int, TaskCompletionSource<bool>> completedTurns = new Map<int, TaskCompletionSource<bool>>(() => new TaskCompletionSource<bool>());
 

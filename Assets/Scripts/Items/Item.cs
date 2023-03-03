@@ -24,6 +24,8 @@ public class Item : MonoBehaviour, IExplainable
 
     public GameObject model;
 
+    public virtual bool ShowDescription => description.Length > 0;
+
     public async Task<bool> AfterFailedWalk(Vector2Int delta, int priority) {
         var activatable = GetComponent<IAfterFailedWalk>();
         if (activatable != null) {
@@ -61,7 +63,9 @@ public class Item : MonoBehaviour, IExplainable
 
         SoundManager.instance.itemPick.Play();
 
-        InfoPanel.instance.Show(this);
+        if (ShowDescription) {
+            InfoPanel.instance.Show(this);
+        }
 
         icon.SetParent(Inventory.instance.itemsFolder);
         Inventory.instance.items.Add(this);

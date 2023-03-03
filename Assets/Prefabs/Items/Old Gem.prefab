@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 9120431168356598881}
   - component: {fileID: 4690609130972069141}
   - component: {fileID: -5931720104371548630}
+  - component: {fileID: 3536966553217502376}
   m_Layer: 6
-  m_Name: Gem
+  m_Name: Old Gem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,9 +49,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   location: {fileID: 0}
   savePoint: {fileID: 0}
-  afterMove:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &-5931720104371548630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,6 +61,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d928729086e539419b7b6dc2d8ed3b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amount: 1
+--- !u!114 &3536966553217502376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922071745792189267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb5f0ec33c83f684193d08d637d33346, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconParent: {fileID: 0}
+  icon: {fileID: 0}
+  iconCanvas: {fileID: 0}
+  slot: {fileID: 0}
+  iconImage: {fileID: 0}
+  description: '<b>Gem</b>
+
+
+    You can buy for it.'
+  model: {fileID: 4982446069100000400}
 --- !u!1 &4982446069100000400
 GameObject:
   m_ObjectHideFlags: 0

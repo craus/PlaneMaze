@@ -1658,6 +1658,7 @@ MonoBehaviour:
   ringOfTerraformingSample: {fileID: 8157760857198034460, guid: 7a8e12f1d68caec42bef76b1a7082c06, type: 3}
   ghostSample: {fileID: 5504667808349519680, guid: 26b7e0628829b604684f5107a4a9a1ff, type: 3}
   lichSample: {fileID: 8536777542681899615, guid: ece9098977d4b71458ae84b7d52f91f9, type: 3}
+  gemSample: {fileID: 8666047310042790666, guid: c7a1fda42fc141744b8226f2fb08ee9a, type: 3}
   cellOrderList: []
   unlockedCells: 1000000000
   time: 0
@@ -1667,8 +1668,6 @@ MonoBehaviour:
   boardSample: {fileID: 4431957465168648574, guid: fcb2ff9050c98424e87f885026a6af7b, type: 3}
   mainWorld: {fileID: 0}
   stores: []
-  gemSample: {fileID: -5931720104371548630, guid: 5dd0e56d03f85e0428917ae2cf43f2d0, type: 3}
-  gem: {fileID: 0}
   completedTurns:
     keys: 
   startPanel: {fileID: 5626851272044853893}

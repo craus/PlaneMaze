@@ -30,7 +30,9 @@ public class TeleportTrap : Terrain
     }
 
     public void OnDestroy() {
-        Player.instance.figure.afterMove.Remove(AfterPlayerMove);
+        if (Player.instance != null) {
+            Player.instance.figure.afterMove.Remove(AfterPlayerMove);
+        }
     }
 
     private async Task AfterPlayerMove(Cell from, Cell to) {

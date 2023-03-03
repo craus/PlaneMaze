@@ -9,8 +9,5 @@ public class GoalCamera : Singletone<GoalCamera>
     public new Camera camera;
 
     public void Update() {
-        if (Game.instance.gem) {
-            camera.transform.position = Game.instance.gem.transform.position.Change(z: camera.transform.position.z);
-        }
     }
 }
