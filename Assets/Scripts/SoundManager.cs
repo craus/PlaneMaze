@@ -14,6 +14,7 @@ public class SoundManager : Singletone<SoundManager>
     public AudioSource monsterRangedAttack;
     public AudioSource heroDamaged;
     public AudioSource itemPick;
+    public AudioSource gemPick;
     public AudioSource monsterDeath;
     public AudioSource playerDeath;
     public AudioSource teleport;

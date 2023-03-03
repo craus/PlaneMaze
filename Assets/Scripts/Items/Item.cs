@@ -61,7 +61,11 @@ public class Item : MonoBehaviour, IExplainable
             Inventory.instance.items.Where(item => item.slot == slot).ToList().ForEach(item => item.Drop());
         }
 
-        SoundManager.instance.itemPick.Play();
+        if (GetComponent<Gem>()) {
+            SoundManager.instance.gemPick.Play();
+        } else {
+            SoundManager.instance.itemPick.Play();
+        }
 
         if (ShowDescription) {
             InfoPanel.instance.Show(this);
