@@ -8,10 +8,12 @@ using UnityEngine;
 [RequireComponent(typeof(Figure))]
 public class Player : Unit
 {
-    public static Player instance => Game.instance.player;
+    public static Player instance => Game.instance ? Game.instance.player : null;
 
     public int totalGems;
     public int gems;
+
+    public int damage = 1;
 
     public Wall wallSample;
     public Building markSample;
@@ -48,7 +50,39 @@ public class Player : Unit
             }
         }
 
+        if (await DefaultAttack(delta)) {
+            return;
+        }
+
         await figure.FakeMove(delta);
+    }
+
+    private async Task<bool> DefaultAttack(Vector2Int delta) {
+        var target = figure.location.Shift(delta).GetFigure<Monster>();
+
+        if (target == null || !target.Movable) {
+            return false;
+        }
+        if (!Game.CanAttack(this, target, null)) {
+            return false;
+        }
+
+        _ = figure.FakeMove(delta);
+
+        if (target.figure.location.Shift(delta).Free) {
+            await target.figure.TryWalk(delta);
+        } else {
+            await DealDamage(target);
+        }
+        return true;
+    }
+
+    public async Task DealDamage(Unit target) {
+        var currentDamage = damage;
+        if (Inventory.instance.GetItem<RingOfStrength>()) {
+            currentDamage++;
+        }
+        await target.Hit(new Attack(figure.location, target.figure.location, currentDamage));
     }
 
     private async Task MoveInternal(Vector2Int delta) {
