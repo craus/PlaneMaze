@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84236936bf824ad4e832eca601f4411e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastMove: {x: 0, y: 0}
   figure: {fileID: 0}
+  alive: 1
   attackProjectile: {fileID: 7558257676500238022, guid: cfc4e3f00b8a52448b747c87fa87ae29, type: 3}
   damage: 1

@@ -47,6 +47,9 @@ public abstract class Monster : Unit
 
         PlayAttackSound();
 
+        GetComponent<DangerSprite>().sprite.enabled = true;
+        await figure.FakeMove(target.figure.location.position - figure.location.position);
+
         var ap = Instantiate(attackProjectile, Game.instance.transform);
         ap.gameObject.SetActive(true); // object was inactive for unknown reason
         ap.transform.position = target.transform.position;
@@ -73,6 +76,7 @@ public abstract class Monster : Unit
     }
 
     public async Task Move() {
+        GetComponent<DangerSprite>().sprite.enabled = false;
         var figureLocation = figure.location;
         var board = figureLocation.board;
         var player = Player.instance;
