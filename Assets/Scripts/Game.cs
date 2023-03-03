@@ -338,9 +338,6 @@ public class Game : MonoBehaviour
         if (cell.order == 4) {
             GenerateFigure(cell, weaponSamples.rnd());
             return;
-        } else if (cell.order == 1) {
-            //GenerateFigure(cell, itemSamples.Last());
-            return;
         } else if (cell.order == 0) {
             return;
         } else if (startingItemsSamples.Count() > 0) {
@@ -356,7 +353,7 @@ public class Game : MonoBehaviour
             monsters.Add(GenerateFigure(cell, monsterSamples.rnd()));
         } else if (Rand.rndEvent(0.004f)) {
             GenerateFigure(cell, weaponSamples.rnd());
-        } else if (Rand.rndEvent(0.000f)) {
+        } else if (Rand.rndEvent(0)) {
             GenerateFigure(cell, itemSamples.rnd());
         } else if (Rand.rndEvent(0.3f)) {
             GenerateFigure(cell, terrainSamples.weightedRnd());
