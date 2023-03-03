@@ -153,4 +153,6 @@ public class Figure : MonoBehaviour
             location.figures.Remove(this);
         }
     }
+
+    public override string ToString() => $"{gameObject.name} at ({location.position.x}, {location.position.y})";
 }

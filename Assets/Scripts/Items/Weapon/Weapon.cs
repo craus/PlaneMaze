@@ -33,7 +33,7 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
         if (Inventory.instance.GetItem<RingOfStrength>()) {
             currentDamage++;
         }
-        await target.Hit(new Attack(Owner.figure.location, target.figure.location, currentDamage));
+        await target.Hit(new Attack(Owner.figure, target.figure, currentDamage));
     }
 
     public virtual async Task<bool> Attack(Unit target) {

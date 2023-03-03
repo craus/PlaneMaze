@@ -17,6 +17,7 @@ public class Health : MonoBehaviour
     public int Current => current;
 
     public async Task Hit(int amount) {
+        Debug.LogFormat($"[{Game.instance.time}] {gameObject.name} loses {amount} hp");
         if (amount <= 0) {
             return;
         }

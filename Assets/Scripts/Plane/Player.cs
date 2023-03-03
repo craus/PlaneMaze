@@ -31,39 +31,46 @@ public class Player : Unit
     }
 
     private async Task MoveTakeActions(Vector2Int delta) {
-        var time = Game.instance.time;
+        Debug.LogFormat($"[{Game.instance.time}] Player move take actions {delta}");
         lastMove = delta;
 
         for (int priority = 0; priority < 2; priority++) {
             if ((await Task.WhenAll(Inventory.instance.items.Select(item => item.BeforeWalk(delta, priority)))).Any(b => b)) {
+                Debug.LogFormat($"[{Game.instance.time}] Player move end: before walk");
                 return;
             }
         }
 
         if (await figure.TryWalk(delta, c => c.Free && (c.GetFigure<PaidCell>() == null || c.GetFigure<PaidCell>().price <= gems))) {
+            Debug.LogFormat($"[{Game.instance.time}] Player move end: walk");
             return;
         }
 
         for (int priority = 0; priority < 2; priority++) {
             if ((await Task.WhenAll(Inventory.instance.items.Select(item => item.AfterFailedWalk(delta, priority)))).Any(b => b)) {
+                Debug.LogFormat($"[{Game.instance.time}] Player move end: after failed walk");
                 return;
             }
         }
 
         if (await DefaultAttack(delta)) {
+            Debug.LogFormat($"[{Game.instance.time}] Player move end: default attack");
             return;
         }
 
         await figure.FakeMove(delta);
+        Debug.LogFormat($"[{Game.instance.time}] Player move end: fake move");
     }
 
     private async Task<bool> DefaultAttack(Vector2Int delta) {
-        var target = figure.location.Shift(delta).GetFigure<Monster>();
+        var target = figure.location.Shift(delta).GetFigure<Unit>(u => u.Vulnerable);
 
         if (target == null || !target.Movable) {
+            Debug.LogFormat($"[{Game.instance.time}] DefaultAttack failed: invalid target");
             return false;
         }
         if (!Game.CanAttack(this, target, null)) {
+            Debug.LogFormat($"[{Game.instance.time}] DefaultAttack failed: cannot attack target");
             return false;
         }
 
@@ -72,9 +79,11 @@ public class Player : Unit
         if (target.figure.location.Shift(delta).Free) {
             SoundManager.instance.push.Play();
             await target.figure.TryWalk(delta);
+            Debug.LogFormat($"[{Game.instance.time}] DefaultAttack push");
         } else {
             SoundManager.instance.pushAttack.Play();
             await DealDamage(target);
+            Debug.LogFormat($"[{Game.instance.time}] DefaultAttack deal damage");
         }
         return true;
     }
@@ -84,7 +93,7 @@ public class Player : Unit
         if (Inventory.instance.GetItem<RingOfStrength>()) {
             currentDamage++;
         }
-        await target.Hit(new Attack(figure.location, target.figure.location, currentDamage));
+        await target.Hit(new Attack(figure, target.figure, currentDamage));
     }
 
     private async Task MoveInternal(Vector2Int delta) {
@@ -184,6 +193,7 @@ public class Player : Unit
         if (this == null) {
             return;
         }
+        Debug.LogFormat($"Player hit by {attack}");
         await Task.WhenAll(
             Inventory.instance.items
                 .Select(item => item.GetComponent<IReceiveAttackModifier>())

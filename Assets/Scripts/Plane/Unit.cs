@@ -35,6 +35,7 @@ public class Unit : MonoBehaviour, IMortal
         if (this == null) {
             return;
         }
+        Debug.LogFormat($"[{Game.instance.time}] {gameObject.name} hit by {attack}");
         await GetComponent<Health>().Hit(attack.damage);
     }
 
