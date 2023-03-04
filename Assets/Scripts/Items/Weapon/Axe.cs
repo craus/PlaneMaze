@@ -14,4 +14,6 @@ public class Axe : Weapon
         new Vector2Int(1, 0),
         new Vector2Int(1, 1),
     };
+
+    public override Task AfterMultipleAttack(Vector2Int delta) => Owner.GetComponent<Disarm>().Gain(2);
 }

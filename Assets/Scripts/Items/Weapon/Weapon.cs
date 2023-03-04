@@ -25,7 +25,7 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
             .Select(d => Owner.figure.location.Shift(delta.Relative(d)).GetFigure<Unit>(u => u.Vulnerable))
             .Where(u => u != null);
 
-        return (await Task.WhenAll(targets.Select(t => Attack(delta, t)))).Any(a => a);
+        return await MultipleAttack(delta, targets);
     }
 
     public async Task DealDamage(Unit target) {
@@ -38,9 +38,19 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
 
     public virtual async Task BeforeAttack(Vector2Int delta) { }
     public virtual async Task AfterAttack(Vector2Int delta) { }
+    public virtual async Task BeforeMultipleAttack(Vector2Int delta) { }
+    public virtual async Task AfterMultipleAttack(Vector2Int delta) { }
 
     public virtual Cell AttackLocation(Vector2Int delta, Unit target) => Owner.figure.location;
     public virtual Cell DefenceLocation(Vector2Int delta, Unit target) => target.figure.location;
+
+    public virtual async Task<bool> MultipleAttack(Vector2Int delta, IEnumerable<Unit> targets) {
+        await BeforeMultipleAttack(delta);
+        var result = (await Task.WhenAll(targets.Select(t => Attack(delta, t)))).Any(a => a);
+        if (!result) return false;
+        await AfterMultipleAttack(delta);
+        return true;
+    }
 
     public virtual async Task<bool> Attack(Vector2Int delta, Unit target) {
         if (!Game.CanAttack(Owner, target, this, AttackLocation(delta, target), DefenceLocation(delta, target))) {
