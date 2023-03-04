@@ -20,6 +20,9 @@ public class MovesReserve : MonoBehaviour
     }
 
     public async Task Haste(int amount) {
+        if (GetComponent<Player>() != null) {
+            SoundManager.instance.additionalMove.PlayBackwards();
+        }
         current = Mathf.Clamp(current + amount, -999, 999);
         UpdateIcons();
     }

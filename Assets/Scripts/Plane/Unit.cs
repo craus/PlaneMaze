@@ -18,8 +18,10 @@ public class Unit : MonoBehaviour, IMortal
 
     public virtual bool Vulnerable => GetComponent<Invulnerability>().Current == 0;
     public virtual bool Disarmed => GetComponent<Disarm>().Current == 0;
+
     public virtual bool ShowInvulnerability => true;
 
+    public virtual bool Threatening => OccupiesPlace;
     public virtual bool OccupiesPlace => alive;
 
     public Figure figure;
