@@ -13,15 +13,16 @@ public class Club : Weapon
         if (target == null) {
             return false;
         }
-        if (!target.figure.location.Shift(delta).Free) {
-            return false;
-        } 
-        if (!await Attack(target)) {
+        if (!Game.CanAttack(Owner, target, this)) {
             return false;
         }
-        if (target.alive && target.Movable) {
-            await target.figure.TryWalk(delta);
+        var attack = Attack(target);
+        if (target.Movable && await target.figure.TryWalk(delta)) {
+            await target.GetComponent<MovesReserve>().Freeze(1);
+        } else {
+            await Owner.GetComponent<MovesReserve>().Freeze(1);
         }
+        await attack;
         return true;
     }
 
