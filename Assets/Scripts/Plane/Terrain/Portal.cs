@@ -17,6 +17,7 @@ public class Portal : MonoBehaviour
             if (victim != null) {
                 SoundManager.instance.teleport.Play();
                 await victim.figure.Move(second.GetComponent<Figure>().location, isTeleport: true);
+                await victim.GetComponent<MovesReserve>().Haste(1);
             }
         };
     }
