@@ -9,4 +9,6 @@ public class Tree : Monster
     public override int Money => 0;
     public override bool HasSoul => false;
     public override bool Movable => false;
+
+    public override bool Threatening => false; 
 }

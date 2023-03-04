@@ -14,18 +14,18 @@ PrefabInstance:
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d09d800ce9853db43ac3e18e7127728f, type: 3}
+      objectReference: {fileID: 21300000, guid: e00727b3054195b4e93b1534881c8d29, type: 3}
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.b
-      value: 0.30584726
+      value: 0.051886797
       objectReference: {fileID: 0}
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.g
-      value: 0.33905178
+      value: 0.38026765
       objectReference: {fileID: 0}
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.r
-      value: 0.8207547
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -89,30 +89,30 @@ PrefabInstance:
       objectReference: {fileID: 529709666661010183, guid: a3f09b6830c929c4d9b7fdcd94fff13d, type: 3}
     - target: {fileID: 4744153755596459824, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: description
-      value: '<b>Spike Boots</b>
+      value: '<b>Boots of Bravery</b>
 
 
-        Step hits enemy at the next cell.'
+        Extra move when walk right onto enemy.'
       objectReference: {fileID: 0}
     - target: {fileID: 6325338422616382079, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Name
-      value: Spike Boots
+      value: Boots of Bravery
       objectReference: {fileID: 0}
     - target: {fileID: 8585933247312828475, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d09d800ce9853db43ac3e18e7127728f, type: 3}
+      objectReference: {fileID: 21300000, guid: e00727b3054195b4e93b1534881c8d29, type: 3}
     - target: {fileID: 8585933247312828475, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.b
-      value: 0.30588236
+      value: 0.050980393
       objectReference: {fileID: 0}
     - target: {fileID: 8585933247312828475, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.g
-      value: 0.3372549
+      value: 0.38039216
       objectReference: {fileID: 0}
     - target: {fileID: 8585933247312828475, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.r
-      value: 0.81960785
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9154011270047500716, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_IsActive
@@ -125,7 +125,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6325338422616382079, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
   m_PrefabInstance: {fileID: 4017953589501215184}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4328453162737800674
+--- !u!114 &1446073150073751967
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,7 +134,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6920552994628180911}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1834908eace4e104dae0ce6872308f6c, type: 3}
+  m_Script: {fileID: 11500000, guid: f5de25f324f8f0641af07a213d49e350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
