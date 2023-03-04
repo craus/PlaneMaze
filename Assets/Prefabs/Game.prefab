@@ -1640,8 +1640,7 @@ MonoBehaviour:
   - {fileID: 8508492893450686176, guid: c843b341a89e89d4c84aa138bd247a45, type: 3}
   - {fileID: 8508492893450686176, guid: 78369bc638b45f0438b2301e1ceee89e, type: 3}
   - {fileID: 8508492893450686176, guid: 92909b329d85bb44899844215dde8e2e, type: 3}
-  startingItemsSamples:
-  - {fileID: 3303673112297539049, guid: 0a90607df9e38f946b1b280e25a3780b, type: 3}
+  startingItemsSamples: []
   storeSamples: []
   terrainSamples:
   - to: {fileID: 1881276151569630265, guid: e7936b0df5ffd3f4880e94713105b336, type: 3}

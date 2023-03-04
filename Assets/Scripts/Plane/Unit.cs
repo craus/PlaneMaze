@@ -54,6 +54,8 @@ public class Unit : MonoBehaviour, IMortal
         await BeforeDie();
         alive = false;
 
+        gameObject.SetActive(false);
+
         foreach (var listener in GameEvents.instance.onUnitDeath.ToList()) {
             await listener(this);
         }
