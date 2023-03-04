@@ -10,7 +10,7 @@ public class Katar : Weapon
     public override async Task<bool> TryAttack(Vector2Int delta) {
         var shortTarget = Owner.figure.location.Shift(delta).GetFigure<Unit>(u => u.Vulnerable);
         if (shortTarget != null) {
-            if (!await Attack(shortTarget)) {
+            if (!await Attack(delta, shortTarget)) {
                 return false;
             }
             if (Owner.alive) {
@@ -26,7 +26,7 @@ public class Katar : Weapon
             if (!moveToward || !Owner.alive) {
                 return false;
             }
-            return await Attack(longTarget);
+            return await Attack(delta, longTarget);
         }
         return false;
     }

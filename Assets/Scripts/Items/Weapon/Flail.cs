@@ -15,8 +15,8 @@ public class Flail : Weapon
         new Vector2Int(1, 1),
     };
 
-    public override async Task<bool> Attack(Unit target) {
-        if (!await base.Attack(target)) {
+    public override async Task<bool> Attack(Vector2Int delta, Unit target) {
+        if (!await base.Attack(delta, target)) {
             return false;
         }
         if (target.alive) {

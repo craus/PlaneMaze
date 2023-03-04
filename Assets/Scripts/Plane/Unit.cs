@@ -19,7 +19,7 @@ public class Unit : MonoBehaviour, IMortal
     public virtual bool Disarmed => GetComponent<Disarm>().Current == 0;
     public virtual bool ShowInvulnerability => true;
 
-    public virtual bool OccupiesPlace => true;
+    public virtual bool OccupiesPlace => alive;
 
     public Figure figure;
 
@@ -50,12 +50,18 @@ public class Unit : MonoBehaviour, IMortal
         if (!alive) {
             return;
         }
+        Debug.LogFormat($"[{Game.instance.time}] {gameObject} at ({figure.location.position}) dies");
         await BeforeDie();
         alive = false;
-        Destroy(gameObject);
+
         foreach (var listener in GameEvents.instance.onUnitDeath.ToList()) {
             await listener(this);
         }
+
         await AfterDie();
+
+        Game.instance.monsters.Remove(GetComponent<Monster>());
+        Debug.LogFormat($"[{Game.instance.time} Monster {gameObject} at ({figure.location}) removed from queue after death");
+        Destroy(gameObject);
     }
 }

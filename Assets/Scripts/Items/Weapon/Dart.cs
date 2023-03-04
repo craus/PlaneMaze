@@ -11,21 +11,21 @@ public class Dart : Weapon
 
     public override bool CanAttackOnHill => true;
 
-    public override async Task<bool> Attack(Unit target) {
+    public override async Task<bool> Attack(Vector2Int delta, Unit target) {
         if (!Game.CanAttack(Owner, target, this)) {
             return false;
         }
 
-        var delta = target.transform.position - Owner.transform.position;
+        var transformDelta = target.transform.position - Owner.transform.position;
         var direction = Helpers.StepAtDirection(target.figure.location.position - Owner.figure.location.position);
         var attackPosition = target.figure.location;
 
         SoundManager.instance.rangedAttack.Play();
 
         var ap = Instantiate(attackProjectileSample);
-        ap.transform.rotation = Quaternion.LookRotation(Vector3.forward, delta.normalized);
-        ap.transform.position = Owner.transform.position + delta * 0.5f;
-        await ap.transform.Move(target.transform.position, 0.02f * delta.magnitude);
+        ap.transform.rotation = Quaternion.LookRotation(Vector3.forward, transformDelta.normalized);
+        ap.transform.position = Owner.transform.position + transformDelta.normalized * 0.5f;
+        await ap.transform.Move(target.transform.position, 0.02f * transformDelta.magnitude);
 
         if (ap != null) {
             Destroy(ap);
@@ -43,7 +43,7 @@ public class Dart : Weapon
             currentPosition = currentPosition.Shift(delta);
             var enemy = currentPosition.GetFigure<Monster>(m => m.Vulnerable);
             if (enemy != null) {
-                if (await Attack(enemy)) {
+                if (await Attack(delta, enemy)) {
                     return true;
                 }
             }

@@ -20,7 +20,7 @@ public class Spear : Weapon
             return false;
         }
         var victim = target.GetFigure<Monster>(m => m.Vulnerable);
-        if (victim != null && (victim.figure.location.position - Owner.figure.location.position).sqrMagnitude == 4 && await Attack(victim)) {
+        if (victim != null && (victim.figure.location.position - Owner.figure.location.position).sqrMagnitude == 4 && await Attack(delta, victim)) {
             await Owner.GetComponent<MovesReserve>().Haste(1);
             await Owner.GetComponent<Disarm>().Gain(2);
             return true;

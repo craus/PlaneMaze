@@ -79,6 +79,9 @@ public abstract class Monster : Unit
     }
 
     public async Task Move() {
+        if (this == null) {
+            Debug.LogError("Dead monster moves");
+        }
         GetComponent<DangerSprite>().sprite.enabled = false;
         var figureLocation = figure.location;
         var board = figureLocation.board;
@@ -110,8 +113,6 @@ public abstract class Monster : Unit
     }
 
     protected override async Task AfterDie() {
-        Game.instance.monsters.Remove(this);
-
         var reward = Money + (Money > 0 && Inventory.instance.GetItem<RingOfMidas>() != null ? 1 : 0);
         if (reward > 0) {
             var gem = Game.instance.GenerateFigure(figure.location, Game.instance.gemSample);

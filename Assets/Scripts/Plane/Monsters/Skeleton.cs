@@ -17,7 +17,7 @@ public class Skeleton : Monster
     public GameObject modelActive;
     public GameObject modelInactive;
 
-    public override bool OccupiesPlace => active;
+    public override bool OccupiesPlace => base.OccupiesPlace && active;
 
     public override bool Vulnerable => base.Vulnerable && active;
     public override bool ShowInvulnerability => active;

@@ -16,15 +16,15 @@ public class Bow : Weapon
     public GameObject iconCharged;
     public GameObject iconUncharged;
 
-    public override async Task<bool> Attack(Unit target) {
-        var delta = target.transform.position - Owner.transform.position;
+    public override async Task<bool> Attack(Vector2Int delta, Unit target) {
+        var transformDelta = target.transform.position - Owner.transform.position;
 
         SoundManager.instance.rangedAttack.Play();
 
         var ap = Instantiate(attackProjectileSample);
-        ap.transform.rotation = Quaternion.LookRotation(Vector3.forward, delta.normalized);
-        ap.transform.position = Owner.transform.position + delta * 0.5f;
-        await ap.transform.Move(target.transform.position, 0.02f * delta.magnitude);
+        ap.transform.rotation = Quaternion.LookRotation(Vector3.forward, transformDelta.normalized);
+        ap.transform.position = Owner.transform.position + transformDelta.normalized * 0.5f;
+        await ap.transform.Move(target.transform.position, 0.02f * transformDelta.magnitude);
 
         if (ap != null) {
             Destroy(ap);
@@ -56,7 +56,7 @@ public class Bow : Weapon
             if (chargedDirection == delta) {
                 chargedDirection = Vector2Int.zero;
                 UpdateIcon();
-                return await Attack(victim);
+                return await Attack(delta, victim);
             } else {
                 chargedDirection = delta;
                 SoundManager.instance.bowCharge.Play();

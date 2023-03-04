@@ -11,7 +11,7 @@ public class DualDaggers : Weapon
         bool result = false;
         var leftTarget = Owner.figure.location.Shift(delta.Relative(1, 1)).GetFigure<Unit>(u => u.Vulnerable);
         var rightTarget = Owner.figure.location.Shift(delta.Relative(1, -1)).GetFigure<Unit>(u => u.Vulnerable);
-        return (await Task.WhenAll(Attack(leftTarget), Attack(rightTarget))).Any(b => b);
+        return (await Task.WhenAll(Attack(delta, leftTarget), Attack(delta, rightTarget))).Any(b => b);
     }
 
     public override Task<bool> BeforeWalk(Vector2Int delta) => TryAttack(delta);

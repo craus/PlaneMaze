@@ -361,6 +361,7 @@ public class Game : MonoBehaviour
     }
 
     private async Task MonstersAndItemsTick(int turnNumber) {
+        Debug.LogFormat($"[{time}] Monsters move");
         await Task.WhenAll(monsters.ToList().Select(m => m.Move()).Concat(afterPlayerMove.Select(listener => listener(turnNumber))));
         if (this == null) {
             return;
@@ -397,17 +398,30 @@ public class Game : MonoBehaviour
         defender.Vulnerable &&
         !defender.figure.location.Wall;
 
-    private static bool IsRanged(Unit attacker, Unit defender) => 
-        attacker != null &&
-        (defender.figure.location.position - attacker.figure.location.position).MaxDelta() >= 2;
+    private static bool IsRanged(Cell attackLocation, Cell defenceLocation) =>
+        attackLocation != null &&
+        defenceLocation != null &&
+        (defenceLocation.position - attackLocation.position).MaxDelta() >= 2;
 
-    private static bool Highground(Unit attacker, Unit defender) =>
-        attacker != null &&
-        defender.figure.location.GetFigure<Hill>() != null && 
-        attacker.figure.location.GetFigure<Hill>() == null;
+    private static bool Highground(Cell attackLocation, Cell defenceLocation) =>
+        attackLocation != null &&
+        defenceLocation != null &&
+        defenceLocation.GetFigure<Hill>() != null &&
+        attackLocation.GetFigure<Hill>() == null;
 
-    public static bool CanAttack(Unit attacker, Unit defender, Weapon weapon = null) =>
-        CanAttack(attacker) &&
-        CanBeAttacked(defender, weapon) &&
-        (IsRanged(attacker, defender) || !Highground(attacker, defender));
+    public static bool CanAttack(
+        Unit attacker, 
+        Unit defender, 
+        Weapon weapon = null, 
+        Cell attackLocation = null,
+        Cell defenceLocation = null
+    ) {
+        if (attacker) attackLocation ??= attacker.figure.location;
+        if (defender) defenceLocation ??= defender.figure.location;
+
+        return
+            CanAttack(attacker) &&
+            CanBeAttacked(defender, weapon) &&
+            (IsRanged(attackLocation, defenceLocation) || !Highground(attackLocation, defenceLocation));
+    }
 }
