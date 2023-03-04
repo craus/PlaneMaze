@@ -13,10 +13,13 @@ public class Ghost : Monster
     protected override async Task MakeMove() {
         var playerDelta = Helpers.StepAtDirection(Player.instance.figure.location.position - figure.location.position);
 
-        if (!await SmartWalk(playerDelta)) {
-            if (!await TryAttack(playerDelta)) {
-                await SmartFakeMove(playerDelta);
-            }
+        if (await SmartWalk(playerDelta)) {
+            return;
+        }
+        if (await TryAttack(playerDelta)) {
+            await Die();
+        } else {
+            await SmartFakeMove(playerDelta);
         }
     }
 }
