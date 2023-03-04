@@ -23,11 +23,11 @@ public class Shield : MonoBehaviour, IReceiveAttackModifier, ISideDefence
         if (
             GetComponent<Item>().Owner.lastMove.Codirected(-attackDirection) &&
             attackDirection != Vector2Int.zero &&
-            backCell.Free
+            attackDirection.sqrMagnitude == 1
         ) {
             attack.damage -= 1;
             SoundManager.instance.defence.Play();
-            await GetComponent<Item>().Owner.figure.Move(backCell);
+            await GetComponent<Item>().Owner.figure.TryWalk(attackDirection);
         } else {
             Debug.LogFormat("Shield failed to protect player");
         }
