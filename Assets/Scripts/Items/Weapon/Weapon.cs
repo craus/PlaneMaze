@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -52,12 +53,27 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
         return true;
     }
 
-    public virtual async Task<bool> Attack(Vector2Int delta, Unit target) {
+    public virtual async Task<bool> Attack(
+        Vector2Int delta,
+        Unit target
+    ) {
+        return await Attack(delta, target, BeforeAttack, AfterAttack);
+    }
+
+    public virtual async Task<bool> Attack(
+        Vector2Int delta, 
+        Unit target,
+        Func<Vector2Int, Task> beforeAttack = null, 
+        Func<Vector2Int, Task> afterAttack = null 
+    ) {
+        beforeAttack ??= BeforeAttack;
+        afterAttack ??= AfterAttack;
+
         if (!Game.CanAttack(Owner, target, this, AttackLocation(delta, target), DefenceLocation(delta, target))) {
             return false;
         }
 
-        await BeforeAttack(delta);
+        await beforeAttack(delta);
         if (!Owner.alive) {
             return true;
         }
@@ -74,7 +90,7 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
         }
         await DealDamage(target);
 
-        await AfterAttack(delta);
+        await afterAttack(delta);
 
         return true;
     }

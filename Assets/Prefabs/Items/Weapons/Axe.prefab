@@ -9,11 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1710125306432267668, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: maxPrice
-      value: 50
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 1710125306432267668, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: minPrice
-      value: 30
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1710125306432267668, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: fieldWeight
