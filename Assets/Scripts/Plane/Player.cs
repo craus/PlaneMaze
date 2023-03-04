@@ -34,11 +34,18 @@ public class Player : Unit
         await Task.WhenAll(afterTakeAction.Select(listener => listener(action)));
     }
 
+    /// <summary>
+    /// priority 0 - rings
+    /// priority 1 - weapons
+    /// priority 2 - boots
+    /// </summary>
+    /// <param name="delta"></param>
+    /// <returns></returns>
     private async Task MoveTakeActions(Vector2Int delta) {
         Debug.LogFormat($"[{Game.instance.time}] Player move take actions {delta}");
         lastMove = delta;
 
-        for (int priority = 0; priority < 2; priority++) {
+        for (int priority = 0; priority < 3; priority++) {
             if ((await Task.WhenAll(Inventory.instance.items.Select(item => item.BeforeWalk(delta, priority)))).Any(b => b)) {
                 await AfterTakeAction(new UnknownAction());
                 Debug.LogFormat($"[{Game.instance.time}] Player move end: before walk");
@@ -53,7 +60,7 @@ public class Player : Unit
             return;
         }
 
-        for (int priority = 0; priority < 2; priority++) {
+        for (int priority = 0; priority < 3; priority++) {
             if ((await Task.WhenAll(Inventory.instance.items.Select(item => item.AfterFailedWalk(delta, priority)))).Any(b => b)) {
                 await AfterTakeAction(new UnknownAction());
                 Debug.LogFormat($"[{Game.instance.time}] Player move end: after failed walk");
@@ -68,7 +75,7 @@ public class Player : Unit
         }
 
         await figure.FakeMove(delta);
-        await AfterTakeAction(new UnknownAction());
+        await AfterTakeAction(new FailedMove(delta));
         Debug.LogFormat($"[{Game.instance.time}] Player move end: fake move");
     }
 
