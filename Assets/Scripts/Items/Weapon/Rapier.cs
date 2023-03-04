@@ -23,6 +23,9 @@ public class Rapier : Weapon
             if (!await Attack(longTarget)) {
                 return false;
             }
+            if (!Owner.alive) {
+                return true;
+            }
             await Owner.GetComponent<MovesReserve>().Haste(1);
             return true;
         }
