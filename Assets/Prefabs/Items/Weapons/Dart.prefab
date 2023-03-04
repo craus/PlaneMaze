@@ -13,11 +13,11 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 5289e3c9c65621c4099e2ef490313e4c, type: 3}
     - target: {fileID: 1710125306432267668, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: maxPrice
-      value: 7
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1710125306432267668, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: minPrice
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2252660109841114050, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Enabled

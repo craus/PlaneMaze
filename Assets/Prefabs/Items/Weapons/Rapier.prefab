@@ -9,11 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1710125306432267668, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: maxPrice
-      value: 7
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1710125306432267668, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: minPrice
-      value: 3
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1710125306432267668, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: startingWeight
@@ -104,14 +104,12 @@ PrefabInstance:
       value: '<b>Rapier</b>
 
 
-        Attack range 2.
+        Lunge attack.
 
-        Move towards target.
+        Gain extra turn.
 
-        Gain
-        extra turn.
-
-        Requires space.'
+        Requires
+        space.'
       objectReference: {fileID: 0}
     - target: {fileID: 6325338422616382079, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Name
