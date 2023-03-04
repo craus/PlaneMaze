@@ -16,6 +16,7 @@ public class Unit : MonoBehaviour, IMortal
     public virtual bool GhostForm => false;
 
     public virtual bool Vulnerable => GetComponent<Invulnerability>().Current == 0;
+    public virtual bool Disarmed => GetComponent<Disarm>().Current == 0;
     public virtual bool ShowInvulnerability => true;
 
     public virtual bool OccupiesPlace => true;

@@ -387,7 +387,11 @@ public class Game : MonoBehaviour
         monsters.Add(ghost);
     }
 
-    private static bool CanAttack(Unit attacker) => attacker == null || attacker.figure.location.GetFigure<PeaceTrap>() == null;
+    private static bool CanAttack(Unit attacker) =>
+        attacker == null ||
+        attacker.figure.location.GetFigure<PeaceTrap>() == null &&
+        !attacker.GetComponent<Disarm>().Active;
+
     private static bool CanBeAttacked(Unit defender, Weapon weapon) => 
         defender != null && 
         defender.Vulnerable &&

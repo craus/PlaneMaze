@@ -11,6 +11,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1406523016830460131, guid: caeeae24aa7f6fa41accbf00759b3706, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1406523016830460131, guid: caeeae24aa7f6fa41accbf00759b3706, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1406523016830460131, guid: caeeae24aa7f6fa41accbf00759b3706, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1406523016830460131, guid: caeeae24aa7f6fa41accbf00759b3706, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5105267310961354821, guid: caeeae24aa7f6fa41accbf00759b3706, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5105267310961354821, guid: caeeae24aa7f6fa41accbf00759b3706, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7749332873944704623, guid: caeeae24aa7f6fa41accbf00759b3706, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7749332873944704623, guid: caeeae24aa7f6fa41accbf00759b3706, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7749332873944704623, guid: caeeae24aa7f6fa41accbf00759b3706, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7749332873944704623, guid: caeeae24aa7f6fa41accbf00759b3706, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8609811987128577857, guid: caeeae24aa7f6fa41accbf00759b3706, type: 3}
       propertyPath: max
       value: 5
@@ -87,6 +127,8 @@ MonoBehaviour:
   alive: 1
   totalGems: 0
   gems: 0
+  damage: 1
   wallSample: {fileID: 0}
   markSample: {fileID: 0}
   ongoingAnimations: 0
+  permanentInvulnerability: 0

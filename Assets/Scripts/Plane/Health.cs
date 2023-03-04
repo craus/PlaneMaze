@@ -9,7 +9,7 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private bool showHeartsOnFullHealth = false;
 
-    public List<Transform> hearts;
+    public List<GameObject> hearts;
 
     public int current = 3;
     public int max = 3;
@@ -54,11 +54,10 @@ public class Health : MonoBehaviour
     public void UpdateHearts() {
         if (current < max || showHeartsOnFullHealth) {
             for (int i = 0; i < hearts.Count; i++) {
-                hearts[i].gameObject.SetActive(current >= i + 1);
-                hearts[i].localPosition = new Vector3(i - current * 0.5f + 0.5f, 0, 0);
+                hearts[i].SetActive(current >= i + 1);
             }
         } else {
-            hearts.ForEach(h => h.gameObject.SetActive(false));
+            hearts.ForEach(h => h.SetActive(false));
         }
     }
 }

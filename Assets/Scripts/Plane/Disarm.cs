@@ -5,9 +5,6 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
-public class Invulnerability : Buff
+public class Disarm : Buff
 {
-    public override void UpdateIcons() {
-        icon.SetActive(Active && GetComponent<Unit>().ShowInvulnerability);
-    }
 }

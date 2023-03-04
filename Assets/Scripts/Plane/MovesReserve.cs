@@ -32,7 +32,6 @@ public class MovesReserve : MonoBehaviour
         if (show) {
             for (int i = 0; i < icons.Count; i++) {
                 icons[i].gameObject.SetActive(amount >= i + 1);
-                icons[i].localPosition = new Vector3(i - amount * 0.5f + 0.5f, 0, 0);
             }
         } else {
             icons.ForEach(h => h.gameObject.SetActive(false));
