@@ -40,8 +40,15 @@ public abstract class Monster : Unit
 
     public virtual void PlayAttackSound() => SoundManager.instance.monsterMeleeAttack.Play();
 
-    public async Task<bool> Attack(Unit target) {
-        if (!Game.CanAttack(this, target)) {
+    public virtual async Task BeforeAttack(Vector2Int delta) { }
+    public virtual async Task AfterAttack(Vector2Int delta) { }
+
+    public virtual Cell AttackLocation(Vector2Int delta, Unit target) => figure.location;
+    public virtual Cell DefenceLocation(Vector2Int delta, Unit target) => target.figure.location;
+
+    public async Task<bool> Attack(Unit target, Vector2Int? maybeDelta = null) {
+        var delta = maybeDelta ?? Helpers.StepAtDirection(target.figure.location.position - figure.location.position);
+        if (!Game.CanAttack(this, target, null, AttackLocation(delta, target), DefenceLocation(delta, target))) {
             return false;
         }
 
