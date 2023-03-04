@@ -94,12 +94,14 @@ public abstract class Monster : Unit
             await GetComponent<MovesReserve>().Haste(1);
             return;
         }
+        await GetComponent<Disarm>().Spend(1);
         await MakeMove();
         if (!alive) {
             return;
         }
         for (int i = 0; i < 10 && this != null && GetComponent<MovesReserve>().Current > 0; i++) {
             await GetComponent<MovesReserve>().Freeze(1);
+            await GetComponent<Disarm>().Spend(1);
             await MakeMove(); 
             if (!alive) {
                 return;

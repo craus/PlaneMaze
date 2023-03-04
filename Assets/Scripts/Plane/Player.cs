@@ -116,6 +116,7 @@ public class Player : Unit
         if (this == null || !alive) {
             return;
         }
+        await GetComponent<Disarm>().Spend(1);
         await GetComponent<Invulnerability>().Spend(1);
     }
 
