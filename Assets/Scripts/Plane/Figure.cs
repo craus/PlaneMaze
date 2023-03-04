@@ -16,6 +16,7 @@ public class Figure : MonoBehaviour
 
     public List<Func<Board, Board, Task>> afterBoardChange = new List<Func<Board, Board, Task>>();
     public List<Func<Cell, Cell, Task>> afterMove = new List<Func<Cell, Cell, Task>>();
+    public List<Func<Cell, Cell, Task>> afterWalk = new List<Func<Cell, Cell, Task>>();
 
     public void TryMoveWall(Cell from, Cell to) {
         if (from.fieldCell.wall && !to.fieldCell.wall) {
@@ -32,6 +33,7 @@ public class Figure : MonoBehaviour
 
     public async Task<bool> TryWalk(Vector2Int delta, Func<Cell, bool> free = null) {
         free ??= c => c.Free;
+        var oldPosition = location;
         var newPosition = location.Shift(delta);
         if (free(newPosition)) {
             await Move(newPosition);

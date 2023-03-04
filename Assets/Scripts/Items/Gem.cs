@@ -11,7 +11,7 @@ public class Gem : MonoBehaviour
     public int amount;
 
     public void Awake() {
-        GetComponent<Item>().onPick.Add(OnPick);
+        GetComponent<Item>().afterPick.Add(OnPick);
     }
 
     private async Task OnPick() {

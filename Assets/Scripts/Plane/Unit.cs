@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,6 +25,8 @@ public class Unit : MonoBehaviour, IMortal
     public Figure figure;
 
     public bool alive = true;
+
+    public List<Func<MoveAction, Task>> afterTakeAction = new List<Func<MoveAction, Task>>();
 
     public virtual void OnGameStart() {
     }

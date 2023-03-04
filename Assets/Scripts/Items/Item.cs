@@ -19,8 +19,11 @@ public class Item : MonoBehaviour, IExplainable
     [Multiline(8)]
     public string description;
 
-    public List<Func<Task>> onPick = new List<Func<Task>>();
-    public List<Func<Task>> onDrop = new List<Func<Task>>();
+    public List<Func<Task>> beforePick = new List<Func<Task>>();
+    public List<Func<Task>> beforeDrop = new List<Func<Task>>();
+
+    public List<Func<Task>> afterPick = new List<Func<Task>>();
+    public List<Func<Task>> afterDrop = new List<Func<Task>>();
 
     public GameObject model;
 
@@ -57,6 +60,9 @@ public class Item : MonoBehaviour, IExplainable
 
     [ContextMenu("Pick")]
     public async Task Pick() {
+
+        await Task.WhenAll(beforePick.Select(listener => listener()).ToArray());
+
         if (slot != null) {
             Inventory.instance.items.Where(item => item.slot == slot).ToList().ForEach(item => item.Drop());
         }
@@ -78,18 +84,19 @@ public class Item : MonoBehaviour, IExplainable
         _ = GetComponent<Figure>().Move(null, isTeleport: true);
         UpdateModelVisible();
 
-        await Task.WhenAll(onPick.Select(listener => listener()).ToArray());
+        await Task.WhenAll(afterPick.Select(listener => listener()).ToArray());
         await Task.WhenAll(Inventory.instance.onPick.Select(listener => listener()).ToArray());
     }
 
     [ContextMenu("Drop")]
     public async Task Drop() {
+        await Task.WhenAll(beforeDrop.Select(listener => listener()).ToArray());
         icon.SetParent(iconParent);
         Inventory.instance.items.Remove(this);
         _ = GetComponent<Figure>().Move(Game.instance.player.figure.location, isTeleport: true);
         UpdateModelVisible();
 
-        await Task.WhenAll(onDrop.Select(listener => listener()).ToArray());
+        await Task.WhenAll(afterDrop.Select(listener => listener()).ToArray());
         await Task.WhenAll(Inventory.instance.onDrop.Select(listener => listener()).ToArray());
     }
 

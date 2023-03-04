@@ -12,11 +12,11 @@ public class HealingPotion : MonoBehaviour
     public int heal = 1;
 
     public void OnEnable() {
-        GetComponent<Item>().onPick.Add(OnPick);
+        GetComponent<Item>().afterPick.Add(OnPick);
     }
 
     public void OnDisable() {
-        GetComponent<Item>().onPick.Remove(OnPick);
+        GetComponent<Item>().afterPick.Remove(OnPick);
     }
 
     private async Task OnPick() {

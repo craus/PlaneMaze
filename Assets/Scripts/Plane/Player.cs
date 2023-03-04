@@ -30,35 +30,45 @@ public class Player : Unit
         await item.Pick();
     }
 
+    private async Task AfterTakeAction(MoveAction action) {
+        await Task.WhenAll(afterTakeAction.Select(listener => listener(action)));
+    }
+
     private async Task MoveTakeActions(Vector2Int delta) {
         Debug.LogFormat($"[{Game.instance.time}] Player move take actions {delta}");
         lastMove = delta;
 
         for (int priority = 0; priority < 2; priority++) {
             if ((await Task.WhenAll(Inventory.instance.items.Select(item => item.BeforeWalk(delta, priority)))).Any(b => b)) {
+                await AfterTakeAction(new UnknownAction());
                 Debug.LogFormat($"[{Game.instance.time}] Player move end: before walk");
                 return;
             }
         }
 
+        var oldLocation = figure.location;
         if (await figure.TryWalk(delta, c => c.Free && (c.GetFigure<PaidCell>() == null || c.GetFigure<PaidCell>().price <= gems))) {
+            await AfterTakeAction(new Walk(oldLocation, figure.location));
             Debug.LogFormat($"[{Game.instance.time}] Player move end: walk");
             return;
         }
 
         for (int priority = 0; priority < 2; priority++) {
             if ((await Task.WhenAll(Inventory.instance.items.Select(item => item.AfterFailedWalk(delta, priority)))).Any(b => b)) {
+                await AfterTakeAction(new UnknownAction());
                 Debug.LogFormat($"[{Game.instance.time}] Player move end: after failed walk");
                 return;
             }
         }
 
         if (await DefaultAttack(delta)) {
+            await AfterTakeAction(new UnknownAction());
             Debug.LogFormat($"[{Game.instance.time}] Player move end: default attack");
             return;
         }
 
         await figure.FakeMove(delta);
+        await AfterTakeAction(new UnknownAction());
         Debug.LogFormat($"[{Game.instance.time}] Player move end: fake move");
     }
 

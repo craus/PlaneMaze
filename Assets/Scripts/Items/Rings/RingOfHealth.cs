@@ -11,13 +11,13 @@ public class RingOfHealth : MonoBehaviour
     public Unit lastOwner;
 
     public void OnEnable() {
-        GetComponent<Item>().onPick.Add(OnPick);
-        GetComponent<Item>().onDrop.Add(OnDrop);
+        GetComponent<Item>().afterPick.Add(OnPick);
+        GetComponent<Item>().afterDrop.Add(OnDrop);
     }
 
     public void OnDisable() {
-        GetComponent<Item>().onPick.Remove(OnPick);
-        GetComponent<Item>().onDrop.Remove(OnDrop);
+        GetComponent<Item>().afterPick.Remove(OnPick);
+        GetComponent<Item>().afterDrop.Remove(OnDrop);
     }
 
     private async Task OnPick() {
