@@ -37,8 +37,12 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
         await target.Hit(new Attack(Owner.figure, target.figure, currentDamage));
     }
 
-    public virtual async Task BeforeAttack(Vector2Int delta) { }
-    public virtual async Task AfterAttack(Vector2Int delta) { }
+    public virtual async Task BeforeAttack(Vector2Int delta, Unit target) { }
+    public virtual async Task AfterAttack(Vector2Int delta, Unit target) {
+        if (Inventory.instance.GetItem<GlovesOfRepulsion>()) {
+            await target.figure.TryWalk((target.figure.location.position - Owner.figure.location.position).StepAtDirectionDiagonal());
+        }
+    }
     public virtual async Task BeforeMultipleAttack(Vector2Int delta) { }
     public virtual async Task AfterMultipleAttack(Vector2Int delta) { }
 
@@ -63,8 +67,8 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
     public virtual async Task<bool> Attack(
         Vector2Int delta, 
         Unit target,
-        Func<Vector2Int, Task> beforeAttack = null, 
-        Func<Vector2Int, Task> afterAttack = null 
+        Func<Vector2Int, Unit, Task> beforeAttack = null, 
+        Func<Vector2Int, Unit, Task> afterAttack = null 
     ) {
         beforeAttack ??= BeforeAttack;
         afterAttack ??= AfterAttack;
@@ -73,7 +77,7 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
             return false;
         }
 
-        await beforeAttack(delta);
+        await beforeAttack(delta, target);
         if (!Owner.alive) {
             return true;
         }
@@ -90,7 +94,7 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
         }
         await DealDamage(target);
 
-        await afterAttack(delta);
+        await afterAttack(delta, target);
 
         return true;
     }

@@ -13,8 +13,11 @@ public class Rapier : Weapon
         yield return new Vector2Int(2, 0);
     }
 
-    public override async Task BeforeAttack(Vector2Int delta) => await Owner.figure.TryWalk(delta);
-    public override async Task AfterAttack(Vector2Int delta) => await Owner.GetComponent<MovesReserve>().Haste(1);
+    public override async Task BeforeAttack(Vector2Int delta, Unit target) => await Owner.figure.TryWalk(delta);
+    public override async Task AfterAttack(Vector2Int delta, Unit target) {
+        await base.AfterAttack(delta, target);
+        await Owner.GetComponent<MovesReserve>().Haste(1);
+    }
 
     public override Cell AttackLocation(Vector2Int delta, Unit target) => Owner.figure.location.Shift(delta);
 

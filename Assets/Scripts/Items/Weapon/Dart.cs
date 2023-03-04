@@ -27,12 +27,14 @@ public class Dart : Weapon
         ap.transform.position = Owner.transform.position + transformDelta.normalized * 0.5f;
         await ap.transform.Move(target.transform.position, 0.02f * transformDelta.magnitude);
 
+        await GetComponent<Item>().Drop();
+        await GetComponent<Figure>().Move(attackPosition.Shift(-direction), isTeleport: true);
+
         if (ap != null) {
             Destroy(ap);
         }
         await DealDamage(target);
-        GetComponent<Item>().Drop();
-        await GetComponent<Figure>().Move(attackPosition.Shift(-direction), isTeleport: true);
+        await AfterAttack(delta, target);
 
         return true;
     }

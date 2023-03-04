@@ -29,7 +29,7 @@ public class Katar : Weapon
         }
         var longTarget = Owner.figure.location.Shift(2 * delta).GetFigure<Unit>(u => u.Vulnerable);
         if (longTarget != null) {
-            return await Attack(delta, longTarget, beforeAttack: delta => Owner.figure.TryWalk(delta));
+            return await Attack(delta, longTarget, beforeAttack: (delta, target) => Owner.figure.TryWalk(delta));
         }
         return false;
     }

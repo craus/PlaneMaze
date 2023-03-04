@@ -30,6 +30,7 @@ public class Bow : Weapon
             Destroy(ap);
         }
         await DealDamage(target);
+        await AfterAttack(delta, target);
 
         return true;
     }

@@ -58,4 +58,12 @@ public static class Helpers
         v /= (int)v.magnitude;
         return v;
     }
+
+    public static Vector2Int StepAtDirectionDiagonal(this Vector2Int v) {
+        if (v.x > 0) v.x = 1;
+        if (v.x < 0) v.x = -1;
+        if (v.y > 0) v.y = 1;
+        if (v.y < 0) v.y = -1;
+        return v;
+    }
 }
