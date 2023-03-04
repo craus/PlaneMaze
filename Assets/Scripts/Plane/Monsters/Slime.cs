@@ -34,7 +34,7 @@ public class Slime : Monster
     }
 
     private void UpdateSprite() {
-        slimeSizeTransform.localScale = ((0.75f + 0.25f * size) * Vector3.one).Change(z: 1);
+        slimeSizeTransform.localScale = ((0.7f + 0.3f * size) * Vector3.one).Change(z: 1);
         activeModel.SetActive(currentCooldown <= 1);
     }
 

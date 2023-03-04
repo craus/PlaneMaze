@@ -51,9 +51,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5504667808349519680, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
+      propertyPath: childSample
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7190054797756372444, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
       propertyPath: m_Name
-      value: Slime
+      value: Slime Child Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8730206545564625714, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
+      propertyPath: m_Color.b
+      value: 0.33285868
+      objectReference: {fileID: 0}
+    - target: {fileID: 8730206545564625714, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8301887
+      objectReference: {fileID: 0}
+    - target: {fileID: 8730206545564625714, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
+      propertyPath: m_Color.r
+      value: 0.5453929
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
