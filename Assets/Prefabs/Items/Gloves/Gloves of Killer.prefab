@@ -14,18 +14,18 @@ PrefabInstance:
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d2d02e0562c7aa44da8cca0a14aeb136, type: 3}
+      objectReference: {fileID: 21300000, guid: 90020d2180c8f9547b55bd19ffd90c51, type: 3}
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.b
-      value: 0.5151861
+      value: 0.13180293
       objectReference: {fileID: 0}
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.g
-      value: 0.20314167
+      value: 0.110270575
       objectReference: {fileID: 0}
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.r
-      value: 0.5188679
+      value: 0.13207549
       objectReference: {fileID: 0}
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -89,30 +89,31 @@ PrefabInstance:
       objectReference: {fileID: 529709666661010183, guid: 1d2010a3dcdc46b4db05a29e0070e092, type: 3}
     - target: {fileID: 4744153755596459824, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: description
-      value: '<b>Gloves of Swapping</b>
+      value: '<b>Gloves of Killer</b>
 
 
-        Swap places with enemy on attack.'
+        Each kill gives you invulnerability
+        1.'
       objectReference: {fileID: 0}
     - target: {fileID: 6325338422616382079, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Name
-      value: Gloves of Swapping
+      value: Gloves of Killer
       objectReference: {fileID: 0}
     - target: {fileID: 8585933247312828475, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d2d02e0562c7aa44da8cca0a14aeb136, type: 3}
+      objectReference: {fileID: 21300000, guid: 90020d2180c8f9547b55bd19ffd90c51, type: 3}
     - target: {fileID: 8585933247312828475, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.b
-      value: 0.5137255
+      value: 0.13333334
       objectReference: {fileID: 0}
     - target: {fileID: 8585933247312828475, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.g
-      value: 0.20392157
+      value: 0.10980392
       objectReference: {fileID: 0}
     - target: {fileID: 8585933247312828475, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.r
-      value: 0.5176471
+      value: 0.13333334
       objectReference: {fileID: 0}
     - target: {fileID: 9154011270047500716, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_IsActive
@@ -125,7 +126,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6325338422616382079, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
   m_PrefabInstance: {fileID: 4017953589501215184}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8213997923220301610
+--- !u!114 &2227362754601811506
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,6 +135,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6920552994628180911}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92e710c43bb0ab343b2af037b5d1f2f0, type: 3}
+  m_Script: {fileID: 11500000, guid: d2a91d4fa1de3cb4b8010a5ce4b0401c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
