@@ -1647,9 +1647,10 @@ MonoBehaviour:
   - {fileID: 8508492893450686176, guid: ec997f72536fddf4087259dd92e8608c, type: 3}
   - {fileID: 8508492893450686176, guid: 8e2e3bc18e0945a43a86e10aca9cc71a, type: 3}
   - {fileID: 8508492893450686176, guid: 162397ce9872846418e2798f4692e492, type: 3}
+  - {fileID: 8508492893450686176, guid: 4166082a911f6e74aa4d5db4b4e3ee2d, type: 3}
   startingItemsSamples:
-  - {fileID: 3303673112297539049, guid: 162397ce9872846418e2798f4692e492, type: 3}
-  - {fileID: 3303673112297539049, guid: 93bf611611e4b8345bf2eee9ffcbd6b3, type: 3}
+  - {fileID: 3303673112297539049, guid: 4166082a911f6e74aa4d5db4b4e3ee2d, type: 3}
+  - {fileID: 3303673112297539049, guid: 8b800a0855100514498fa0f9cf27266d, type: 3}
   storeSamples: []
   terrainSamples:
   - to: {fileID: 1881276151569630265, guid: e7936b0df5ffd3f4880e94713105b336, type: 3}
