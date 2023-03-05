@@ -39,6 +39,7 @@ public class Unit : MonoBehaviour, IMortal
 
     public virtual async Task Attack(Attack attack) {
         await attack.to.GetComponent<Unit>().Hit(attack);
+        await Task.WhenAll(attack.afterAttack.Select(listener => listener()));
     }
 
     public virtual async Task Hit(Attack attack) {

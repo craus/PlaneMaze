@@ -15,7 +15,11 @@ public class GlovesOfStasis : MonoBehaviour, IAttackModifier
     public int Priority => 0;
 
     public async Task ModifyAttack(Attack attack) {
-        await attack.to.GetComponent<MovesReserve>().Freeze(freezeDuration);
-        await attack.to.GetComponent<Invulnerability>().Gain(invulnerabilityDuration);
+        attack.afterAttack.Add(
+            async () => {
+                await attack.to.GetComponent<MovesReserve>().Freeze(freezeDuration);
+                await attack.to.GetComponent<Invulnerability>().Gain(invulnerabilityDuration);
+            }
+        );
     }
 }

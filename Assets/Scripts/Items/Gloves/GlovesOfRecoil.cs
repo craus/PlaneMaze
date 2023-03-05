@@ -12,6 +12,8 @@ public class GlovesOfRecoil : MonoBehaviour, IAttackModifier
     public int Priority => 0;
 
     public async Task ModifyAttack(Attack attack) {
-        await attack.from.TryWalk((attack.from.location.position - attack.to.location.position).StepAtDirectionDiagonal());
+        attack.afterAttack.Add(
+            async () => await attack.from.TryWalk((attack.from.location.position - attack.to.location.position).StepAtDirectionDiagonal())
+        );
     }
 }

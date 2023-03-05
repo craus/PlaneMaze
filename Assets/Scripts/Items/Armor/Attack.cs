@@ -13,6 +13,8 @@ public class Attack
     public Figure to;
     public int damage;
 
+    public List<Func<Task>> afterAttack = new List<Func<Task>>();
+
     public Attack(Figure from, Figure to, int damage) {
         this.from = from;
         this.to = to;

@@ -12,6 +12,8 @@ public class GlovesOfRepulsion : MonoBehaviour, IAttackModifier
     public int Priority => throw new NotImplementedException();
 
     public async Task ModifyAttack(Attack attack) {
-        await attack.to.TryWalk((attack.to.location.position - attack.from.location.position).StepAtDirectionDiagonal());
+        attack.afterAttack.Add(
+            async () => await attack.to.TryWalk((attack.to.location.position - attack.from.location.position).StepAtDirectionDiagonal())
+        );
     }
 }
