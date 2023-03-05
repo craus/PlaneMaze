@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Item))]
-public class RingOfStrength : MonoBehaviour
+public class RingOfStrength : MonoBehaviour, IAttackModifier
 {
+    public int Priority => 0;
+
+    public async Task ModifyAttack(Attack attack) {
+        attack.damage++;
+    }
 }

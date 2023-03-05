@@ -14,18 +14,18 @@ PrefabInstance:
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 2eaf0eef6614f8244b4b72996ede933d, type: 3}
+      objectReference: {fileID: 21300000, guid: 3ff7d4d95ee5b2d4ba97aafc41fc8e7c, type: 3}
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.b
-      value: 0.051886797
+      value: 0.9584618
       objectReference: {fileID: 0}
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.g
-      value: 0.38026765
+      value: 0.9622642
       objectReference: {fileID: 0}
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.5582948
       objectReference: {fileID: 0}
     - target: {fileID: 2532068689400690311, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -96,23 +96,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6325338422616382079, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Name
-      value: Gloves of Repulsion
+      value: Gloves of Stasis
       objectReference: {fileID: 0}
     - target: {fileID: 8585933247312828475, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 2eaf0eef6614f8244b4b72996ede933d, type: 3}
+      objectReference: {fileID: 21300000, guid: 3ff7d4d95ee5b2d4ba97aafc41fc8e7c, type: 3}
     - target: {fileID: 8585933247312828475, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.b
-      value: 0.050980393
+      value: 0.95686275
       objectReference: {fileID: 0}
     - target: {fileID: 8585933247312828475, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.g
-      value: 0.38039216
+      value: 0.9607843
       objectReference: {fileID: 0}
     - target: {fileID: 8585933247312828475, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.5568628
       objectReference: {fileID: 0}
     - target: {fileID: 9154011270047500716, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_IsActive
@@ -125,7 +125,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6325338422616382079, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
   m_PrefabInstance: {fileID: 4017953589501215184}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4395616270570368264
+--- !u!114 &3773042325881221228
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,6 +134,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6920552994628180911}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d245a14a2cbc6444eb73b41f23d8b9c7, type: 3}
+  m_Script: {fileID: 11500000, guid: 9121732f51b16014d81cab714138580a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  freezeDuration: 2
+  invulnerabilityDuration: 3

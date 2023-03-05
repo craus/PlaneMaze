@@ -37,6 +37,10 @@ public class Unit : MonoBehaviour, IMortal
         if (figure == null) figure = GetComponent<Figure>();
     }
 
+    public virtual async Task Attack(Attack attack) {
+        await attack.to.GetComponent<Unit>().Hit(attack);
+    }
+
     public virtual async Task Hit(Attack attack) {
         if (this == null) {
             return;

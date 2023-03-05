@@ -113,6 +113,22 @@ public class Player : Unit
         await target.Hit(new Attack(figure, target.figure, currentDamage));
     }
 
+    public override async Task Attack(Attack attack) {
+        if (this == null) {
+            return;
+        }
+        Debug.LogFormat($"[{Game.instance.time}] Player attack with {attack}");
+        await Task.WhenAll(
+            Inventory.instance.items
+                .Select(item => item.GetComponent<IAttackModifier>())
+                .Where(x => x != null)
+                .OrderBy(x => x.Priority)
+                .Select(x => x.ModifyAttack(attack))
+        );
+
+        await base.Attack(attack);
+    }
+
     private async Task MoveInternal(Vector2Int delta) {
         if (GetComponent<MovesReserve>().Current < 0) {
             await GetComponent<MovesReserve>().Haste(1);

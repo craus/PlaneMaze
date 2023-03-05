@@ -29,8 +29,9 @@ public class Bow : Weapon
         if (ap != null) {
             Destroy(ap);
         }
-        await DealDamage(target);
-        await AfterAttack(delta, target);
+        var attack = GetAttack(delta, target);
+        await Owner.Attack(attack);
+        await AfterAttack(attack);
 
         return true;
     }

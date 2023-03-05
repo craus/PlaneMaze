@@ -8,6 +8,7 @@ using UnityEngine;
 [Serializable]
 public class Attack 
 {
+    public Vector2Int delta;
     public Figure from;
     public Figure to;
     public int damage;
@@ -18,5 +19,5 @@ public class Attack
         this.damage = damage;
     }
 
-    public override string ToString() => $"Attack from {from} to {to} with damage {damage}";
+    public override string ToString() => $"Attack from {from} to {to} at {delta} with damage {damage}";
 }

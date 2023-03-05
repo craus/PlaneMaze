@@ -44,6 +44,9 @@ public static class Helpers
     }
 
     public static Vector2Int StepAtDirection(this Vector2Int v) {
+        if (v == Vector2Int.zero) {
+            return v;
+        }
         if (Mathf.Abs(v.x) > Mathf.Abs(v.y)) {
             v.y = 0;
         } else if (Mathf.Abs(v.x) < Mathf.Abs(v.y)) {

@@ -29,22 +29,15 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
         return await MultipleAttack(delta, targets);
     }
 
-    public async Task DealDamage(Unit target) {
-        var currentDamage = damage;
-        if (Inventory.instance.GetItem<RingOfStrength>()) {
-            currentDamage++;
-        }
-        await target.Hit(new Attack(Owner.figure, target.figure, currentDamage));
-    }
+    public Attack GetAttack(Vector2Int delta, Unit target) => new Attack(Owner.figure, target.figure, damage);
 
-    public virtual async Task BeforeAttack(Vector2Int delta, Unit target) { }
-    public virtual async Task AfterAttack(Vector2Int delta, Unit target) {
-        if (Inventory.instance.GetItem<GlovesOfRepulsion>()) {
-            await target.figure.TryWalk((target.figure.location.position - Owner.figure.location.position).StepAtDirectionDiagonal());
-        }
-    }
+    public virtual async Task BeforeAttack(Attack attack) { }
+
+    public virtual async Task AfterAttack(Attack attack) { }
     public virtual async Task BeforeMultipleAttack(Vector2Int delta) { }
+
     public virtual async Task AfterMultipleAttack(Vector2Int delta) { }
+
 
     public virtual Cell AttackLocation(Vector2Int delta, Unit target) => Owner.figure.location;
     public virtual Cell DefenceLocation(Vector2Int delta, Unit target) => target.figure.location;
@@ -67,8 +60,8 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
     public virtual async Task<bool> Attack(
         Vector2Int delta, 
         Unit target,
-        Func<Vector2Int, Unit, Task> beforeAttack = null, 
-        Func<Vector2Int, Unit, Task> afterAttack = null 
+        Func<Attack, Task> beforeAttack = null, 
+        Func<Attack, Task> afterAttack = null 
     ) {
         beforeAttack ??= BeforeAttack;
         afterAttack ??= AfterAttack;
@@ -77,7 +70,8 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
             return false;
         }
 
-        await beforeAttack(delta, target);
+        var attack = GetAttack(delta, target);
+        await beforeAttack(attack);
         if (!Owner.alive) {
             return true;
         }
@@ -92,9 +86,8 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
         if (ap != null) {
             Destroy(ap);
         }
-        await DealDamage(target);
-
-        await afterAttack(delta, target);
+        await Owner.Attack(attack);
+        await afterAttack(attack);
 
         return true;
     }
