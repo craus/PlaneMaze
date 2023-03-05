@@ -28,8 +28,8 @@ public class BootsOfSprint : MonoBehaviour
         lastMove = Vector2Int.zero;
     }
 
-    public void OnDisable() {
-        if (GetComponent<Item>().Owner != null) {
+    public void OnDestroy() {
+        if (GetComponent<Item>() != null && GetComponent<Item>().Owner != null) {
             GetComponent<Item>().Owner.afterTakeAction.Remove(AfterOwnerTakeAction);
         }
     }

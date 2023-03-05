@@ -28,7 +28,7 @@ public class Slippers : MonoBehaviour, IBeforeWalk
         chargeDirection = Vector2Int.zero;
     }
 
-    public void OnDisable() {
+    public void OnDestroy() {
         if (GetComponent<Item>().Owner != null) {
             GetComponent<Item>().Owner.afterTakeAction.Remove(AfterOwnerTakeAction);
         }

@@ -136,11 +136,13 @@ public class Game : MonoBehaviour
         entry.second = exit;
         exit.second = entry;
 
-        Sell(newStore[-4, 3], healingPotionSample, Rand.rnd(8, 10));
-        Sell(newStore[-2, 3], weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
-        Sell(newStore[-0, 3], itemSamples.rnd(), Rand.rnd(10, 20));
-        Sell(newStore[2, 3], itemSamples.rnd(), Rand.rnd(10, 20));
-        Sell(newStore[4, 3], ringOfTerraformingSample, Rand.rnd(3, 5));
+        Sell(newStore[-2, 5], healingPotionSample);
+        Sell(newStore[0, 5], weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
+        Sell(newStore[2, 5], ringOfTerraformingSample);
+
+        Sell(newStore[-2, 3], itemSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
+        Sell(newStore[0, 3], itemSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
+        Sell(newStore[2, 3], itemSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
     }
 
     private void SecondStep(Cell cell) {

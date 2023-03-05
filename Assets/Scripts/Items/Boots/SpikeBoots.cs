@@ -24,7 +24,7 @@ public class SpikeBoots : MonoBehaviour
         GetComponent<Item>().Owner.afterTakeAction.Remove(AfterOwnerTakeAction);
     }
 
-    public void OnDisable() {
+    public void OnDestroy() {
         if (GetComponent<Item>().Owner != null) {
             GetComponent<Item>().Owner.afterTakeAction.Remove(AfterOwnerTakeAction);
         }
