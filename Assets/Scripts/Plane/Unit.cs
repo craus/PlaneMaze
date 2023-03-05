@@ -10,8 +10,10 @@ public class Unit : MonoBehaviour, IMortal
 {
     public Vector2Int lastMove;
 
+    public bool soul = true;
+
     public virtual bool Flying => false;
-    public virtual bool HasSoul => true;
+    public virtual bool HasSoul => soul;
     public virtual int Money => 1;
     public virtual bool Movable => true;
     public virtual bool GhostForm => false;

@@ -13,6 +13,7 @@ public class BlackMage : Monster
     public int damageRadius = 4;
     public int deathDamage = 1;
 
+    public Figure ghostSample;
     public GameObject soulSample;
     public GameObject healSample;
 
@@ -70,8 +71,14 @@ public class BlackMage : Monster
         if (!alive) {
             return;
         }
-        if ((unit.figure.location.position - figure.location.position).MaxDelta() <= deathDetectionRadius && unit is Monster) {
-            await ConsumeSoul(unit);
+        if ((unit.figure.location.position - figure.location.position).MaxDelta() <= deathDetectionRadius && unit is Monster && unit.HasSoul) {
+            unit.soul = false;
+            await SpawnGhost(unit.figure.location);
         }
+    }
+
+    private async Task SpawnGhost(Cell location) {
+        var ghost = Game.instance.GenerateFigure(location, ghostSample);
+        await ghost.GetComponent<MovesReserve>().Freeze(1);
     }
 }

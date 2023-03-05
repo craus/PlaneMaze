@@ -17,6 +17,9 @@ public class WolfTrap : Terrain, IMortal
         //Player.instance.figure.afterMove.Add(AfterPlayerMove);
 
         GetComponent<Figure>().collide = async (from, figure) => {
+            if (figure == null) {
+                return;
+            }
             var victim = figure.GetComponent<Unit>();
             if (victim != null && !victim.Flying) {
                 await Attack(victim);

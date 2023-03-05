@@ -17,7 +17,7 @@ public class Slime : Monster
 
     public GameObject activeModel;
 
-    public override bool HasSoul => size == 0;
+    public override bool HasSoul => base.HasSoul && size == 0;
     public override int Money => size == 0 ? 1 : 0;
 
     public override void Awake() {
@@ -75,7 +75,6 @@ public class Slime : Monster
             .Where(c => c.Free), childrenCount)
         ) {
             var child = Game.instance.GenerateFigure(p, childSample);
-            Game.instance.monsters.Add(child);
             child.size = size - 1;
             await child.GetComponent<MovesReserve>().Freeze(1);
             child.Init();

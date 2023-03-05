@@ -33,8 +33,7 @@ public class Lich : Monster
     public override void OnGameStart() {
         base.OnGameStart();
         var phylacteryLocation = Game.instance.mainWorld.cells.Where(c => !c.Wall && c.figures.Count() == 0).Rnd();
-        phylactery = Game.instance.GenerateFigure(phylacteryLocation, phylacterySample);
-        Game.instance.monsters.Add(phylactery);
+        Game.instance.GenerateFigure(phylacteryLocation, phylacterySample);
         GetComponent<Invulnerability>().UpdateIcons();
     }
 
@@ -63,8 +62,7 @@ public class Lich : Monster
         if (spawnLocation == null) {
             return;
         }
-        var child = Game.instance.GenerateFigure(spawnLocation, skeletonSample);
-        Game.instance.monsters.Add(child);
+        Game.instance.GenerateFigure(spawnLocation, skeletonSample);
     }
 
     protected override async Task MakeMove() {

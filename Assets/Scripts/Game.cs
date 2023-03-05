@@ -333,6 +333,11 @@ public class Game : MonoBehaviour
             explainable.Sample = sample.GetComponent<IExplainable>();
         }
 
+        var monster = f.GetComponent<Monster>();
+        if (monster != null) {
+            monsters.Add(monster);
+        }
+
         return f;
     }
 
@@ -347,12 +352,12 @@ public class Game : MonoBehaviour
             startingItemsSamples.RemoveAt(0);
             return;
         } else if (cell.order == worldSize - 1) {
-            monsters.Add(GenerateFigure(cell, lichSample));
+            GenerateFigure(cell, lichSample);
             return;
         }
 
         if (cell.position.magnitude > 6 && Rand.rndEvent(0.1f)) {
-            monsters.Add(GenerateFigure(cell, monsterSamples.rnd()));
+            GenerateFigure(cell, monsterSamples.rnd());
         } else if (Rand.rndEvent(0.004f)) {
             GenerateFigure(cell, weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().fieldWeight));
         } else if (Rand.rndEvent(0)) {
@@ -386,8 +391,7 @@ public class Game : MonoBehaviour
 
     private async Task SpawnGhost() {
         var center = Player.instance.figure.location;
-        var ghost = GenerateFigure(Rand.rndExcept(center.Vicinity(11).Where(c => c.Free).ToList(), center.Vicinity(7)), ghostSample);
-        monsters.Add(ghost);
+        GenerateFigure(Rand.rndExcept(center.Vicinity(11).Where(c => c.Free).ToList(), center.Vicinity(7)), ghostSample);
     }
 
     private static bool CanAttack(Unit attacker) =>
