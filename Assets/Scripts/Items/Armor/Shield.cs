@@ -19,7 +19,7 @@ public class Shield : MonoBehaviour, IReceiveAttackModifier, ISideDefence
 
     public async Task ModifyAttack(Attack attack) {
         var backCell = GetComponent<Item>().Owner.figure.location.Shift(-GetComponent<Item>().Owner.lastMove);
-        var attackDirection = attack.to.location.position - attack.from.location.position;
+        var attackDirection = attack.defenceLocation.position - attack.attackLocation.position;
         if (
             GetComponent<Item>().Owner.lastMove.Codirected(-attackDirection) &&
             attackDirection != Vector2Int.zero &&

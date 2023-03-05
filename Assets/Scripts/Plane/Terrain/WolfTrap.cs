@@ -37,7 +37,7 @@ public class WolfTrap : Terrain, IMortal
         var ap = Instantiate(attackProjectileSample);
         ap.transform.position = victim.transform.position;
         await Helpers.Delay(0.1f);
-        await victim.Hit(new Attack(Vector2Int.zero, GetComponent<Figure>(), victim.figure, damage));
+        await victim.Hit(new Attack(Vector2Int.zero, GetComponent<Figure>(), victim.figure, GetComponent<Figure>().location, victim.figure.location, damage));
         Destroy(ap);
     }
 

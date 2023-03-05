@@ -29,7 +29,9 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
         return await MultipleAttack(delta, targets);
     }
 
-    public Attack GetAttack(Vector2Int delta, Unit target) => new Attack(delta, Owner.figure, target.figure, damage);
+    public Attack GetAttack(Vector2Int delta, Unit target) => new Attack(
+        delta, Owner.figure, target.figure, AttackLocation(delta, target), DefenceLocation(delta, target), damage
+    );
 
     public virtual async Task BeforeAttack(Attack attack) { }
 

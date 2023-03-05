@@ -66,7 +66,7 @@ public abstract class Monster : Unit
 
         await Helpers.Delay(0.1f);
 
-        await target.Hit(new Attack(delta, figure, target.figure, damage));
+        await target.Hit(new Attack(delta, figure, target.figure, AttackLocation(delta, target), DefenceLocation(delta, target), damage));
 
         if (ap != null) {
             Destroy(ap);

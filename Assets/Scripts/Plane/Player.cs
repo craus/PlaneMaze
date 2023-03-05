@@ -110,7 +110,7 @@ public class Player : Unit
         if (Inventory.instance.GetItem<RingOfStrength>()) {
             currentDamage++;
         }
-        await target.Hit(new Attack(delta, figure, target.figure, currentDamage));
+        await target.Hit(new Attack(delta, figure, target.figure, figure.location, target.figure.location, currentDamage));
     }
 
     public override async Task Attack(Attack attack) {

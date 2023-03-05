@@ -117,7 +117,7 @@ public class Item : MonoBehaviour, IExplainable
         }
     }
 
-    public Unit Owner => Inventory.instance.items.Contains(this) ? Player.instance : null;
+    public Unit Owner => Inventory.instance == null ? null : Inventory.instance.items.Contains(this) ? Player.instance : null;
 
     public string Text => description;
 
