@@ -18,9 +18,13 @@ public class Club : Weapon
         }
         var attack = Attack(delta, target);
         if (target.Movable && await target.figure.TryWalk(delta)) {
-            await target.GetComponent<MovesReserve>().Freeze(1);
+            if (target.alive) {
+                await target.GetComponent<MovesReserve>().Freeze(1);
+            }
         } else {
-            await Owner.GetComponent<MovesReserve>().Freeze(1);
+            if (Owner.alive) {
+                await Owner.GetComponent<MovesReserve>().Freeze(1);
+            }
         }
         await attack;
         return true;
