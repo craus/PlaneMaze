@@ -99,18 +99,18 @@ public class Player : Unit
             Debug.LogFormat($"[{Game.instance.time}] DefaultAttack push");
         } else {
             SoundManager.instance.pushAttack.Play();
-            await DealDamage(target);
+            await DealDamage(delta, target);
             Debug.LogFormat($"[{Game.instance.time}] DefaultAttack deal damage");
         }
         return true;
     }
 
-    public async Task DealDamage(Unit target) {
+    public async Task DealDamage(Vector2Int delta, Unit target) {
         var currentDamage = damage;
         if (Inventory.instance.GetItem<RingOfStrength>()) {
             currentDamage++;
         }
-        await target.Hit(new Attack(figure, target.figure, currentDamage));
+        await target.Hit(new Attack(delta, figure, target.figure, currentDamage));
     }
 
     public override async Task Attack(Attack attack) {

@@ -15,7 +15,8 @@ public class Attack
 
     public List<Func<Task>> afterAttack = new List<Func<Task>>();
 
-    public Attack(Figure from, Figure to, int damage) {
+    public Attack(Vector2Int delta, Figure from, Figure to, int damage) {
+        this.delta = delta;
         this.from = from;
         this.to = to;
         this.damage = damage;
