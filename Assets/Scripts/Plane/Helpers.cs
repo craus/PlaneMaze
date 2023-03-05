@@ -8,6 +8,8 @@ using UnityEngine.Events;
 
 public static class Helpers
 {
+    public static float animationSpeed = 1;
+
     public async static Task TeleportAway(Figure figure, int radius) {
         var destination = figure.location.Vicinity(maxDx: radius, maxDy: radius).Where(c => c.Free).Rnd();
 
@@ -40,7 +42,7 @@ public static class Helpers
     }
 
     public static async Task Delay(float seconds) {
-        await Task.Delay((int)(500 * seconds / Mathf.Pow(2, Player.instance.commands.Count)));
+        await Task.Delay((int)(500 * seconds / Mathf.Pow(2, Player.instance.commands.Count) / animationSpeed));
     }
 
     public static Vector2Int StepAtDirection(this Vector2Int v) {
