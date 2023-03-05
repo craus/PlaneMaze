@@ -15,6 +15,8 @@ public class Slime : Monster
     [SerializeField] private Slime childSample;
     [SerializeField] private Transform slimeSizeTransform;
 
+    public override bool SoulVulnerable => true;
+
     public GameObject activeModel;
 
     public override bool HasSoul => base.HasSoul && size == 0;

@@ -14,6 +14,7 @@ public class Unit : MonoBehaviour, IMortal
 
     public virtual bool Flying => false;
     public virtual bool HasSoul => soul;
+    public virtual bool SoulVulnerable => HasSoul;
     public virtual int Money => 1;
     public virtual bool Movable => true;
     public virtual bool GhostForm => false;

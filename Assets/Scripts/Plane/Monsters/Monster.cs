@@ -26,10 +26,6 @@ public abstract class Monster : Unit
     public GameObject attackProjectile;
     public int damage = 1;
 
-    public override void Awake() {
-        base.Awake();
-    }
-
     public virtual async Task<bool> TryAttack(Vector2Int delta) {
         var newPosition = figure.location.Shift(delta);
         if (newPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
@@ -124,6 +120,13 @@ public abstract class Monster : Unit
         if (reward > 0) {
             var gem = Game.instance.GenerateFigure(figure.location, Game.instance.gemSample);
             gem.amount = reward;
+        }
+    }
+
+    public void OnDestroy() {
+        if (Game.instance != null) {
+            Game.instance.monsters.Remove(GetComponent<Monster>());
+            Debug.LogFormat($"[{Game.instance.time} Monster {gameObject} at ({figure.location}) removed from queue after death");
         }
     }
 }

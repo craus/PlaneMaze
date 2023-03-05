@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +17,21 @@ public class BlackMage : Monster
     public Figure ghostSample;
     public GameObject soulSample;
     public GameObject healSample;
+
+    public List<GameObject> chargedModels;
+    public List<GameObject> unchargedModels;
+
+    public bool charged = false;
+
+    public override void Awake() {
+        base.Awake();
+        UpdateIcon();
+    }
+
+    private void UpdateIcon() {
+        chargedModels.ForEach(go => go.SetActive(charged));
+        unchargedModels.ForEach(go => go.SetActive(!charged));
+    }
 
     public override async Task Hit(Attack attack) {
         await base.Hit(attack);
@@ -39,9 +55,13 @@ public class BlackMage : Monster
     }
 
     public async Task ConsumeSoul(Unit unit) {
-        if (!unit.HasSoul) {
+        if (!unit.alive) {
             return;
         }
+        if (unit.GetComponent<MovesReserve>().Current < 0) {
+            return;
+        }
+        await unit.Die();
 
         SoundManager.instance.consumeSoul.Play();
 
@@ -59,9 +79,14 @@ public class BlackMage : Monster
         Destroy(heal);
         await GetComponent<Health>().Heal(1);
 
+        charged = true;
+        UpdateIcon();
+    }
+
+    public async Task DealDeathDamage() {
         foreach (var u in figure.location.Vicinity(damageRadius).ToList()
             .Select(c => c.GetFigure<Unit>())
-            .Where(u => u != null && !(u is BlackMage))
+            .Where(u => u != null && u.SoulVulnerable)
         ) {
             await DealDeathDamage(u);
         }
@@ -75,6 +100,26 @@ public class BlackMage : Monster
             unit.soul = false;
             await SpawnGhost(unit.figure.location);
         }
+    }
+
+    protected async override Task MakeMove() {
+        if (charged) {
+            charged = false;
+            UpdateIcon();
+            await DealDeathDamage();
+            return;
+        }
+
+        var closestGhost = figure.location.Vicinity(deathDetectionRadius)
+            .Select(c => c.GetFigure<Ghost>())
+            .Where(g => g != null)
+            .MinBy(g => (g.figure.location.position - figure.location.position).sqrMagnitude);
+
+        if (closestGhost == null) {
+            return;
+        }
+
+        await ConsumeSoul(closestGhost);
     }
 
     private async Task SpawnGhost(Cell location) {

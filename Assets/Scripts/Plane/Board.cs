@@ -59,6 +59,7 @@ public class Board : MonoBehaviour
             cell.gameObject.SetActive(false);
         }
         cell.position = new Vector2Int(x, y);
+        cell.gameObject.name = $"Cell ({x}, {y})";
         field[x, y].wall = true;
         cell.SetFieldCell(field[x, y]);
         cell.transform.SetParent(cellParent);
