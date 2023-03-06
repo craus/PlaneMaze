@@ -349,7 +349,7 @@ public class Game : MonoBehaviour
     }
 
     public void AfterCellAdded(Cell cell) {
-        if (cell.order == 4) {
+        if (cell.order == 1) {
             GenerateFigure(cell, weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().startingWeight));
             return;
         } else if (cell.order == 0) {
