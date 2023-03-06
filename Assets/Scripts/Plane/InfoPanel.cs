@@ -16,8 +16,8 @@ public class InfoPanel : Singletone<InfoPanel>
 
     public HashSet<IExplainable> viewedInfo = new HashSet<IExplainable>();
 
-    public void Show(IExplainable explainable) {
-        if (viewedInfo.Contains(explainable.Sample)) {
+    public void Show(IExplainable explainable, bool repeatable = false) {
+        if (viewedInfo.Contains(explainable.Sample) && !repeatable) {
             return;
         }
         viewedInfo.Add(explainable.Sample);

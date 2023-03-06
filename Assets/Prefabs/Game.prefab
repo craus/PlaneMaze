@@ -1942,6 +1942,7 @@ MonoBehaviour:
   portalSample: {fileID: 7110139304582582606, guid: 89231564c7a6d1940a474861eddb4b29, type: 3}
   healingPotionSample: {fileID: 2665230306910546025, guid: c54196d8a6cfbdc49a2ae0a059098cd4, type: 3}
   paidCellSample: {fileID: 3795892648448291814, guid: a1a62b1b04267d3448d1031ee1297b0f, type: 3}
+  infoSample: {fileID: 1376883555061404795, guid: 1d9428be92ba9e04796ea1d3d3f4716a, type: 3}
   ringOfTerraformingSample: {fileID: 8157760857198034460, guid: 7a8e12f1d68caec42bef76b1a7082c06, type: 3}
   ghostSample: {fileID: 5504667808349519680, guid: 26b7e0628829b604684f5107a4a9a1ff, type: 3}
   lichSample: {fileID: 8536777542681899615, guid: ece9098977d4b71458ae84b7d52f91f9, type: 3}

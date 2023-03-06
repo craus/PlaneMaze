@@ -29,6 +29,7 @@ public class Game : MonoBehaviour
     public Portal portalSample;
     public HealingPotion healingPotionSample;
     public PaidCell paidCellSample;
+    public Info infoSample;
     public RingOfTerraforming ringOfTerraformingSample;
 
     public Ghost ghostSample;
@@ -118,6 +119,8 @@ public class Game : MonoBehaviour
             price = rules != null ? Rand.rnd(rules.minPrice, rules.maxPrice) : 0;
         }
         GenerateFigure(location, paidCellSample).SetPrice(price);
+        var info = GenerateFigure(location.Shift(Vector2Int.down), infoSample);
+        info.explainable = item.GetComponent<IExplainable>();
     }
 
     private void GenerateStore() {
@@ -136,13 +139,13 @@ public class Game : MonoBehaviour
         entry.second = exit;
         exit.second = entry;
 
-        Sell(newStore[-2, 5], healingPotionSample);
-        Sell(newStore[0, 5], weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
-        Sell(newStore[2, 5], ringOfTerraformingSample);
+        Sell(newStore[-2, 3], healingPotionSample);
+        Sell(newStore[0, 3], weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
+        Sell(newStore[2, 3], ringOfTerraformingSample);
 
-        Sell(newStore[-2, 3], itemSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
-        Sell(newStore[0, 3], itemSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
-        Sell(newStore[2, 3], itemSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
+        Sell(newStore[-2, -2], itemSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
+        Sell(newStore[0, -2], itemSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
+        Sell(newStore[2, -2], itemSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
     }
 
     private void SecondStep(Cell cell) {
