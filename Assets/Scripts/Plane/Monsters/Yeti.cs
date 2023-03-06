@@ -9,6 +9,9 @@ public class Yeti : Monster
     public Vector2Int currentDirection;
     public SpriteRenderer sprite;
 
+    public SpriteRenderer upSprite;
+    public SpriteRenderer downSprite;
+
     public override void Awake() {
         base.Awake();
         currentDirection = moves.Rnd();
@@ -21,11 +24,18 @@ public class Yeti : Monster
         }
         if (currentDirection.x < 0) {
             sprite.flipX = false;
+            upSprite.flipX = false;
+            downSprite.flipX = false;
         } else if (currentDirection.x > 0) {
             sprite.flipX = true;
+            upSprite.flipX = true;
+            downSprite.flipX = true;
         } else {
-            sprite.flipX = Rand.rndEvent(0.5f);
+            sprite.flipX = upSprite.flipX = downSprite.flipX = Rand.rndEvent(0.5f);
         }
+        upSprite.enabled = currentDirection.y > 0;
+        downSprite.enabled = currentDirection.y < 0;
+        sprite.enabled = currentDirection.y == 0;
     }
 
     protected override async Task MakeMove() {
