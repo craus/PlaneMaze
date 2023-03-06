@@ -60,6 +60,11 @@ public class Skeleton : Monster
     }
 
     public override async Task Die() {
+        if (!Game.instance.Ascention<SkeletonsResurrect>()) {
+            await base.Die();
+            return;
+        }
+
         if (!active) {
             return;
         }
@@ -74,6 +79,11 @@ public class Skeleton : Monster
     }
 
     protected override async Task AfterDie() {
+        if (!Game.instance.Ascention<SkeletonsResurrect>()) {
+            await base.AfterDie();
+            return;
+        }
+
         // do nothing, instead of base method
     }
 }

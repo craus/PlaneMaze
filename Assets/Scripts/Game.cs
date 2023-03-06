@@ -10,6 +10,8 @@ public class Game : MonoBehaviour
 {
     public static Game instance => GameManager.instance ? GameManager.instance.game : null;
 
+    public List<Ascention> ascentions;
+
     public Player playerSample;
     public Player player;
 
@@ -56,6 +58,8 @@ public class Game : MonoBehaviour
     public HashSet<Cell> clearedCells = new HashSet<Cell>();
 
     public Map<int, TaskCompletionSource<bool>> completedTurns = new Map<int, TaskCompletionSource<bool>>(() => new TaskCompletionSource<bool>());
+
+    internal bool Ascention<T>() where T: Ascention => ascentions.Any(a => a is T);
 
     public GameObject startPanel;
     public GameObject winPanel;

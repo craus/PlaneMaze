@@ -9,6 +9,13 @@ public abstract class Monster : Unit
 {
     public virtual bool FreeCell(Cell cell) => cell.Free;
 
+    public override void Awake() {
+        base.Awake();
+        if (!Game.instance.Ascention<MonstersHaveMoreHealth>()) {
+            GetComponent<Health>().current = GetComponent<Health>().max = 1;
+        }
+    }
+
     protected async Task<bool> SmartWalk(Vector2Int delta) {
         if (!Flying && figure.location.Shift(delta).GetFigure<WolfTrap>() != null) {
             return false;
