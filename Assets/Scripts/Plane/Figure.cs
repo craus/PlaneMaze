@@ -114,6 +114,10 @@ public class Figure : MonoBehaviour
             await UpdateTransform(fakeMove, isTeleport, teleportAnimation);
         }
 
+        if (this == null) {
+            return;
+        }
+
         if (from != location) {
             foreach (var f in location.figures.ToList()) {
                 await f.collide(from, this);

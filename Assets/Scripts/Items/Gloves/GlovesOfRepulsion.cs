@@ -9,7 +9,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Item))]
 public class GlovesOfRepulsion : MonoBehaviour, IAttackModifier
 {
-    public int Priority => throw new NotImplementedException();
+    public int Priority => 0;
 
     public async Task ModifyAttack(Attack attack) {
         attack.afterAttack.Add(
