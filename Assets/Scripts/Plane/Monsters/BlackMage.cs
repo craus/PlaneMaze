@@ -36,7 +36,7 @@ public class BlackMage : Monster
     public override async Task Hit(Attack attack) {
         await base.Hit(attack);
         if (alive) {
-            await Helpers.TeleportAway(figure, teleportRadius);
+            attack.afterAttack.Add(async () => await Helpers.TeleportAway(figure, teleportRadius));
         }
     }
 
