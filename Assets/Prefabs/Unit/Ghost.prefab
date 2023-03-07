@@ -99,6 +99,14 @@ PrefabInstance:
       propertyPath: current
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8747549380610530154, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: ascentionHealth.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747549380610530154, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: ascentionHealth.Array.data[2]
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
 --- !u!1 &7190054797756372444 stripped
@@ -118,6 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9026bb71ae1bdbc499ef5fc42938c676, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastMove: {x: 0, y: 0}
+  soul: 1
   figure: {fileID: 0}
   alive: 1
   attackProjectile: {fileID: 7558257676500238022, guid: cfc4e3f00b8a52448b747c87fa87ae29, type: 3}

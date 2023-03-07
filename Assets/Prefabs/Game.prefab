@@ -1878,7 +1878,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ascentions:
   - {fileID: 2218484981513858613, guid: ce9e3acc9a55e344f867b1a6c355694d, type: 3}
+  - {fileID: 2218484981513858613, guid: ce9e3acc9a55e344f867b1a6c355694d, type: 3}
   - {fileID: 4213821068845423089, guid: 0c39cd28829c9f24e93277f4ec200c7f, type: 3}
+  - {fileID: -5041799447542232587, guid: 266966e486927434cb91dbd3b6c5a2dd, type: 3}
+  - {fileID: -5041799447542232587, guid: 266966e486927434cb91dbd3b6c5a2dd, type: 3}
+  - {fileID: -8392404935275920455, guid: 13270185f31e9d94baafc24b892e459c, type: 3}
+  - {fileID: 8999616787668789769, guid: cc76c7370c691e143a5483ab3541ff8f, type: 3}
+  - {fileID: 8999616787668789769, guid: cc76c7370c691e143a5483ab3541ff8f, type: 3}
+  - {fileID: 8999616787668789769, guid: cc76c7370c691e143a5483ab3541ff8f, type: 3}
   playerSample: {fileID: 2542263783767913581, guid: 370aeef2518095a448365046aa1e4453, type: 3}
   player: {fileID: 0}
   storeCount: 4

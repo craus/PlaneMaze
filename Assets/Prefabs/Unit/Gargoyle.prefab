@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8590397742989534751}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &771693934615407231
 SpriteRenderer:
@@ -114,7 +114,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8590397742989534751}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1418567896696581850
 SpriteRenderer:
@@ -267,6 +267,10 @@ PrefabInstance:
       propertyPath: current
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8747549380610530154, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: ascentionHealth.Array.data[2]
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
 --- !u!212 &1667350527596083492 stripped
@@ -292,6 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lastMove: {x: 0, y: 0}
+  soul: 1
   figure: {fileID: 0}
   alive: 1
   attackProjectile: {fileID: 7558257676500238022, guid: cfc4e3f00b8a52448b747c87fa87ae29, type: 3}

@@ -31,11 +31,6 @@ public class Slime : Monster
         damage = 1 + size;
         cooldown = 1 + size;
         currentCooldown = cooldown;
-        if (Game.instance.ascentions.Any(a => a is MonstersHaveMoreHealth)) {
-            GetComponent<Health>().current = GetComponent<Health>().max = 1 + size;
-        } else {
-            GetComponent<Health>().current = GetComponent<Health>().max = 1;
-        }
         UpdateSprite();
     }
 

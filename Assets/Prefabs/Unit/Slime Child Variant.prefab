@@ -51,6 +51,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1832016898988326887, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
+      propertyPath: max
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1832016898988326887, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
+      propertyPath: current
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1832016898988326887, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
+      propertyPath: ascentionHealth.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1832016898988326887, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
+      propertyPath: ascentionHealth.Array.data[2]
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5504667808349519680, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
       propertyPath: childSample
       value: 

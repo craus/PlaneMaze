@@ -14,6 +14,8 @@ public class Health : MonoBehaviour
     public int current = 3;
     public int max = 3;
 
+    public List<int> ascentionHealth = new List<int>() { 1, 2, 3 };
+
     public int Current => current;
 
     public async Task Hit(int amount) {
@@ -48,8 +50,19 @@ public class Health : MonoBehaviour
     }
 
     public void Awake() {
+        Init();
+    }
+
+    public void Init() {
+        if (GetComponent<Monster>() != null) {
+            current = max = ascentionHealth[Mathf.Clamp(Game.instance.Ascentions<MonstersHaveMoreHealth>(), 0, ascentionHealth.Count - 1)];
+        }
+        if (GetComponent<Player>() != null) {
+            current = max = ascentionHealth[Mathf.Clamp(Game.instance.Ascentions<PlayerHasLessHealth>(), 0, ascentionHealth.Count - 1)];
+        }
         UpdateHearts();
     }
+
 
     public void UpdateHearts() {
         if (current < max || showHeartsOnFullHealth) {

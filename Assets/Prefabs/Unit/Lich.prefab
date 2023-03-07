@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8590397742989534751}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1430981107616101858
 SpriteRenderer:
@@ -114,7 +114,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8590397742989534751}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4003122457511451963
 SpriteRenderer:
@@ -181,7 +181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 573067730185480201, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4404242366973347789, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_RootOrder
@@ -193,11 +193,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6434258038542993236, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7273598987178816795, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8185433379572143715, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_RootOrder
@@ -291,6 +291,18 @@ PrefabInstance:
       propertyPath: current
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 8747549380610530154, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: ascentionHealth.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747549380610530154, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: ascentionHealth.Array.data[1]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747549380610530154, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: ascentionHealth.Array.data[2]
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
 --- !u!1 &7190054797756372444 stripped
@@ -311,6 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lastMove: {x: 0, y: 0}
+  soul: 1
   figure: {fileID: 0}
   alive: 1
   attackProjectile: {fileID: 67467469717759535, guid: a78f821786ba0264093e0de0aca7a282, type: 3}

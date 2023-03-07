@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Ascention : MonoBehaviour
+public class DoubleGhostSpawns : Ascention
 {
-    public int maxLevel = 1;
-    public List<Ascention> requirements;
 }

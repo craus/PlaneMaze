@@ -60,6 +60,7 @@ public class Game : MonoBehaviour
     public Map<int, TaskCompletionSource<bool>> completedTurns = new Map<int, TaskCompletionSource<bool>>(() => new TaskCompletionSource<bool>());
 
     internal bool Ascention<T>() where T: Ascention => ascentions.Any(a => a is T);
+    internal int Ascentions<T>() where T: Ascention => ascentions.Count(a => a is T);
 
     public GameObject startPanel;
     public GameObject winPanel;
@@ -388,10 +389,14 @@ public class Game : MonoBehaviour
         completedTurns[time].SetResult(true);
         time++;
 
-        if (player.figure.location.board == mainWorld) {
-            ghostSpawnProbabilityPerTurn = 1 - Mathf.Pow(0.5f, time * 1f / ghostSpawnTimeReductionHalfLife);
-            for (int i = 0; i < 4 && Rand.rndEvent(ghostSpawnProbabilityPerTurn); i++) {
-                await SpawnGhost();
+        if (Ascention<GhostSpawns>()) {
+            if (player.figure.location.board == mainWorld) {
+                ghostSpawnProbabilityPerTurn = 1 - Mathf.Pow(0.5f, time * 1f / ghostSpawnTimeReductionHalfLife);
+                ghostSpawnProbabilityPerTurn /= 8;
+                ghostSpawnProbabilityPerTurn *= Mathf.Pow(2, Ascentions<DoubleGhostSpawns>());
+                for (int i = 0; i < 4 && Rand.rndEvent(ghostSpawnProbabilityPerTurn); i++) {
+                    await SpawnGhost();
+                }
             }
         }
     }
