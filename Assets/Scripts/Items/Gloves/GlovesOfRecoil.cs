@@ -13,7 +13,13 @@ public class GlovesOfRecoil : MonoBehaviour, IAttackModifier
 
     public async Task ModifyAttack(Attack attack) {
         attack.afterAttack.Add(
-            async () => await attack.from.TryWalk((attack.from.location.position - attack.to.location.position).StepAtDirectionDiagonal())
+            async () => {
+                if (await attack.from.TryWalk((attack.from.location.position - attack.to.location.position).StepAtDirectionDiagonal())) {
+                    if (GetComponent<Item>().Owner != null && GetComponent<Item>().Owner.alive) {
+                        await GetComponent<Item>().Owner.GetComponent<MovesReserve>().Haste(1);
+                    }
+                }
+            }
         );
     }
 }

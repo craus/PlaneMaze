@@ -13,7 +13,13 @@ public class GlovesOfRepulsion : MonoBehaviour, IAttackModifier
 
     public async Task ModifyAttack(Attack attack) {
         attack.afterAttack.Add(
-            async () => await attack.to.TryWalk((attack.to.location.position - attack.from.location.position).StepAtDirectionDiagonal())
+            async () => {
+                if (await attack.to.TryWalk((attack.to.location.position - attack.from.location.position).StepAtDirectionDiagonal())) {
+                    if (attack.to != null && attack.to.GetComponent<Unit>().alive) {
+                        await attack.to.GetComponent<MovesReserve>().Freeze(1);
+                    }
+                }
+            }
         );
     }
 }
