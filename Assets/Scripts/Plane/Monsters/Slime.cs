@@ -60,6 +60,9 @@ public class Slime : Monster
                 }
             }
         }
+        if (this == null || !alive) {
+            return;
+        }
 
         currentCooldown = cooldown;
         UpdateSprite();
