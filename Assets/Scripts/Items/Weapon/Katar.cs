@@ -25,12 +25,14 @@ public class Katar : Weapon
 
     public async Task<bool> TryLongAttack(Vector2Int delta) {
         if (!Owner.figure.location.Shift(delta).Free) {
+            Game.Debug("Katar failed long attack: no space to lunge");
             return false;
         }
         var longTarget = Owner.figure.location.Shift(2 * delta).GetFigure<Unit>(u => u.Vulnerable);
         if (longTarget != null) {
             return await Attack(delta, longTarget, beforeAttack: attack => Owner.figure.TryWalk(attack.delta));
         }
+        Game.Debug("Katar failed long attack: no target");
         return false;
     }
 

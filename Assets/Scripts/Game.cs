@@ -271,6 +271,10 @@ public class Game : MonoBehaviour
         yield return cell.Shift(0, -5);
     }
 
+    public static void Debug(string message) {
+        UnityEngine.Debug.LogFormat($"[{instance.time}] {message}");
+    }
+
     public IEnumerable<Cell> AntiEdgesSquare(Cell cell) => cell.Neighbours().Where(MakesSquare).Union(Diagonals(cell).Where(MakesSquare));
 
     private async Task EnumerateCells(int cnt, bool pauses = false) {

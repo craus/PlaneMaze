@@ -69,12 +69,14 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
         afterAttack ??= AfterAttack;
 
         if (!Game.CanAttack(Owner, target, this, AttackLocation(delta, target), DefenceLocation(delta, target))) {
+            Game.Debug($"Weapon {this}: cannot attack target");
             return false;
         }
 
         var attack = GetAttack(delta, target);
         await beforeAttack(attack);
         if (!Owner.alive) {
+            Game.Debug($"Weapon {this}: owner died before attack");
             return true;
         }
 

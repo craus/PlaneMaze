@@ -47,6 +47,7 @@ public class Unit : MonoBehaviour, IMortal
 
     public virtual async Task Hit(Attack attack) {
         if (this == null) {
+            Game.Debug($"Unit <null> hit by {attack}");
             return;
         }
         Debug.LogFormat($"[{Game.instance.time}] {gameObject.name} hit by {attack}");
