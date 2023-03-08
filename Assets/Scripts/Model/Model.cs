@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerHasLessHealth : GenericAscention<PlayerHasLessHealthModel>
+[Serializable]
+public class Model
 {
 }

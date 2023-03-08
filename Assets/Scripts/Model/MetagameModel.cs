@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerHasLessHealth : GenericAscention<PlayerHasLessHealthModel>
+[Serializable]
+public class MetagameModel : Model
 {
+    public List<AscentionModel> ascentions;
+    public bool pickingPhase = false;
 }

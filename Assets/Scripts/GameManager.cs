@@ -6,9 +6,11 @@ using UnityEngine;
 
 public class GameManager : Singletone<GameManager>
 {
+    public Metagame metagameSample;
+    public Metagame metagame;
+
     public Game game;
     public Game gameSample;
-    public Texture2D mazeSample;
 
     public void Start() {
         NewGame();

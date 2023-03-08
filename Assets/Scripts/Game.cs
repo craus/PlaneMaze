@@ -186,26 +186,26 @@ public class Game : MonoBehaviour
         return UnityEngine.Random.Range(0, 1f) + 0.5f * Mathf.Min(Mathf.Sin(cv.x / 4f), Mathf.Sin(cv.y / 4f));
     }
 
-    public Color GetCellColor(Vector2Int cell) {
-        var image = GameManager.instance.mazeSample;
-        var pixel = image.GetPixel(
-            (image.width / 2 + cell.x * 4) % image.width,
-            (image.height / 2 + cell.y * 4) % image.height
-        );
-        return pixel.withAlpha(1);
-    }
+    //public Color GetCellColor(Vector2Int cell) {
+    //    var image = GameManager.instance.mazeSample;
+    //    var pixel = image.GetPixel(
+    //        (image.width / 2 + cell.x * 4) % image.width,
+    //        (image.height / 2 + cell.y * 4) % image.height
+    //    );
+    //    return pixel.withAlpha(1);
+    //}
 
-    public bool CellInsideImage(Vector2Int cell) {
-        var image = GameManager.instance.mazeSample;
-        var x = image.width / 2 + cell.x * 4;
-        var y = image.height / 2 + cell.y * 4;
-        return 0 <= x && x < image.width && 0 <= y && y < image.height;
-    }
+    //public bool CellInsideImage(Vector2Int cell) {
+    //    var image = GameManager.instance.mazeSample;
+    //    var x = image.width / 2 + cell.x * 4;
+    //    var y = image.height / 2 + cell.y * 4;
+    //    return 0 <= x && x < image.width && 0 <= y && y < image.height;
+    //}
 
 
-    private float CalculateCellPriceImage(Vector2Int cell) {
-        return UnityEngine.Random.Range(0, 1f) + 5f * GetCellColor(cell).grayscale + (CellInsideImage(cell) ? 0 : 10);
-    }
+    //private float CalculateCellPriceImage(Vector2Int cell) {
+    //    return UnityEngine.Random.Range(0, 1f) + 5f * GetCellColor(cell).grayscale + (CellInsideImage(cell) ? 0 : 10);
+    //}
 
     private float CalculateCellPriceRandom(Vector2Int cell) {
         return UnityEngine.Random.Range(0, 1f);

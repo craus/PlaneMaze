@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SkeletonsResurrect : Ascention
+public class SkeletonsResurrect : GenericAscention<SkeletonsResurrectModel>
 {
 }

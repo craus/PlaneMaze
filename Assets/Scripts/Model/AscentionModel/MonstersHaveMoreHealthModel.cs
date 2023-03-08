@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerHasLessHealth : GenericAscention<PlayerHasLessHealthModel>
+[Serializable]
+public class MonstersHaveMoreHealthModel : AscentionModel
 {
+    public override Ascention Sample => Library.instance.monstersHaveMoreHealth;
 }

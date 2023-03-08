@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DoubleGhostSpawns : Ascention
+public class DoubleGhostSpawns : GenericAscention<DoubleGhostSpawnsModel>
 {
 }
