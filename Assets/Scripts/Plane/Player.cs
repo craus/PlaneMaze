@@ -99,7 +99,7 @@ public class Player : Unit
             Debug.LogFormat($"[{Game.instance.time}] DefaultAttack push");
         } else {
             SoundManager.instance.pushAttack.Play();
-            await DealDamage(delta, target);
+            await Attack(new Attack(delta, figure, target.figure, figure.location, target.figure.location, damage));
             Debug.LogFormat($"[{Game.instance.time}] DefaultAttack deal damage");
         }
         return true;
