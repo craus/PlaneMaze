@@ -126,7 +126,7 @@ public abstract class Monster : Unit
     public void OnDestroy() {
         if (Game.instance != null) {
             Game.instance.monsters.Remove(GetComponent<Monster>());
-            Debug.LogFormat($"[{Game.instance.time} Monster {gameObject} at ({figure.location}) removed from queue after death");
+            Game.Debug($"Monster {gameObject} at ({figure.location}) removed from queue after death");
         }
     }
 }

@@ -77,7 +77,7 @@ public class Unit : MonoBehaviour, IMortal
         await AfterDie();
 
         Game.instance.monsters.Remove(GetComponent<Monster>());
-        Debug.LogFormat($"[{Game.instance.time} Monster {gameObject} at ({figure.location}) removed from queue after death");
+        Game.Debug($"Monster {gameObject} at ({figure.location}) removed from queue after death");
         Destroy(gameObject);
     }
 }
