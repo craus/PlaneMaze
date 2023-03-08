@@ -71,7 +71,7 @@ public class Game : MonoBehaviour
 
     public async void Start() {
         mainWorld = Instantiate(boardSample, transform);
-        Debug.LogFormat("New game started");
+        UnityEngine.Debug.LogFormat("New game started");
 
         player = Instantiate(playerSample, transform);
         player.figure.savePoint = mainWorld.GetCell(Vector2Int.zero);
@@ -315,8 +315,8 @@ public class Game : MonoBehaviour
 
         mainWorld.silentMode = true;
 
-        Debug.LogFormat($"Cells: {i}");
-        Debug.LogFormat($"Taken Cells Max Price: {cellOrderList.Max(c => CellPrice(c.position))}");
+        UnityEngine.Debug.LogFormat($"Cells: {i}");
+        UnityEngine.Debug.LogFormat($"Taken Cells Max Price: {cellOrderList.Max(c => CellPrice(c.position))}");
     }
 
     public void Contaminate(Cell cell) {
@@ -380,7 +380,7 @@ public class Game : MonoBehaviour
     }
 
     private async Task MonstersAndItemsTick(int turnNumber) {
-        Debug.LogFormat($"[{time}] Monsters move");
+        Debug($"Monsters move");
         await Task.WhenAll(monsters.ToList().Select(m => m.Move()).Concat(afterPlayerMove.Select(listener => listener(turnNumber))));
         if (this == null) {
             return;
