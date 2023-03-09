@@ -84,9 +84,10 @@ public class BlackMage : Monster
     }
 
     public async Task DealDeathDamage() {
-        foreach (var u in figure.location.Vicinity(damageRadius).ToList()
+        foreach (var u in figure.location.Vicinity(damageRadius)
             .Select(c => c.GetFigure<Unit>())
             .Where(u => u != null && u.SoulVulnerable)
+            .ToList()
         ) {
             await DealDeathDamage(u);
         }
