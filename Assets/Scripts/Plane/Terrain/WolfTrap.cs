@@ -33,7 +33,9 @@ public class WolfTrap : Terrain, IMortal
     }
 
     private async Task Attack(Unit victim) {
+        Game.Debug($"Wolftrap {GetComponent<Figure>()} attacks {victim}");
         if (!Game.CanAttack(null, victim)) {
+            Game.Debug($"Wolftrap {GetComponent<Figure>()} cannot attack {victim}");
             return;
         }
         SoundManager.instance.wolftrapAttack.Play();

@@ -20,6 +20,7 @@ public static class Helpers
         ) {
             SoundManager.instance.teleport.Play();
         }
+        Game.Debug($"{figure} teleports to {destination}");
 
         await figure.Move(destination, isTeleport: true, teleportAnimation: true);
     }
