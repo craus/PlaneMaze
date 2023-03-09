@@ -27,7 +27,7 @@ public class Attack
     }
 
     public override string ToString() {
-        return $"Attack from {(from == null ? "<null>" : from.ToString())} to {(to != null ? "<null>" : to.ToString())}" +
+        return $"Attack from {(from == null ? "<null>" : from.ToString())} to {(to == null ? "<null>" : to.ToString())}" +
             $" at {delta} with damage {damage}";
     }
 }
