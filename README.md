@@ -18,4 +18,6 @@ Fight monsters.
 
 Buy items (or find them).
 
+Die and play again.
+
 Kill Lich to win.
