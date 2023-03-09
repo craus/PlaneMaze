@@ -124,7 +124,7 @@ public abstract class Monster : Unit
     }
 
     public void OnDestroy() {
-        if (Game.instance != null) {
+        if (Game.instance != null && Game.instance.monsters.Contains(GetComponent<Monster>())) {
             Game.instance.monsters.Remove(GetComponent<Monster>());
             Game.Debug($"Monster {gameObject} at ({figure.location}) removed from queue after death");
         }

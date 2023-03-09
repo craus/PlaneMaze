@@ -120,6 +120,7 @@ public class Figure : MonoBehaviour
 
         if (from != location) {
             foreach (var f in location.figures.ToList()) {
+                Game.Debug($"Figure {gameObject} collides with figure {f.gameObject}");
                 await f.collide(from, this);
                 if (this == null) {
                     return;

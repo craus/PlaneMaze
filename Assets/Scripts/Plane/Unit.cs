@@ -50,7 +50,7 @@ public class Unit : MonoBehaviour, IMortal
             Game.Debug($"Unit <null> hit by {attack}");
             return;
         }
-        Debug.LogFormat($"[{Game.instance.time}] {gameObject.name} hit by {attack}");
+        Game.Debug($"{gameObject.name} hit by {attack}");
         await GetComponent<Health>().Hit(attack.damage);
     }
 
@@ -76,8 +76,10 @@ public class Unit : MonoBehaviour, IMortal
 
         await AfterDie();
 
-        Game.instance.monsters.Remove(GetComponent<Monster>());
-        Game.Debug($"Monster {gameObject} at ({figure.location}) removed from queue after death");
+        if (Game.instance.monsters.Contains(GetComponent<Monster>())) {
+            Game.instance.monsters.Remove(GetComponent<Monster>());
+            Game.Debug($"Monster {gameObject} at ({figure.location}) removed from queue after death");
+        }
         Destroy(gameObject);
     }
 }
