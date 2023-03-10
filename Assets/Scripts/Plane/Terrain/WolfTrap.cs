@@ -23,6 +23,9 @@ public class WolfTrap : Terrain, IMortal
             var victim = figure.GetComponent<Unit>();
             if (victim != null && !victim.Flying) {
                 await Attack(victim);
+                if (this == null) {
+                    return;
+                }
                 Destroy(gameObject);
             }
         };
