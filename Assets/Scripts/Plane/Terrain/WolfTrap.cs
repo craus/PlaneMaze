@@ -45,12 +45,13 @@ public class WolfTrap : Terrain, IMortal
 
         var ap = Instantiate(attackProjectileSample);
         ap.transform.position = victim.transform.position;
-        await Helpers.Delay(0.1f);
+        await Helpers.Delay(0.1f); 
+        Destroy(ap);
         if (this == null) {
             return;
         }
         await victim.Hit(new Attack(Vector2Int.zero, GetComponent<Figure>(), victim.figure, GetComponent<Figure>().location, victim.figure.location, damage));
-        Destroy(ap);
+        
     }
 
     private async Task AfterPlayerMove(Cell from, Cell to) {
