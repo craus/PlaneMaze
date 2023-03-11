@@ -10,6 +10,8 @@ public class RingOfStrength : MonoBehaviour, IAttackModifier
     public int Priority => 0;
 
     public async Task ModifyAttack(Attack attack) {
-        attack.damage++;
+        if (attack.to.GetComponent<Health>().Tap(h => h.current == h.max)) {
+            attack.damage++;
+        }
     }
 }
