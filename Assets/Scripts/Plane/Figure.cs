@@ -12,7 +12,7 @@ public class Figure : MonoBehaviour
 
     public Cell savePoint;
 
-    public Func<Cell, Figure, Task> collide = (c, f) => Task.CompletedTask;
+    public Func<Cell, Figure, Task> collide = null;
 
     public List<Func<Board, Board, Task>> afterBoardChange = new List<Func<Board, Board, Task>>();
     public List<Func<Cell, Cell, Task>> afterMove = new List<Func<Cell, Cell, Task>>();
@@ -120,8 +120,10 @@ public class Figure : MonoBehaviour
 
         if (from != location) {
             foreach (var f in location.figures.ToList()) {
-                Game.Debug($"Figure {gameObject} collides with figure {f.gameObject}");
-                await f.collide(from, this);
+                if (f.collide != null) {
+                    Game.Debug($"Figure {gameObject} collides with figure {f.gameObject}");
+                    await f.collide(from, this);
+                }
                 if (this == null) {
                     return;
                 }
