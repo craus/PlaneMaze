@@ -33,6 +33,46 @@ public static class Animate
         }
     }
 
+    public async static Task Rotate(
+        this Transform transform,
+        Quaternion endRotation,
+        float duration,
+        int steps = 7,
+        float startPhase = 0,
+        float endPhase = 1
+    ) {
+        var startRotation = transform.rotation;
+
+        for (int i = 1; i <= steps; i++) {
+            var phase = i * 1f / steps;
+            if (phase < startPhase) {
+                continue;
+            }
+            if (phase > endPhase) {
+                break;
+            }
+            if (transform == null) {
+                return;
+            }
+            transform.rotation = Quaternion.Lerp(startRotation, endRotation, phase);
+            await Helpers.Delay(duration / steps);
+        }
+    }
+
+    public async static Task RotateBy(
+        this Transform transform,
+        Quaternion rotation,
+        float duration,
+        int times = 1,
+        int steps = 7,
+        float startPhase = 0,
+        float endPhase = 1
+    ) {
+        for (int i = 0; i < times; i++) {
+            await Rotate(transform, transform.rotation * rotation, duration / times, steps, startPhase, endPhase);
+        }
+    }
+
     public async static Task Zoom(
         this Transform transform,
         Vector3 endZoom,

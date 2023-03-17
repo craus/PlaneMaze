@@ -15,4 +15,6 @@ public class Library : Singletone<Library>
     public MonstersHaveMoreHealth monstersHaveMoreHealth;
     public PlayerHasLessHealth playerHasLessHealth;
     public SkeletonsResurrect skeletonsResurrect;
+
+    public GameObject teleportExit;
 }

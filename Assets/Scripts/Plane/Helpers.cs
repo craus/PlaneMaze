@@ -22,7 +22,16 @@ public static class Helpers
         }
         Game.Debug($"{figure} teleports to {destination}");
 
+        _ = PlayTeleportExitAnimation(destination);
+
         await figure.Move(destination, isTeleport: true, teleportAnimation: true);
+    }
+
+    public static async Task PlayTeleportExitAnimation(Cell destination) {
+        var anim = UnityEngine.Object.Instantiate(Library.instance.teleportExit);
+        anim.transform.position = destination.transform.position;
+        await anim.transform.RotateBy(Quaternion.Euler(0, 0, -90), 0.5f, times: 4, steps: 7);
+        UnityEngine.Object.Destroy(anim.gameObject);
     }
 
     public static Cell RayCast(Cell startPosition, Vector2Int delta, Func<Cell, bool> free = null, Func<Cell, bool> target = null, int distance = 99) {
