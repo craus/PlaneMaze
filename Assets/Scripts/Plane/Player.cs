@@ -163,6 +163,7 @@ public class Player : Unit
             Game.instance.ClosePanel();
             return;
         }
+        Cursor.visible = false;
         if (ongoingAnimations == true) {
             commands.Enqueue(delta);
             return;

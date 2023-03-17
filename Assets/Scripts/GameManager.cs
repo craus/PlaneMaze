@@ -17,6 +17,7 @@ public class GameManager : Singletone<GameManager>
         //mazeSample.Reinitialize(mazeSample.width / 20, mazeSample.height / 20);
     }
 
+    Vector3 oldMousePosition;
     public void Update() {
         if (Input.GetKeyDown(KeyCode.R)) {
             Restart();
@@ -27,6 +28,11 @@ public class GameManager : Singletone<GameManager>
         if (Input.GetKeyDown(KeyCode.PageDown)) {
             Game.instance.speed /= 1.25f;
         }
+
+        if (oldMousePosition != Input.mousePosition) {
+            Cursor.visible = true;
+        }
+        oldMousePosition = Input.mousePosition;
     }
 
     public void Restart() {
