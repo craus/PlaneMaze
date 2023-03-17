@@ -22,6 +22,8 @@ public class Lich : Monster
     public int minAttackRange = 3;
     public int maxAttackRange = 4;
 
+    public GameObject charged;
+
     public override bool Vulnerable => base.Vulnerable && (phylactery == null || !phylactery.alive);
 
     public override void Awake() {
@@ -38,6 +40,7 @@ public class Lich : Monster
     }
 
     private void UpdateSprite() {
+        charged.SetActive(currentCooldown <= 1);
     }
 
     public override void PlayAttackSound() => SoundManager.instance.monsterRangedAttack.Play();
@@ -67,6 +70,7 @@ public class Lich : Monster
 
     protected override async Task MakeMove() {
         --currentCooldown;
+        UpdateSprite();
 
         var playerDelta = Player.instance.figure.location.position - figure.location.position;
         if (playerDelta.MaxDelta() > aggroRadius) {
@@ -87,6 +91,7 @@ public class Lich : Monster
         await SpawnSkeleton();
 
         currentCooldown = cooldown;
+        UpdateSprite();
     }
 
     public override async Task Die() {
