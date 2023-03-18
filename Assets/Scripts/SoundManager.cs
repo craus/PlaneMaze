@@ -31,4 +31,5 @@ public class SoundManager : Singletone<SoundManager>
     public AudioSource lichDeath;
     public AudioSource terraform;
     public AudioSource spikeBootsAttack;
+    public AudioSource failedAction;
 }

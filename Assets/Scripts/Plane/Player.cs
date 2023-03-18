@@ -74,6 +74,7 @@ public class Player : Unit
             return;
         }
 
+        SoundManager.instance.failedAction.Play();
         await figure.FakeMove(delta);
         await AfterTakeAction(new FailedMove(delta));
         Debug.LogFormat($"[{Game.instance.time}] Player move end: fake move");
