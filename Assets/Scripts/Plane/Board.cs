@@ -9,7 +9,6 @@ public class Board : MonoBehaviour
 
     public Field field;
     public Cell cellSample;
-    public Gem gemSample;
     public Figure cracksSample;
     public Teleport teleportSample;
     public Transform cellParent;

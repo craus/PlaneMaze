@@ -117,9 +117,7 @@ public abstract class Monster : Unit
 
     protected override async Task AfterDie() {
         var reward = Money + (Money > 0 && Inventory.instance.GetItem<RingOfMidas>() != null ? 1 : 0);
-        for (int i = 0; i < reward; i++) {
-            var gem = Game.instance.GenerateFigure(figure.location, Game.instance.gemSample);
-        }
+        Game.instance.AddGem(figure.location, reward);
     }
 
     public void OnDestroy() {

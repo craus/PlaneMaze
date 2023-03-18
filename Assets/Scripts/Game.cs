@@ -336,6 +336,18 @@ public class Game : MonoBehaviour
         }
     }
 
+    public void AddGem(Cell cell, int amount) {
+        var oldGem = cell.GetFigure<Gem>();
+        if (oldGem != null) {
+            oldGem.amount += amount;
+            oldGem.UpdateSprite();
+        } else {
+            var newGem = GenerateFigure(cell, gemSample);
+            newGem.amount = amount;
+            newGem.UpdateSprite();
+        }
+    }
+
     public T GenerateFigure<T>(Cell cell, T sample) where T: MonoBehaviour {
         var f = Instantiate(sample);
         _ = f.GetComponent<Figure>().Move(cell, isTeleport: true);
