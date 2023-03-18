@@ -78,7 +78,7 @@ public class Game : MonoBehaviour
         await player.figure.Move(mainWorld.GetCell(Vector2Int.zero), isTeleport: true);
 
         speed = 10000;
-        await EnumerateCells(worldSize, pauses: true);
+        await EnumerateCells(worldSize, pauses: false);
 
 
         for (int i = 0; i < storeCount; i++) {

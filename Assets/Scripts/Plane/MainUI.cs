@@ -70,6 +70,10 @@ public class MainUI : Singletone<MainUI>
         ConfirmationPanel.instance.DoWithConfirmation(() => Application.Quit(), "Are you sure you want to quit now?");
     }
 
+    public void RestartButton() {
+        ConfirmationPanel.instance.DoWithConfirmation(() => GameManager.instance.Restart(), "Are you sure you want to restart now?");
+    }
+
     public void Update() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             MainMenuButton();
