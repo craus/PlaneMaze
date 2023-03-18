@@ -236,13 +236,7 @@ public class Game : MonoBehaviour
     }
 
     public void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            if (commandToContinue != null) {
-                commandToContinue.RunSynchronously();
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Return)) {
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) {
             if (startPanel.activeSelf || winPanel.activeSelf || losePanel.activeSelf) {
                 ClosePanel();
             }
