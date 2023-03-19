@@ -1888,6 +1888,7 @@ MonoBehaviour:
   - {fileID: 8999616787668789769, guid: cc76c7370c691e143a5483ab3541ff8f, type: 3}
   playerSample: {fileID: 2542263783767913581, guid: 370aeef2518095a448365046aa1e4453, type: 3}
   player: {fileID: 0}
+  gameEvents: {fileID: 3746461997576402953}
   storeCount: 4
   storeRadius: 6
   monsterSamples:
@@ -1960,6 +1961,7 @@ MonoBehaviour:
   cellOrderList: []
   unlockedCells: 1000000000
   time: 0
+  moveNumber: 0
   ghostSpawnTimeReductionHalfLife: 16000
   ghostSpawnProbabilityPerTurn: 0
   worldSize: 1000

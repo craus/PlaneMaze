@@ -14,6 +14,7 @@ public class Game : MonoBehaviour
 
     public Player playerSample;
     public Player player;
+    public GameEvents gameEvents;
 
     public int storeCount = 4;
     public int storeRadius = 5;
