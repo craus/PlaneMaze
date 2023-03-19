@@ -97,7 +97,11 @@ public class BlackMage : Monster
         if (!alive) {
             return;
         }
-        if ((unit.figure.location.position - figure.location.position).MaxDelta() <= deathDetectionRadius && unit is Monster && unit.HasSoul) {
+        if (
+            (unit.figure.location.position - figure.location.position).MaxDelta() <= deathDetectionRadius && 
+            unit is Monster && 
+            unit.HasSoul
+        ) {
             unit.soul = false;
             await SpawnGhost(unit.figure.location);
         }

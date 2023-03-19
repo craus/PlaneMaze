@@ -42,6 +42,7 @@ public class Game : MonoBehaviour
     public int unlockedCells = (int)1e9;
 
     public int time = 0;
+    public int moveNumber = 0;
     public int ghostSpawnTimeReductionHalfLife = 1000;
     public float ghostSpawnProbabilityPerTurn;
 
@@ -266,7 +267,7 @@ public class Game : MonoBehaviour
     }
 
     public static void Debug(string message) {
-        UnityEngine.Debug.LogFormat($"[{instance.time}] {message}");
+        UnityEngine.Debug.LogFormat($"[{instance.time}] [{instance.moveNumber}] {message}");
     }
 
     public IEnumerable<Cell> AntiEdgesSquare(Cell cell) => cell.Neighbours().Where(MakesSquare).Union(Diagonals(cell).Where(MakesSquare));

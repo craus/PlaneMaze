@@ -42,13 +42,13 @@ public class Player : Unit
     /// <param name="delta"></param>
     /// <returns></returns>
     private async Task MoveTakeActions(Vector2Int delta) {
-        Debug.LogFormat($"[{Game.instance.time}] Player move take actions {delta}");
+        Game.Debug($"Player move take actions {delta}");
         lastMove = delta;
 
         for (int priority = 0; priority < 3; priority++) {
             if ((await Task.WhenAll(Inventory.instance.items.Select(item => item.BeforeWalk(delta, priority)))).Any(b => b)) {
                 await AfterTakeAction(new UnknownAction());
-                Debug.LogFormat($"[{Game.instance.time}] Player move end: before walk");
+                Game.Debug($"Player move end: before walk");
                 return;
             }
         }
@@ -56,28 +56,28 @@ public class Player : Unit
         var oldLocation = figure.location;
         if (await figure.TryWalk(delta, c => c.Free && (c.GetFigure<PaidCell>() == null || c.GetFigure<PaidCell>().price <= gems))) {
             await AfterTakeAction(new Walk(oldLocation, figure.location));
-            Debug.LogFormat($"[{Game.instance.time}] Player move end: walk");
+            Game.Debug($"Player move end: walk");
             return;
         }
 
         for (int priority = 0; priority < 3; priority++) {
             if ((await Task.WhenAll(Inventory.instance.items.Select(item => item.AfterFailedWalk(delta, priority)))).Any(b => b)) {
                 await AfterTakeAction(new UnknownAction());
-                Debug.LogFormat($"[{Game.instance.time}] Player move end: after failed walk");
+                Game.Debug($"Player move end: after failed walk");
                 return;
             }
         }
 
         if (await DefaultAttack(delta)) {
             await AfterTakeAction(new UnknownAction());
-            Debug.LogFormat($"[{Game.instance.time}] Player move end: default attack");
+            Game.Debug($"Player move end: default attack");
             return;
         }
 
         SoundManager.instance.failedAction.Play();
         await figure.FakeMove(delta);
         await AfterTakeAction(new FailedMove(delta));
-        Debug.LogFormat($"[{Game.instance.time}] Player move end: fake move");
+        Game.Debug($"Player move end: fake move");
     }
 
     private async Task<bool> DefaultAttack(Vector2Int delta) {
@@ -136,6 +136,7 @@ public class Player : Unit
         } else {
             await MoveTakeActions(delta);
         }
+        Game.instance.moveNumber++;
         if (!alive) {
             return;
         }
