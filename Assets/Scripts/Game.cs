@@ -331,6 +331,9 @@ public class Game : MonoBehaviour
     }
 
     public void AddGem(Cell cell, int amount) {
+        if (amount <= 0) {
+            return;
+        }
         var oldGem = cell.GetFigure<Gem>();
         if (oldGem != null) {
             oldGem.amount += amount;
