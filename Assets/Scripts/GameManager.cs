@@ -18,9 +18,10 @@ public class GameManager : Singletone<GameManager>
         var metagameModel = FileManager.LoadFromFile<MetagameModel>(savefileName);
         if (metagameModel == null) {
             NewMetagame();
-            FileManager.SaveToFile(metagame.Save(), savefileName);
+            SaveMetagame();
         } else {
             metagame = Metagame.Load(metagameModel);
+            metagame.transform.SetParent(transform);
         }
         NewGame();
         //mazeSample.Reinitialize(mazeSample.width / 20, mazeSample.height / 20);
@@ -45,12 +46,18 @@ public class GameManager : Singletone<GameManager>
     }
 
     public void Restart() {
+        Debug.LogFormat("Game restarted");
         DestroyGame();
         NewGame();
     }
 
+    public void SaveMetagame() {
+        FileManager.SaveToFile(metagame.Save(), savefileName);
+    }
+
     public void NewMetagame() {
         metagame = Instantiate(metagameSample, transform);
+        metagame.transform.SetParent(transform);
     }
 
     public void NewGame() {

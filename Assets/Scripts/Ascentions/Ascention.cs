@@ -12,9 +12,13 @@ public abstract class Ascention : MonoBehaviour
     public List<Ascention> requirements;
 
     public static Ascention Load(AscentionModel model) {
-        var result = Instantiate(model.Sample);
+        var result = (model.Sample); // no instantiate
         return result;
     }
 
     public abstract AscentionModel Save();
+
+    public virtual bool CanAdd(Metagame metagame) {
+        return true;
+    }
 }

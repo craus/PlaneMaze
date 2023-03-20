@@ -103,6 +103,7 @@ public class Game : MonoBehaviour
         InfoPanel.instance.panel.SetActive(false);
 
         if (win || lose) {
+            GameManager.instance.metagame.AddRandomAscention();
             GameManager.instance.Restart();
         }
     }
@@ -241,6 +242,15 @@ public class Game : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) {
             if (startPanel.activeSelf || winPanel.activeSelf || losePanel.activeSelf) {
                 ClosePanel();
+            }
+        }
+
+        if (Cheats.on) {
+            if (Input.GetKeyDown(KeyCode.W)) {
+                _ = Win();
+            }
+            if (Input.GetKeyDown(KeyCode.L)) {
+                _ = Lose();
             }
         }
     }

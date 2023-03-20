@@ -20,7 +20,6 @@ public class Metagame : MonoBehaviour
 
         foreach (var a in model.ascentions) {
             var ascention = Ascention.Load(a);
-            ascention.transform.SetParent(result.transform);
             result.ascentions.Add(ascention);
         }
 
@@ -33,5 +32,15 @@ public class Metagame : MonoBehaviour
             ascentions = ascentions.Select(a => a.Save()).ToList()
         };
         return result;
+    }
+
+    public int AscentionLevel(Ascention ascention) {
+        return 0;
+    }
+
+    public void AddRandomAscention() {
+        var newAscention = Library.instance.ascentions.Where(a => a.CanAdd(this)).Rnd();
+        ascentions.Add(newAscention);
+        GameManager.instance.SaveMetagame();
     }
 }

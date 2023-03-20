@@ -16,5 +16,7 @@ public class Library : Singletone<Library>
     public PlayerHasLessHealth playerHasLessHealth;
     public SkeletonsResurrect skeletonsResurrect;
 
+    public List<Ascention> ascentions;
+
     public GameObject teleportExit;
 }
