@@ -12,7 +12,16 @@ public class GameManager : Singletone<GameManager>
     public Game game;
     public Game gameSample;
 
+    public const string savefileName = "savefile.dat";
+
     public void Start() {
+        var metagameModel = FileManager.LoadFromFile<MetagameModel>(savefileName);
+        if (metagameModel == null) {
+            NewMetagame();
+            FileManager.SaveToFile(metagame.Save(), savefileName);
+        } else {
+            metagame = Metagame.Load(metagameModel);
+        }
         NewGame();
         //mazeSample.Reinitialize(mazeSample.width / 20, mazeSample.height / 20);
     }
@@ -40,8 +49,13 @@ public class GameManager : Singletone<GameManager>
         NewGame();
     }
 
+    public void NewMetagame() {
+        metagame = Instantiate(metagameSample, transform);
+    }
+
     public void NewGame() {
         game = Instantiate(gameSample, transform);
+        game.ascentions = metagame.ascentions;
         Inventory.instance = game.GetComponentInChildren<Inventory>();
         game.speed = 100;
     }
