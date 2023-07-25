@@ -76,6 +76,9 @@ public class MainUI : Singletone<MainUI>
 
     public async void QuitButton() {
         if (await ConfirmationPanel.instance.AskConfirmation("Are you sure you want to quit now?")) {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
             Application.Quit();
         }
     }
