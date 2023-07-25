@@ -160,7 +160,8 @@ public class Player : Unit
             Game.instance.startPanel.activeSelf ||
             Game.instance.winPanel.activeSelf ||
             Game.instance.losePanel.activeSelf ||
-            InfoPanel.instance.panel.activeSelf
+            InfoPanel.instance.panel.activeSelf ||
+            ConfirmationPanel.instance.panel.activeSelf
         ) {
             if (
                 Game.instance.startPanel.activeSelf ||

@@ -66,12 +66,16 @@ public class MainUI : Singletone<MainUI>
         FileManager.SaveToFile(settings, settingsFilename);
     }
 
-    public void QuitButton() {
-        ConfirmationPanel.instance.DoWithConfirmation(() => Application.Quit(), "Are you sure you want to quit now?");
+    public async void QuitButton() {
+        if (await ConfirmationPanel.instance.AskConfirmation("Are you sure you want to quit now?")) {
+            Application.Quit();
+        }
     }
 
-    public void RestartButton() {
-        ConfirmationPanel.instance.DoWithConfirmation(() => GameManager.instance.Restart(), "Are you sure you want to restart now?");
+    public async void RestartButton() {
+        if (await ConfirmationPanel.instance.AskConfirmation("Are you sure you want to restart now?")) {
+            GameManager.instance.Restart();
+        }
     }
 
     public void Update() {

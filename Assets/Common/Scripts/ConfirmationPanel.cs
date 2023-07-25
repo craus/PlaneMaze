@@ -7,32 +7,42 @@ public class ConfirmationPanel : Singletone<ConfirmationPanel>
 {
     [SerializeField] private TextMeshProUGUI text;
 
-    [SerializeField] private GameObject panel;
+    public GameObject panel;
+    [SerializeField] private GameObject cancelButton;
 
-    private Action action;
+    private TaskCompletionSource<bool> currentConfirmation;
 
     public void Awake() {
         panel.SetActive(false);
-        action = null;
     }
 
-    public void DoWithConfirmation(Action action, string message) {
-        if (this.action != null) {
-            return;
+    public async Task<bool> AskConfirmation(string message, bool canCancel = true) {
+        if (currentConfirmation != null) {
+            return false;
         }
-        this.action = action;
+        Debug.LogFormat($"Show confirmation panel {message}");
         panel.SetActive(true);
         text.text = message;
+        cancelButton.SetActive(canCancel);
+        currentConfirmation = new TaskCompletionSource<bool>();
+        return await currentConfirmation.Task;
     }
 
     public void OK() {
+        if (currentConfirmation == null) {
+            return;
+        }
         panel.SetActive(false);
-        action();
-        action = null;
+        currentConfirmation.SetResult(true);
+        currentConfirmation = null;
     }
 
     public void Cancel() {
+        if (currentConfirmation == null) {
+            return;
+        }
         panel.SetActive(false);
-        action = null;
+        currentConfirmation.SetResult(false);
+        currentConfirmation = null;
     }
 }

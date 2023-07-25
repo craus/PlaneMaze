@@ -96,14 +96,15 @@ public class Game : MonoBehaviour
         startPanel.SetActive(true);
     }
 
-    public void ClosePanel() {
+    public async void ClosePanel() {
         startPanel.SetActive(false);
         losePanel.SetActive(false);
         winPanel.SetActive(false);
         InfoPanel.instance.panel.SetActive(false);
+        ConfirmationPanel.instance.OK();
 
         if (win || lose) {
-            GameManager.instance.metagame.AddRandomAscention();
+            await GameManager.instance.metagame.AddRandomAscention();
             GameManager.instance.Restart();
         }
     }
@@ -240,7 +241,12 @@ public class Game : MonoBehaviour
 
     public void Update() {
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) {
-            if (startPanel.activeSelf || winPanel.activeSelf || losePanel.activeSelf) {
+            if (
+                startPanel.activeSelf || 
+                winPanel.activeSelf || 
+                losePanel.activeSelf ||
+                ConfirmationPanel.instance.panel.activeSelf
+            ) {
                 ClosePanel();
             }
         }

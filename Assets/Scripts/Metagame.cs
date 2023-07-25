@@ -38,8 +38,9 @@ public class Metagame : MonoBehaviour
         return 0;
     }
 
-    public void AddRandomAscention() {
+    public async Task AddRandomAscention() {
         var newAscention = Library.instance.ascentions.Where(a => a.CanAdd(this)).Rnd();
+        await ConfirmationPanel.instance.AskConfirmation($"New ascention added: {newAscention}", canCancel: false);
         ascentions.Add(newAscention);
         GameManager.instance.SaveMetagame();
     }

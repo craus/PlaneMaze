@@ -5058,6 +5058,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 674192491}
   panel: {fileID: 1777990907}
+  cancelButton: {fileID: 649489724}
 --- !u!1 &1036060666
 GameObject:
   m_ObjectHideFlags: 0
