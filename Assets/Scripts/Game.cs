@@ -103,8 +103,11 @@ public class Game : MonoBehaviour
         InfoPanel.instance.panel.SetActive(false);
         ConfirmationPanel.instance.OK();
 
-        if (win || lose) {
+        if (win) {
             await GameManager.instance.metagame.AddRandomAscention();
+        }
+
+        if (win || lose) {
             GameManager.instance.RestartGame();
         }
     }
