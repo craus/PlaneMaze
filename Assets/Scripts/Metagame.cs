@@ -41,7 +41,7 @@ public class Metagame : MonoBehaviour
 
     public string AscentionLevelString(Ascention ascention) {
         var l = AscentionLevel(ascention);
-        //if (l == 1) return "";
+        if (l == 1) return "";
         return $"x{l} ";
     }
 
