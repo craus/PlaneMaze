@@ -30,7 +30,10 @@ public class GameManager : Singletone<GameManager>
     Vector3 oldMousePosition;
     public void Update() {
         if (Input.GetKeyDown(KeyCode.R)) {
-            Restart();
+            MainUI.instance.RestartButton();
+        }
+        if (Input.GetKeyDown(KeyCode.F2)) {
+            MainUI.instance.RestartMetagameButton();
         }
         if (Input.GetKeyDown(KeyCode.PageUp)) {
             Game.instance.speed *= 1.25f;
@@ -45,10 +48,20 @@ public class GameManager : Singletone<GameManager>
         oldMousePosition = Input.mousePosition;
     }
 
-    public void Restart() {
+    public void RestartGame() {
         Debug.LogFormat("Game restarted");
         DestroyGame();
         NewGame();
+    }
+
+    public void RestartMetagame()
+    {
+        Debug.LogFormat("Metagame restarted");
+        DestroyMetagame();
+        NewMetagame();
+        SaveMetagame();
+
+        RestartGame();
     }
 
     public void SaveMetagame() {
@@ -65,6 +78,11 @@ public class GameManager : Singletone<GameManager>
         game.ascentions = metagame.ascentions;
         Inventory.instance = game.GetComponentInChildren<Inventory>();
         game.speed = 100;
+    }
+
+    public void DestroyMetagame()
+    {
+        Destroy(metagame.gameObject);
     }
 
     public void DestroyGame() {

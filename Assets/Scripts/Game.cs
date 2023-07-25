@@ -105,7 +105,7 @@ public class Game : MonoBehaviour
 
         if (win || lose) {
             await GameManager.instance.metagame.AddRandomAscention();
-            GameManager.instance.Restart();
+            GameManager.instance.RestartGame();
         }
     }
 

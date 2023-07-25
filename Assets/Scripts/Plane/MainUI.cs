@@ -14,6 +14,8 @@ public class MainUI : Singletone<MainUI>
     public Slider music;
     public Slider master;
 
+    public TMP_Text ascentionsListText;
+
     public AudioMixer mixer; 
 
     public Settings settings;
@@ -54,8 +56,14 @@ public class MainUI : Singletone<MainUI>
         UpdateVolume();
     }
 
+    private void UpdateAscentionsList() {
+        ascentionsListText.text = GameManager.instance.metagame.AscentionsList();
+    }
+
     public void MainMenuButton() {
         mainMenu.SetActive(!MainMenuShown);
+
+        UpdateAscentionsList();
 
         showingValues = true;
         sounds.value = settings.sounds;
@@ -74,7 +82,13 @@ public class MainUI : Singletone<MainUI>
 
     public async void RestartButton() {
         if (await ConfirmationPanel.instance.AskConfirmation("Are you sure you want to restart now?")) {
-            GameManager.instance.Restart();
+            GameManager.instance.RestartGame();
+        }
+    }
+
+    public async void RestartMetagameButton() {
+        if (await ConfirmationPanel.instance.AskConfirmation("Are you sure you want to reset ALL PROGRESS now?")) {
+            GameManager.instance.RestartMetagame();
         }
     }
 

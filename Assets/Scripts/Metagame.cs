@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -44,4 +45,6 @@ public class Metagame : MonoBehaviour
         ascentions.Add(newAscention);
         GameManager.instance.SaveMetagame();
     }
+
+    internal string AscentionsList() => string.Join('\n', ascentions);
 }
