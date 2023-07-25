@@ -8,4 +8,7 @@ using UnityEngine.Events;
 
 public class DoubleGhostSpawns : GenericAscention<DoubleGhostSpawnsModel>
 {
+    public override bool CanAdd(Metagame metagame) {
+        return base.CanAdd(metagame) && metagame.ascentions.Contains(Library.instance.ghostSpawns);
+    }
 }
