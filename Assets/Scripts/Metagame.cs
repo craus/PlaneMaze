@@ -36,15 +36,21 @@ public class Metagame : MonoBehaviour
     }
 
     public int AscentionLevel(Ascention ascention) {
-        return 0;
+        return ascentions.Count(a => a == ascention);
+    }
+
+    public string AscentionLevelString(Ascention ascention) {
+        var l = AscentionLevel(ascention);
+        //if (l == 1) return "";
+        return $"x{l} ";
     }
 
     public async Task AddRandomAscention() {
         var newAscention = Library.instance.ascentions.Where(a => a.CanAdd(this)).Rnd();
-        await ConfirmationPanel.instance.AskConfirmation($"New ascention added: {newAscention}", canCancel: false);
+        await ConfirmationPanel.instance.AskConfirmation($"New ascention added: {newAscention.name}", canCancel: false);
         ascentions.Add(newAscention);
         GameManager.instance.SaveMetagame();
     }
 
-    internal string AscentionsList() => string.Join('\n', ascentions);
+    internal string AscentionsList() => string.Join('\n', ascentions.Unique().Select(a => $"{AscentionLevelString(a)}{a.name}"));
 }
