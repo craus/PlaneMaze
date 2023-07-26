@@ -53,11 +53,18 @@ public class Metagame : MonoBehaviour
 
     public async Task Win() {
         runInProgress = false;
-        await AddRandomAscention();
+        if (Library.instance.ascentions.Any(a => a.CanAdd(this))) {
+            await AddRandomAscention();
+        } else {
+            await ConfirmationManager.instance.AskConfirmation(
+                $"You beat the game at max ascension! Congratulations!",
+                canCancel: false
+            );
+        }
     }
 
     public async Task Abandon() {
-        await ConfirmationPanel.instance.AskConfirmation(
+        await ConfirmationManager.instance.AskConfirmation(
             $"Previous run was abandoned and resulted into loss.",
             canCancel: false
         );
@@ -74,7 +81,7 @@ public class Metagame : MonoBehaviour
             losesWithNoPenalty = 0;
             await RemoveRandomAscention();
         } else {
-            await ConfirmationPanel.instance.AskConfirmation(
+            await ConfirmationManager.instance.AskConfirmation(
                 $"{losesRequiredForPenalty - losesWithNoPenalty} more losses until descension.",
                 canCancel: false
             );
@@ -103,7 +110,7 @@ public class Metagame : MonoBehaviour
 
     public async Task AddRandomAscention() {
         var newAscention = Library.instance.ascentions.Where(a => a.CanAdd(this)).Rnd();
-        await ConfirmationPanel.instance.AskConfirmation($"New ascention added: {newAscention.name}", canCancel: false);
+        await ConfirmationManager.instance.AskConfirmation($"New ascention added: {newAscention.name}", canCancel: false);
         ascentions.Add(newAscention);
         MainUI.instance.UpdateAscentionsList();
         GameManager.instance.SaveMetagame();
@@ -111,7 +118,7 @@ public class Metagame : MonoBehaviour
 
     public async Task RemoveRandomAscention() {
         var removingAscention = ascentions.Rnd();
-        await ConfirmationPanel.instance.AskConfirmation($"Ascention removed: {removingAscention.name}", canCancel: false);
+        await ConfirmationManager.instance.AskConfirmation($"Ascention removed: {removingAscention.name}", canCancel: false);
         ascentions.Remove(removingAscention);
         MainUI.instance.UpdateAscentionsList();
         GameManager.instance.SaveMetagame();

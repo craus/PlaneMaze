@@ -157,17 +157,11 @@ public class Player : Unit
 
     private async void Move(Vector2Int delta) {
         if (
-            Game.instance.startPanel.activeSelf ||
-            Game.instance.winPanel.activeSelf ||
-            Game.instance.losePanel.activeSelf ||
             InfoPanel.instance.panel.activeSelf ||
-            ConfirmationPanel.instance.panel.activeSelf
+            ConfirmationManager.instance.AwaitingConfirmation
         ) {
-            if (
-                Game.instance.startPanel.activeSelf ||
-                InfoPanel.instance.panel.activeSelf
-            ) {
-                Game.instance.ClosePanel();
+            if (InfoPanel.instance.panel.activeSelf) {
+                InfoPanel.instance.panel.SetActive(false);
             }
             return;
         }
@@ -181,7 +175,7 @@ public class Player : Unit
         ongoingAnimations = false;
     }
 
-    public void Update() {
+    public void ReadKeys() {
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
             Move(Vector2Int.up);
         }
@@ -194,6 +188,9 @@ public class Player : Unit
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) {
             Move(Vector2Int.left);
         }
+    }
+
+    public void Update() {
         if (ongoingAnimations == false && commands.Count > 0) {
             Move(commands.Dequeue());
         }

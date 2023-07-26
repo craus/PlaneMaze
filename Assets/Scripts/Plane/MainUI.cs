@@ -77,7 +77,7 @@ public class MainUI : Singletone<MainUI>
     }
 
     public async void QuitButton() {
-        if (await ConfirmationPanel.instance.AskConfirmation("Are you sure you want to quit now?")) {
+        if (await ConfirmationManager.instance.AskConfirmation("Are you sure you want to quit now?")) {
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #endif
@@ -86,20 +86,38 @@ public class MainUI : Singletone<MainUI>
     }
 
     public async void RestartButton() {
-        if (await ConfirmationPanel.instance.AskConfirmation("Are you sure you want to restart now?")) {
+        if (await ConfirmationManager.instance.AskConfirmation("Are you sure you want to restart now?")) {
             GameManager.instance.RestartGame();
         }
     }
 
     public async void RestartMetagameButton() {
-        if (await ConfirmationPanel.instance.AskConfirmation("Are you sure you want to reset ALL PROGRESS now?")) {
+        if (await ConfirmationManager.instance.AskConfirmation("Are you sure you want to reset ALL PROGRESS now?")) {
             GameManager.instance.RestartMetagame();
         }
     }
 
     public void Update() {
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) {
+            ConfirmationManager.instance.OK();
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            MainMenuButton();
+            if (ConfirmationManager.instance.AwaitingConfirmation) {
+                ConfirmationManager.instance.Cancel();
+            } else {
+                MainMenuButton();
+            }
+        }
+
+        if (Input.anyKeyDown) {
+            if (ConfirmationManager.instance.AwaitingConfirmation && ConfirmationManager.instance.canConfirmByAnyButton) {
+                ConfirmationManager.instance.AnyButton();
+            } else {
+                if (Player.instance != null && !ConfirmationManager.instance.AwaitingConfirmation) {
+                    Player.instance.ReadKeys();
+                }
+            }
         }
     }
 }

@@ -64,13 +64,6 @@ public class Game : MonoBehaviour
 
     public Metagame Metagame => GameManager.instance.metagame;
 
-    public GameObject startPanel;
-    public GameObject winPanel;
-    public GameObject losePanel;
-
-    public bool win = false;
-    public bool lose = false;
-
     public async void Start() {
         mainWorld = Instantiate(boardSample, transform);
         UnityEngine.Debug.LogFormat("New game started");
@@ -93,38 +86,25 @@ public class Game : MonoBehaviour
 
         MusicManager.instance.Switch(MusicManager.instance.playlist);
 
-        startPanel.SetActive(true);
-    }
-
-    public async void ClosePanel() {
-        startPanel.SetActive(false);
-        losePanel.SetActive(false);
-        winPanel.SetActive(false);
-        InfoPanel.instance.panel.SetActive(false);
-        ConfirmationPanel.instance.OK();
-
-        if (win) {
-            await GameManager.instance.metagame.Win();
-        }
-        if (lose) {
-            await GameManager.instance.metagame.Lose();
-        }
-
-        if (win || lose) {
-            GameManager.instance.RestartGame();
-        }
+        await ConfirmationManager.instance.AskConfirmation(
+            panel: ConfirmationManager.instance.startPanel, 
+            canCancel: false,
+            canConfirmByAnyButton: true
+        );
     }
 
     public async Task Win() {
-        win = true;
         MusicManager.instance.Switch(MusicManager.instance.winPlaylist);
-        winPanel.SetActive(true);
+        await ConfirmationManager.instance.AskConfirmation(panel: ConfirmationManager.instance.winPanel, canCancel: false);
+        await GameManager.instance.metagame.Win();
+        GameManager.instance.RestartGame();
     }
 
     public async Task Lose() {
-        lose = true;
         MusicManager.instance.Switch(MusicManager.instance.losePlaylist);
-        losePanel.SetActive(true);
+        await ConfirmationManager.instance.AskConfirmation(panel: ConfirmationManager.instance.losePanel, canCancel: false);
+        await GameManager.instance.metagame.Lose();
+        GameManager.instance.RestartGame();
     }
 
     private void Sell(Cell location, MonoBehaviour sample, int price = -1) {
@@ -246,17 +226,6 @@ public class Game : MonoBehaviour
     }
 
     public void Update() {
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) {
-            if (
-                startPanel.activeSelf || 
-                winPanel.activeSelf || 
-                losePanel.activeSelf ||
-                ConfirmationPanel.instance.panel.activeSelf
-            ) {
-                ClosePanel();
-            }
-        }
-
         if (Cheats.on) {
             if (Input.GetKeyDown(KeyCode.W)) {
                 _ = Win();
