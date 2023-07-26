@@ -10,6 +10,7 @@ public class Skeleton : Monster
     public override int Money => 0;
 
     public bool active = true;
+    public int deathCount = 0;
 
     public int reviveCooldown = 30;
     public int currentReviveCooldown;
@@ -21,6 +22,8 @@ public class Skeleton : Monster
 
     public override bool Vulnerable => base.Vulnerable && active;
     public override bool ShowInvulnerability => active;
+
+    public bool Resurrectable => deathCount <= 1 || Game.instance.Ascention<EndlessSkeletonsResurrection>();
 
     public override void Awake() {
         base.Awake();
@@ -60,7 +63,9 @@ public class Skeleton : Monster
     }
 
     public override async Task Die() {
-        if (!Game.instance.Ascention<SkeletonsResurrect>()) {
+        deathCount++;
+
+        if (!Resurrectable) {
             await base.Die();
             return;
         }
@@ -79,7 +84,7 @@ public class Skeleton : Monster
     }
 
     protected override async Task AfterDie() {
-        if (!Game.instance.Ascention<SkeletonsResurrect>()) {
+        if (!Resurrectable) {
             await base.AfterDie();
             return;
         }

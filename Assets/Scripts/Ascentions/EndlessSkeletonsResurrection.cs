@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-[Serializable]
-public class SkeletonsResurrectModel : AscentionModel
+public class EndlessSkeletonsResurrection : GenericAscention<EndlessSkeletonsResurrectionModel>
 {
-    public override Ascention Sample => Library.instance.skeletonsResurrect;
 }

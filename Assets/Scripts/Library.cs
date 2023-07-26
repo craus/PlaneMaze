@@ -14,7 +14,7 @@ public class Library : Singletone<Library>
     public GhostSpawns ghostSpawns;
     public MonstersHaveMoreHealth monstersHaveMoreHealth;
     public PlayerHasLessHealth playerHasLessHealth;
-    public SkeletonsResurrect skeletonsResurrect;
+    public EndlessSkeletonsResurrection endlessSkeletonsResurrection;
     public AcceleratingGhostSpawns acceleratingGhostSpawns;
     public CommonEnemiesHaveMultipleHP commonEnemiesHaveMultipleHP;
     public NoFreeHealingPotions noFreeHealingPotions;

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2218484981513858612}
   - component: {fileID: 4213821068845423089}
   m_Layer: 0
-  m_Name: Skeletons Resurrect
+  m_Name: Endless Skeletons Resurrections
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
