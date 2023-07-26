@@ -61,7 +61,7 @@ public class Health : MonoBehaviour
             }
         }
         if (GetComponent<Player>() != null) {
-            current = max = ascentionHealth[Mathf.Clamp(Game.instance.Ascentions<PlayerHasLessHealth>(), 0, ascentionHealth.Count - 1)];
+            //current = max = ascentionHealth[Mathf.Clamp(Game.instance.Ascentions<PlayerHasLessHealth>(), 0, ascentionHealth.Count - 1)];
         }
         UpdateHearts();
     }
