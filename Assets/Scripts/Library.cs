@@ -16,6 +16,7 @@ public class Library : Singletone<Library>
     public PlayerHasLessHealth playerHasLessHealth;
     public SkeletonsResurrect skeletonsResurrect;
     public AcceleratingGhostSpawns acceleratingGhostSpawns;
+    public CommonEnemiesHaveMultipleHP commonEnemiesHaveMultipleHP;
 
     public List<Ascention> ascentions;
 

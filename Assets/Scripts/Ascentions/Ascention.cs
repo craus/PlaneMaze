@@ -18,6 +18,6 @@ public abstract class Ascention : MonoBehaviour
     public abstract AscentionModel Save();
 
     public virtual bool CanAdd(Metagame metagame) {
-        return true;
+        return metagame.ascentions.Count(x => x == this) < maxLevel;
     }
 }
