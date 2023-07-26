@@ -105,6 +105,7 @@ public class Metagame : MonoBehaviour
         var newAscention = Library.instance.ascentions.Where(a => a.CanAdd(this)).Rnd();
         await ConfirmationPanel.instance.AskConfirmation($"New ascention added: {newAscention.name}", canCancel: false);
         ascentions.Add(newAscention);
+        MainUI.instance.UpdateAscentionsList();
         GameManager.instance.SaveMetagame();
     }
 
@@ -112,6 +113,7 @@ public class Metagame : MonoBehaviour
         var removingAscention = ascentions.Rnd();
         await ConfirmationPanel.instance.AskConfirmation($"Ascention removed: {removingAscention.name}", canCancel: false);
         ascentions.Remove(removingAscention);
+        MainUI.instance.UpdateAscentionsList();
         GameManager.instance.SaveMetagame();
     }
 

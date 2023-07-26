@@ -65,6 +65,7 @@ public class GameManager : Singletone<GameManager>
         SaveMetagame();
 
         RestartGame();
+        MainUI.instance.UpdateAscentionsList();
     }
 
     public void SaveMetagame() {

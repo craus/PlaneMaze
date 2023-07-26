@@ -15,6 +15,7 @@ public class MainUI : Singletone<MainUI>
     public Slider master;
 
     public TMP_Text ascentionsListText;
+    public GameObject ascentionsPanel;
 
     public AudioMixer mixer; 
 
@@ -56,8 +57,9 @@ public class MainUI : Singletone<MainUI>
         UpdateVolume();
     }
 
-    private void UpdateAscentionsList() {
+    public void UpdateAscentionsList() {
         ascentionsListText.text = GameManager.instance.metagame.AscentionsList();
+        ascentionsPanel.SetActive(GameManager.instance.metagame.ascentions.Count() > 0);
     }
 
     public void MainMenuButton() {
