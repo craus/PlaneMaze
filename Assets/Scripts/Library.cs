@@ -19,6 +19,7 @@ public class Library : Singletone<Library>
     public CommonEnemiesHaveMultipleHP commonEnemiesHaveMultipleHP;
     public NoFreeHealingPotions noFreeHealingPotions;
     public HealOnlyOneHP healOnlyOneHP;
+    public QuadrupleMapAndPrices quadrupleMapAndPrices;
 
     public List<Ascention> ascentions;
 

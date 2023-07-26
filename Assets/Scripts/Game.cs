@@ -47,8 +47,6 @@ public class Game : MonoBehaviour
     public int ghostSpawnTimeReductionHalfLife = 1000;
     public float ghostSpawnProbabilityPerTurn;
 
-    public int worldSize = 1000;
-
     public Board boardSample;
     public Board mainWorld;
     public List<Board> stores;
@@ -82,7 +80,7 @@ public class Game : MonoBehaviour
         await player.figure.Move(mainWorld.GetCell(Vector2Int.zero), isTeleport: true);
 
         speed = 10000;
-        await EnumerateCells(worldSize, pauses: false);
+        await EnumerateCells(Metagame.WorldSize, pauses: false);
 
 
         for (int i = 0; i < storeCount; i++) {
@@ -132,7 +130,7 @@ public class Game : MonoBehaviour
             var rules = item.GetComponent<ItemGenerationRules>();
             price = rules != null ? Rand.rnd(rules.minPrice, rules.maxPrice) : 0;
         }
-        GenerateFigure(location, paidCellSample).SetPrice(price);
+        GenerateFigure(location, paidCellSample).SetPrice((int)Math.Ceiling(price * Metagame.PricesMultiplier));
         var info = GenerateFigure(location.Shift(Vector2Int.down), infoSample);
         info.explainable = item.GetComponent<IExplainable>();
     }
@@ -395,7 +393,7 @@ public class Game : MonoBehaviour
             GenerateFigure(cell, startingItemsSamples.First());
             startingItemsSamples.RemoveAt(0);
             return;
-        } else if (cell.order == worldSize - 1) {
+        } else if (cell.order == Metagame.WorldSize - 1) {
             GenerateFigure(cell, lichSample);
             return;
         }

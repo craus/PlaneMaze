@@ -24,11 +24,13 @@ public class Metagame : MonoBehaviour
     public float StartGhostSpawnProbability => 0.01f;
     public float GhostSpawnAcceleration(int time) =>
         Ascention<AcceleratingGhostSpawns>() ? 1 - Mathf.Pow(0.5f, time * 1f / GhostSpawnTimeReductionHalfLife) : 0;
-
     public float GhostSpawnProbabilityPerTurn(int time) => 
         (StartGhostSpawnProbability + (1 - StartGhostSpawnProbability) * GhostSpawnAcceleration(time)) * GhostSpawnSpeedMultiplier;
 
     public float HealingPotionSpawnProbability => Ascention<NoFreeHealingPotions>() ? 0 : 0.004f;
+
+    public float PricesMultiplier => Ascention<QuadrupleMapAndPrices>() ? 1 : 0.25f;
+    public int WorldSize => Ascention<QuadrupleMapAndPrices>() ? 1000 : 250;
 
     public static Metagame Load(MetagameModel model) {
         var result = Instantiate(Library.instance.metagameSample);
