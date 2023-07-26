@@ -10,9 +10,9 @@ public class Haste : Terrain
         GetComponent<Figure>().collide = async (from, figure) => {
             var victim = figure.GetComponent<Unit>();
             if (victim != null) {
-                if (victim.GetComponent<Player>()) {
+                if (victim.BenefitsFromTerrain) {
+                    await victim.GetComponent<MovesReserve>().Haste(1);
                 }
-                await victim.GetComponent<MovesReserve>().Haste(1);
             }
         };
     }

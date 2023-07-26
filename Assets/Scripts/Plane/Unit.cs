@@ -27,6 +27,8 @@ public class Unit : MonoBehaviour, IMortal
     public virtual bool Threatening => OccupiesPlace;
     public virtual bool OccupiesPlace => alive;
 
+    public virtual bool BenefitsFromTerrain => true;
+
     public Figure figure;
 
     public bool alive = true;

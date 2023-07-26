@@ -20,6 +20,7 @@ public class Library : Singletone<Library>
     public NoFreeHealingPotions noFreeHealingPotions;
     public HealOnlyOneHP healOnlyOneHP;
     public QuadrupleMapAndPrices quadrupleMapAndPrices;
+    public MonstersBenefitFromTerrain monstersBenefitFromTerrain;
 
     public List<Ascention> ascentions;
 

@@ -9,6 +9,8 @@ public abstract class Monster : Unit
 {
     public virtual bool FreeCell(Cell cell) => cell.Free;
 
+    public override bool BenefitsFromTerrain => base.BenefitsFromTerrain && GameManager.instance.metagame.Ascention<MonstersBenefitFromTerrain>();
+
     protected async Task<bool> SmartWalk(Vector2Int delta) {
         if (!Flying && figure.location.Shift(delta).GetFigure<WolfTrap>() != null) {
             return false;

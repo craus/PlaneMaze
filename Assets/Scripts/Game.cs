@@ -460,11 +460,16 @@ public class Game : MonoBehaviour
         defenceLocation != null &&
         (defenceLocation.position - attackLocation.position).MaxDelta() >= 2;
 
-    private static bool Highground(Cell attackLocation, Cell defenceLocation) =>
+    private static bool Highground(
+        Cell attackLocation,
+        Cell defenceLocation,
+        Unit attacker,
+        Unit defender
+    ) =>
         attackLocation != null &&
         defenceLocation != null &&
-        defenceLocation.GetFigure<Hill>() != null &&
-        attackLocation.GetFigure<Hill>() == null;
+        defenceLocation.GetFigure<Hill>() != null && defender.BenefitsFromTerrain &&
+        !(attackLocation.GetFigure<Hill>() != null && attacker.BenefitsFromTerrain);
 
     public static bool CanAttack(
         Unit attacker, 
@@ -479,6 +484,6 @@ public class Game : MonoBehaviour
         return
             CanAttack(attacker) &&
             CanBeAttacked(defender, weapon) &&
-            (IsRanged(attackLocation, defenceLocation) || !Highground(attackLocation, defenceLocation));
+            (IsRanged(attackLocation, defenceLocation) || !Highground(attackLocation, defenceLocation, attacker, defender));
     }
 }
