@@ -147,3 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healSample: {fileID: 7558257676500238022, guid: 79599bf405c35dc44bc7c36a841474b8, type: 3}
   heal: 1
+  fullHealDescription: '<b>Healing potion</b>
+
+
+    Fully heals.'
