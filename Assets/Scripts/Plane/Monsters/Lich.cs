@@ -28,6 +28,9 @@ public class Lich : Monster
 
     public override void Awake() {
         base.Awake();
+        if (!GameManager.instance.metagame.Ascention<FasterBoss>()) {
+            cooldown = 3;
+        }
         currentCooldown = cooldown;
         UpdateSprite();
     }
@@ -84,6 +87,8 @@ public class Lich : Monster
 
         if (playerDelta.MinDelta() == 0 && minAttackRange <= playerDelta.MaxDelta() && playerDelta.MaxDelta() <= maxAttackRange) {
             if (await TryAttack(playerDelta)) {
+                currentCooldown = cooldown;
+                UpdateSprite();
                 return;
             }
         }

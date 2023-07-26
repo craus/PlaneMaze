@@ -21,6 +21,7 @@ public class Library : Singletone<Library>
     public HealOnlyOneHP healOnlyOneHP;
     public QuadrupleMapAndPrices quadrupleMapAndPrices;
     public MonstersBenefitFromTerrain monstersBenefitFromTerrain;
+    public FasterBoss fasterBoss;
 
     public List<Ascention> ascentions;
 
