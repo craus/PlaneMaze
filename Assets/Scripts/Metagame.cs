@@ -28,6 +28,8 @@ public class Metagame : MonoBehaviour
     public float GhostSpawnProbabilityPerTurn(int time) => 
         (StartGhostSpawnProbability + (1 - StartGhostSpawnProbability) * GhostSpawnAcceleration(time)) * GhostSpawnSpeedMultiplier;
 
+    public float HealingPotionSpawnProbability => Ascention<NoFreeHealingPotions>() ? 0 : 0.004f;
+
     public static Metagame Load(MetagameModel model) {
         var result = Instantiate(Library.instance.metagameSample);
 

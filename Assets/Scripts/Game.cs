@@ -404,6 +404,8 @@ public class Game : MonoBehaviour
             GenerateFigure(cell, monsterSamples.rnd());
         } else if (Rand.rndEvent(0.004f)) {
             GenerateFigure(cell, weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().fieldWeight));
+        } else if (Rand.rndEvent(Metagame.HealingPotionSpawnProbability)) {
+            GenerateFigure(cell, healingPotionSample);
         } else if (Rand.rndEvent(0)) {
             GenerateFigure(cell, itemSamples.rnd());
         } else if (Rand.rndEvent(0.3f)) {
