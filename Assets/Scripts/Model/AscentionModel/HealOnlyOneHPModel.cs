@@ -9,5 +9,5 @@ using UnityEngine.Events;
 [Serializable]
 public class HealOnlyOneHPModel : AscentionModel
 {
-    public override Ascention Sample => Library.instance.doubleGhostSpawns;
+    public override Ascention Sample => Library.instance.healOnlyOneHP;
 }

@@ -76,12 +76,16 @@ public class MainUI : Singletone<MainUI>
         FileManager.SaveToFile(settings, settingsFilename);
     }
 
+    public void QuitApplication() {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        Application.Quit();
+    }
+
     public async void QuitButton() {
         if (await ConfirmationManager.instance.AskConfirmation("Are you sure you want to quit now?")) {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#endif
-            Application.Quit();
+            QuitApplication();
         }
     }
 

@@ -93,18 +93,26 @@ public class Game : MonoBehaviour
         );
     }
 
+    public async Task AskForNextRun() {
+        if (await ConfirmationManager.instance.AskConfirmation("Do you want to start another run? If you start, abandon run will be counted as a loss!")) {
+            GameManager.instance.RestartGame();
+        } else {
+            MainUI.instance.QuitApplication();
+        }
+    }
+
     public async Task Win() {
         MusicManager.instance.Switch(MusicManager.instance.winPlaylist);
         await ConfirmationManager.instance.AskConfirmation(panel: ConfirmationManager.instance.winPanel, canCancel: false);
         await GameManager.instance.metagame.Win();
-        GameManager.instance.RestartGame();
+        await AskForNextRun();
     }
 
     public async Task Lose() {
         MusicManager.instance.Switch(MusicManager.instance.losePlaylist);
         await ConfirmationManager.instance.AskConfirmation(panel: ConfirmationManager.instance.losePanel, canCancel: false);
         await GameManager.instance.metagame.Lose();
-        GameManager.instance.RestartGame();
+        await AskForNextRun();
     }
 
     private void Sell(Cell location, MonoBehaviour sample, int price = -1) {
