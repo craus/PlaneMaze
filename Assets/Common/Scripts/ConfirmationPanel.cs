@@ -33,8 +33,11 @@ public class ConfirmationPanel : Singletone<ConfirmationPanel>
             return;
         }
         panel.SetActive(false);
-        currentConfirmation.SetResult(true);
+
+        var lastConfirmation = currentConfirmation;
         currentConfirmation = null;
+
+        lastConfirmation.SetResult(true);
     }
 
     public void Cancel() {
@@ -42,7 +45,10 @@ public class ConfirmationPanel : Singletone<ConfirmationPanel>
             return;
         }
         panel.SetActive(false);
-        currentConfirmation.SetResult(false);
+
+        var lastConfirmation = currentConfirmation;
         currentConfirmation = null;
+
+        lastConfirmation.SetResult(false);
     }
 }

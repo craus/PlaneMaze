@@ -14,13 +14,16 @@ public class GameManager : Singletone<GameManager>
 
     public const string savefileName = "savefile.dat";
 
-    public void Start() {
+    public async void Start() {
         var metagameModel = FileManager.LoadFromFile<MetagameModel>(savefileName);
         if (metagameModel == null) {
             NewMetagame();
             SaveMetagame();
         } else {
             metagame = Metagame.Load(metagameModel);
+            if (metagame.runInProgress) {
+                await metagame.Abandon();
+            }
             metagame.transform.SetParent(transform);
         }
         NewGame();
@@ -75,6 +78,8 @@ public class GameManager : Singletone<GameManager>
 
     public void NewGame() {
         game = Instantiate(gameSample, transform);
+        metagame.runInProgress = true;
+        SaveMetagame();
         game.ascentions = metagame.ascentions;
         Inventory.instance = game.GetComponentInChildren<Inventory>();
         game.speed = 100;

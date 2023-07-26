@@ -9,8 +9,12 @@ using UnityEngine.Events;
 
 public class Metagame : MonoBehaviour
 {
+    [SerializeField] private int losesRequiredForPenalty = 4;
+
     public List<Ascention> ascentions;
     public bool pickingPhase;
+    public int losesWithNoPenalty = 0;
+    public bool runInProgress = false;
 
     public Game game;
 
@@ -36,6 +40,8 @@ public class Metagame : MonoBehaviour
         var result = Instantiate(Library.instance.metagameSample);
 
         result.pickingPhase = model.pickingPhase;
+        result.losesWithNoPenalty = model.losesWithNoPenalty;
+        result.runInProgress = model.runInProgress;
 
         foreach (var a in model.ascentions) {
             var ascention = global::Ascention.Load(a);
@@ -45,9 +51,41 @@ public class Metagame : MonoBehaviour
         return result;
     }
 
+    public async Task Win() {
+        runInProgress = false;
+        await AddRandomAscention();
+    }
+
+    public async Task Abandon() {
+        await ConfirmationPanel.instance.AskConfirmation(
+            $"Previous run was abandoned and resulted into loss.",
+            canCancel: false
+        );
+        await Lose();
+    }
+
+    public async Task Lose() {
+        runInProgress = false;
+
+        if (ascentions.Count() == 0) return;
+
+        losesWithNoPenalty++;
+        if (losesWithNoPenalty >= losesRequiredForPenalty) {
+            losesWithNoPenalty = 0;
+            await RemoveRandomAscention();
+        } else {
+            await ConfirmationPanel.instance.AskConfirmation(
+                $"{losesRequiredForPenalty - losesWithNoPenalty} more losses until descension.",
+                canCancel: false
+            );
+        }
+    }
+
     public MetagameModel Save() {
         var result = new MetagameModel {
             pickingPhase = pickingPhase,
+            losesWithNoPenalty = losesWithNoPenalty,
+            runInProgress = runInProgress,
             ascentions = ascentions.Select(a => a.Save()).ToList()
         };
         return result;
@@ -67,6 +105,13 @@ public class Metagame : MonoBehaviour
         var newAscention = Library.instance.ascentions.Where(a => a.CanAdd(this)).Rnd();
         await ConfirmationPanel.instance.AskConfirmation($"New ascention added: {newAscention.name}", canCancel: false);
         ascentions.Add(newAscention);
+        GameManager.instance.SaveMetagame();
+    }
+
+    public async Task RemoveRandomAscention() {
+        var removingAscention = ascentions.Rnd();
+        await ConfirmationPanel.instance.AskConfirmation($"Ascention removed: {removingAscention.name}", canCancel: false);
+        ascentions.Remove(removingAscention);
         GameManager.instance.SaveMetagame();
     }
 

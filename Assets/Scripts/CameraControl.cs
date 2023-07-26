@@ -44,7 +44,7 @@ public class CameraControl : Singletone<CameraControl>
             RestoreCameraPosition(oldWorldMousePoint);
         }
 
-        if (Game.instance.player && followPlayer && !Input.GetMouseButton(1)) {
+        if (Game.instance && Game.instance.player && followPlayer && !Input.GetMouseButton(1)) {
             Camera.main.transform.position = Vector3.Lerp(
                 Game.instance.player.figure.location.transform.position.Change(z: Camera.main.transform.position.z),
                 Camera.main.transform.position,

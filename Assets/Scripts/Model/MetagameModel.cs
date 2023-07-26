@@ -11,4 +11,6 @@ public class MetagameModel : Model
 {
     public List<AscentionModel> ascentions;
     public bool pickingPhase = false;
+    public int losesWithNoPenalty = 0;
+    public bool runInProgress = false;
 }

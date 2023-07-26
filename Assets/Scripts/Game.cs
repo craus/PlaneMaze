@@ -104,7 +104,10 @@ public class Game : MonoBehaviour
         ConfirmationPanel.instance.OK();
 
         if (win) {
-            await GameManager.instance.metagame.AddRandomAscention();
+            await GameManager.instance.metagame.Win();
+        }
+        if (lose) {
+            await GameManager.instance.metagame.Lose();
         }
 
         if (win || lose) {
