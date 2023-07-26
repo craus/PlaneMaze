@@ -13,14 +13,28 @@ public class Metagame : MonoBehaviour
     public bool pickingPhase;
 
     public Game game;
-    
+
+    internal bool Ascention<T>() where T : Ascention => ascentions.Any(a => a is T);
+    internal int Ascentions<T>() where T : Ascention => ascentions.Count(a => a is T);
+
+    public bool SpawnGhosts => true; // Ascention<GhostSpawns>();
+    public float GhostSpawnSpeedMultiplier => 1; // Mathf.Pow(2, Ascentions<DoubleGhostSpawns>());
+    public int MaxGhostSpawnsPerTurn => 4;
+    public float GhostSpawnTimeReductionHalfLife => 16000;
+    public float StartGhostSpawnProbability => 0.01f;
+    public float GhostSpawnAcceleration(int time) =>
+        Ascention<AcceleratingGhostSpawns>() ? 1 - Mathf.Pow(0.5f, time * 1f / GhostSpawnTimeReductionHalfLife) : 0;
+
+    public float GhostSpawnProbabilityPerTurn(int time) => 
+        (StartGhostSpawnProbability + (1 - StartGhostSpawnProbability) * GhostSpawnAcceleration(time)) * GhostSpawnSpeedMultiplier;
+
     public static Metagame Load(MetagameModel model) {
         var result = Instantiate(Library.instance.metagameSample);
 
         result.pickingPhase = model.pickingPhase;
 
         foreach (var a in model.ascentions) {
-            var ascention = Ascention.Load(a);
+            var ascention = global::Ascention.Load(a);
             result.ascentions.Add(ascention);
         }
 

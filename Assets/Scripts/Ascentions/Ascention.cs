@@ -9,7 +9,6 @@ using UnityEngine.Events;
 public abstract class Ascention : MonoBehaviour
 {
     public int maxLevel = 1;
-    public List<Ascention> requirements;
 
     public static Ascention Load(AscentionModel model) {
         var result = (model.Sample); // no instantiate

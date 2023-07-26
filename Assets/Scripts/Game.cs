@@ -64,6 +64,8 @@ public class Game : MonoBehaviour
     internal bool Ascention<T>() where T: Ascention => ascentions.Any(a => a is T);
     internal int Ascentions<T>() where T: Ascention => ascentions.Count(a => a is T);
 
+    public Metagame Metagame => GameManager.instance.metagame;
+
     public GameObject startPanel;
     public GameObject winPanel;
     public GameObject losePanel;
@@ -423,15 +425,18 @@ public class Game : MonoBehaviour
         completedTurns[time].SetResult(true);
         time++;
 
-        if (Ascention<GhostSpawns>()) {
-            if (player.figure.location.board == mainWorld) {
-                ghostSpawnProbabilityPerTurn = 1 - Mathf.Pow(0.5f, time * 1f / ghostSpawnTimeReductionHalfLife);
-                ghostSpawnProbabilityPerTurn /= 8;
-                ghostSpawnProbabilityPerTurn *= Mathf.Pow(2, Ascentions<DoubleGhostSpawns>());
-                for (int i = 0; i < 4 && Rand.rndEvent(ghostSpawnProbabilityPerTurn); i++) {
-                    await SpawnGhost();
-                }
-            }
+        if (Metagame.SpawnGhosts) {
+            await SpawnGhosts();
+        }
+    }
+
+    private async Task SpawnGhosts() {
+        if (player.figure.location.board != mainWorld) return;
+
+        ghostSpawnProbabilityPerTurn = Metagame.GhostSpawnProbabilityPerTurn(time);
+
+        for (int i = 0; i < Metagame.MaxGhostSpawnsPerTurn && Rand.rndEvent(ghostSpawnProbabilityPerTurn); i++) {
+            await SpawnGhost();
         }
     }
 
