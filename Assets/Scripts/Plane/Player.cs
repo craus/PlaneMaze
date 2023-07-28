@@ -265,8 +265,8 @@ public class Player : Unit
         }
     }
 
-    public override async Task Die() {
-        await base.Die();
+    protected override async Task AfterDie() {
+        await base.AfterDie();
         await Game.instance.Lose();
     }
 }
