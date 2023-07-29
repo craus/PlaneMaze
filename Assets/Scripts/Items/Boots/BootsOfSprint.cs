@@ -38,7 +38,9 @@ public class BootsOfSprint : MonoBehaviour
         if (action is Walk walk) {
             var moveDirection = walk.to.position - walk.from.position;
             if (moveDirection == lastMove) {
-                await GetComponent<Item>().Owner.GetComponent<MovesReserve>().Haste(1);
+                if (GetComponent<Item>().Owner.GetComponent<MovesReserve>().Current <= 0) {
+                    await GetComponent<Item>().Owner.GetComponent<MovesReserve>().Haste(1);
+                }
             } else {
                 lastMove = moveDirection;
                 activeIcon.SetActive(true);
