@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CommonEnemiesHaveMultipleHP : GenericAscention<MonstersHaveMoreHealthModel>
+public class CommonEnemiesHaveMultipleHP : GenericAscention<CommonEnemiesHaveMultipleHPModel>
 {
 }

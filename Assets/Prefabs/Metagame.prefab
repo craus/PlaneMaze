@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b50683eb6612a40bd3f08c5f1b36a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  losesRequiredForPenalty: 1
   ascentions: []
   pickingPhase: 0
+  losesWithNoPenalty: 0
+  runInProgress: 0
   game: {fileID: 0}
