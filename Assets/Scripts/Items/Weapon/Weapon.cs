@@ -56,6 +56,7 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
         Vector2Int delta,
         Unit target
     ) {
+        if (target == null) return false;
         return await Attack(delta, target, BeforeAttack, AfterAttack);
     }
 
