@@ -92,7 +92,7 @@ public class BlackMage : Monster
 
     public async Task DealDeathDamage() {
         foreach (var u in figure.location.Vicinity(damageRadius)
-            .Select(c => c.GetFigure<Unit>())
+            .SelectMany(c => c.GetFigures<Unit>())
             .Where(u => u != null && u.SoulVulnerable)
             .ToList()
         ) {
@@ -122,6 +122,10 @@ public class BlackMage : Monster
             chargedAtLeastTurnAgo = false;
             UpdateIcon();
             await DealDeathDamage();
+            if (charged) {
+                chargedAtLeastTurnAgo = true;
+                return;
+            }
             return;
         }
         if (charged) {
