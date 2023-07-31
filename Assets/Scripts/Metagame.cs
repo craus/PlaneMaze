@@ -9,7 +9,6 @@ using UnityEngine.Events;
 
 public class Metagame : MonoBehaviour
 {
-    [SerializeField] private int losesRequiredForPenalty = 4;
 
     public List<Ascention> ascentions;
     public bool pickingPhase;
@@ -20,6 +19,10 @@ public class Metagame : MonoBehaviour
 
     internal bool Ascention<T>() where T : Ascention => ascentions.Any(a => a is T);
     internal int Ascentions<T>() where T : Ascention => ascentions.Count(a => a is T);
+
+
+    public int LosesRequiredForPenalty => 4;
+    public bool DropLosesOnWin => true;
 
     public bool SpawnGhosts => true; // Ascention<GhostSpawns>();
     public float GhostSpawnSpeedMultiplier => 1; // Mathf.Pow(2, Ascentions<DoubleGhostSpawns>());
@@ -53,11 +56,29 @@ public class Metagame : MonoBehaviour
 
     public async Task Win() {
         runInProgress = false;
+        losesWithNoPenalty = 0;
         if (Library.instance.ascentions.Any(a => a.CanAdd(this))) {
             await AddRandomAscention();
         } else {
             await ConfirmationManager.instance.AskConfirmation(
                 $"You beat the game at max ascension! Congratulations!",
+                canCancel: false
+            );
+        }
+    }
+
+    public async Task Lose() {
+        runInProgress = false;
+
+        if (ascentions.Count() == 0) return;
+
+        losesWithNoPenalty++;
+        if (losesWithNoPenalty >= LosesRequiredForPenalty) {
+            losesWithNoPenalty = 0;
+            await RemoveRandomAscention();
+        } else {
+            await ConfirmationManager.instance.AskConfirmation(
+                $"{LosesRequiredForPenalty - losesWithNoPenalty} more losses until descension.",
                 canCancel: false
             );
         }
@@ -69,23 +90,6 @@ public class Metagame : MonoBehaviour
             canCancel: false
         );
         await Lose();
-    }
-
-    public async Task Lose() {
-        runInProgress = false;
-
-        if (ascentions.Count() == 0) return;
-
-        losesWithNoPenalty++;
-        if (losesWithNoPenalty >= losesRequiredForPenalty) {
-            losesWithNoPenalty = 0;
-            await RemoveRandomAscention();
-        } else {
-            await ConfirmationManager.instance.AskConfirmation(
-                $"{losesRequiredForPenalty - losesWithNoPenalty} more losses until descension.",
-                canCancel: false
-            );
-        }
     }
 
     public MetagameModel Save() {
