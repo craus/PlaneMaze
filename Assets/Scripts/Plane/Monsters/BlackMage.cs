@@ -14,7 +14,6 @@ public class BlackMage : Monster
     public int damageRadius = 4;
     public int deathDamage = 1;
 
-    public Figure ghostSample;
     public GameObject soulSample;
     public GameObject healSample;
 
@@ -22,6 +21,7 @@ public class BlackMage : Monster
     public List<GameObject> unchargedModels;
 
     public bool charged = false;
+    public bool chargedAtLeastTurnAgo = false;
 
     public override void Awake() {
         base.Awake();
@@ -54,7 +54,19 @@ public class BlackMage : Monster
         await Attack(target);
     }
 
-    public async Task ConsumeSoul(Unit unit) {
+    public async Task ConsumeSoulAnimation(Vector3 soulPosition) {
+        SoundManager.instance.consumeSoul.Play();
+
+        var soul = Instantiate(soulSample, Game.instance.transform);
+        soul.transform.position = soulPosition;
+        await soul.transform.Move(figure.location.transform.position, 0.1f);
+
+        if (soul != null) {
+            Destroy(soul);
+        }
+    }
+
+    public async Task ConsumeOldSoul(Unit unit) {
         if (!unit.alive) {
             return;
         }
@@ -63,24 +75,19 @@ public class BlackMage : Monster
         }
         await unit.Die();
 
-        SoundManager.instance.consumeSoul.Play();
+        await ConsumeSoulAnimation(unit.figure.location.transform.position);
 
-        var soul = Instantiate(soulSample, Game.instance.transform);
-        soul.transform.position = unit.figure.location.transform.position;
-        await soul.transform.Move(figure.location.transform.position, 0.1f);
+        await Heal();
 
-        if (soul != null) {
-            Destroy(soul);
-        }
+        UpdateIcon();
+    }
 
+    public async Task Heal() {
         var heal = Instantiate(healSample, Game.instance.transform);
         heal.transform.position = transform.position;
         await Helpers.Delay(0.1f);
         Destroy(heal);
         await GetComponent<Health>().Heal(1);
-
-        charged = true;
-        UpdateIcon();
     }
 
     public async Task DealDeathDamage() {
@@ -103,15 +110,22 @@ public class BlackMage : Monster
             unit.HasSoul
         ) {
             unit.soul = false;
-            await SpawnGhost(unit.figure.location);
+            charged = true;
+            await ConsumeSoulAnimation(unit.figure.location.transform.position);
+            UpdateIcon();
         }
     }
 
     protected async override Task MakeMove() {
-        if (charged) {
+        if (chargedAtLeastTurnAgo) {
             charged = false;
+            chargedAtLeastTurnAgo = false;
             UpdateIcon();
             await DealDeathDamage();
+            return;
+        }
+        if (charged) {
+            chargedAtLeastTurnAgo = true;
             return;
         }
 
@@ -124,11 +138,6 @@ public class BlackMage : Monster
             return;
         }
 
-        await ConsumeSoul(closestGhost);
-    }
-
-    private async Task SpawnGhost(Cell location) {
-        var ghost = Game.instance.GenerateFigure(location, ghostSample);
-        await ghost.GetComponent<MovesReserve>().Freeze(1);
+        await ConsumeOldSoul(closestGhost);
     }
 }
