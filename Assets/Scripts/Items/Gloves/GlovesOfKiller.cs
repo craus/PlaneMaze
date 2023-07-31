@@ -15,7 +15,8 @@ public class GlovesOfKiller : MonoBehaviour, IAttackModifier
         attack.afterAttack.Add(
             async () => {
                 if (!attack.to.GetComponent<Unit>().alive) {
-                    await attack.from.GetComponent<Invulnerability>().Gain(1);
+                    await attack.from.GetComponent<Invulnerability>().Gain(2);
+                    await attack.from.GetComponent<MovesReserve>().Haste(1);
                 }
             }
         );
