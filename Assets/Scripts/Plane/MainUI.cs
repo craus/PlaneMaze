@@ -103,12 +103,18 @@ public class MainUI : Singletone<MainUI>
 
     public void Update() {
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) {
-            ConfirmationManager.instance.OK();
+            if (ConfirmationManager.instance.AwaitingConfirmation) {
+                ConfirmationManager.instance.OK();
+            } else {
+                InfoPanel.instance.panel.SetActive(false);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape)) {
             if (ConfirmationManager.instance.AwaitingConfirmation) {
                 ConfirmationManager.instance.Cancel();
+            } else if (InfoPanel.instance.panel.activeSelf) {
+                InfoPanel.instance.panel.SetActive(false);
             } else {
                 MainMenuButton();
             }

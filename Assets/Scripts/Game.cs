@@ -65,6 +65,8 @@ public class Game : MonoBehaviour
     public Metagame Metagame => GameManager.instance.metagame;
 
     public async void Start() {
+        InfoPanel.instance.viewedInfo = new HashSet<IExplainable>();
+
         mainWorld = Instantiate(boardSample, transform);
         UnityEngine.Debug.LogFormat("New game started");
 
