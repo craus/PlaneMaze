@@ -13,7 +13,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1710125306432267668, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: minPrice
-      value: 3
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1710125306432267668, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
+      propertyPath: startingWeight
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2252660109841114050, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Enabled
@@ -105,7 +109,9 @@ PrefabInstance:
         Attack range 4.
 
         Two turns
-        to attack.'
+        to attack.
+
+        Damage 2.'
       objectReference: {fileID: 0}
     - target: {fileID: 6325338422616382079, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Name
@@ -156,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0faa577777ac66748abd5b251b10006f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 2
   attackProjectileSample: {fileID: 573928835983385558, guid: d3f45a99b8e42da4b88cef1704fc060d, type: 3}
   range: 4
   chargedDirection: {x: 0, y: 0}

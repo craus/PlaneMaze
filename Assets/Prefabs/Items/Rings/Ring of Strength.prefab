@@ -7,6 +7,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1710125306432267668, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
+      propertyPath: maxPrice
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1710125306432267668, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
+      propertyPath: minPrice
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2252660109841114050, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -86,7 +94,7 @@ PrefabInstance:
         Accessory
 
 
-        Damage +1 to undamaged
+        Damage +2 to undamaged
         enemies.'
       objectReference: {fileID: 0}
     - target: {fileID: 6325338422616382079, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
