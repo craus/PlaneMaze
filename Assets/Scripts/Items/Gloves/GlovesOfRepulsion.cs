@@ -17,7 +17,7 @@ public class GlovesOfRepulsion : MonoBehaviour, IAttackModifier
                 if (attack.to != null && attack.to.GetComponent<Unit>().alive && attack.to.GetComponent<Unit>().Movable) {
                     if (await attack.to.TryWalk((attack.to.location.position - attack.from.location.position).StepAtDirectionDiagonal())) {
                         if (attack.to != null && attack.to.GetComponent<Unit>().alive) {
-                            await attack.to.GetComponent<MovesReserve>().Freeze(1);
+                            await attack.to.GetComponent<MovesReserve>().Freeze(2);
                         }
                     }
                 }

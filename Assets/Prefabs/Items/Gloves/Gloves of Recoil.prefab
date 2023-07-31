@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1710125306432267668, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: maxPrice
-      value: 15
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1710125306432267668, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: minPrice
@@ -105,7 +105,7 @@ PrefabInstance:
         Move back on attack.
 
         If
-        moved, gain extra turn.'
+        moved, gain two extra turns.'
       objectReference: {fileID: 0}
     - target: {fileID: 6325338422616382079, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Name

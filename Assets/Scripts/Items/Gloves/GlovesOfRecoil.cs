@@ -17,7 +17,7 @@ public class GlovesOfRecoil : MonoBehaviour, IAttackModifier
                 if (attack.from != null && attack.from.GetComponent<Unit>().alive) {
                     if (await attack.from.TryWalk((attack.from.location.position - attack.to.location.position).StepAtDirectionDiagonal())) {
                         if (GetComponent<Item>().Owner != null && GetComponent<Item>().Owner.alive) {
-                            await GetComponent<Item>().Owner.GetComponent<MovesReserve>().Haste(1);
+                            await GetComponent<Item>().Owner.GetComponent<MovesReserve>().Haste(2);
                         }
                     }
                 }

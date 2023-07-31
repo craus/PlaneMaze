@@ -9,11 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1710125306432267668, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: maxPrice
-      value: 15
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1710125306432267668, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: minPrice
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2252660109841114050, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Enabled
@@ -148,5 +148,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9121732f51b16014d81cab714138580a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  freezeDuration: 2
-  invulnerabilityDuration: 3
+  freezeDuration: 4
+  invulnerabilityDuration: 4
