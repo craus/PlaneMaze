@@ -19,10 +19,22 @@ public class GlovesOfSwapping : MonoBehaviour, IAttackModifier
                 if (attack.from != null) fromLocation = attack.from.location;
                 if (attack.to != null) toLocation = attack.to.location;
 
+                var anotherUnit = toLocation.GetFigures<Unit>().FirstOrDefault(u => u.OccupiesPlace && u.figure != attack.to);
+                if (anotherUnit != null) {
+                    Debug.LogFormat($"Swap cancelled: another unit on toLocation: {anotherUnit}");
+                    return;
+                }
+
+                anotherUnit = fromLocation.GetFigures<Unit>().FirstOrDefault(u => u.OccupiesPlace && u.figure != attack.from);
+                if (anotherUnit != null) {
+                    Debug.LogFormat($"Swap cancelled: another unit on fromLocation: {anotherUnit}");
+                    return;
+                }
+
                 List<Task> moves = new List<Task>();
                 if (attack.to != null) moves.Add(attack.to.Move(fromLocation));
                 if (attack.from != null) {
-                    await attack.from.GetComponent<Invulnerability>().Gain(1);
+                    moves.Add(attack.from.GetComponent<Invulnerability>().Gain(1));
                     moves.Add(attack.from.Move(toLocation));
                 }
 
