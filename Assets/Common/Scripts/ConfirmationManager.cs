@@ -11,6 +11,7 @@ public class ConfirmationManager : Singletone<ConfirmationManager>
     public GameObject winPanel;
     public GameObject losePanel;
     public GameObject startPanel;
+    public GameObject infoPanel;
     [SerializeField] private GameObject cancelButton;
 
     private TaskCompletionSource<bool> currentConfirmation;
@@ -31,14 +32,19 @@ public class ConfirmationManager : Singletone<ConfirmationManager>
         string message = null, 
         bool canCancel = true, 
         bool canConfirmByAnyButton = false, 
-        GameObject panel = null
+        GameObject panel = null,
+        Action customShow = null
     ) {
         if (currentConfirmation != null) {
             return false;
         }
         panel ??= confirmationPanel;
         Debug.LogFormat($"Show confirmation panel {message}");
-        panel.SetActive(true);
+        if (customShow == null) {
+            panel.SetActive(true);
+        } else {
+            customShow();
+        }
         if (message != null) {
             text.text = message;
         }

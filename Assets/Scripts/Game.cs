@@ -16,6 +16,8 @@ public class Game : MonoBehaviour
     public Player player;
     public GameEvents gameEvents;
 
+    public Unit lastAttackedMonster = null;
+
     public int storeCount = 4;
     public int storeRadius = 5;
 
@@ -112,6 +114,14 @@ public class Game : MonoBehaviour
 
     public async Task Lose() {
         MusicManager.instance.Switch(MusicManager.instance.losePlaylist);
+        if (lastAttackedMonster != null) {
+            await ConfirmationManager.instance.AskConfirmation(
+                canCancel: false,
+                panel: ConfirmationManager.instance.infoPanel,
+                customShow: () => InfoPanel.instance.Show(lastAttackedMonster.GetComponent<IExplainable>()),
+                canConfirmByAnyButton: true
+            );
+        }
         await ConfirmationManager.instance.AskConfirmation(panel: ConfirmationManager.instance.losePanel, canCancel: false);
         await GameManager.instance.metagame.Lose();
         await AskForNextRun();

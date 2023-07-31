@@ -55,6 +55,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8187696164521918999, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: description
+      value: '<b>Hornet</b>
+
+
+        Flying.
+
+        Wanders randomly.
+
+        Attacks
+        diagonally.'
+      objectReference: {fileID: 0}
     - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_FlipX
       value: 0

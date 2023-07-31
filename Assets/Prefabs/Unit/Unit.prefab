@@ -471,6 +471,7 @@ GameObject:
   - component: {fileID: 6228357564047688002}
   - component: {fileID: 6993851097530625865}
   - component: {fileID: 1321723963560301461}
+  - component: {fileID: 9203442263770805820}
   m_Layer: 7
   m_Name: Unit
   m_TagString: Untagged
@@ -607,6 +608,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 2486807970879454505}
   current: 0
+--- !u!114 &9203442263770805820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997731438463305082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d032ae700f34e8c47abd16bd5d6801f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 8733339169086531970}
+  description: '<b>Unknown creature</b>
+
+
+    Nobody knows who this creature is.'
 --- !u!1 &1010360575944433263
 GameObject:
   m_ObjectHideFlags: 0

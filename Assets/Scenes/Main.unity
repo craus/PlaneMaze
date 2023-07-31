@@ -5336,6 +5336,7 @@ MonoBehaviour:
   winPanel: {fileID: 5508735108531036200}
   losePanel: {fileID: 43194348951214236}
   startPanel: {fileID: 3526485577200785085}
+  infoPanel: {fileID: 4016489424431881855}
   cancelButton: {fileID: 649489724}
   currentPanel: {fileID: 0}
   canCancel: 0
@@ -10535,7 +10536,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!222 &4126464162727360744
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11159,15 +11160,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '<b>The Evil Lich</b>
+  m_text: '<b>What is this thing?</b>
 
 
-    Root of all evil.
-
-    Spawns skeletons.
-
-    Find
-    Phylactery first.'
+    Who knows?'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -11483,8 +11479,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 198.4627, y: 108.16141}
+  m_AnchoredPosition: {x: 0, y: -20.4299}
+  m_SizeDelta: {x: 303.9072, y: 149.0211}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7631640302661630397
 CanvasRenderer:

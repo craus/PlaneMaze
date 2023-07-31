@@ -630,6 +630,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8187696164521918999, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: description
+      value: '<b>Black Mage</b>
+
+
+        When monster dies inside his aura, he damages
+        all living creatures inside it.
+
+        Can eat ghosts to heal himself.
+
+        Teleports
+        away on hit.'
+      objectReference: {fileID: 0}
     - target: {fileID: 8430807191255413278, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -816,7 +829,6 @@ MonoBehaviour:
   teleportRadius: 8
   damageRadius: 4
   deathDamage: 1
-  ghostSample: {fileID: 3322402838831270810, guid: 26b7e0628829b604684f5107a4a9a1ff, type: 3}
   soulSample: {fileID: 7558257676500238022, guid: 09600dfc7b55c2a44bb8a6a21e6f1852, type: 3}
   healSample: {fileID: 7558257676500238022, guid: 79599bf405c35dc44bc7c36a841474b8, type: 3}
   chargedModels:
@@ -825,6 +837,7 @@ MonoBehaviour:
   unchargedModels:
   - {fileID: 8754131141155100624}
   charged: 0
+  chargedAtLeastTurnAgo: 0
 --- !u!4 &8590397742989534751 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1674795090200609426, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}

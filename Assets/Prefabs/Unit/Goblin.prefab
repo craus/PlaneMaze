@@ -243,6 +243,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goblin
       objectReference: {fileID: 0}
+    - target: {fileID: 6947227257763931431, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8185433379572143715, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -287,6 +291,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8187696164521918999, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: description
+      value: "<b>Goblin</b>\n\nWalks in one direction, changes it when stuck. \nAttacks
+        you only on the way."
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
 --- !u!1 &3779733514770610497 stripped
@@ -307,6 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lastMove: {x: 0, y: 0}
+  soul: 1
   figure: {fileID: 0}
   alive: 1
   attackProjectile: {fileID: 7558257676500238022, guid: cfc4e3f00b8a52448b747c87fa87ae29, type: 3}
