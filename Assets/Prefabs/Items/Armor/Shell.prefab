@@ -9,11 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1710125306432267668, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: maxPrice
-      value: 15
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1710125306432267668, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: minPrice
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2252660109841114050, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Enabled
@@ -94,7 +94,7 @@ PrefabInstance:
         Armor
 
 
-        Gains 7 invulnerability when
+        Gains 8 invulnerability when
         taken damage.'
       objectReference: {fileID: 0}
     - target: {fileID: 6325338422616382079, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
@@ -136,4 +136,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eb04b67452b09341af7eab7fad1af51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invulnerabilityDuration: 7
+  invulnerabilityDuration: 8
