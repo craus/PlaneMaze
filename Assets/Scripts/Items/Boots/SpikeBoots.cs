@@ -16,12 +16,14 @@ public class SpikeBoots : MonoBehaviour
         GetComponent<Item>().beforeDrop.Add(BeforeDrop);
     }
 
-    private async Task AfterPick() {
+    private Task AfterPick() {
         GetComponent<Item>().Owner.afterTakeAction.Add(AfterOwnerTakeAction);
+        return Task.CompletedTask;
     }
 
-    private async Task BeforeDrop() {
+    private Task BeforeDrop() {
         GetComponent<Item>().Owner.afterTakeAction.Remove(AfterOwnerTakeAction);
+        return Task.CompletedTask;
     }
 
     public void OnDestroy() {
@@ -35,9 +37,17 @@ public class SpikeBoots : MonoBehaviour
             var moveDirection = walk.to.position - walk.from.position;
             var target = walk.to.Shift(moveDirection).GetFigure<Monster>(m => m.Vulnerable);
             if (target != null) {
-                SoundManager.instance.spikeBootsAttack.Play();
-                await target.GetComponent<Health>().Hit(damage);
+                var result = await Attack(new Attack(moveDirection, GetComponent<Item>().Owner.figure, target.figure, walk.to, target.figure.location, damage));
             }
         }
+    }
+
+    private async Task<bool> Attack(Attack attack) {
+        if (!Game.CanAttack(GetComponent<Item>().Owner, attack.to.GetComponent<Unit>())) {
+            return false;
+        }
+        SoundManager.instance.spikeBootsAttack.Play();
+        await GetComponent<Item>().Owner.Attack(attack);
+        return true;
     }
 }
