@@ -39,6 +39,7 @@ public class BootsOfSprint : MonoBehaviour
             var moveDirection = walk.to.position - walk.from.position;
             if (moveDirection == lastMove) {
                 if (GetComponent<Item>().Owner.GetComponent<MovesReserve>().Current <= 0) {
+                    lastMove = Vector2Int.zero;
                     await GetComponent<Item>().Owner.GetComponent<MovesReserve>().Haste(1);
                 }
             } else {
