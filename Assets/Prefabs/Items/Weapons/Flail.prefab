@@ -107,6 +107,8 @@ PrefabInstance:
       propertyPath: description
       value: '<b>Flail</b>
 
+        Weapon
+
 
         Straight and diagonal attack.
 

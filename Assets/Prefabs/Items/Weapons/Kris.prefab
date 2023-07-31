@@ -99,6 +99,8 @@ PrefabInstance:
       propertyPath: description
       value: '<b>Kris</b>
 
+        Weapon
+
 
         Diagonal attack.'
       objectReference: {fileID: 0}

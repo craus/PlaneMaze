@@ -91,11 +91,13 @@ PrefabInstance:
       propertyPath: description
       value: '<b>Spear</b>
 
+        Weapon
+
 
         Attack range 2.
 
-        Cannot attack at range
-        1.
+        Cannot
+        attack at range 1.
 
         Gain extra move and disarm 1.'
       objectReference: {fileID: 0}

@@ -75,6 +75,8 @@ PrefabInstance:
       propertyPath: description
       value: '<b>Sword</b>
 
+        Weapon
+
 
         No special traits.'
       objectReference: {fileID: 0}

@@ -99,6 +99,8 @@ PrefabInstance:
       propertyPath: description
       value: '<b>Healing potion</b>
 
+        Consumable
+
 
         Heals 1.'
       objectReference: {fileID: 0}
@@ -148,6 +150,8 @@ MonoBehaviour:
   healSample: {fileID: 7558257676500238022, guid: 79599bf405c35dc44bc7c36a841474b8, type: 3}
   heal: 1
   fullHealDescription: '<b>Healing potion</b>
+
+    Consumable
 
 
     Fully heals.'

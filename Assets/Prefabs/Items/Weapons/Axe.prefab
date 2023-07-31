@@ -99,6 +99,8 @@ PrefabInstance:
       propertyPath: description
       value: '<b>Axe</b>
 
+        Weapon
+
 
         Straight and diagonal attack.
 

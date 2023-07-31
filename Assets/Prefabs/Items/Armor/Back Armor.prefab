@@ -91,6 +91,8 @@ PrefabInstance:
       propertyPath: description
       value: '<b>Back armor</b>
 
+        Armor
+
 
         Protection from behind.
 

@@ -95,6 +95,8 @@ PrefabInstance:
       propertyPath: description
       value: '<b>Ring of Health</b>
 
+        Accessory
+
 
         +2 health whle worn.
 

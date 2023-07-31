@@ -91,10 +91,13 @@ PrefabInstance:
       propertyPath: description
       value: '<b>Mantle</b>
 
+        Armor
+
 
         Teleport when attacked.
 
-        Cooldown 16.'
+        Cooldown
+        16.'
       objectReference: {fileID: 0}
     - target: {fileID: 6325338422616382079, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Name
