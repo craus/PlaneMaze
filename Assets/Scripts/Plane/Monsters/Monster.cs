@@ -11,6 +11,9 @@ public abstract class Monster : Unit
 
     public int movesSinceLastHeal = 100500;
 
+    public int movesSinceHitToHeal = 3;
+    public int healCooldown = 3;
+
     public override bool BenefitsFromTerrain => base.BenefitsFromTerrain && GameManager.instance.metagame.Ascention<MonstersBenefitFromTerrain>();
 
     protected async Task<bool> SmartWalk(Vector2Int delta) {
@@ -93,8 +96,8 @@ public abstract class Monster : Unit
 
         if (Metagame.instance.Ascention<MonstersHeal>()) {
             if (
-                movesSinceLastHit >= Metagame.instance.MovesSinceHitToMonsterHeal &&
-                movesSinceLastHeal >= Metagame.instance.MonsterHealCooldown
+                movesSinceLastHit >= movesSinceHitToHeal &&
+                movesSinceLastHeal >= healCooldown
             ) {
                 await GetComponent<Health>().Heal(1);
                 movesSinceLastHeal = 0;

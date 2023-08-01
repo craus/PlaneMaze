@@ -40,9 +40,6 @@ public class Metagame : MonoBehaviour
     public float PricesMultiplier => Ascention<QuadrupleMapAndPrices>() ? 1 : 0.25f;
     public int WorldSize => Ascention<QuadrupleMapAndPrices>() ? 1000 : 250;
 
-    public int MovesSinceHitToMonsterHeal => 3;
-    public int MonsterHealCooldown => 3;
-
     public static Metagame Load(MetagameModel model) {
         var result = Instantiate(Library.instance.metagameSample);
 
