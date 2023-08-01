@@ -26,6 +26,7 @@ public class Library : Singletone<Library>
     public MonstersHeal monstersHeal;
     public MoreMonsters moreMonsters;
     public MaskedTerrain maskedTerrain;
+    public FasterMonsters fasterMonsters;
 
     public List<Ascention> ascentions;
     public List<Ascention> additionalAscentions;

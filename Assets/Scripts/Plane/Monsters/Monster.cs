@@ -138,6 +138,11 @@ public abstract class Monster : Unit
                 return;
             }
         }
+        if (Metagame.instance.Ascention<FasterMonsters>()) {
+            if (Rand.rndEvent(0.1f)) {
+                await GetComponent<MovesReserve>().Haste(1);
+            }
+        }
     }
 
     protected override async Task AfterDie() {
