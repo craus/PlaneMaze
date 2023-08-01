@@ -84,7 +84,7 @@ public class Item : MonoBehaviour, IExplainable
         Inventory.instance.items.Add(this);
         Debug.LogFormat("item is picked");
         Debug.LogFormat($"item owner is {Owner}");
-        _ = GetComponent<Figure>().Move(null, isTeleport: true);
+        await GetComponent<Figure>().Move(null, isTeleport: true);
         UpdateModelVisible();
 
         await Task.WhenAll(afterPick.Select(listener => listener()).ToArray());

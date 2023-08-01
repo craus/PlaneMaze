@@ -245,13 +245,13 @@ public class Game : MonoBehaviour
         //await commandToContinue;
     }
 
-    public void Update() {
+    public async void Update() {
         if (Cheats.on) {
             if (Input.GetKeyDown(KeyCode.W)) {
-                _ = Win();
+                await Win();
             }
             if (Input.GetKeyDown(KeyCode.L)) {
-                _ = Lose();
+                await Lose();
             }
         }
     }

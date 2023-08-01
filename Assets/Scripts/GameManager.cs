@@ -14,6 +14,10 @@ public class GameManager : Singletone<GameManager>
 
     public const string savefileName = "savefile.dat";
 
+    public void Awake() {
+        System.Threading.Tasks.TaskScheduler.UnobservedTaskException += (_, e) => Debug.LogException(e.Exception);
+    }
+
     public async void Start() {
         var metagameModel = FileManager.LoadFromFile<MetagameModel>(savefileName);
         if (metagameModel == null) {
