@@ -27,6 +27,7 @@ public class Library : Singletone<Library>
     public MoreMonsters moreMonsters;
     public MaskedTerrain maskedTerrain;
     public FasterMonsters fasterMonsters;
+    public NoStartingWeapon noStartingWeapon;
 
     public List<Ascention> ascentions;
     public List<Ascention> additionalAscentions;
