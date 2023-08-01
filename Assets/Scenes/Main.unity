@@ -10374,6 +10374,7 @@ MonoBehaviour:
   playerDontBenefitFromTerrain: {fileID: 2146105846518019366, guid: bfe79ad598111a7409d86fb712bf0cae, type: 3}
   monstersHeal: {fileID: 744721756955081251, guid: 2843bf68b377bd0409cc690079a340eb, type: 3}
   moreMonsters: {fileID: -2810169091702243089, guid: 7dd3ec381f8f2cc4d98c0f6713cc72f7, type: 3}
+  maskedTerrain: {fileID: 1030525217648992693, guid: 0fef9cd2118d3cd4692e2f887fedd5c1, type: 3}
   ascentions:
   - {fileID: 4213821068845423089, guid: 0c39cd28829c9f24e93277f4ec200c7f, type: 3}
   - {fileID: -2404006346114596123, guid: e13371df6dcf6be48b36ee5b436897e9, type: 3}
@@ -10387,6 +10388,7 @@ MonoBehaviour:
   - {fileID: 2146105846518019366, guid: bfe79ad598111a7409d86fb712bf0cae, type: 3}
   - {fileID: 744721756955081251, guid: 2843bf68b377bd0409cc690079a340eb, type: 3}
   - {fileID: -2810169091702243089, guid: 7dd3ec381f8f2cc4d98c0f6713cc72f7, type: 3}
+  - {fileID: 1030525217648992693, guid: 0fef9cd2118d3cd4692e2f887fedd5c1, type: 3}
   teleportExit: {fileID: 4531213152577544949, guid: aac330b5c48ccd24d89197cfc487c7e9, type: 3}
 --- !u!1 &1515743436
 GameObject:

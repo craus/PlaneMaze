@@ -25,6 +25,7 @@ public class Library : Singletone<Library>
     public PlayerDontBenefitFromTerrain playerDontBenefitFromTerrain;
     public MonstersHeal monstersHeal;
     public MoreMonsters moreMonsters;
+    public MaskedTerrain maskedTerrain;
 
     public List<Ascention> ascentions;
     public List<Ascention> additionalAscentions;

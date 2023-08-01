@@ -14,6 +14,7 @@ public class Swamp : Terrain
                     SoundManager.instance.swampDebuff.Play();
                 }
                 await victim.GetComponent<MovesReserve>().Freeze(1);
+                GetComponent<Masked>().Trigger();
             }
         };
     }
