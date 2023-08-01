@@ -26,6 +26,8 @@ public class Player : Unit
 
     public override bool Vulnerable => base.Vulnerable && !permanentInvulnerability;
 
+    public override bool BenefitsFromTerrain => base.BenefitsFromTerrain && !GameManager.instance.metagame.Ascention<PlayerDontBenefitFromTerrain>();
+
     public async Task Take(Item item) {
         await item.Pick();
     }

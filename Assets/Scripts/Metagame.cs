@@ -57,7 +57,7 @@ public class Metagame : MonoBehaviour
     public async Task Win() {
         runInProgress = false;
         losesWithNoPenalty = 0;
-        if (Library.instance.ascentions.Any(a => a.CanAdd(this))) {
+        if (Library.instance.AllAscentions.Any(a => a.CanAdd(this))) {
             await AddRandomAscention();
         } else {
             await ConfirmationManager.instance.AskConfirmation(
@@ -113,7 +113,7 @@ public class Metagame : MonoBehaviour
     }
 
     public async Task AddRandomAscention() {
-        var newAscention = Library.instance.ascentions.Where(a => a.CanAdd(this)).Rnd();
+        var newAscention = Library.instance.AllAscentions.Where(a => a.CanAdd(this)).Rnd();
         await ConfirmationManager.instance.AskConfirmation($"New ascention added: {newAscention.name}", canCancel: false);
         ascentions.Add(newAscention);
         MainUI.instance.UpdateAscentionsList();

@@ -22,8 +22,12 @@ public class Library : Singletone<Library>
     public QuadrupleMapAndPrices quadrupleMapAndPrices;
     public MonstersBenefitFromTerrain monstersBenefitFromTerrain;
     public FasterBoss fasterBoss;
+    public PlayerDontBenefitFromTerrain playerDontBenefitFromTerrain;
 
     public List<Ascention> ascentions;
+    public List<Ascention> additionalAscentions;
+
+    public IEnumerable<Ascention> AllAscentions => ascentions.Concat(additionalAscentions);
 
     public GameObject teleportExit;
 }
