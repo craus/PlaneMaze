@@ -29,8 +29,8 @@ public class BlackMage : Monster
     }
 
     private void UpdateIcon() {
-        chargedModels.ForEach(go => go.SetActive(charged));
-        unchargedModels.ForEach(go => go.SetActive(!charged));
+        chargedModels.ForEach(go => go.SetActive(chargedAtLeastTurnAgo));
+        unchargedModels.ForEach(go => go.SetActive(!chargedAtLeastTurnAgo));
     }
 
     public override async Task Hit(Attack attack) {
@@ -124,12 +124,14 @@ public class BlackMage : Monster
             await DealDeathDamage();
             if (charged) {
                 chargedAtLeastTurnAgo = true;
+                UpdateIcon();
                 return;
             }
             return;
         }
         if (charged) {
             chargedAtLeastTurnAgo = true;
+            UpdateIcon();
             return;
         }
 
