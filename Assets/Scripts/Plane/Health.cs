@@ -61,6 +61,9 @@ public class Health : MonoBehaviour
             }
         }
         if (GetComponent<Player>() != null) {
+            if (Metagame.instance.Ascention<PlayerHasLessHealth>()) {
+                current = max = 3;
+            }
             //current = max = ascentionHealth[Mathf.Clamp(Game.instance.Ascentions<PlayerHasLessHealth>(), 0, ascentionHealth.Count - 1)];
         }
         UpdateHearts();
