@@ -23,6 +23,7 @@ public class Library : Singletone<Library>
     public MonstersBenefitFromTerrain monstersBenefitFromTerrain;
     public FasterBoss fasterBoss;
     public PlayerDontBenefitFromTerrain playerDontBenefitFromTerrain;
+    public MonstersHeal monstersHeal;
 
     public List<Ascention> ascentions;
     public List<Ascention> additionalAscentions;

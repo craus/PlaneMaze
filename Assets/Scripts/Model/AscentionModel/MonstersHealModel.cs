@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class AcceleratingGhostSpawns : GenericAscention<AcceleratingGhostSpawnsModel>
+[Serializable]
+public class MonstersHealModel : AscentionModel
 {
+    public override Ascention Sample => Library.instance.monstersHeal;
 }

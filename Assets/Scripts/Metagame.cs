@@ -9,6 +9,7 @@ using UnityEngine.Events;
 
 public class Metagame : MonoBehaviour
 {
+    public static Metagame instance => GameManager.instance.metagame;
 
     public List<Ascention> ascentions;
     public bool pickingPhase;
@@ -38,6 +39,9 @@ public class Metagame : MonoBehaviour
 
     public float PricesMultiplier => Ascention<QuadrupleMapAndPrices>() ? 1 : 0.25f;
     public int WorldSize => Ascention<QuadrupleMapAndPrices>() ? 1000 : 250;
+
+    public int MovesSinceHitToMonsterHeal => 3;
+    public int MonsterHealCooldown => 3;
 
     public static Metagame Load(MetagameModel model) {
         var result = Instantiate(Library.instance.metagameSample);
@@ -113,6 +117,8 @@ public class Metagame : MonoBehaviour
     }
 
     public async Task AddRandomAscention() {
+        var addable = Library.instance.AllAscentions.Where(a => a.CanAdd(this)).ToList();
+        Debug.LogFormat(addable.ExtToString());
         var newAscention = Library.instance.AllAscentions.Where(a => a.CanAdd(this)).Rnd();
         await ConfirmationManager.instance.AskConfirmation($"New ascention added: {newAscention.name}", canCancel: false);
         ascentions.Add(newAscention);
@@ -121,7 +127,7 @@ public class Metagame : MonoBehaviour
     }
 
     public async Task RemoveRandomAscention() {
-        var removingAscention = ascentions.Rnd();
+        var removingAscention = ascentions.Where(a => a.CanRemove(this)).Rnd();
         await ConfirmationManager.instance.AskConfirmation($"Ascention removed: {removingAscention.name}", canCancel: false);
         ascentions.Remove(removingAscention);
         MainUI.instance.UpdateAscentionsList();

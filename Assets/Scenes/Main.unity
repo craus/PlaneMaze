@@ -10372,6 +10372,7 @@ MonoBehaviour:
   monstersBenefitFromTerrain: {fileID: 4967101084334712313, guid: 3e969fc2ba02a024cae1baefb7761ab2, type: 3}
   fasterBoss: {fileID: 6809913866966087731, guid: 9e2ca3edd2c38eb4b997cfb34e0ad490, type: 3}
   playerDontBenefitFromTerrain: {fileID: 2146105846518019366, guid: bfe79ad598111a7409d86fb712bf0cae, type: 3}
+  monstersHeal: {fileID: 744721756955081251, guid: 2843bf68b377bd0409cc690079a340eb, type: 3}
   ascentions:
   - {fileID: 4213821068845423089, guid: 0c39cd28829c9f24e93277f4ec200c7f, type: 3}
   - {fileID: -2404006346114596123, guid: e13371df6dcf6be48b36ee5b436897e9, type: 3}
@@ -10383,6 +10384,7 @@ MonoBehaviour:
   - {fileID: 6809913866966087731, guid: 9e2ca3edd2c38eb4b997cfb34e0ad490, type: 3}
   additionalAscentions:
   - {fileID: 2146105846518019366, guid: bfe79ad598111a7409d86fb712bf0cae, type: 3}
+  - {fileID: 744721756955081251, guid: 2843bf68b377bd0409cc690079a340eb, type: 3}
   teleportExit: {fileID: 4531213152577544949, guid: aac330b5c48ccd24d89197cfc487c7e9, type: 3}
 --- !u!1 &1515743436
 GameObject:
