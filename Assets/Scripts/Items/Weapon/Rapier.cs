@@ -16,7 +16,9 @@ public class Rapier : Weapon
     public override async Task BeforeAttack(Attack attack) => await Owner.figure.TryWalk(attack.delta);
     public override async Task AfterAttack(Attack attack) {
         await base.AfterAttack(attack);
-        await Owner.GetComponent<MovesReserve>().Haste(1);
+        if (Owner != null) {
+            await Owner.GetComponent<MovesReserve>().Haste(1);
+        }
     }
 
     public override Cell AttackLocation(Vector2Int delta, Unit target) => Owner.figure.location.Shift(delta);
