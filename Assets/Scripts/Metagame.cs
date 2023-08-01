@@ -37,8 +37,14 @@ public class Metagame : MonoBehaviour
 
     public float HealingPotionSpawnProbability => Ascention<NoFreeHealingPotions>() ? 0 : 0.004f;
 
-    public float PricesMultiplier => Ascention<QuadrupleMapAndPrices>() ? 1 : 0.25f;
+    public float PricesMultiplier => 
+        Mathf.Pow(4, Ascentions<QuadrupleMapAndPrices>()) *
+        Mathf.Pow(2, Ascentions<MoreMonsters>()) *
+        0.25f;
+
     public int WorldSize => Ascention<QuadrupleMapAndPrices>() ? 1000 : 250;
+
+    public float MonsterProbability => Ascention<MoreMonsters>() ? 0.2f : 0.1f;
 
     public static Metagame Load(MetagameModel model) {
         var result = Instantiate(Library.instance.metagameSample);

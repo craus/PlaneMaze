@@ -390,7 +390,7 @@ public class Game : MonoBehaviour
             return;
         }
 
-        if (cell.position.magnitude > 6 && Rand.rndEvent(0.1f)) {
+        if (cell.position.magnitude > 6 && Rand.rndEvent(Metagame.instance.MonsterProbability)) {
             GenerateFigure(cell, monsterSamples.rnd());
         } else if (Rand.rndEvent(0.004f)) {
             GenerateFigure(cell, weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().fieldWeight));
