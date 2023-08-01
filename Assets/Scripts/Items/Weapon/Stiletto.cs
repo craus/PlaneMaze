@@ -15,7 +15,9 @@ public class Stiletto : Weapon
             if (!await Owner.figure.TryWalk(-delta)) {
                 await Owner.figure.FakeMove(-delta);
             } else {
-                await Owner.GetComponent<MovesReserve>().Haste(1);
+                if (Owner.alive) {
+                    await Owner.GetComponent<MovesReserve>().Haste(1);
+                }
             }
         }
         return true;
