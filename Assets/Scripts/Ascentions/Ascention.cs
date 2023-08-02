@@ -8,6 +8,8 @@ using UnityEngine.Events;
 
 public abstract class Ascention : MonoBehaviour
 {
+    public string abbreviation;
+
     public int maxLevel = 1;
 
     public static Ascention Load(AscentionModel model) {

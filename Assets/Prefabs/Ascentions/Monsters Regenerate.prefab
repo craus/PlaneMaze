@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2218484981513858612}
-  - component: {fileID: 1030525217648992693}
+  - component: {fileID: 744721756955081251}
   m_Layer: 0
-  m_Name: Masked Terrain
+  m_Name: Monsters Regenerate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1030525217648992693
+--- !u!114 &744721756955081251
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2218484981513858614}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6497b9b5cb0164489fd3e7cc4673223, type: 3}
+  m_Script: {fileID: 11500000, guid: 5711873bed20d5b49805392946461364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abbreviation: Mr
   maxLevel: 1

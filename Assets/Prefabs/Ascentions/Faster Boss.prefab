@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd60a270d07762d41975f79379c07882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abbreviation: Fb
   maxLevel: 1

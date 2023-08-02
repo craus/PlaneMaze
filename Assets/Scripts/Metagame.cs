@@ -15,6 +15,7 @@ public class Metagame : MonoBehaviour
     public bool pickingPhase;
     public int losesWithNoPenalty = 0;
     public bool runInProgress = false;
+    public bool hardcore = false;
 
     public Game game;
 
@@ -22,7 +23,7 @@ public class Metagame : MonoBehaviour
     internal int Ascentions<T>() where T : Ascention => ascentions.Count(a => a is T);
 
 
-    public int LosesRequiredForPenalty => 4;
+    public int LosesRequiredForPenalty => hardcore ? 1 : 4;
     public bool DropLosesOnWin => true;
 
     public bool SpawnGhosts => true; // Ascention<GhostSpawns>();
@@ -45,13 +46,25 @@ public class Metagame : MonoBehaviour
     public int WorldSize => Ascention<QuadrupleMapAndPrices>() ? 1000 : 250;
 
     public float MonsterProbability => Ascention<MoreMonsters>() ? 0.2f : 0.1f;
+    
+    public MetagameModel ConvertToModel() {
+        var result = new MetagameModel {
+            pickingPhase = pickingPhase,
+            losesWithNoPenalty = losesWithNoPenalty,
+            runInProgress = runInProgress,
+            hardcore = hardcore,
+            ascentions = ascentions.Select(a => a.Save()).ToList()
+        };
+        return result;
+    }
 
-    public static Metagame Load(MetagameModel model) {
+    public static Metagame ConvertFromModel(MetagameModel model) {
         var result = Instantiate(Library.instance.metagameSample);
 
         result.pickingPhase = model.pickingPhase;
         result.losesWithNoPenalty = model.losesWithNoPenalty;
         result.runInProgress = model.runInProgress;
+        result.hardcore = model.hardcore;
 
         foreach (var a in model.ascentions) {
             var ascention = global::Ascention.Load(a);
@@ -59,6 +72,17 @@ public class Metagame : MonoBehaviour
         }
 
         return result;
+    }
+
+    public void SwitchToHardcore() {
+        hardcore = true;
+        ascentions.Clear();
+        GameManager.instance.SaveMetagame();
+    }
+
+    public void SwitchToSoftcore() {
+        hardcore = false;
+        GameManager.instance.SaveMetagame();
     }
 
     public async Task Win() {
@@ -99,16 +123,6 @@ public class Metagame : MonoBehaviour
         await Lose();
     }
 
-    public MetagameModel Save() {
-        var result = new MetagameModel {
-            pickingPhase = pickingPhase,
-            losesWithNoPenalty = losesWithNoPenalty,
-            runInProgress = runInProgress,
-            ascentions = ascentions.Select(a => a.Save()).ToList()
-        };
-        return result;
-    }
-
     public int AscentionLevel(Ascention ascention) {
         return ascentions.Count(a => a == ascention);
     }
@@ -138,4 +152,5 @@ public class Metagame : MonoBehaviour
     }
 
     internal string AscentionsList() => string.Join('\n', ascentions.Unique().Select(a => $"{AscentionLevelString(a)}{a.name}"));
+    internal string ShortAscensionsList() => string.Join("", ascentions.Unique().Select(a => $"{AscentionLevelString(a)}{a.abbreviation}"));
 }

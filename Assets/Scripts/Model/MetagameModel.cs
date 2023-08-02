@@ -13,4 +13,5 @@ public class MetagameModel : Model
     public bool pickingPhase = false;
     public int losesWithNoPenalty = 0;
     public bool runInProgress = false;
+    public bool hardcore = false;
 }
