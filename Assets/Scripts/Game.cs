@@ -291,6 +291,7 @@ public class Game : MonoBehaviour
 
     public IEnumerable<Cell> AntiEdgesSquare(Cell cell) => cell.Neighbours().Where(MakesSquare).Union(Diagonals(cell).Where(MakesSquare));
 
+    public List<Cell> border;
     private IEnumerable<Cell> BorderCells(IEnumerable<Cell> cells) {
         var start = cells.MinBy(c => c.position.x).Shift(Vector2Int.left);
         var current = start;
@@ -301,13 +302,19 @@ public class Game : MonoBehaviour
                 current = current.Shift(direction + direction.RotateRight());
                 direction = direction.RotateRight();
                 result.Add(current);
+                border.Add(current);
             } else if (current.Shift(direction).Wall) {
                 current = current.Shift(direction);
                 result.Add(current);
+                border.Add(current);
             } else {
                 direction = direction.RotateLeft();
             }
+            if (current == start) {
+                return result;
+            }
         }
+        UnityEngine.Debug.LogError("Too many iterations for border!");
         return result;
     }
 
