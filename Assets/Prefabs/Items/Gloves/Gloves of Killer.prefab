@@ -103,7 +103,7 @@ PrefabInstance:
 
 
         Each kill gives you
-        invulnerability 2 and extra move.'
+        invulnerability 4 and 3 extra moves.'
       objectReference: {fileID: 0}
     - target: {fileID: 6325338422616382079, guid: c7cfa29e897cd3642ab7779f6cae5cca, type: 3}
       propertyPath: m_Name
