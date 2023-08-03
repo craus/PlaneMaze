@@ -30,7 +30,11 @@ public class Health : MonoBehaviour
             } else if (GetComponent<Lich>() != null) {
                 SoundManager.instance.lichDeath.Play();
             } else if (GetComponent<Monster>() != null) {
-                SoundManager.instance.monsterDeath.Play();
+                if (GetComponent<Tree>() != null || GetComponent<Coffin>() != null) {
+                    SoundManager.instance.woodCrash.Play();
+                } else {
+                    SoundManager.instance.monsterDeath.Play();
+                }
             }
             await GetComponent<IMortal>().Die();
         } else {
