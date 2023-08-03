@@ -52,7 +52,7 @@ public static class Helpers
     }
 
     public static async Task Delay(float seconds) {
-        await Task.Delay((int)(500 * seconds / Mathf.Pow(2, Player.instance != null ? Player.instance.commands.Count : 0) / animationSpeed));
+        await DelayManager.Delay(seconds / Mathf.Pow(2, Player.instance != null ? Player.instance.commands.Count : 0) / animationSpeed / 2);
     }
 
     public static Vector2Int StepAtDirection(this Vector2Int v) {
