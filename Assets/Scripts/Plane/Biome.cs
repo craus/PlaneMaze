@@ -6,6 +6,12 @@ using UnityEngine;
 
 public class Biome : MonoBehaviour
 {
+    [SerializeField] private int size;
+    public int Size => (int)(Metagame.instance.WorldSizeMultiplier * size);
+
     public GameObject floorModel;
     public GameObject wallModel;
+
+    public List<Weighted<Monster>> monsterSamples;
+    public List<Weighted<Terrain>> terrainSamples;
 }

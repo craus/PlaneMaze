@@ -44,5 +44,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8e637bc03272340a63349af45592cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size: 1000
   floorModel: {fileID: 5685242771666706728, guid: 1ea1a59afff5bbc49a8be1557dffced5, type: 3}
   wallModel: {fileID: 7220744591516548407, guid: 9199c06f2df328243ab9797e7b83c9d7, type: 3}
+  monsterSamples:
+  - to: {fileID: 6890977442324438375, guid: c20889cbfbb445e45bd15ee55940c8c3, type: 3}
+    weight: 1
+  - to: {fileID: 6214775180543025106, guid: 90cced61ae27bdb4f9e1d33a278c46c1, type: 3}
+    weight: 1
+  - to: {fileID: 5504667808349519680, guid: 14d5395e5f9830046ae12a7cd973091d, type: 3}
+    weight: 1
+  - to: {fileID: 792451774977223643, guid: 9bfa59c0dddfd244ab486a5a960146e6, type: 3}
+    weight: 1
+  - to: {fileID: 6890977442324438375, guid: a833328bf3c02ca45989ccef640d4fd6, type: 3}
+    weight: 1
+  - to: {fileID: 6890977442324438375, guid: 8221258f627dc424dae631737f19066b, type: 3}
+    weight: 1
+  - to: {fileID: 6890977442324438375, guid: 638b307a4da242e4f83533adda2c4c9c, type: 3}
+    weight: 1
+  - to: {fileID: 5504667808349519680, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
+    weight: 1
+  - to: {fileID: 8234422707921031841, guid: d7be61fe3df1d594f92d509649faff17, type: 3}
+    weight: 1
+  - to: {fileID: 6890977442324438375, guid: 397be5e282dbe5c449605312aa07e719, type: 3}
+    weight: 1
+  terrainSamples:
+  - to: {fileID: 5501922713185124398, guid: c734a55bf5c27474c970bba43e557bb5, type: 3}
+    weight: 1
+  - to: {fileID: 9132921212255644897, guid: 223d624819fa4cb48b529497b8cd0899, type: 3}
+    weight: 1
+  - to: {fileID: 9129382444693588269, guid: e7936b0df5ffd3f4880e94713105b336, type: 3}
+    weight: 1.5
+  - to: {fileID: 6966650289289424777, guid: f59eab0a7389a994e8ba824a40d06a3b, type: 3}
+    weight: 1
+  - to: {fileID: 6966650289289424777, guid: 2903a9a84d7fdd945a914e323e75a053, type: 3}
+    weight: 0.6
+  - to: {fileID: 7331006735911305571, guid: 7bc61387122bf8a4d98881ac1d382680, type: 3}
+    weight: 1

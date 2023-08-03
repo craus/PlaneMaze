@@ -79,8 +79,8 @@ public class Game : MonoBehaviour
         speed = 10000;
 
         cellOrderList = new List<Cell>();
-        await GenerateBiome(Library.instance.dungeon, Metagame.WorldSize, pauses: false);
-        await GenerateBiome(Library.instance.crypt, Metagame.WorldSize, pauses: false);
+        await GenerateBiome(Library.instance.dungeon, pauses: false);
+        await GenerateBiome(Library.instance.crypt, pauses: false);
         mainWorld.silentMode = true;
 
         for (int i = 0; i < storeCount; i++) {
@@ -311,7 +311,7 @@ public class Game : MonoBehaviour
         return BorderCells(cells).MinBy((a,b) => CellPrice(a.position) < CellPrice(b.position));
     }
 
-    private async Task GenerateBiome(Biome biome, int cnt, bool pauses = false) {
+    private async Task GenerateBiome(Biome biome, bool pauses = false) {
         var start = mainWorld.GetCell(Vector2Int.zero);
         if (cellOrderList.Count > 0) {
             start = CheapestBorderCell(cellOrderList);
@@ -323,17 +323,18 @@ public class Game : MonoBehaviour
                 .Select(c => new Algorithm.Weighted<Cell>(c, CellPrice(c.position))),
             antiEdges: c => Diagonals(c).Where(MakesCross).Union(Forbidden(c)),
             maxSteps: 100000
-        ).Take(cnt);
+        ).Take(biome.Size);
 
         int i = 0;
         foreach (Cell c in cellOrder) {
 
-            c.order = i;
+            cellOrderList.Add(c);
+            c.order = cellOrderList.Count-1;
+            c.orderInBiome = i;
             c.fieldCell.wall = false;
             c.biome = biome;
             c.UpdateBiome();
             c.UpdateCell();
-            cellOrderList.Add(c);
             AfterCellAdded(c);
             CameraControl.instance.followPoint = true;
             CameraControl.instance.pointToFollow = c.transform.position;
@@ -416,13 +417,13 @@ public class Game : MonoBehaviour
             GenerateFigure(cell, startingItemsSamples.First());
             startingItemsSamples.RemoveAt(0);
             return;
-        } else if (cell.order == Metagame.WorldSize - 1) {
+        } else if (cell.biome == Library.instance.crypt && cell.orderInBiome == Library.instance.crypt.Size-1) {
             GenerateFigure(cell, lichSample);
             return;
         }
 
         if (cell.position.magnitude > 6 && Rand.rndEvent(Metagame.instance.MonsterProbability)) {
-            GenerateFigure(cell, monsterSamples.rnd());
+            GenerateFigure(cell, cell.biome.monsterSamples.weightedRnd());
         } else if (Rand.rndEvent(0.004f)) {
             GenerateFigure(cell, weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().fieldWeight));
         } else if (Rand.rndEvent(Metagame.HealingPotionSpawnProbability)) {
@@ -430,7 +431,7 @@ public class Game : MonoBehaviour
         } else if (Rand.rndEvent(0)) {
             GenerateFigure(cell, itemSamples.rnd());
         } else if (Rand.rndEvent(0.3f)) {
-            GenerateFigure(cell, terrainSamples.weightedRnd());
+            GenerateFigure(cell, cell.biome.terrainSamples.weightedRnd());
         }
     }
 

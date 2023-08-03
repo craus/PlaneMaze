@@ -19,6 +19,7 @@ public class Cell : MonoBehaviour
 
     public Vector2Int position;
     public int order = -1;
+    public int orderInBiome = -1;
 
     public FieldCell fieldCell;
     public Board board;

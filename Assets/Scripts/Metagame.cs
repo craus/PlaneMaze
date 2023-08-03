@@ -43,7 +43,7 @@ public class Metagame : MonoBehaviour
         Mathf.Pow(2, Ascentions<MoreMonsters>()) *
         0.25f;
 
-    public int WorldSize => Ascention<QuadrupleMapAndPrices>() ? 1000 : 250;
+    public float WorldSizeMultiplier => Ascention<QuadrupleMapAndPrices>() ? 1 : 0.25f;
 
     public float MonsterProbability => Ascention<MoreMonsters>() ? 0.2f : 0.1f;
     
