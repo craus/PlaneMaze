@@ -89,11 +89,7 @@ public abstract class Monster : Unit
     protected virtual async Task MakeMove() {
     }
 
-    private async Task MoveInternal() {
-        await GetComponent<Disarm>().Spend(1);
-        movesSinceLastHeal++;
-        movesSinceLastHit++;
-
+    private async Task Regenerate() {
         if (Metagame.instance.Ascention<MonstersHeal>()) {
             if (
                 movesSinceLastHit >= movesSinceHitToHeal &&
@@ -103,8 +99,15 @@ public abstract class Monster : Unit
                 movesSinceLastHeal = 0;
             }
         }
+    }
 
+    private async Task MoveInternal() {
+        movesSinceLastHeal++;
+        movesSinceLastHit++;
+        await Regenerate();
         await MakeMove();
+        await GetComponent<Disarm>().Spend(1);
+        await GetComponent<Root>().Spend(1);
     }
 
     public async Task Move() {

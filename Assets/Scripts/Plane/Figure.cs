@@ -32,6 +32,9 @@ public class Figure : MonoBehaviour
     }
 
     public async Task<bool> TryWalk(Vector2Int delta, Func<Cell, bool> free = null) {
+        if (GetComponent<Root>().Current > 0) {
+            return false;
+        }
         free ??= c => c.Free;
         var oldPosition = location;
         var newPosition = location.Shift(delta);

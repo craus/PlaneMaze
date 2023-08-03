@@ -1546,6 +1546,8 @@ MonoBehaviour:
     weight: 0.3
   - to: {fileID: 1881276151569630265, guid: 223d624819fa4cb48b529497b8cd0899, type: 3}
     weight: 0.3
+  - to: {fileID: 1881276151569630265, guid: f5c10761811c02e43bb761a7b6ce8936, type: 3}
+    weight: 0.3
   portalSample: {fileID: 7110139304582582606, guid: 89231564c7a6d1940a474861eddb4b29, type: 3}
   healingPotionSample: {fileID: 2665230306910546025, guid: c54196d8a6cfbdc49a2ae0a059098cd4, type: 3}
   paidCellSample: {fileID: 3795892648448291814, guid: a1a62b1b04267d3448d1031ee1297b0f, type: 3}

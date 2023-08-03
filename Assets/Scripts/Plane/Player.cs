@@ -154,6 +154,7 @@ public class Player : Unit
             return;
         }
         await GetComponent<Disarm>().Spend(1);
+        await GetComponent<Root>().Spend(1);
         await GetComponent<Invulnerability>().Spend(1);
     }
 
