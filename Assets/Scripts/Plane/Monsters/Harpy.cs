@@ -30,7 +30,7 @@ public class Harpy : Monster
     }
 
     protected override async Task MakeMove() {
-        var delta = moves.Rnd();
+        var delta = Moves.Rnd();
         if (await TryAttack(delta)) {
             return;
         }

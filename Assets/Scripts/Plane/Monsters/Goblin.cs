@@ -11,7 +11,7 @@ public class Goblin : Monster
 
     public override void Awake() {
         base.Awake();
-        currentDirection = moves.Rnd();
+        currentDirection = Moves.Rnd();
         UpdateSprite();
     }
 
@@ -28,7 +28,7 @@ public class Goblin : Monster
         if (!await SmartWalk(currentDirection)) {
             if (!await TryAttack(currentDirection)) {
                 await SmartFakeMove(currentDirection);
-                currentDirection = moves.Rnd(m => figure.location.Shift(m).Free);
+                currentDirection = Moves.Rnd(m => figure.location.Shift(m).Free);
                 UpdateSprite();
             }
         }

@@ -14,7 +14,7 @@ public class Yeti : Monster
 
     public override void Awake() {
         base.Awake();
-        currentDirection = moves.Rnd();
+        currentDirection = Moves.Rnd();
         UpdateSprite();
     }
 

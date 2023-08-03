@@ -79,7 +79,7 @@ public abstract class Monster : Unit
         return true;
     }
 
-    protected List<Vector2Int> moves = new List<Vector2Int>() {
+    protected virtual List<Vector2Int> Moves => new List<Vector2Int>() {
         Vector2Int.up,
         Vector2Int.down,
         Vector2Int.right,
