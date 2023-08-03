@@ -9,7 +9,7 @@ public class ShallowGrave : Terrain
     public void Awake() {
         GetComponent<Figure>().collide = async (from, figure) => {
             var victim = figure.GetComponent<Unit>();
-            if (victim != null && !victim.Flying) {
+            if (victim != null && !victim.Flying && victim.HasSoul) {
                 if (victim.GetComponent<Player>()) {
                     SoundManager.instance.shallowGrave.Play();
                 }

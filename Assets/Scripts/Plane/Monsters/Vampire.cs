@@ -66,7 +66,7 @@ public class Vampire : Monster
             ChangeForm(bat: true);
             return;
         }
-        if (playerDelta.MaxDelta() <= 1 && batForm) {
+        if (playerDelta.MaxDelta() <= 0 && playerDelta.MinDelta() <= 1 && batForm) {
             ChangeForm(bat: false);
             return;
         }
