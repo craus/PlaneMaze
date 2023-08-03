@@ -12,6 +12,10 @@ public class Library : Singletone<Library>
 
     public Gem gem;
 
+    public List<Biome> biomes;
+    public Biome crypt;
+    public Biome dungeon;
+
     public DoubleGhostSpawns doubleGhostSpawns;
     public GhostSpawns ghostSpawns;
     public MonstersHaveMoreHealth monstersHaveMoreHealth;

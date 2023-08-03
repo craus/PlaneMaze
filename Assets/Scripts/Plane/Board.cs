@@ -53,6 +53,7 @@ public class Board : MonoBehaviour
 
     private Cell GenerateCell(int x, int y) {
         var cell = Instantiate(cellSample);
+        cell.biome = Library.instance.dungeon;
         cells.Add(cell);
         if (silentMode) {
             cell.gameObject.SetActive(false);

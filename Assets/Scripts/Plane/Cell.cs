@@ -9,8 +9,9 @@ public class Cell : MonoBehaviour
     public SpriteRenderer sprite;
     public TMPro.TextMeshProUGUI orderText;
     public TMPro.TextMeshProUGUI priceText;
-    public Color wallColor;
-    public Color emptyColor;
+
+    public Biome biome;
+
     public Color lockedColor;
     public Color darknessColor;
     public GameObject wallModel;
@@ -51,14 +52,20 @@ public class Cell : MonoBehaviour
     public Color Color() {
         //return Game.instance.GetCellColor(position);
 
-        if (Wall) return wallColor;
+        if (Wall) return biome.wallModel.GetComponentInChildren<SpriteRenderer>().color;
         if (Locked) return lockedColor;
         if (dark) return darknessColor;
-        return emptyColor;
+        return biome.floorModel.GetComponentInChildren<SpriteRenderer>().color;
+    }
+
+    public void UpdateBiome() {
+        Destroy(floorModel);
+        Destroy(wallModel);
+        floorModel = Instantiate(biome.floorModel, transform);
+        wallModel = Instantiate(biome.wallModel, transform);
     }
 
     public void UpdateCell() {
-        sprite.color = Color();
         wallModel.SetActive(Wall);
         floorModel.SetActive(!Wall);
         if (orderText != null) {

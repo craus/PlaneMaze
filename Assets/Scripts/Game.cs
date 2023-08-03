@@ -77,8 +77,11 @@ public class Game : MonoBehaviour
         await player.figure.Move(mainWorld.GetCell(Vector2Int.zero), isTeleport: true);
 
         speed = 10000;
-        await EnumerateCells(Metagame.WorldSize, pauses: false);
 
+        cellOrderList = new List<Cell>();
+        await GenerateBiome(Library.instance.dungeon, Metagame.WorldSize, pauses: false);
+        await GenerateBiome(Library.instance.crypt, Metagame.WorldSize, pauses: false);
+        mainWorld.silentMode = true;
 
         for (int i = 0; i < storeCount; i++) {
             GenerateStore(); 
@@ -284,21 +287,51 @@ public class Game : MonoBehaviour
 
     public IEnumerable<Cell> AntiEdgesSquare(Cell cell) => cell.Neighbours().Where(MakesSquare).Union(Diagonals(cell).Where(MakesSquare));
 
-    private async Task EnumerateCells(int cnt, bool pauses = false) {
+    private IEnumerable<Cell> BorderCells(IEnumerable<Cell> cells) {
+        var start = cells.MinBy(c => c.position.x).Shift(Vector2Int.left);
+        var current = start;
+        var direction = Vector2Int.up;
+        var result = new HashSet<Cell>();
+        for (int i = 0; i < 1000000; i++) {
+            if (current.Shift(direction).Wall && current.Shift(direction + direction.RotateRight()).Wall) {
+                current = current.Shift(direction + direction.RotateRight());
+                direction = direction.RotateRight();
+                result.Add(current);
+            } else if (current.Shift(direction).Wall) {
+                current = current.Shift(direction);
+                result.Add(current);
+            } else {
+                direction = direction.RotateLeft();
+            }
+        }
+        return result;
+    }
+
+    private Cell CheapestBorderCell(IEnumerable<Cell> cells) {
+        return BorderCells(cells).MinBy((a,b) => CellPrice(a.position) < CellPrice(b.position));
+    }
+
+    private async Task GenerateBiome(Biome biome, int cnt, bool pauses = false) {
+        var start = mainWorld.GetCell(Vector2Int.zero);
+        if (cellOrderList.Count > 0) {
+            start = CheapestBorderCell(cellOrderList);
+        }
 
         var cellOrder = Algorithm.PrimDynamic(
-            start: mainWorld.GetCell(Vector2Int.zero),
-            edges: c => c.Neighbours().Where(c => !MakesCross(c) && !Forbidden(c).Any(f => f.Ordered)).Select(c => new Algorithm.Weighted<Cell>(c, CellPrice(c.position))),
+            start: start,
+            edges: c => c.Neighbours().Where(c => c.Wall && !MakesCross(c) && !Forbidden(c).Any(f => f.Ordered))
+                .Select(c => new Algorithm.Weighted<Cell>(c, CellPrice(c.position))),
             antiEdges: c => Diagonals(c).Where(MakesCross).Union(Forbidden(c)),
             maxSteps: 100000
         ).Take(cnt);
 
-        cellOrderList = new List<Cell>();
         int i = 0;
         foreach (Cell c in cellOrder) {
 
             c.order = i;
             c.fieldCell.wall = false;
+            c.biome = biome;
+            c.UpdateBiome();
             c.UpdateCell();
             cellOrderList.Add(c);
             AfterCellAdded(c);
@@ -319,8 +352,6 @@ public class Game : MonoBehaviour
             ++i;
         }
         CameraControl.instance.followPoint = false;
-
-        mainWorld.silentMode = true;
 
         UnityEngine.Debug.LogFormat($"Cells: {i}");
         UnityEngine.Debug.LogFormat($"Taken Cells Max Price: {cellOrderList.Max(c => CellPrice(c.position))}");
