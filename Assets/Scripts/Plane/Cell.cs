@@ -13,6 +13,8 @@ public class Cell : MonoBehaviour
     public Color emptyColor;
     public Color lockedColor;
     public Color darknessColor;
+    public GameObject wallModel;
+    public GameObject floorModel;
 
     public Vector2Int position;
     public int order = -1;
@@ -57,6 +59,8 @@ public class Cell : MonoBehaviour
 
     public void UpdateCell() {
         sprite.color = Color();
+        wallModel.SetActive(Wall);
+        floorModel.SetActive(!Wall);
         if (orderText != null) {
             orderText.text = order.ToString();
             orderText.gameObject.SetActive(!Wall);
