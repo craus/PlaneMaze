@@ -33,6 +33,8 @@ public class Unit : MonoBehaviour, IMortal
 
     public bool alive = true;
 
+    public int movesSinceLastHit = 100500;
+
     public List<Func<MoveAction, Task>> afterTakeAction = new List<Func<MoveAction, Task>>();
 
     public virtual void OnGameStart() {
@@ -52,6 +54,7 @@ public class Unit : MonoBehaviour, IMortal
             Game.Debug($"Unit <null> hit by {attack}");
             return;
         }
+        movesSinceLastHit = 0;
         Game.Debug($"{gameObject.name} hit by {attack}");
         await GetComponent<Health>().Hit(attack.damage);
     }

@@ -25,8 +25,15 @@ public class MainUI : Singletone<MainUI>
 
     public bool MainMenuShown => mainMenu.activeSelf;
 
+    public Button hardcore;
+    public Button softcore;
+
+    public GameObject hardcoreLabel;
+    public TMP_Text ascensionsText;
+
     public void Start() {
         mainMenu.SetActive(false);
+        UpdateAscentionsList();
 
         settings = FileManager.LoadFromFile<Settings>(settingsFilename);
         if (settings == null) {
@@ -60,6 +67,10 @@ public class MainUI : Singletone<MainUI>
     public void UpdateAscentionsList() {
         ascentionsListText.text = GameManager.instance.metagame.AscentionsList();
         ascentionsPanel.SetActive(GameManager.instance.metagame.ascentions.Count() > 0);
+        ascensionsText.text = GameManager.instance.metagame.ShortAscensionsList();
+        hardcoreLabel.SetActive(Metagame.instance.hardcore);
+        softcore.interactable = Metagame.instance.hardcore;
+        hardcore.interactable = !Metagame.instance.hardcore;
     }
 
     public void MainMenuButton() {
@@ -74,6 +85,22 @@ public class MainUI : Singletone<MainUI>
         showingValues = false;
 
         FileManager.SaveToFile(settings, settingsFilename);
+    }
+
+    public async void Hardcore() {
+        if (await ConfirmationManager.instance.AskConfirmation("Are you sure? You will ALL ascensions now and ONE ascension for each loss!")) {
+            Metagame.instance.SwitchToHardcore();
+            UpdateAscentionsList();
+        }
+    }
+
+    public async void Softcore() {
+        if (await ConfirmationManager.instance.AskConfirmation("Are you sure? If you switch back after that, you will ALL ascensions now and ONE ascension for each loss!")) {
+            Metagame.instance.SwitchToSoftcore();
+            softcore.enabled = false;
+            hardcore.enabled = true;
+            UpdateAscentionsList();
+        }
     }
 
     public void QuitApplication() {

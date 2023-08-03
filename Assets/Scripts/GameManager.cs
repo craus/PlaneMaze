@@ -14,17 +14,22 @@ public class GameManager : Singletone<GameManager>
 
     public const string savefileName = "savefile.dat";
 
+    public void Awake() {
+        System.Threading.Tasks.TaskScheduler.UnobservedTaskException += (_, e) => Debug.LogException(e.Exception);
+    }
+
     public async void Start() {
         var metagameModel = FileManager.LoadFromFile<MetagameModel>(savefileName);
         if (metagameModel == null) {
             NewMetagame();
             SaveMetagame();
         } else {
-            metagame = Metagame.Load(metagameModel);
+            metagame = Metagame.ConvertFromModel(metagameModel);
             if (metagame.runInProgress) {
                 await metagame.Abandon();
             }
             metagame.transform.SetParent(transform);
+            MainUI.instance.UpdateAscentionsList();
         }
         NewGame();
         //mazeSample.Reinitialize(mazeSample.width / 20, mazeSample.height / 20);
@@ -69,7 +74,7 @@ public class GameManager : Singletone<GameManager>
     }
 
     public void SaveMetagame() {
-        FileManager.SaveToFile(metagame.Save(), savefileName);
+        FileManager.SaveToFile(metagame.ConvertToModel(), savefileName);
     }
 
     public void NewMetagame() {

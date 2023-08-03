@@ -9,11 +9,13 @@ using UnityEngine.Events;
 
 public class Metagame : MonoBehaviour
 {
+    public static Metagame instance => GameManager.instance.metagame;
 
     public List<Ascention> ascentions;
     public bool pickingPhase;
     public int losesWithNoPenalty = 0;
     public bool runInProgress = false;
+    public bool hardcore = false;
 
     public Game game;
 
@@ -21,7 +23,7 @@ public class Metagame : MonoBehaviour
     internal int Ascentions<T>() where T : Ascention => ascentions.Count(a => a is T);
 
 
-    public int LosesRequiredForPenalty => 4;
+    public int LosesRequiredForPenalty => hardcore ? 1 : 4;
     public bool DropLosesOnWin => true;
 
     public bool SpawnGhosts => true; // Ascention<GhostSpawns>();
@@ -36,15 +38,33 @@ public class Metagame : MonoBehaviour
 
     public float HealingPotionSpawnProbability => Ascention<NoFreeHealingPotions>() ? 0 : 0.004f;
 
-    public float PricesMultiplier => Ascention<QuadrupleMapAndPrices>() ? 1 : 0.25f;
+    public float PricesMultiplier => 
+        Mathf.Pow(4, Ascentions<QuadrupleMapAndPrices>()) *
+        Mathf.Pow(2, Ascentions<MoreMonsters>()) *
+        0.25f;
+
     public int WorldSize => Ascention<QuadrupleMapAndPrices>() ? 1000 : 250;
 
-    public static Metagame Load(MetagameModel model) {
+    public float MonsterProbability => Ascention<MoreMonsters>() ? 0.2f : 0.1f;
+    
+    public MetagameModel ConvertToModel() {
+        var result = new MetagameModel {
+            pickingPhase = pickingPhase,
+            losesWithNoPenalty = losesWithNoPenalty,
+            runInProgress = runInProgress,
+            hardcore = hardcore,
+            ascentions = ascentions.Select(a => a.Save()).ToList()
+        };
+        return result;
+    }
+
+    public static Metagame ConvertFromModel(MetagameModel model) {
         var result = Instantiate(Library.instance.metagameSample);
 
         result.pickingPhase = model.pickingPhase;
         result.losesWithNoPenalty = model.losesWithNoPenalty;
         result.runInProgress = model.runInProgress;
+        result.hardcore = model.hardcore;
 
         foreach (var a in model.ascentions) {
             var ascention = global::Ascention.Load(a);
@@ -54,10 +74,21 @@ public class Metagame : MonoBehaviour
         return result;
     }
 
+    public void SwitchToHardcore() {
+        hardcore = true;
+        ascentions.Clear();
+        GameManager.instance.SaveMetagame();
+    }
+
+    public void SwitchToSoftcore() {
+        hardcore = false;
+        GameManager.instance.SaveMetagame();
+    }
+
     public async Task Win() {
         runInProgress = false;
         losesWithNoPenalty = 0;
-        if (Library.instance.ascentions.Any(a => a.CanAdd(this))) {
+        if (Library.instance.AllAscentions.Any(a => a.CanAdd(this))) {
             await AddRandomAscention();
         } else {
             await ConfirmationManager.instance.AskConfirmation(
@@ -92,16 +123,6 @@ public class Metagame : MonoBehaviour
         await Lose();
     }
 
-    public MetagameModel Save() {
-        var result = new MetagameModel {
-            pickingPhase = pickingPhase,
-            losesWithNoPenalty = losesWithNoPenalty,
-            runInProgress = runInProgress,
-            ascentions = ascentions.Select(a => a.Save()).ToList()
-        };
-        return result;
-    }
-
     public int AscentionLevel(Ascention ascention) {
         return ascentions.Count(a => a == ascention);
     }
@@ -113,7 +134,9 @@ public class Metagame : MonoBehaviour
     }
 
     public async Task AddRandomAscention() {
-        var newAscention = Library.instance.ascentions.Where(a => a.CanAdd(this)).Rnd();
+        var addable = Library.instance.AllAscentions.Where(a => a.CanAdd(this)).ToList();
+        Debug.LogFormat(addable.ExtToString());
+        var newAscention = Library.instance.AllAscentions.Where(a => a.CanAdd(this)).Rnd();
         await ConfirmationManager.instance.AskConfirmation($"New ascention added: {newAscention.name}", canCancel: false);
         ascentions.Add(newAscention);
         MainUI.instance.UpdateAscentionsList();
@@ -121,7 +144,7 @@ public class Metagame : MonoBehaviour
     }
 
     public async Task RemoveRandomAscention() {
-        var removingAscention = ascentions.Rnd();
+        var removingAscention = ascentions.Where(a => a.CanRemove(this)).Rnd();
         await ConfirmationManager.instance.AskConfirmation($"Ascention removed: {removingAscention.name}", canCancel: false);
         ascentions.Remove(removingAscention);
         MainUI.instance.UpdateAscentionsList();
@@ -129,4 +152,5 @@ public class Metagame : MonoBehaviour
     }
 
     internal string AscentionsList() => string.Join('\n', ascentions.Unique().Select(a => $"{AscentionLevelString(a)}{a.name}"));
+    internal string ShortAscensionsList() => string.Join("", ascentions.Unique().Select(a => $"{AscentionLevelString(a)}{a.abbreviation}"));
 }

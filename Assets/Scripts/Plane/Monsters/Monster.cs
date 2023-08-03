@@ -9,6 +9,11 @@ public abstract class Monster : Unit
 {
     public virtual bool FreeCell(Cell cell) => cell.Free;
 
+    public int movesSinceLastHeal = 100500;
+
+    public int movesSinceHitToHeal = 3;
+    public int healCooldown = 3;
+
     public override bool BenefitsFromTerrain => base.BenefitsFromTerrain && GameManager.instance.metagame.Ascention<MonstersBenefitFromTerrain>();
 
     protected async Task<bool> SmartWalk(Vector2Int delta) {
@@ -84,6 +89,24 @@ public abstract class Monster : Unit
     protected virtual async Task MakeMove() {
     }
 
+    private async Task MoveInternal() {
+        await GetComponent<Disarm>().Spend(1);
+        movesSinceLastHeal++;
+        movesSinceLastHit++;
+
+        if (Metagame.instance.Ascention<MonstersHeal>()) {
+            if (
+                movesSinceLastHit >= movesSinceHitToHeal &&
+                movesSinceLastHeal >= healCooldown
+            ) {
+                await GetComponent<Health>().Heal(1);
+                movesSinceLastHeal = 0;
+            }
+        }
+
+        await MakeMove();
+    }
+
     public async Task Move() {
         if (this == null) {
             Debug.LogError("Dead monster moves");
@@ -103,17 +126,21 @@ public abstract class Monster : Unit
             await GetComponent<MovesReserve>().Haste(1);
             return;
         }
-        await GetComponent<Disarm>().Spend(1);
-        await MakeMove();
+        await MoveInternal();
+
         if (!alive) {
             return;
         }
         for (int i = 0; i < 10 && this != null && GetComponent<MovesReserve>().Current > 0; i++) {
             await GetComponent<MovesReserve>().Freeze(1);
-            await GetComponent<Disarm>().Spend(1);
-            await MakeMove(); 
+            await MoveInternal();
             if (!alive) {
                 return;
+            }
+        }
+        if (Metagame.instance.Ascention<FasterMonsters>()) {
+            if (Rand.rndEvent(0.1f)) {
+                await GetComponent<MovesReserve>().Haste(1);
             }
         }
     }

@@ -245,13 +245,13 @@ public class Game : MonoBehaviour
         //await commandToContinue;
     }
 
-    public void Update() {
+    public async void Update() {
         if (Cheats.on) {
             if (Input.GetKeyDown(KeyCode.W)) {
-                _ = Win();
+                await Win();
             }
             if (Input.GetKeyDown(KeyCode.L)) {
-                _ = Lose();
+                await Lose();
             }
         }
     }
@@ -376,7 +376,7 @@ public class Game : MonoBehaviour
     }
 
     public void AfterCellAdded(Cell cell) {
-        if (cell.order == 1) {
+        if (cell.order == 1 && !Metagame.Ascention<NoStartingWeapon>()) {
             GenerateFigure(cell, weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().startingWeight));
             return;
         } else if (cell.order == 0) {
@@ -390,7 +390,7 @@ public class Game : MonoBehaviour
             return;
         }
 
-        if (cell.position.magnitude > 6 && Rand.rndEvent(0.1f)) {
+        if (cell.position.magnitude > 6 && Rand.rndEvent(Metagame.instance.MonsterProbability)) {
             GenerateFigure(cell, monsterSamples.rnd());
         } else if (Rand.rndEvent(0.004f)) {
             GenerateFigure(cell, weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().fieldWeight));

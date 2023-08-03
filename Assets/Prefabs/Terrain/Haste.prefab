@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 2707086984399568205}
   - component: {fileID: 1881276151569630265}
   - component: {fileID: 5501922713185124398}
+  - component: {fileID: 9038602668330591670}
   m_Layer: 7
   m_Name: Haste
   m_TagString: Untagged
@@ -177,6 +178,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 561e72b6892e1104abc6c528b9ace930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9038602668330591670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6325338422616382079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106f8520b436bf24c9afcc4c8e9849cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerVisibilityRadius: 4
+  sprite: {fileID: 2172690894414466492}
 --- !u!1 &8692006365134576520
 GameObject:
   m_ObjectHideFlags: 0

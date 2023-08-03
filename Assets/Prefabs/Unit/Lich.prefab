@@ -923,6 +923,10 @@ MonoBehaviour:
   soul: 1
   figure: {fileID: 0}
   alive: 1
+  movesSinceLastHit: 100500
+  movesSinceLastHeal: 100500
+  movesSinceHitToHeal: 48
+  healCooldown: 48
   attackProjectile: {fileID: 67467469717759535, guid: a78f821786ba0264093e0de0aca7a282, type: 3}
   damage: 2
   teleportRadius: 8

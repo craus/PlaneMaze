@@ -12,6 +12,7 @@ public class Haste : Terrain
             if (victim != null) {
                 if (victim.BenefitsFromTerrain) {
                     await victim.GetComponent<MovesReserve>().Haste(1);
+                    GetComponent<Masked>().Trigger();
                 }
             }
         };

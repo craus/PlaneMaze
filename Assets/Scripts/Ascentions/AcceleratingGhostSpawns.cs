@@ -8,7 +8,4 @@ using UnityEngine.Events;
 
 public class AcceleratingGhostSpawns : GenericAscention<AcceleratingGhostSpawnsModel>
 {
-    public override bool CanAdd(Metagame metagame) {
-        return base.CanAdd(metagame) && metagame.SpawnGhosts;
-    }
 }

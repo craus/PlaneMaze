@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 1881276151569630265}
   - component: {fileID: 7331006735911305571}
   - component: {fileID: 1143973199772049189}
+  - component: {fileID: 3670915208326457562}
   m_Layer: 7
   m_Name: Wolf Trap
   m_TagString: Untagged
@@ -195,3 +196,18 @@ MonoBehaviour:
   hearts: []
   current: 8
   max: 8
+  ascentionHealth: 010000000200000003000000
+--- !u!114 &3670915208326457562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6325338422616382079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106f8520b436bf24c9afcc4c8e9849cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerVisibilityRadius: 4
+  sprite: {fileID: 2172690894414466492}

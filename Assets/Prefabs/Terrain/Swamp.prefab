@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 2707086984399568205}
   - component: {fileID: 1881276151569630265}
   - component: {fileID: 6966650289289424777}
+  - component: {fileID: -2391852502162193213}
   m_Layer: 7
   m_Name: Swamp
   m_TagString: Untagged
@@ -176,3 +177,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a4dcdc211c52940893fd33cd1103de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-2391852502162193213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6325338422616382079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106f8520b436bf24c9afcc4c8e9849cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerVisibilityRadius: 4
+  sprite: {fileID: 2940646852088297125}

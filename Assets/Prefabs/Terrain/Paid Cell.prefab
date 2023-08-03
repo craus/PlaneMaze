@@ -428,6 +428,7 @@ GameObject:
   - component: {fileID: 2707086984399568205}
   - component: {fileID: 1881276151569630265}
   - component: {fileID: 3795892648448291814}
+  - component: {fileID: 2847655717414033891}
   m_Layer: 7
   m_Name: Paid Cell
   m_TagString: Untagged
@@ -479,6 +480,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 290269505211525984}
   price: 1
+--- !u!114 &2847655717414033891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6325338422616382079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106f8520b436bf24c9afcc4c8e9849cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerVisibilityRadius: 4
+  sprite: {fileID: 2172690894414466492}
 --- !u!1 &6418168054666551771
 GameObject:
   m_ObjectHideFlags: 0

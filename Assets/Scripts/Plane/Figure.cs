@@ -98,6 +98,8 @@ public class Figure : MonoBehaviour
         if (!fakeMove && location != null) {
             location.figures.Remove(this);
         }
+        if (newPosition == null) return;
+
         location = newPosition;
         var toBoard = location != null ? location.board : null;
         transform.SetParent(location.board.figureParent);
