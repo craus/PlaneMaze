@@ -33,7 +33,7 @@ public class Masked : MonoBehaviour
     }
 
     private async Task AfterPlayerMove(Cell from, Cell to) {
-        if (Mathf.Abs((to.position - GetComponent<Figure>().location.position).magnitude - 1) < 1e-4) {
+        if ((to.position - GetComponent<Figure>().location.position).magnitude < 1 + 1e-4) {
             Show();
         }
     }
