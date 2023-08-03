@@ -1615,19 +1615,6 @@ MonoBehaviour:
   lastAttackedMonster: {fileID: 0}
   storeCount: 4
   storeRadius: 6
-  monsterSamples:
-  - {fileID: 792451774977223643, guid: 9bfa59c0dddfd244ab486a5a960146e6, type: 3}
-  - {fileID: 6890977442324438375, guid: a833328bf3c02ca45989ccef640d4fd6, type: 3}
-  - {fileID: 6890977442324438375, guid: 397be5e282dbe5c449605312aa07e719, type: 3}
-  - {fileID: 6214775180543025106, guid: 90cced61ae27bdb4f9e1d33a278c46c1, type: 3}
-  - {fileID: 6890977442324438375, guid: 8221258f627dc424dae631737f19066b, type: 3}
-  - {fileID: 8234422707921031841, guid: d7be61fe3df1d594f92d509649faff17, type: 3}
-  - {fileID: 5504667808349519680, guid: 14d5395e5f9830046ae12a7cd973091d, type: 3}
-  - {fileID: 5504667808349519680, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
-  - {fileID: 6890977442324438375, guid: 638b307a4da242e4f83533adda2c4c9c, type: 3}
-  - {fileID: 6890977442324438375, guid: c20889cbfbb445e45bd15ee55940c8c3, type: 3}
-  - {fileID: 6890977442324438375, guid: 9e008021a27af884b896a48d3a8dcc85, type: 3}
-  - {fileID: 8234422707921031841, guid: 673fdd4d15d1bdd46b9865fa0fb7795e, type: 3}
   monsters: []
   weaponSamples:
   - {fileID: 8761000423821239552, guid: 0a90607df9e38f946b1b280e25a3780b, type: 3}
@@ -1662,23 +1649,10 @@ MonoBehaviour:
   - {fileID: 8508492893450686176, guid: 4166082a911f6e74aa4d5db4b4e3ee2d, type: 3}
   - {fileID: 8508492893450686176, guid: 20963c3bd6c46894bb6800818686d967, type: 3}
   - {fileID: 8508492893450686176, guid: 5d93eabad1419174a9f4aca8e91e45c2, type: 3}
-  startingItemsSamples: []
+  startingItemsSamples:
+  - {fileID: 3303673112297539049, guid: 88a0bfe3ae43aa84ebf1cbd844e09f58, type: 3}
+  - {fileID: 3303673112297539049, guid: 20963c3bd6c46894bb6800818686d967, type: 3}
   storeSamples: []
-  terrainSamples:
-  - to: {fileID: 1881276151569630265, guid: e7936b0df5ffd3f4880e94713105b336, type: 3}
-    weight: 0.5
-  - to: {fileID: 1881276151569630265, guid: 2903a9a84d7fdd945a914e323e75a053, type: 3}
-    weight: 0.2
-  - to: {fileID: 1881276151569630265, guid: f59eab0a7389a994e8ba824a40d06a3b, type: 3}
-    weight: 0.3
-  - to: {fileID: 1881276151569630265, guid: c734a55bf5c27474c970bba43e557bb5, type: 3}
-    weight: 0.3
-  - to: {fileID: 1881276151569630265, guid: 7bc61387122bf8a4d98881ac1d382680, type: 3}
-    weight: 0.3
-  - to: {fileID: 1881276151569630265, guid: 223d624819fa4cb48b529497b8cd0899, type: 3}
-    weight: 0.3
-  - to: {fileID: 1881276151569630265, guid: f5c10761811c02e43bb761a7b6ce8936, type: 3}
-    weight: 0.3
   portalSample: {fileID: 7110139304582582606, guid: 89231564c7a6d1940a474861eddb4b29, type: 3}
   healingPotionSample: {fileID: 2665230306910546025, guid: c54196d8a6cfbdc49a2ae0a059098cd4, type: 3}
   paidCellSample: {fileID: 3795892648448291814, guid: a1a62b1b04267d3448d1031ee1297b0f, type: 3}
@@ -1699,6 +1673,7 @@ MonoBehaviour:
   completedTurns:
     keys: 
   speed: 1
+  border: []
 --- !u!1 &2461602445928022540
 GameObject:
   m_ObjectHideFlags: 0

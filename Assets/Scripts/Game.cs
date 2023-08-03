@@ -21,8 +21,6 @@ public class Game : MonoBehaviour
     public int storeCount = 4;
     public int storeRadius = 5;
 
-    public List<Monster> monsterSamples;
-
     public List<Monster> monsters;
 
     public List<Weapon> weaponSamples;
@@ -30,7 +28,6 @@ public class Game : MonoBehaviour
     public List<Figure> startingItemsSamples;
 
     public List<Store> storeSamples;
-    public List<Weighted<Figure>> terrainSamples;
     public Portal portalSample;
     public HealingPotion healingPotionSample;
     public PaidCell paidCellSample;

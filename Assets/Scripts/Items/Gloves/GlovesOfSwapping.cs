@@ -31,6 +31,11 @@ public class GlovesOfSwapping : MonoBehaviour, IAttackModifier
                     return;
                 }
 
+                if (fromLocation.board != Game.instance.mainWorld) {
+                    Debug.LogFormat($"Swap cancelled: player location is not in mainWorld");
+                    return;
+                }
+
                 List<Task> moves = new List<Task>();
                 if (attack.to != null) moves.Add(attack.to.Move(fromLocation));
                 if (attack.from != null) {
