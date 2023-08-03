@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(Item))]
 public class Dagger : Weapon
 {
-    public override Task<bool> AfterFailedWalk(Vector2Int delta) => TryAttack(delta);
+    public override Task<bool> BeforeWalk(Vector2Int delta) => TryAttack(delta);
 
     public override async Task AfterAttack(Attack attack) {
         if (this != null && attack.to != null) {

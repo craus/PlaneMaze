@@ -30,5 +30,5 @@ public class Club : Weapon
         return true;
     }
 
-    public override Task<bool> AfterFailedWalk(Vector2Int delta) => TryAttack(delta);
+    public override Task<bool> BeforeWalk(Vector2Int delta) => TryAttack(delta);
 }
