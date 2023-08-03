@@ -32,4 +32,10 @@ public class SoundManager : Singletone<SoundManager>
     public AudioSource terraform;
     public AudioSource spikeBootsAttack;
     public AudioSource failedAction;
+
+    public void Update() {
+        if (Input.GetKeyDown(KeyCode.F4)) {
+            gemPick.Play();
+        }
+    }
 }
