@@ -106,6 +106,7 @@ public abstract class Monster : Unit
         movesSinceLastHit++;
         await Regenerate();
         await MakeMove();
+        if (this == null) return;
         await GetComponent<Disarm>().Spend(1);
         await GetComponent<Root>().Spend(1);
     }
