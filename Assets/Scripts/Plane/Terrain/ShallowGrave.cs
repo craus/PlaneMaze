@@ -11,7 +11,7 @@ public class ShallowGrave : Terrain
             var victim = figure.GetComponent<Unit>();
             if (victim != null && !victim.Flying) {
                 if (victim.GetComponent<Player>()) {
-                    SoundManager.instance.swampDebuff.Play();
+                    SoundManager.instance.shallowGrave.Play();
                 }
                 await victim.GetComponent<Root>().Gain(2);
                 GetComponent<Masked>().Trigger();
