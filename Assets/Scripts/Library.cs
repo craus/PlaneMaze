@@ -10,6 +10,8 @@ public class Library : Singletone<Library>
 {
     public Metagame metagameSample;
 
+    public Gem gem;
+
     public DoubleGhostSpawns doubleGhostSpawns;
     public GhostSpawns ghostSpawns;
     public MonstersHaveMoreHealth monstersHaveMoreHealth;

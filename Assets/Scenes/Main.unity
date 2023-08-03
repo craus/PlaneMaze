@@ -10907,6 +10907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   metagameSample: {fileID: 8347098507482293336, guid: 268f38e92b34b8d4a84782e495c59aa2, type: 3}
+  gem: {fileID: 8666047310042790666, guid: c7a1fda42fc141744b8226f2fb08ee9a, type: 3}
   doubleGhostSpawns: {fileID: 8999616787668789769, guid: cc76c7370c691e143a5483ab3541ff8f, type: 3}
   ghostSpawns: {fileID: -8392404935275920455, guid: 13270185f31e9d94baafc24b892e459c, type: 3}
   monstersHaveMoreHealth: {fileID: 2218484981513858613, guid: ce9e3acc9a55e344f867b1a6c355694d, type: 3}
