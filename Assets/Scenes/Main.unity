@@ -3219,7 +3219,7 @@ MonoBehaviour:
   terraform: {fileID: 657196025}
   spikeBootsAttack: {fileID: 125031318}
   failedAction: {fileID: 752213148}
-  shallowGrave: {fileID: 0}
+  shallowGrave: {fileID: 408497412}
 --- !u!1 &585202029
 GameObject:
   m_ObjectHideFlags: 0
