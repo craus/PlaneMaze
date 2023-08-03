@@ -20,7 +20,13 @@ public class Vampire : Monster
 
     public override async Task<bool> TryAttack(Vector2Int delta) {
         if (!batForm) {
-            return await base.TryAttack(delta);
+            if (await base.TryAttack(delta)) {
+                if (this != null) {
+                    await GetComponent<Health>().Heal(1);
+                }
+                return true;
+            }
+            return false;
         }
         var leftPosition = figure.location.Shift(delta.Relative(1, 1) / 2);
         if (leftPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
