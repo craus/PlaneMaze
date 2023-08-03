@@ -421,15 +421,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187696164521918999, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: description
-      value: '<b>Bat</b>
+      value: '<b>Vampire</b>
 
 
-        Flying.
+        Transforms when next to you.
 
-        Wanders randomly.
+        Follows
+        you and attacks.
 
-        Moves
-        diagonally.'
+        Heals by your blood.'
       objectReference: {fileID: 0}
     - target: {fileID: 8430807191255413278, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_AnchorMax.y
