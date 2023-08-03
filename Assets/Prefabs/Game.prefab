@@ -1497,6 +1497,7 @@ MonoBehaviour:
   - {fileID: 5504667808349519680, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
   - {fileID: 6890977442324438375, guid: 638b307a4da242e4f83533adda2c4c9c, type: 3}
   - {fileID: 6890977442324438375, guid: c20889cbfbb445e45bd15ee55940c8c3, type: 3}
+  - {fileID: 6890977442324438375, guid: 9e008021a27af884b896a48d3a8dcc85, type: 3}
   monsters: []
   weaponSamples:
   - {fileID: 8761000423821239552, guid: 0a90607df9e38f946b1b280e25a3780b, type: 3}
