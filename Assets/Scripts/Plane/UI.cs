@@ -24,7 +24,7 @@ public class UI : MonoBehaviour
         if (Game.instance.player) {
             gemsCounter.text = Game.instance.player.gems.ToString();
         }
-        areaCounter.text = Game.instance.ghostSpawnProbabilityPerTurn.ToString("0.000");
+        areaCounter.text = Game.instance.ghostSpawnProbabilityPerTurn.ToString("0.0000");
         timeCounter.text = Game.instance.time.ToString();
         animationSpeed.text = Helpers.animationSpeed.ToString("0.000");
         frameTime.text = Time.deltaTime.ToString("0.000");

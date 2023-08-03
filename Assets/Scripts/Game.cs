@@ -455,9 +455,13 @@ public class Game : MonoBehaviour
     }
 
     private async Task SpawnGhosts() {
+        if (Player.instance == null) return;
         if (player.figure.location.board != mainWorld) return;
 
-        ghostSpawnProbabilityPerTurn = Metagame.GhostSpawnProbabilityPerTurn(time);
+        ghostSpawnProbabilityPerTurn = 1 - Mathf.Pow(
+            1 - Metagame.GhostSpawnProbabilityPerTurn(time),
+            Player.instance.figure.location.biome.ghostPower
+        );
 
         for (int i = 0; i < Metagame.MaxGhostSpawnsPerTurn && Rand.rndEvent(ghostSpawnProbabilityPerTurn); i++) {
             await SpawnGhost();
