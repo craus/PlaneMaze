@@ -66,7 +66,11 @@ public class Game : MonoBehaviour
 
     public Metagame Metagame => GameManager.instance.metagame;
 
+    public DateTime startTime;
+
     public async void Start() {
+        startTime = DateTime.Now;
+
         InfoPanel.instance.viewedInfo = new HashSet<IExplainable>();
 
         mainWorld = Instantiate(boardSample, transform);
