@@ -1649,7 +1649,9 @@ MonoBehaviour:
   - {fileID: 8508492893450686176, guid: 4166082a911f6e74aa4d5db4b4e3ee2d, type: 3}
   - {fileID: 8508492893450686176, guid: 20963c3bd6c46894bb6800818686d967, type: 3}
   - {fileID: 8508492893450686176, guid: 5d93eabad1419174a9f4aca8e91e45c2, type: 3}
-  startingItemsSamples: []
+  startingItemsSamples:
+  - {fileID: 3303673112297539049, guid: e42ca00911c09354b850514c95178a84, type: 3}
+  - {fileID: 3303673112297539049, guid: e42ca00911c09354b850514c95178a84, type: 3}
   storeSamples: []
   portalSample: {fileID: 7110139304582582606, guid: 89231564c7a6d1940a474861eddb4b29, type: 3}
   healingPotionSample: {fileID: 2665230306910546025, guid: c54196d8a6cfbdc49a2ae0a059098cd4, type: 3}

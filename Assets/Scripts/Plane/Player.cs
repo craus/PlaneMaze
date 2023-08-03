@@ -48,7 +48,7 @@ public class Player : Unit
         lastMove = delta;
 
         for (int priority = 0; priority < 3; priority++) {
-            if ((await Task.WhenAll(Inventory.instance.items.Select(item => item.BeforeWalk(delta, priority)))).Any(b => b)) {
+            if (await Inventory.instance.items.ToList().Select(item => item.BeforeWalk(delta, priority)).AnyInSequence()) {
                 await AfterTakeAction(new UnknownAction());
                 Game.Debug($"Player move end: before walk");
                 return;
@@ -63,7 +63,7 @@ public class Player : Unit
         }
 
         for (int priority = 0; priority < 3; priority++) {
-            if ((await Task.WhenAll(Inventory.instance.items.Select(item => item.AfterFailedWalk(delta, priority)))).Any(b => b)) {
+            if (await Inventory.instance.items.ToList().Select(item => item.AfterFailedWalk(delta, priority)).AnyInSequence()) {
                 await AfterTakeAction(new UnknownAction());
                 Game.Debug($"Player move end: after failed walk");
                 return;

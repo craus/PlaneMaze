@@ -61,13 +61,19 @@ public class Item : MonoBehaviour, IExplainable
 
     public bool Equipped => Inventory.instance.items.Contains(this);
 
+    public bool Compatable(Item other) => GetComponent<Dart>() != null && other.GetComponent<Dart>() != null;
+
     [ContextMenu("Pick")]
     public async Task Pick() {
 
         await Task.WhenAll(beforePick.Select(listener => listener()).ToArray());
 
         if (slot != null) {
-            Inventory.instance.items.Where(item => item.slot == slot).ToList().ForEach(item => item.Drop());
+            foreach (var item in Inventory.instance.items.Where(item => item.slot == slot).ToList()) {
+                if (!item.Compatable(this)) {
+                    await item.Drop();
+                }
+            }
         }
 
         if (GetComponent<Gem>()) {
