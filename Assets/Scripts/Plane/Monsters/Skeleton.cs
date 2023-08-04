@@ -28,6 +28,13 @@ public class Skeleton : Monster
     public override void Awake() {
         base.Awake();
         UpdateSprite();
+
+        new ValueTracker<bool>(() => active, v => {
+            active = v;
+            UpdateSprite();
+        });
+        new ValueTracker<int>(() => deathCount, v => deathCount = v);
+        new ValueTracker<int>(() => currentReviveCooldown, v => currentReviveCooldown = v);
     }
 
     private async Task Revive() {

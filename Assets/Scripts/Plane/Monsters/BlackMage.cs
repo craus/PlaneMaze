@@ -26,6 +26,15 @@ public class BlackMage : Monster
     public override void Awake() {
         base.Awake();
         UpdateIcon();
+
+        new ValueTracker<bool>(() => charged, v => {
+            charged = v;
+            UpdateIcon();
+        });
+        new ValueTracker<bool>(() => chargedAtLeastTurnAgo, v => {
+            chargedAtLeastTurnAgo = v;
+            UpdateIcon();
+        });
     }
 
     private void UpdateIcon() {

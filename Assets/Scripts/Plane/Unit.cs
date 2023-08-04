@@ -44,6 +44,7 @@ public class Unit : MonoBehaviour, IMortal
         if (figure == null) figure = GetComponent<Figure>();
 
         new ValueTracker<bool>(() => alive, v => alive = v);
+        new ValueTracker<bool>(() => soul, v => soul = v);
 
         new ValueTracker<List<Func<MoveAction, Task>>>(() => afterTakeAction.ToList(), v => afterTakeAction = v.ToList());
     }

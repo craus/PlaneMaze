@@ -25,6 +25,11 @@ public class Buff : MonoBehaviour
 
     public void Awake() {
         UpdateIcons();
+        
+        new ValueTracker<int>(() => current, v => {
+            current = v;
+            UpdateIcons();
+        });
     }
 
     public virtual bool Active => current > 0;
