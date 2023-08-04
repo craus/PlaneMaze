@@ -16,7 +16,10 @@ public class BootsOfSprint : MonoBehaviour
     public void Awake() {
         activeIcon.SetActive(false);
         GetComponent<Item>().afterPick.Add(AfterPick);
-        GetComponent<Item>().beforeDrop.Add(BeforeDrop);
+        GetComponent<Item>().beforeDrop.Add(BeforeDrop); 
+        new ValueTracker<Vector2Int>(() => lastMove, v => {
+            lastMove = v;
+        });
     }
 
     private async Task AfterPick() {

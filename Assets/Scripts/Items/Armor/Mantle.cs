@@ -22,6 +22,10 @@ public class Mantle : MonoBehaviour, IReceiveAttackModifier
         currentCooldown = 0;
         highlightedIcon.fillAmount = 1;
         activeIcon.gameObject.SetActive(true);
+        new ValueTracker<int>(() => currentCooldown, v => {
+            currentCooldown = v;
+            highlightedIcon.fillAmount = 1f * (cooldown - currentCooldown) / cooldown;
+        });
     }
 
     public async Task ModifyAttack(Attack attack) {

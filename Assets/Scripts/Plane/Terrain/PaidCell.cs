@@ -27,7 +27,9 @@ public class PaidCell : MonoBehaviour
         }
         player.gems -= price;
         SoundManager.instance.buy.Play();
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        gameObject.SetActive(false);
+        GetComponent<Figure>().OnDestroy();
     }
 
     internal void SetPrice(int newPrice) {

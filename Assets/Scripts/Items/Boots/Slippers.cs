@@ -16,7 +16,10 @@ public class Slippers : MonoBehaviour, IBeforeWalk
     public void Awake() {
         activeIcon.SetActive(false);
         GetComponent<Item>().afterPick.Add(AfterPick);
-        GetComponent<Item>().beforeDrop.Add(BeforeDrop);
+        GetComponent<Item>().beforeDrop.Add(BeforeDrop); 
+        new ValueTracker<Vector2Int>(() => chargeDirection, v => {
+            chargeDirection = v;
+        });
     }
 
     private async Task AfterPick() {

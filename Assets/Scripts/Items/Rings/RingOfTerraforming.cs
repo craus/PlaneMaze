@@ -16,8 +16,8 @@ public class RingOfTerraforming : MonoBehaviour, IBeforeWalk
             return false;
         }
 
-        Destroy(Inventory.instance.GetItem<RingOfTerraforming>().gameObject);
-        Destroy(target.gameObject);
+        this.SoftDestroy(Inventory.instance.GetItem<RingOfTerraforming>().gameObject);
+        this.SoftDestroy(target.gameObject);
         SoundManager.instance.terraform.Play();
         return true;
     }

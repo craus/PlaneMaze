@@ -15,7 +15,11 @@ public class PhaseArmor : MonoBehaviour
     public Image highlightedIcon;
 
     public void Awake() {
-        Game.instance.afterPlayerMove.Add(AfterPlayerMove);
+        Game.instance.afterPlayerMove.Add(AfterPlayerMove); 
+        new ValueTracker<int>(() => currentPhase, v => {
+            currentPhase = v;
+            highlightedIcon.fillAmount = 1f * currentPhase / invulnerabilityPeriod;
+        });
     }
 
     private async void GainInvulnerabilityAfterAnimations(int turnNumber) {
