@@ -67,6 +67,8 @@ public class Game : MonoBehaviour
 
     public void Awake() {
         new ValueTracker<List<Monster>>(() => monsters.ToList(), v => monsters = v.ToList());
+        new ValueTracker<int>(() => time, v => time = v);
+        new ValueTracker<int>(() => moveNumber, v => moveNumber = v);
     }
 
     public async void Start() {

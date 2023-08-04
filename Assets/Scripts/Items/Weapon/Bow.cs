@@ -38,6 +38,11 @@ public class Bow : Weapon
 
     public void Awake() {
         UpdateIcon();
+
+        new ValueTracker<Vector2Int>(() => chargedDirection, v => {
+            chargedDirection = v;
+            UpdateIcon();
+        });
     }
 
     private void UpdateIcon() {

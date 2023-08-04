@@ -45,6 +45,7 @@ public class Unit : MonoBehaviour, IMortal
 
         new ValueTracker<bool>(() => alive, v => alive = v);
         new ValueTracker<bool>(() => soul, v => soul = v);
+        new ValueTracker<int>(() => movesSinceLastHit, v => movesSinceLastHit = v);
 
         new ValueTracker<List<Func<MoveAction, Task>>>(() => afterTakeAction.ToList(), v => afterTakeAction = v.ToList());
     }

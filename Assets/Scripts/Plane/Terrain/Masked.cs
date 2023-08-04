@@ -24,6 +24,12 @@ public class Masked : MonoBehaviour
         } else {
             Hide();
         }
+
+        new ValueTracker<bool>(
+            () => sprite.gameObject.activeSelf,
+            v => sprite.gameObject.SetActive(v),
+            defaultValue: false
+        );
     }
 
     public void OnDestroy() {

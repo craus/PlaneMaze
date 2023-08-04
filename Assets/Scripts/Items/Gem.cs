@@ -15,6 +15,10 @@ public class Gem : MonoBehaviour
     public void Awake() {
         GetComponent<Item>().afterPick.Add(OnPick);
         UpdateSprite();
+        new ValueTracker<int>(() => amount, v => {
+            amount = v;
+            UpdateSprite();
+        });
     }
 
     public void UpdateSprite() {

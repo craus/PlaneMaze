@@ -16,6 +16,13 @@ public abstract class Monster : Unit
 
     public override bool BenefitsFromTerrain => base.BenefitsFromTerrain && GameManager.instance.metagame.Ascention<MonstersBenefitFromTerrain>();
 
+    public override void Awake() {
+        base.Awake();
+        new ValueTracker<int>(() => movesSinceHitToHeal, v => {
+            movesSinceHitToHeal = v;
+        });
+    }
+
     protected async Task<bool> SmartWalk(Vector2Int delta) {
         if (!Flying && figure.Location.Shift(delta).GetFigure<WolfTrap>() != null) {
             return false;
