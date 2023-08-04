@@ -23,7 +23,7 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
 
     public virtual async Task<bool> TryAttack(Vector2Int delta) {
         var targets = AttackVectors()
-            .Select(d => Owner.figure.location.Shift(delta.Relative(d)).GetFigure<Unit>(u => u.Vulnerable))
+            .Select(d => Owner.figure.Location.Shift(delta.Relative(d)).GetFigure<Unit>(u => u.Vulnerable))
             .Where(u => u != null);
 
         return await MultipleAttack(delta, targets);
@@ -41,8 +41,8 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
     public virtual async Task AfterMultipleAttack(Vector2Int delta) { }
 
 
-    public virtual Cell AttackLocation(Vector2Int delta, Unit target) => Owner.figure.location;
-    public virtual Cell DefenceLocation(Vector2Int delta, Unit target) => target.figure.location;
+    public virtual Cell AttackLocation(Vector2Int delta, Unit target) => Owner.figure.Location;
+    public virtual Cell DefenceLocation(Vector2Int delta, Unit target) => target.figure.Location;
 
     public virtual async Task<bool> MultipleAttack(Vector2Int delta, IEnumerable<Unit> targets) {
         await BeforeMultipleAttack(delta);

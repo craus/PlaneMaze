@@ -16,13 +16,13 @@ public class Harpy : Monster
         await figure.TryWalk(-delta);
     }
 
-    public override Cell AttackLocation(Vector2Int delta, Unit target) => figure.location.Shift(delta);
+    public override Cell AttackLocation(Vector2Int delta, Unit target) => figure.Location.Shift(delta);
 
     public override async Task<bool> TryAttack(Vector2Int delta) {
-        if (!figure.location.Shift(delta).Free) {
+        if (!figure.Location.Shift(delta).Free) {
             return false;
         }
-        var newPosition = figure.location.Shift(2*delta);
+        var newPosition = figure.Location.Shift(2*delta);
         if (newPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
             return await Attack(newPosition.GetFigure<Player>(), delta);
         }

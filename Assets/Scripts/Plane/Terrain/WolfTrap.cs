@@ -52,12 +52,12 @@ public class WolfTrap : Terrain, IMortal
         }
 
         Game.instance.lastAttackedMonster = null;
-        await victim.Hit(new Attack(Vector2Int.zero, GetComponent<Figure>(), victim.figure, GetComponent<Figure>().location, victim.figure.location, damage));
+        await victim.Hit(new Attack(Vector2Int.zero, GetComponent<Figure>(), victim.figure, GetComponent<Figure>().Location, victim.figure.Location, damage));
         
     }
 
     private async Task AfterPlayerMove(Cell from, Cell to) {
-        if (Mathf.Abs((to.position - GetComponent<Figure>().location.position).magnitude - 1) < 1e-4) {
+        if (Mathf.Abs((to.position - GetComponent<Figure>().Location.position).magnitude - 1) < 1e-4) {
             await GetComponent<Health>().Hit(1);
         }
     }

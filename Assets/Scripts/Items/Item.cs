@@ -53,7 +53,7 @@ public class Item : MonoBehaviour, IExplainable
                 return;
             }
             var player = figure.GetComponent<Player>();
-            if (player != null && from != GetComponent<Figure>().location) {
+            if (player != null && from != GetComponent<Figure>().Location) {
                 await Pick();
             }
         };
@@ -102,7 +102,7 @@ public class Item : MonoBehaviour, IExplainable
         await Task.WhenAll(beforeDrop.Select(listener => listener()).ToArray());
         icon.SetParent(iconParent);
         Inventory.instance.items.Remove(this);
-        _ = GetComponent<Figure>().Move(Game.instance.player.figure.location, isTeleport: true);
+        _ = GetComponent<Figure>().Move(Game.instance.player.figure.Location, isTeleport: true);
         UpdateModelVisible();
 
         await Task.WhenAll(afterDrop.Select(listener => listener()).ToArray());

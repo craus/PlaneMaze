@@ -21,13 +21,13 @@ public class Rapier : Weapon
         }
     }
 
-    public override Cell AttackLocation(Vector2Int delta, Unit target) => Owner.figure.location.Shift(delta);
+    public override Cell AttackLocation(Vector2Int delta, Unit target) => Owner.figure.Location.Shift(delta);
 
     public override async Task<bool> TryAttack(Vector2Int delta) {
-        if (!Owner.figure.location.Shift(delta).Free) {
+        if (!Owner.figure.Location.Shift(delta).Free) {
             return false;
         }
-        var longTarget = Owner.figure.location.Shift(2 * delta).GetFigure<Unit>(u => u.Vulnerable);
+        var longTarget = Owner.figure.Location.Shift(2 * delta).GetFigure<Unit>(u => u.Vulnerable);
         if (longTarget) {
             return await Attack(delta, longTarget);
         }

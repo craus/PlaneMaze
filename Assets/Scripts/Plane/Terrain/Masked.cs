@@ -12,7 +12,7 @@ public class Masked : MonoBehaviour
     public GameObject sprite;
 
     public void Trigger() {
-        if ((Player.instance.figure.location.position - GetComponent<Figure>().location.position).MaxDelta() <= triggerVisibilityRadius) {
+        if ((Player.instance.figure.Location.position - GetComponent<Figure>().Location.position).MaxDelta() <= triggerVisibilityRadius) {
             Show();
         }
     }
@@ -33,7 +33,7 @@ public class Masked : MonoBehaviour
     }
 
     private async Task AfterPlayerMove(Cell from, Cell to) {
-        if ((to.position - GetComponent<Figure>().location.position).magnitude < 1 + 1e-4) {
+        if ((to.position - GetComponent<Figure>().Location.position).magnitude < 1 + 1e-4) {
             Show();
         }
     }

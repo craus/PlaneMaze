@@ -28,7 +28,7 @@ public class Goblin : Monster
         if (!await SmartWalk(currentDirection)) {
             if (!await TryAttack(currentDirection)) {
                 await SmartFakeMove(currentDirection);
-                currentDirection = Moves.Rnd(m => figure.location.Shift(m).Free);
+                currentDirection = Moves.Rnd(m => figure.Location.Shift(m).Free);
                 UpdateSprite();
             }
         }

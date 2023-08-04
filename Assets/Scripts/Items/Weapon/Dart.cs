@@ -17,8 +17,8 @@ public class Dart : Weapon
         }
 
         var transformDelta = target.transform.position - Owner.transform.position;
-        var direction = Helpers.StepAtDirection(target.figure.location.position - Owner.figure.location.position);
-        var attackPosition = target.figure.location;
+        var direction = Helpers.StepAtDirection(target.figure.Location.position - Owner.figure.Location.position);
+        var attackPosition = target.figure.Location;
 
         SoundManager.instance.rangedAttack.Play();
 
@@ -41,7 +41,7 @@ public class Dart : Weapon
     }
 
     public override async Task<bool> TryAttack(Vector2Int delta) {
-        var currentPosition = Owner.figure.location;
+        var currentPosition = Owner.figure.Location;
         for (int i = 0; i < range; i++) {
             currentPosition = currentPosition.Shift(delta);
             var enemy = currentPosition.GetFigure<Monster>(m => m.Vulnerable);

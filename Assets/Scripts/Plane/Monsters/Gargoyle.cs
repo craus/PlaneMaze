@@ -37,13 +37,13 @@ public class Gargoyle : Monster
                 }
             }
         } else {
-            Vector2Int playerDelta = Player.instance.figure.location.position - figure.location.position;
+            Vector2Int playerDelta = Player.instance.figure.Location.position - figure.Location.position;
             if (playerDelta.x != 0 && playerDelta.y != 0) {
                 return;
             }
             playerDelta /= (int)(playerDelta.magnitude + .5f);
 
-            if (Helpers.RayCast(figure.location, playerDelta, target: c => c.GetFigure<Player>() != null, distance: range) != null) {
+            if (Helpers.RayCast(figure.Location, playerDelta, target: c => c.GetFigure<Player>() != null, distance: range) != null) {
                 currentDirection = playerDelta;
                 SoundManager.instance.gargoyleWakeup.Play();
                 UpdateSprite();

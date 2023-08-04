@@ -69,7 +69,7 @@ public class Unit : MonoBehaviour, IMortal
         if (!alive) {
             return;
         }
-        Debug.LogFormat($"[{Game.instance.time}] {gameObject} at ({figure.location.position}) dies");
+        Debug.LogFormat($"[{Game.instance.time}] {gameObject} at ({figure.Location.position}) dies");
         await BeforeDie();
         alive = false;
 
@@ -83,7 +83,7 @@ public class Unit : MonoBehaviour, IMortal
 
         if (Game.instance.monsters.Contains(GetComponent<Monster>())) {
             Game.instance.monsters.Remove(GetComponent<Monster>());
-            Game.Debug($"Monster {gameObject} at ({figure.location}) removed from queue after death");
+            Game.Debug($"Monster {gameObject} at ({figure.Location}) removed from queue after death");
         }
         Destroy(gameObject);
     }

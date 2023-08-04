@@ -147,6 +147,10 @@ public class MainUI : Singletone<MainUI>
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Z)) {
+            UndoManager.instance.Undo();
+        }
+
         if (Input.anyKeyDown) {
             if (ConfirmationManager.instance.AwaitingConfirmation && ConfirmationManager.instance.canConfirmByAnyButton) {
                 ConfirmationManager.instance.AnyButton();

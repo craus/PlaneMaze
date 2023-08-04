@@ -38,7 +38,7 @@ public class Mantle : MonoBehaviour, IReceiveAttackModifier
         highlightedIcon.fillAmount = 0;
         activeIcon.gameObject.SetActive(false);
 
-        var destinations = GetComponent<Item>().Owner.figure.location.Vicinity(maxDx: range, maxDy: range).Where(c => c.Free);
+        var destinations = GetComponent<Item>().Owner.figure.Location.Vicinity(maxDx: range, maxDy: range).Where(c => c.Free);
         if (destinations.Count() > 0) {
             var destination = destinations.Rnd();
             Debug.LogFormat($"Mantle teleports player");

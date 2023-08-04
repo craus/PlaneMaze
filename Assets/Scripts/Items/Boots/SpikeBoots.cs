@@ -37,7 +37,7 @@ public class SpikeBoots : MonoBehaviour
             var moveDirection = walk.to.position - walk.from.position;
             var target = walk.to.Shift(moveDirection).GetFigure<Monster>(m => m.Vulnerable);
             if (target != null) {
-                var result = await Attack(new Attack(moveDirection, GetComponent<Item>().Owner.figure, target.figure, walk.to, target.figure.location, damage));
+                var result = await Attack(new Attack(moveDirection, GetComponent<Item>().Owner.figure, target.figure, walk.to, target.figure.Location, damage));
             }
         }
     }

@@ -10,13 +10,13 @@ public class Portal : MonoBehaviour
 
     public void Awake() {
         GetComponent<Figure>().collide = async (from, figure) => {
-            if (from == second.GetComponent<Figure>().location) {
+            if (from == second.GetComponent<Figure>().Location) {
                 return;
             }
             var victim = figure.GetComponent<Player>();
             if (victim != null) {
                 SoundManager.instance.teleport.Play();
-                await victim.figure.Move(second.GetComponent<Figure>().location, isTeleport: true);
+                await victim.figure.Move(second.GetComponent<Figure>().Location, isTeleport: true);
                 await victim.GetComponent<MovesReserve>().Haste(1);
             }
         };

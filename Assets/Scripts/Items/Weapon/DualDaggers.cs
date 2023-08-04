@@ -9,8 +9,8 @@ public class DualDaggers : Weapon
 {
     public override async Task<bool> TryAttack(Vector2Int delta) {
         bool result = false;
-        var leftTarget = Owner.figure.location.Shift(delta.Relative(1, 1)).GetFigure<Unit>(u => u.Vulnerable);
-        var rightTarget = Owner.figure.location.Shift(delta.Relative(1, -1)).GetFigure<Unit>(u => u.Vulnerable);
+        var leftTarget = Owner.figure.Location.Shift(delta.Relative(1, 1)).GetFigure<Unit>(u => u.Vulnerable);
+        var rightTarget = Owner.figure.Location.Shift(delta.Relative(1, -1)).GetFigure<Unit>(u => u.Vulnerable);
         return (await Task.WhenAll(Attack(delta, leftTarget), Attack(delta, rightTarget))).Any(b => b);
     }
 

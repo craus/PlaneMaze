@@ -55,9 +55,9 @@ public class Player : Unit
             }
         }
 
-        var oldLocation = figure.location;
+        var oldLocation = figure.Location;
         if (await figure.TryWalk(delta, c => c.Free && (c.GetFigure<PaidCell>() == null || c.GetFigure<PaidCell>().price <= gems))) {
-            await AfterTakeAction(new Walk(oldLocation, figure.location));
+            await AfterTakeAction(new Walk(oldLocation, figure.Location));
             Game.Debug($"Player move end: walk");
             return;
         }
@@ -83,7 +83,7 @@ public class Player : Unit
     }
 
     private async Task<bool> DefaultAttack(Vector2Int delta) {
-        var target = figure.location.Shift(delta).GetFigure<Unit>(u => u.Vulnerable);
+        var target = figure.Location.Shift(delta).GetFigure<Unit>(u => u.Vulnerable);
 
         if (target == null || !target.Movable) {
             Debug.LogFormat($"[{Game.instance.time}] DefaultAttack failed: invalid target");
@@ -96,13 +96,13 @@ public class Player : Unit
 
         await figure.FakeMove(delta);
 
-        if (target.figure.location.Shift(delta).Free) {
+        if (target.figure.Location.Shift(delta).Free) {
             SoundManager.instance.push.Play();
             await target.figure.TryWalk(delta);
             Debug.LogFormat($"[{Game.instance.time}] DefaultAttack push");
         } else {
             SoundManager.instance.pushAttack.Play();
-            await Attack(new Attack(delta, figure, target.figure, figure.location, target.figure.location, damage));
+            await Attack(new Attack(delta, figure, target.figure, figure.Location, target.figure.Location, damage));
             Debug.LogFormat($"[{Game.instance.time}] DefaultAttack deal damage");
         }
         return true;
@@ -113,7 +113,7 @@ public class Player : Unit
         if (Inventory.instance.GetItem<RingOfStrength>()) {
             currentDamage++;
         }
-        await target.Hit(new Attack(delta, figure, target.figure, figure.location, target.figure.location, currentDamage));
+        await target.Hit(new Attack(delta, figure, target.figure, figure.Location, target.figure.Location, currentDamage));
     }
 
     public override async Task Attack(Attack attack) {
@@ -156,6 +156,8 @@ public class Player : Unit
         await GetComponent<Disarm>().Spend(1);
         await GetComponent<Root>().Spend(1);
         await GetComponent<Invulnerability>().Spend(1);
+
+        UndoManager.instance.Save();
     }
 
     private async void Move(Vector2Int delta) {

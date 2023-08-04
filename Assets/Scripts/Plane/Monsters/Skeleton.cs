@@ -44,12 +44,12 @@ public class Skeleton : Monster
     protected override async Task MakeMove() {
         if (!active) {
             --currentReviveCooldown;
-            if (currentReviveCooldown <= 0 && figure.location.Free) {
+            if (currentReviveCooldown <= 0 && figure.Location.Free) {
                 await Revive();
             }
             return;
         }
-        var playerDelta = Player.instance.figure.location.position - figure.location.position;
+        var playerDelta = Player.instance.figure.Location.position - figure.Location.position;
         if (playerDelta.MaxDelta() > 4) {
             return;
         }

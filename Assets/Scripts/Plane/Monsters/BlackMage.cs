@@ -59,7 +59,7 @@ public class BlackMage : Monster
 
         var soul = Instantiate(soulSample, Game.instance.transform);
         soul.transform.position = soulPosition;
-        await soul.transform.Move(figure.location.transform.position, 0.1f);
+        await soul.transform.Move(figure.Location.transform.position, 0.1f);
 
         if (soul != null) {
             Destroy(soul);
@@ -75,7 +75,7 @@ public class BlackMage : Monster
         }
         await unit.Die();
 
-        await ConsumeSoulAnimation(unit.figure.location.transform.position);
+        await ConsumeSoulAnimation(unit.figure.Location.transform.position);
 
         await Heal();
 
@@ -91,7 +91,7 @@ public class BlackMage : Monster
     }
 
     public async Task DealDeathDamage() {
-        foreach (var u in figure.location.Vicinity(damageRadius)
+        foreach (var u in figure.Location.Vicinity(damageRadius)
             .SelectMany(c => c.GetFigures<Unit>())
             .Where(u => u != null && u.SoulVulnerable)
             .ToList()
@@ -105,13 +105,13 @@ public class BlackMage : Monster
             return;
         }
         if (
-            (unit.figure.location.position - figure.location.position).MaxDelta() <= deathDetectionRadius && 
+            (unit.figure.Location.position - figure.Location.position).MaxDelta() <= deathDetectionRadius && 
             unit is Monster && 
             unit.HasSoul
         ) {
             unit.soul = false;
             charged = true;
-            await ConsumeSoulAnimation(unit.figure.location.transform.position);
+            await ConsumeSoulAnimation(unit.figure.Location.transform.position);
             UpdateIcon();
         }
     }
@@ -135,10 +135,10 @@ public class BlackMage : Monster
             return;
         }
 
-        var closestGhost = figure.location.Vicinity(deathDetectionRadius)
+        var closestGhost = figure.Location.Vicinity(deathDetectionRadius)
             .Select(c => c.GetFigure<Ghost>())
             .Where(g => g != null)
-            .MinBy(g => (g.figure.location.position - figure.location.position).sqrMagnitude);
+            .MinBy(g => (g.figure.Location.position - figure.Location.position).sqrMagnitude);
 
         if (closestGhost == null) {
             return;
