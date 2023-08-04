@@ -43,10 +43,7 @@ public class Unit : MonoBehaviour, IMortal
     public virtual void Awake() {
         if (figure == null) figure = GetComponent<Figure>();
 
-        new ValueTracker<bool>(() => alive, v => {
-            alive = v;
-            gameObject.SetActive(v);
-        });
+        new ValueTracker<bool>(() => alive, v => alive = v);
 
         new ValueTracker<List<Func<MoveAction, Task>>>(() => afterTakeAction.ToList(), v => afterTakeAction = v.ToList());
     }

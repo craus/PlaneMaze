@@ -22,8 +22,7 @@ public class Figure : MonoBehaviour
     public void Awake() {
         new ValueTracker<Cell>(() => Location, SetLocation);
 
-        ValueTracker<bool> existenceTracker = null;
-        existenceTracker = new ValueTracker<bool>(
+        new ValueTracker<bool>(
             () => gameObject.activeSelf, 
             v => gameObject.SetActive(v), 
             defaultValue: false

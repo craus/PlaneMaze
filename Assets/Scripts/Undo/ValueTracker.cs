@@ -15,15 +15,14 @@ public class ValueTracker<T> : BaseTracker
     public bool verbose = false;
 
     public ValueTracker(Func<T> getter, Action<T> setter, T defaultValue)
-        : this(getter, setter, EqualityComparer<T>.Default, defaultValue
-    ) {
+        : this(getter, setter, EqualityComparer<T>.Default, defaultValue) {
     }
 
     public ValueTracker(Func<T> getter, Action<T> setter)
-        : this(getter, setter, EqualityComparer<T>.Default) {
+        : this(getter, setter, EqualityComparer<T>.Default, getter()) {
     }
 
-    public ValueTracker(Func<T> getter, Action<T> setter, EqualityComparer<T> equals, T defaultValue = default) {
+    public ValueTracker(Func<T> getter, Action<T> setter, EqualityComparer<T> equals, T defaultValue) {
         this.getter = getter;
         this.setter = setter;
         this.equals = equals;
