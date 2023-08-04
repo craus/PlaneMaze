@@ -36,6 +36,8 @@ public class HealingPotion : MonoBehaviour
         Destroy(healEffect);
 
         await GetComponent<Item>().Owner.GetComponent<Health>().Heal(heal);
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        gameObject.SetActive(false);
+        GetComponent<Figure>().OnDestroy();
     }
 }
