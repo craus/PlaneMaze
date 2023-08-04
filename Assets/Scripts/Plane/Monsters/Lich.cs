@@ -33,6 +33,10 @@ public class Lich : Monster
         }
         currentCooldown = cooldown;
         UpdateSprite();
+        new ValueTracker<int>(() => currentCooldown, v => {
+            currentCooldown = v;
+            UpdateSprite();
+        });
     }
 
     public override void OnGameStart() {

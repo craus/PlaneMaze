@@ -24,7 +24,12 @@ public class Slime : Monster
 
     public override void Awake() {
         base.Awake();
-        Init();
+        Init(); 
+        
+        new ValueTracker<int>(() => currentCooldown, v => {
+            currentCooldown = v;
+            UpdateSprite();
+        });
     }
 
     public void Init() {

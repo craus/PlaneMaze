@@ -16,6 +16,8 @@ public class Vampire : Monster
     public override void Awake() {
         base.Awake();
         ChangeForm(bat: true);
+
+        new ValueTracker<bool>(() => batForm, ChangeForm);
     }
 
     public override async Task<bool> TryAttack(Vector2Int delta) {

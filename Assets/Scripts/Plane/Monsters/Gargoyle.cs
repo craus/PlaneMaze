@@ -18,6 +18,10 @@ public class Gargoyle : Monster
         base.Awake();
         currentDirection = Vector2Int.zero;
         UpdateSprite();
+
+        new ValueTracker<Vector2Int>(() => currentDirection, v => {
+            currentDirection = v; UpdateSprite();
+        });
     }
 
     private void UpdateSprite() {
