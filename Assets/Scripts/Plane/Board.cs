@@ -25,6 +25,10 @@ public class Board : MonoBehaviour
 
     public Cell this[int x, int y] => GetCell(new Vector2Int(x, y));
 
+    public void Awake() {
+        new ValueTracker<bool>(() => gameObject.activeSelf, v => gameObject.SetActive(v));
+    }
+
     private void Start() {
         //for (int i = 0; i < 10; i++) {
         //    for (int j = 0; j < 10; j++) {
