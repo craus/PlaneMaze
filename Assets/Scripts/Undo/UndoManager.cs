@@ -22,7 +22,15 @@ public class UndoManager : Singletone<UndoManager>
     }
 
     public void Undo(int count = 1) {
+        if (lastSaveIndex <= 1) return;
         lastSaveIndex -= count;
         Load();
+    }
+
+    public void ResetTrackers() {
+        trackers.Clear();
+        onSave = () => { };
+        onLoad = () => { };
+        lastSaveIndex = 0;
     }
 }
