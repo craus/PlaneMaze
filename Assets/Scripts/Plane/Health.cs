@@ -55,6 +55,11 @@ public class Health : MonoBehaviour
 
     public void Awake() {
         Init();
+
+        new ValueTracker<int>(() => current, v => {
+            current = v;
+            UpdateHearts();
+        });
     }
 
     public void Init() {
