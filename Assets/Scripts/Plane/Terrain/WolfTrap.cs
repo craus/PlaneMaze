@@ -26,7 +26,9 @@ public class WolfTrap : Terrain, IMortal
                 if (this == null) {
                     return;
                 }
-                Destroy(gameObject);
+                //Destroy(gameObject);
+                gameObject.SetActive(false);
+                GetComponent<Figure>().OnDestroy();
             }
         };
     }
