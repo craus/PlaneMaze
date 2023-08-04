@@ -57,6 +57,13 @@ public class Item : MonoBehaviour, IExplainable
                 await Pick();
             }
         };
+
+        new ValueTracker<bool>(() => Equipped, SetEquipped);
+    }
+
+    private void SetEquipped(bool equipped) {
+        model.SetActive(!equipped);
+        icon.SetParent(equipped ? Inventory.instance.itemsFolder : iconParent);
     }
 
     public bool Equipped => Inventory.instance.items.Contains(this);

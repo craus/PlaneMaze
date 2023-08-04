@@ -15,6 +15,10 @@ public class Inventory : Singletone<Inventory>
     public List<Func<Task>> onPick = new List<Func<Task>>();
     public List<Func<Task>> onDrop = new List<Func<Task>>();
 
+    public void Awake() {
+        new ValueTracker<List<Item>>(() => items.ToList(), v => items = v.ToList());
+    }
+
     public T GetItem<T>() where T : class {
         var item = items.FirstOrDefault(i => i.GetComponent<T>() != null);
         if (item == null) {
