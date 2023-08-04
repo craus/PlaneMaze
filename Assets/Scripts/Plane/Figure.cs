@@ -20,7 +20,9 @@ public class Figure : MonoBehaviour
     public List<Func<Cell, Cell, Task>> afterWalk = new List<Func<Cell, Cell, Task>>();
 
     public void Awake() {
-        new ValueTracker<Cell>(() => Location, SetLocation); 
+        new ValueTracker<Cell>(() => Location, SetLocation);
+
+        new ValueTracker<bool>(() => true, v => gameObject.SetActive(v), defaultValue: false);
     }
 
     private void SetLocation(Cell newPosition) {

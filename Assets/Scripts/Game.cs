@@ -65,6 +65,10 @@ public class Game : MonoBehaviour
 
     public DateTime startTime;
 
+    public void Awake() {
+        new ValueTracker<List<Monster>>(() => monsters.ToList(), v => monsters = v.ToList());
+    }
+
     public async void Start() {
         startTime = DateTime.Now;
 

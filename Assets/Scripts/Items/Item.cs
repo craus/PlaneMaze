@@ -86,15 +86,15 @@ public class Item : MonoBehaviour, IExplainable
         if (GetComponent<Gem>()) {
             SoundManager.instance.gemPick.Play();
         } else {
-            SoundManager.instance.itemPick.Play();
+            SoundManager.instance.itemPick.Play(); 
+            icon.SetParent(Inventory.instance.itemsFolder);
+            Inventory.instance.items.Add(this);
         }
 
         if (ShowDescription) {
             InfoPanel.instance.Show(this);
         }
 
-        icon.SetParent(Inventory.instance.itemsFolder);
-        Inventory.instance.items.Add(this);
         Debug.LogFormat("item is picked");
         Debug.LogFormat($"item owner is {Owner}");
         await GetComponent<Figure>().Move(null, isTeleport: true);

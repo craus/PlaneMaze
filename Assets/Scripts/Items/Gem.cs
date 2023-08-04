@@ -15,6 +15,10 @@ public class Gem : MonoBehaviour
     public void Awake() {
         GetComponent<Item>().afterPick.Add(OnPick);
         UpdateSprite();
+
+        new ValueTracker<bool>(() => gameObject.activeSelf, v => {
+            gameObject.SetActive(v);
+        });
     }
 
     public void UpdateSprite() {
@@ -26,6 +30,9 @@ public class Gem : MonoBehaviour
 
     private async Task OnPick() {
         Player.instance.gems += amount;
-        Destroy(gameObject);
+
+        gameObject.SetActive(false);
+        //Destroy(gameObject);
+        GetComponent<Figure>().OnDestroy();
     }
 }

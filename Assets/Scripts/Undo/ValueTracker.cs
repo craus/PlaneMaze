@@ -12,6 +12,12 @@ public class ValueTracker<T> : BaseTracker
     public Action<T> setter;
     public EqualityComparer<T> equals;
 
+    public ValueTracker(Func<T> getter, Action<T> setter, T defaultValue)
+        : this(getter, setter, EqualityComparer<T>.Default
+    ) {
+        track.Add((int.MinValue, defaultValue));
+    }
+
     public ValueTracker(Func<T> getter, Action<T> setter)
         : this(getter, setter, EqualityComparer<T>.Default) {
     }
