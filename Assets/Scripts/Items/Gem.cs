@@ -15,10 +15,6 @@ public class Gem : MonoBehaviour
     public void Awake() {
         GetComponent<Item>().afterPick.Add(OnPick);
         UpdateSprite();
-
-        new ValueTracker<bool>(() => gameObject.activeSelf, v => {
-            gameObject.SetActive(v);
-        });
     }
 
     public void UpdateSprite() {

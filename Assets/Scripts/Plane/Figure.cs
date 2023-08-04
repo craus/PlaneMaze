@@ -22,7 +22,12 @@ public class Figure : MonoBehaviour
     public void Awake() {
         new ValueTracker<Cell>(() => Location, SetLocation);
 
-        new ValueTracker<bool>(() => true, v => gameObject.SetActive(v), defaultValue: false);
+        ValueTracker<bool> existenceTracker = null;
+        existenceTracker = new ValueTracker<bool>(
+            () => gameObject.activeSelf, 
+            v => gameObject.SetActive(v), 
+            defaultValue: false
+        );
     }
 
     private void SetLocation(Cell newPosition) {
