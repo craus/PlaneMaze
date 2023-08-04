@@ -10,6 +10,7 @@ public class UndoManager : Singletone<UndoManager>
     public event Action onLoad;
 
     public int lastSaveIndex = 0;
+    public List<BaseTracker> trackers = new List<BaseTracker>();
 
     public void Save() {
         lastSaveIndex++;

@@ -50,6 +50,10 @@ public class Cell : MonoBehaviour
 
     public HashSet<Figure> figures = new HashSet<Figure>();
 
+    public void Awake() {
+        new ValueTracker<List<Figure>>(() => figures.ToList(), v => figures = new HashSet<Figure>(v));
+    }
+
     public Color Color() {
         //return Game.instance.GetCellColor(position);
 

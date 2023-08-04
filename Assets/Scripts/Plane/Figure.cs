@@ -19,6 +19,19 @@ public class Figure : MonoBehaviour
     public List<Func<Cell, Cell, Task>> afterMove = new List<Func<Cell, Cell, Task>>();
     public List<Func<Cell, Cell, Task>> afterWalk = new List<Func<Cell, Cell, Task>>();
 
+    public void Awake() {
+        new ValueTracker<Cell>(() => Location, SetLocation); 
+    }
+
+    private void SetLocation(Cell newPosition) {
+        location = newPosition;
+        if (location == null) return;
+        var toBoard = Location != null ? Location.board : null;
+        transform.SetParent(Location.board.figureParent);
+        transform.position = location.transform.position;
+    }
+
+
     public void TryMoveWall(Cell from, Cell to) {
         if (from.fieldCell.wall && !to.fieldCell.wall) {
             from.fieldCell.wall = false;

@@ -4,15 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ValueTracker<T> 
+public class ValueTracker<T> : BaseTracker
 {
     public List<(int index, T value)> track = new List<(int, T)>();
 
     public Func<T> getter;
     public Action<T> setter;
-    public Func<T, T, bool> equals;
+    public EqualityComparer<T> equals;
 
-    public ValueTracker(Func<T> getter, Action<T> setter, Func<T, T, bool> equals) {
+    public ValueTracker(Func<T> getter, Action<T> setter)
+        : this(getter, setter, EqualityComparer<T>.Default) {
+    }
+
+    public ValueTracker(Func<T> getter, Action<T> setter, EqualityComparer<T> equals) {
         this.getter = getter;
         this.setter = setter;
         this.equals = equals;
@@ -25,7 +29,7 @@ public class ValueTracker<T>
 
     public void Save() {
         var currentValue = getter();
-        if (track.Count == 0 || !equals(currentValue, track.Last().value)) {
+        if (track.Count == 0 || !equals.Equals(currentValue, track.Last().value)) {
             track.Add((UndoManager.instance.lastSaveIndex, currentValue));
         }
     }
