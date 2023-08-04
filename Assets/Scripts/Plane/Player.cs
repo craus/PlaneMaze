@@ -253,6 +253,9 @@ public class Player : Unit
     public override void Awake() {
         base.Awake();
         figure.afterBoardChange.Add(AfterBoardChange);
+
+        new ValueTracker<int>(() => gems, v => gems = v);
+        new ValueTracker<int>(() => totalGems, v => totalGems = v);
     }
 
     private async Task AfterBoardChange(Board from, Board to) {
