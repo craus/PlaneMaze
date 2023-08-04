@@ -61,7 +61,7 @@ public class Item : MonoBehaviour, IExplainable
 
     public bool Equipped => Inventory.instance.items.Contains(this);
 
-    public bool Compatable(Item other) => GetComponent<Dart>() != null && other.GetComponent<Dart>() != null;
+    public bool Compatible(Item other) => GetComponent<Dart>() != null && other.GetComponent<Dart>() != null;
 
     [ContextMenu("Pick")]
     public async Task Pick() {
@@ -70,7 +70,7 @@ public class Item : MonoBehaviour, IExplainable
 
         if (slot != null) {
             foreach (var item in Inventory.instance.items.Where(item => item.slot == slot).ToList()) {
-                if (!item.Compatable(this)) {
+                if (!item.Compatible(this)) {
                     await item.Drop();
                 }
             }
