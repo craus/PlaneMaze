@@ -148,7 +148,9 @@ public class MainUI : Singletone<MainUI>
         }
 
         if (Input.GetKeyDown(KeyCode.Z)) {
-            UndoManager.instance.Undo();
+            if (Cheats.on) {
+                UndoManager.instance.Undo();
+            }
         }
 
         if (Input.anyKeyDown) {
