@@ -17,6 +17,8 @@ public class Metagame : MonoBehaviour
     public bool runInProgress = false;
     public bool hardcore = false;
 
+    public IEnumerable<Ascention> ModeAscensions => hardcore ? Library.instance.AllAscentions : Library.instance.ascentions;
+
     public Game game;
 
     internal bool Ascention<T>() where T : Ascention => ascentions.Any(a => a is T);
@@ -88,7 +90,7 @@ public class Metagame : MonoBehaviour
     public async Task Win() {
         runInProgress = false;
         losesWithNoPenalty = 0;
-        if (Library.instance.AllAscentions.Any(a => a.CanAdd(this))) {
+        if (ModeAscensions.Any(a => a.CanAdd(this))) {
             await AddRandomAscention();
         } else {
             await ConfirmationManager.instance.AskConfirmation(
@@ -134,9 +136,7 @@ public class Metagame : MonoBehaviour
     }
 
     public async Task AddRandomAscention() {
-        var addable = Library.instance.AllAscentions.Where(a => a.CanAdd(this)).ToList();
-        Debug.LogFormat(addable.ExtToString());
-        var newAscention = Library.instance.AllAscentions.Where(a => a.CanAdd(this)).Rnd();
+        var newAscention = ModeAscensions.Where(a => a.CanAdd(this)).Rnd();
         await ConfirmationManager.instance.AskConfirmation($"New ascention added: {newAscention.name}", canCancel: false);
         ascentions.Add(newAscention);
         MainUI.instance.UpdateAscentionsList();

@@ -8138,6 +8138,7 @@ MonoBehaviour:
   - {fileID: 3995224932263777866, guid: 23f2cc1e78c5ccc43921c0f4efb3bd03, type: 3}
   - {fileID: 4967101084334712313, guid: 3e969fc2ba02a024cae1baefb7761ab2, type: 3}
   - {fileID: 6809913866966087731, guid: 9e2ca3edd2c38eb4b997cfb34e0ad490, type: 3}
+  - {fileID: -5041799447542232587, guid: 266966e486927434cb91dbd3b6c5a2dd, type: 3}
   additionalAscentions:
   - {fileID: 2146105846518019366, guid: bfe79ad598111a7409d86fb712bf0cae, type: 3}
   - {fileID: 744721756955081251, guid: 2843bf68b377bd0409cc690079a340eb, type: 3}
