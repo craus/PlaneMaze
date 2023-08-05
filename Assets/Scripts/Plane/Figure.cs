@@ -116,6 +116,8 @@ public class Figure : MonoBehaviour
     }
 
     public async Task Move(Cell newPosition, bool isTeleport = false, Cell fakeMove = null, bool teleportAnimation = false) {
+        if (!gameObject.activeSelf) return;
+        
         var from = Location;
         var fromBoard = from != null ? from.board : null;
         if (!fakeMove && Location != null) {
@@ -131,6 +133,10 @@ public class Figure : MonoBehaviour
         }
         await Task.WhenAll(afterMove.Select(listener => listener(from, Location)));
 
+        if (this == null || !gameObject.activeSelf) {
+            return;
+        }
+
         if (!fakeMove && Location != null) {
             Location.figures.Add(this);
         }
@@ -139,7 +145,7 @@ public class Figure : MonoBehaviour
             await UpdateTransform(fakeMove, isTeleport, teleportAnimation);
         }
 
-        if (this == null) {
+        if (this == null || !gameObject.activeSelf) {
             return;
         }
 

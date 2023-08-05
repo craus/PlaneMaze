@@ -37,8 +37,8 @@ public class GlovesOfSwapping : MonoBehaviour, IAttackModifier
                 }
 
                 List<Task> moves = new List<Task>();
-                if (attack.to != null) moves.Add(attack.to.Move(fromLocation));
-                if (attack.from != null) {
+                if (attack.to != null && attack.to.gameObject.activeSelf) moves.Add(attack.to.Move(fromLocation));
+                if (attack.from != null && attack.from.gameObject.activeSelf) {
                     moves.Add(attack.from.GetComponent<Invulnerability>().Gain(1));
                     moves.Add(attack.from.Move(toLocation));
                 }
