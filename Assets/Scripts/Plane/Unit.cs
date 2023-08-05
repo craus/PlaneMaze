@@ -42,6 +42,12 @@ public class Unit : MonoBehaviour, IMortal
 
     public virtual void Awake() {
         if (figure == null) figure = GetComponent<Figure>();
+
+        new ValueTracker<bool>(() => alive, v => alive = v);
+        new ValueTracker<bool>(() => soul, v => soul = v);
+        new ValueTracker<int>(() => movesSinceLastHit, v => movesSinceLastHit = v);
+
+        new ValueTracker<List<Func<MoveAction, Task>>>(() => afterTakeAction.ToList(), v => afterTakeAction = v.ToList());
     }
 
     public virtual async Task Attack(Attack attack) {
@@ -69,7 +75,7 @@ public class Unit : MonoBehaviour, IMortal
         if (!alive) {
             return;
         }
-        Debug.LogFormat($"[{Game.instance.time}] {gameObject} at ({figure.location.position}) dies");
+        Debug.LogFormat($"[{Game.instance.time}] {gameObject} at ({figure.Location.position}) dies");
         await BeforeDie();
         alive = false;
 
@@ -83,8 +89,9 @@ public class Unit : MonoBehaviour, IMortal
 
         if (Game.instance.monsters.Contains(GetComponent<Monster>())) {
             Game.instance.monsters.Remove(GetComponent<Monster>());
-            Game.Debug($"Monster {gameObject} at ({figure.location}) removed from queue after death");
+            Game.Debug($"Monster {gameObject} at ({figure.Location}) removed from queue after death");
         }
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        GetComponent<Figure>().OnDestroy();
     }
 }

@@ -22,6 +22,10 @@ public class Mantle : MonoBehaviour, IReceiveAttackModifier
         currentCooldown = 0;
         highlightedIcon.fillAmount = 1;
         activeIcon.gameObject.SetActive(true);
+        new ValueTracker<int>(() => currentCooldown, v => {
+            currentCooldown = v;
+            highlightedIcon.fillAmount = 1f * (cooldown - currentCooldown) / cooldown;
+        });
     }
 
     public async Task ModifyAttack(Attack attack) {
@@ -38,7 +42,7 @@ public class Mantle : MonoBehaviour, IReceiveAttackModifier
         highlightedIcon.fillAmount = 0;
         activeIcon.gameObject.SetActive(false);
 
-        var destinations = GetComponent<Item>().Owner.figure.location.Vicinity(maxDx: range, maxDy: range).Where(c => c.Free);
+        var destinations = GetComponent<Item>().Owner.figure.Location.Vicinity(maxDx: range, maxDy: range).Where(c => c.Free);
         if (destinations.Count() > 0) {
             var destination = destinations.Rnd();
             Debug.LogFormat($"Mantle teleports player");

@@ -11,7 +11,7 @@ public static class Helpers
     public static float animationSpeed = 1;
 
     public async static Task TeleportAway(Figure figure, int radius) {
-        var destination = figure.location.Vicinity(maxDx: radius, maxDy: radius).Where(c => c.Free).Rnd();
+        var destination = figure.Location.Vicinity(maxDx: radius, maxDy: radius).Where(c => c.Free).Rnd();
 
         if (
             figure.GetComponent<BlackMage>() != null ||

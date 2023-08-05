@@ -83,6 +83,7 @@ public class GameManager : Singletone<GameManager>
     }
 
     public void NewGame() {
+        UndoManager.instance.ResetTrackers();
         game = Instantiate(gameSample, transform);
         metagame.runInProgress = true;
         SaveMetagame();

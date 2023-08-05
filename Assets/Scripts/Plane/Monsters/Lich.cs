@@ -33,6 +33,10 @@ public class Lich : Monster
         }
         currentCooldown = cooldown;
         UpdateSprite();
+        new ValueTracker<int>(() => currentCooldown, v => {
+            currentCooldown = v;
+            UpdateSprite();
+        });
     }
 
     public override void OnGameStart() {
@@ -56,7 +60,7 @@ public class Lich : Monster
     }
 
     private async Task TryWalkFromPlayer() {
-        var playerDelta = Player.instance.figure.location.position - figure.location.position;
+        var playerDelta = Player.instance.figure.Location.position - figure.Location.position;
 
         if (!await SmartWalk(-playerDelta.StepAtDirection())) {
             await SmartFakeMove(-playerDelta.StepAtDirection());
@@ -64,7 +68,7 @@ public class Lich : Monster
     }
 
     private async Task SpawnSkeleton() {
-        var spawnLocation = figure.location.Vicinity(spawnRadius).Where(c => c.Free).Rnd();
+        var spawnLocation = figure.Location.Vicinity(spawnRadius).Where(c => c.Free).Rnd();
         if (spawnLocation == null) {
             return;
         }
@@ -75,7 +79,7 @@ public class Lich : Monster
         --currentCooldown;
         UpdateSprite();
 
-        var playerDelta = Player.instance.figure.location.position - figure.location.position;
+        var playerDelta = Player.instance.figure.Location.position - figure.Location.position;
         if (playerDelta.MaxDelta() > aggroRadius) {
             return;
         }

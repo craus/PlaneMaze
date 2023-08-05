@@ -8,7 +8,7 @@ using UnityEngine;
 public class Katar : Weapon
 {
     public async Task<bool> TryShortAttack(Vector2Int delta) {
-        var shortTarget = Owner.figure.location.Shift(delta).GetFigure<Unit>(u => u.Vulnerable);
+        var shortTarget = Owner.figure.Location.Shift(delta).GetFigure<Unit>(u => u.Vulnerable);
         if (shortTarget != null) {
             if (!await Attack(delta, shortTarget)) {
                 return false;
@@ -24,11 +24,11 @@ public class Katar : Weapon
     }
 
     public async Task<bool> TryLongAttack(Vector2Int delta) {
-        if (!Owner.figure.location.Shift(delta).Free) {
+        if (!Owner.figure.Location.Shift(delta).Free) {
             Game.Debug("Katar failed long attack: no space to lunge");
             return false;
         }
-        var longTarget = Owner.figure.location.Shift(2 * delta).GetFigure<Unit>(u => u.Vulnerable);
+        var longTarget = Owner.figure.Location.Shift(2 * delta).GetFigure<Unit>(u => u.Vulnerable);
         if (longTarget != null) {
             return await Attack(delta, longTarget, beforeAttack: attack => Owner.figure.TryWalk(attack.delta));
         }

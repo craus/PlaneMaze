@@ -31,6 +31,11 @@ public class MovesReserve : MonoBehaviour
 
     public void Awake() {
         UpdateIcons();
+        
+        new ValueTracker<int>(() => current, v => {
+            current = v;
+            UpdateIcons();
+        });
     }
 
     private void ShowIcons(List<Transform> icons, int amount, bool show) {

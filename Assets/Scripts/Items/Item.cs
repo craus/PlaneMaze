@@ -53,15 +53,22 @@ public class Item : MonoBehaviour, IExplainable
                 return;
             }
             var player = figure.GetComponent<Player>();
-            if (player != null && from != GetComponent<Figure>().location) {
+            if (player != null && from != GetComponent<Figure>().Location) {
                 await Pick();
             }
         };
+
+        new ValueTracker<bool>(() => Equipped, SetEquipped);
+    }
+
+    private void SetEquipped(bool equipped) {
+        model.SetActive(!equipped);
+        icon.SetParent(equipped ? Inventory.instance.itemsFolder : iconParent);
     }
 
     public bool Equipped => Inventory.instance.items.Contains(this);
 
-    public bool Compatable(Item other) => GetComponent<Dart>() != null && other.GetComponent<Dart>() != null;
+    public bool Compatible(Item other) => GetComponent<Dart>() != null && other.GetComponent<Dart>() != null;
 
     [ContextMenu("Pick")]
     public async Task Pick() {
@@ -70,7 +77,7 @@ public class Item : MonoBehaviour, IExplainable
 
         if (slot != null) {
             foreach (var item in Inventory.instance.items.Where(item => item.slot == slot).ToList()) {
-                if (!item.Compatable(this)) {
+                if (!item.Compatible(this)) {
                     await item.Drop();
                 }
             }
@@ -79,15 +86,15 @@ public class Item : MonoBehaviour, IExplainable
         if (GetComponent<Gem>()) {
             SoundManager.instance.gemPick.Play();
         } else {
-            SoundManager.instance.itemPick.Play();
+            SoundManager.instance.itemPick.Play(); 
+            icon.SetParent(Inventory.instance.itemsFolder);
+            Inventory.instance.items.Add(this);
         }
 
         if (ShowDescription) {
             InfoPanel.instance.Show(this);
         }
 
-        icon.SetParent(Inventory.instance.itemsFolder);
-        Inventory.instance.items.Add(this);
         Debug.LogFormat("item is picked");
         Debug.LogFormat($"item owner is {Owner}");
         await GetComponent<Figure>().Move(null, isTeleport: true);
@@ -102,7 +109,7 @@ public class Item : MonoBehaviour, IExplainable
         await Task.WhenAll(beforeDrop.Select(listener => listener()).ToArray());
         icon.SetParent(iconParent);
         Inventory.instance.items.Remove(this);
-        _ = GetComponent<Figure>().Move(Game.instance.player.figure.location, isTeleport: true);
+        _ = GetComponent<Figure>().Move(Game.instance.player.figure.Location, isTeleport: true);
         UpdateModelVisible();
 
         await Task.WhenAll(afterDrop.Select(listener => listener()).ToArray());

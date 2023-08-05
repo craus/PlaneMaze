@@ -17,6 +17,6 @@ public class RingOfProtection : MonoBehaviour, IReceiveAttackModifier
         }
         attack.damage = 0;
         await GetComponent<Item>().Owner.GetComponent<Invulnerability>().Gain(invulnerabilityDuration);
-        Destroy(gameObject);
+        this.SoftDestroy(gameObject);
     }
 }

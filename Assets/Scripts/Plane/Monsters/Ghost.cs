@@ -12,7 +12,7 @@ public class Ghost : Monster
     public override bool FreeCell(Cell cell) => !cell.figures.Any(f => f.GetComponent<Unit>() != null && f.GetComponent<Unit>().OccupiesPlace);
 
     protected override async Task MakeMove() {
-        var playerDelta = Helpers.StepAtDirection(Player.instance.figure.location.position - figure.location.position);
+        var playerDelta = Helpers.StepAtDirection(Player.instance.figure.Location.position - figure.Location.position);
 
         if (await SmartWalk(playerDelta)) {
             return;

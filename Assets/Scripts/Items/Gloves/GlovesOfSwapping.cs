@@ -12,12 +12,12 @@ public class GlovesOfSwapping : MonoBehaviour, IAttackModifier
     public int Priority => 0;
 
     public async Task ModifyAttack(Attack attack) {
-        var fromLocation = attack.from.location;
-        var toLocation = attack.to.location;
+        var fromLocation = attack.from.Location;
+        var toLocation = attack.to.Location;
         attack.afterAttack.Add(
             async () => {
-                if (attack.from != null) fromLocation = attack.from.location;
-                if (attack.to != null) toLocation = attack.to.location;
+                if (attack.from != null) fromLocation = attack.from.Location;
+                if (attack.to != null) toLocation = attack.to.Location;
 
                 var anotherUnit = toLocation.GetFigures<Unit>().FirstOrDefault(u => u.OccupiesPlace && u.figure != attack.to);
                 if (anotherUnit != null) {

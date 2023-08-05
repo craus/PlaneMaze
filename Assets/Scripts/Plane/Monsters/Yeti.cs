@@ -16,6 +16,9 @@ public class Yeti : Monster
         base.Awake();
         currentDirection = Moves.Rnd();
         UpdateSprite();
+        new ValueTracker<Vector2Int>(() => currentDirection, v => {
+            currentDirection = v; UpdateSprite();
+        });
     }
 
     private void UpdateSprite() {

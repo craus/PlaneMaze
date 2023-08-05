@@ -15,7 +15,7 @@ public class Coffin : Monster
     protected override async Task AfterDie() {
         await base.AfterDie();
         var childSample = contentSamples.weightedRnd();
-        var p = GetComponent<Figure>().location;
+        var p = GetComponent<Figure>().Location;
         if (childSample.gameObject == Library.instance.gem.gameObject) {
             Game.instance.AddGem(p, 1);
         } else {

@@ -38,6 +38,11 @@ public class Bow : Weapon
 
     public void Awake() {
         UpdateIcon();
+
+        new ValueTracker<Vector2Int>(() => chargedDirection, v => {
+            chargedDirection = v;
+            UpdateIcon();
+        });
     }
 
     private void UpdateIcon() {
@@ -46,8 +51,8 @@ public class Bow : Weapon
     }
 
     public override async Task<bool> TryAttack(Vector2Int delta) {
-        var currentPosition = Owner.figure.location;
-        var target = Helpers.RayCast(Owner.figure.location, delta, target: c => c.GetFigure<Monster>(m => m.Vulnerable) != null, distance: range);
+        var currentPosition = Owner.figure.Location;
+        var target = Helpers.RayCast(Owner.figure.Location, delta, target: c => c.GetFigure<Monster>(m => m.Vulnerable) != null, distance: range);
         if (target != null) {
             var victim = target.GetFigure<Monster>(m => m.Vulnerable);
             if (!Game.CanAttack(Owner, victim, this)) {

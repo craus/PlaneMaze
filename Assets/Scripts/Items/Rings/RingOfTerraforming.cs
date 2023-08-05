@@ -11,13 +11,13 @@ public class RingOfTerraforming : MonoBehaviour, IBeforeWalk
         if (priority != 0) {
             return false;
         }
-        var target = GetComponent<Item>().Owner.figure.location.Shift(delta).GetFigure<Terrain>();
+        var target = GetComponent<Item>().Owner.figure.Location.Shift(delta).GetFigure<Terrain>();
         if (target == null) {
             return false;
         }
 
-        Destroy(Inventory.instance.GetItem<RingOfTerraforming>().gameObject);
-        Destroy(target.gameObject);
+        this.SoftDestroy(Inventory.instance.GetItem<RingOfTerraforming>().gameObject);
+        this.SoftDestroy(target.gameObject);
         SoundManager.instance.terraform.Play();
         return true;
     }

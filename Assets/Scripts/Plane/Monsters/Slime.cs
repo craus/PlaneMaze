@@ -24,7 +24,12 @@ public class Slime : Monster
 
     public override void Awake() {
         base.Awake();
-        Init();
+        Init(); 
+        
+        new ValueTracker<int>(() => currentCooldown, v => {
+            currentCooldown = v;
+            UpdateSprite();
+        });
     }
 
     public void Init() {
@@ -46,7 +51,7 @@ public class Slime : Monster
             return;
         }
 
-        Vector2Int playerDelta = Player.instance.figure.location.position - figure.location.position;
+        Vector2Int playerDelta = Player.instance.figure.Location.position - figure.Location.position;
 
         if (playerDelta.SumDelta() == 1) {
             if (!await TryAttack(playerDelta)) {
@@ -75,7 +80,7 @@ public class Slime : Monster
         }
         foreach (
             var p in 
-            Rand.RndSelection(figure.location.SmallestVicinity(v => v.Count(c => c.Free) >= childrenCount)
+            Rand.RndSelection(figure.Location.SmallestVicinity(v => v.Count(c => c.Free) >= childrenCount)
             .Where(c => c.Free), childrenCount)
         ) {
             var child = Game.instance.GenerateFigure(p, childSample);

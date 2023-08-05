@@ -8,7 +8,8 @@ using UnityEngine.Events;
 
 public class Figure : MonoBehaviour
 {
-    public Cell location;
+    [SerializeField] private Cell location;
+    public Cell Location => location;
 
     public Cell savePoint;
 
@@ -17,6 +18,25 @@ public class Figure : MonoBehaviour
     public List<Func<Board, Board, Task>> afterBoardChange = new List<Func<Board, Board, Task>>();
     public List<Func<Cell, Cell, Task>> afterMove = new List<Func<Cell, Cell, Task>>();
     public List<Func<Cell, Cell, Task>> afterWalk = new List<Func<Cell, Cell, Task>>();
+
+    public void Awake() {
+        new ValueTracker<Cell>(() => Location, SetLocation);
+
+        new ValueTracker<bool>(
+            () => gameObject.activeSelf, 
+            v => gameObject.SetActive(v), 
+            defaultValue: false
+        );
+    }
+
+    private void SetLocation(Cell newPosition) {
+        location = newPosition;
+        if (location == null) return;
+        var toBoard = Location != null ? Location.board : null;
+        transform.SetParent(Location.board.figureParent);
+        transform.position = location.transform.position;
+    }
+
 
     public void TryMoveWall(Cell from, Cell to) {
         if (from.fieldCell.wall && !to.fieldCell.wall) {
@@ -36,8 +56,8 @@ public class Figure : MonoBehaviour
             return false;
         }
         free ??= c => c.Free;
-        var oldPosition = location;
-        var newPosition = location.Shift(delta);
+        var oldPosition = Location;
+        var newPosition = Location.Shift(delta);
         if (free(newPosition)) {
             await Move(newPosition);
             return true;
@@ -55,11 +75,11 @@ public class Figure : MonoBehaviour
     }
 
     private bool TrySlip(Vector2Int delta) {
-        if (!Deadend(location, delta)) {
+        if (!Deadend(Location, delta)) {
             return false;
         }
 
-        var cur = location.Shift(delta);
+        var cur = Location.Shift(delta);
         for (int i = 0; i < 200; i++) {
             cur = cur.Shift(delta);
             if (Deadend(cur, -delta)) {
@@ -91,28 +111,28 @@ public class Figure : MonoBehaviour
     }
 
     public async Task<bool> FakeMove(Vector2Int delta) {
-        await Move(location, fakeMove: location.Shift(delta));
+        await Move(Location, fakeMove: Location.Shift(delta));
         return true;
     }
 
     public async Task Move(Cell newPosition, bool isTeleport = false, Cell fakeMove = null, bool teleportAnimation = false) {
-        var from = location;
+        var from = Location;
         var fromBoard = from != null ? from.board : null;
-        if (!fakeMove && location != null) {
-            location.figures.Remove(this);
+        if (!fakeMove && Location != null) {
+            Location.figures.Remove(this);
         }
         if (newPosition == null) return;
 
         location = newPosition;
-        var toBoard = location != null ? location.board : null;
-        transform.SetParent(location.board.figureParent);
+        var toBoard = Location != null ? Location.board : null;
+        transform.SetParent(Location.board.figureParent);
         if (fromBoard != toBoard) {
             await Task.WhenAll(afterBoardChange.Select(listener => listener(fromBoard, toBoard)));
         }
-        await Task.WhenAll(afterMove.Select(listener => listener(from, location)));
+        await Task.WhenAll(afterMove.Select(listener => listener(from, Location)));
 
-        if (!fakeMove && location != null) {
-            location.figures.Add(this);
+        if (!fakeMove && Location != null) {
+            Location.figures.Add(this);
         }
 
         if (newPosition != null) {
@@ -123,8 +143,8 @@ public class Figure : MonoBehaviour
             return;
         }
 
-        if (from != location) {
-            foreach (var f in location.figures.ToList()) {
+        if (from != Location) {
+            foreach (var f in Location.figures.ToList()) {
                 if (f != this && f.collide != null) {
                     Game.Debug($"Figure {gameObject} collides with figure {f.gameObject}");
                     await f.collide(from, this);
@@ -139,34 +159,34 @@ public class Figure : MonoBehaviour
     private async Task UpdateTransform(Cell fakeMove, bool isTeleport, bool teleportAnimation = false) {
         if (isTeleport) {
             if (!teleportAnimation) {
-                transform.position = location.transform.position;
+                transform.position = Location.transform.position;
                 return;
             } else {
                 await transform.Zoom(Vector3.zero, 0.05f);
                 if (this == null) {
                     return;
                 }
-                transform.position = location.transform.position;
+                transform.position = Location.transform.position;
                 await transform.Zoom(Vector3.one, 0.05f);
                 return;
             }
         }
         if (fakeMove == null) {
-            await transform.Move(location.transform.position, 0.05f);
+            await transform.Move(Location.transform.position, 0.05f);
         } else {
             await transform.Move(fakeMove.transform.position, 0.05f, endPhase: 0.33f);
             if (this == null) {
                 return;
             }
-            await transform.Move(location.transform.position, 0.05f, startPhase: 0.67f);
+            await transform.Move(Location.transform.position, 0.05f, startPhase: 0.67f);
         }
     }
 
     public void OnDestroy() {
-        if (location != null) {
-            location.figures.Remove(this);
+        if (Location != null) {
+            Location.figures.Remove(this);
         }
     }
 
-    public override string ToString() => $"{gameObject.name} at ({location.position.x}, {location.position.y})";
+    public override string ToString() => $"{gameObject.name} at ({Location.position.x}, {Location.position.y})";
 }

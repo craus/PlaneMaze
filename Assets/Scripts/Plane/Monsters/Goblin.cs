@@ -13,6 +13,9 @@ public class Goblin : Monster
         base.Awake();
         currentDirection = Moves.Rnd();
         UpdateSprite();
+        new ValueTracker<Vector2Int>(() => currentDirection, v => {
+            currentDirection = v; UpdateSprite();
+        });
     }
 
     private void UpdateSprite() {
@@ -28,7 +31,7 @@ public class Goblin : Monster
         if (!await SmartWalk(currentDirection)) {
             if (!await TryAttack(currentDirection)) {
                 await SmartFakeMove(currentDirection);
-                currentDirection = Moves.Rnd(m => figure.location.Shift(m).Free);
+                currentDirection = Moves.Rnd(m => figure.Location.Shift(m).Free);
                 UpdateSprite();
             }
         }

@@ -65,6 +65,15 @@ public class Game : MonoBehaviour
 
     public DateTime startTime;
 
+    public void Awake() {
+        new ValueTracker<List<Monster>>(() => monsters.ToList(), v => monsters = v.ToList());
+        new ValueTracker<int>(() => time, v => {
+            time = v;
+            completedTurns.Clear();
+        });
+        new ValueTracker<int>(() => moveNumber, v => moveNumber = v);
+    }
+
     public async void Start() {
         startTime = DateTime.Now;
 
@@ -93,6 +102,7 @@ public class Game : MonoBehaviour
         });
 
         MusicManager.instance.Switch(MusicManager.instance.playlist);
+        UndoManager.instance.Save();
 
         await ConfirmationManager.instance.AskConfirmation(
             panel: ConfirmationManager.instance.startPanel, 
@@ -464,11 +474,11 @@ public class Game : MonoBehaviour
 
     private async Task SpawnGhosts() {
         if (Player.instance == null) return;
-        if (player.figure.location.board != mainWorld) return;
+        if (player.figure.Location.board != mainWorld) return;
 
         ghostSpawnProbabilityPerTurn = 1 - Mathf.Pow(
             1 - Metagame.GhostSpawnProbabilityPerTurn(time),
-            Player.instance.figure.location.biome.ghostPower
+            Player.instance.figure.Location.biome.ghostPower
         );
 
         for (int i = 0; i < Metagame.MaxGhostSpawnsPerTurn && Rand.rndEvent(ghostSpawnProbabilityPerTurn); i++) {
@@ -477,19 +487,19 @@ public class Game : MonoBehaviour
     }
 
     private async Task SpawnGhost() {
-        var center = Player.instance.figure.location;
+        var center = Player.instance.figure.Location;
         GenerateFigure(Rand.rndExcept(center.Vicinity(11).Where(c => c.Free).ToList(), center.Vicinity(7)), ghostSample);
     }
 
     private static bool CanAttack(Unit attacker) =>
         attacker == null ||
-        attacker.figure.location.GetFigure<PeaceTrap>() == null &&
+        attacker.figure.Location.GetFigure<PeaceTrap>() == null &&
         !attacker.GetComponent<Disarm>().Active;
 
     private static bool CanBeAttacked(Unit defender, Weapon weapon) => 
         defender != null && 
         defender.Vulnerable &&
-        !defender.figure.location.Wall;
+        !defender.figure.Location.Wall;
 
     private static bool IsRanged(Cell attackLocation, Cell defenceLocation) =>
         attackLocation != null &&
@@ -514,8 +524,8 @@ public class Game : MonoBehaviour
         Cell attackLocation = null,
         Cell defenceLocation = null
     ) {
-        if (attacker) attackLocation ??= attacker.figure.location;
-        if (defender) defenceLocation ??= defender.figure.location;
+        if (attacker) attackLocation ??= attacker.figure.Location;
+        if (defender) defenceLocation ??= defender.figure.Location;
 
         return
             CanAttack(attacker) &&

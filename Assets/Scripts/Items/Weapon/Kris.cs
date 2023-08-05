@@ -8,13 +8,13 @@ using UnityEngine;
 public class Kris : Weapon
 {
     public override async Task<bool> TryAttack(Vector2Int delta) {
-        var leftTarget = Owner.figure.location.Shift(delta.Relative(1, 1)).GetFigure<Unit>(u => u.Vulnerable);
+        var leftTarget = Owner.figure.Location.Shift(delta.Relative(1, 1)).GetFigure<Unit>(u => u.Vulnerable);
         if (leftTarget != null) {
             if (await Attack(delta, leftTarget)) {
                 return true;
             }
         }
-        var rightTarget = Owner.figure.location.Shift(delta.Relative(1, -1)).GetFigure<Unit>(u => u.Vulnerable);
+        var rightTarget = Owner.figure.Location.Shift(delta.Relative(1, -1)).GetFigure<Unit>(u => u.Vulnerable);
         if (rightTarget != null) {
             if (await Attack(delta, rightTarget)) {
                 return true;

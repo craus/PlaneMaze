@@ -16,6 +16,8 @@ public class Vampire : Monster
     public override void Awake() {
         base.Awake();
         ChangeForm(bat: true);
+
+        new ValueTracker<bool>(() => batForm, ChangeForm);
     }
 
     public override async Task<bool> TryAttack(Vector2Int delta) {
@@ -28,14 +30,14 @@ public class Vampire : Monster
             }
             return false;
         }
-        var leftPosition = figure.location.Shift(delta.Relative(1, 1) / 2);
+        var leftPosition = figure.Location.Shift(delta.Relative(1, 1) / 2);
         if (leftPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
             if (await Attack(leftPosition.GetFigure<Unit>())) {
                 return true;
             }
         }
 
-        var rightPosition = figure.location.Shift(delta.Relative(1, -1) / 2);
+        var rightPosition = figure.Location.Shift(delta.Relative(1, -1) / 2);
         if (rightPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
             if (await Attack(rightPosition.GetFigure<Unit>())) {
                 return true;
@@ -61,7 +63,7 @@ public class Vampire : Monster
     }
 
     protected override async Task MakeMove() {
-        var playerDelta = Player.instance.figure.location.position - figure.location.position;
+        var playerDelta = Player.instance.figure.Location.position - figure.Location.position;
         if (playerDelta.MaxDelta() > 4 && !batForm) {
             ChangeForm(bat: true);
             return;

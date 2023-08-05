@@ -16,8 +16,15 @@ public abstract class Monster : Unit
 
     public override bool BenefitsFromTerrain => base.BenefitsFromTerrain && GameManager.instance.metagame.Ascention<MonstersBenefitFromTerrain>();
 
+    public override void Awake() {
+        base.Awake();
+        new ValueTracker<int>(() => movesSinceHitToHeal, v => {
+            movesSinceHitToHeal = v;
+        });
+    }
+
     protected async Task<bool> SmartWalk(Vector2Int delta) {
-        if (!Flying && figure.location.Shift(delta).GetFigure<WolfTrap>() != null) {
+        if (!Flying && figure.Location.Shift(delta).GetFigure<WolfTrap>() != null) {
             return false;
         }
         return await figure.TryWalk(delta, FreeCell);
@@ -34,7 +41,7 @@ public abstract class Monster : Unit
     public int damage = 1;
 
     public virtual async Task<bool> TryAttack(Vector2Int delta) {
-        var newPosition = figure.location.Shift(delta);
+        var newPosition = figure.Location.Shift(delta);
         if (newPosition.figures.Any(f => f.GetComponent<Player>() != null)) {
             return await Attack(newPosition.GetFigure<Player>());
         }
@@ -46,11 +53,11 @@ public abstract class Monster : Unit
     public virtual async Task BeforeAttack(Vector2Int delta) { }
     public virtual async Task AfterAttack(Vector2Int delta) { }
 
-    public virtual Cell AttackLocation(Vector2Int delta, Unit target) => figure.location;
-    public virtual Cell DefenceLocation(Vector2Int delta, Unit target) => target.figure.location;
+    public virtual Cell AttackLocation(Vector2Int delta, Unit target) => figure.Location;
+    public virtual Cell DefenceLocation(Vector2Int delta, Unit target) => target.figure.Location;
 
     public async Task<bool> Attack(Unit target, Vector2Int? maybeDelta = null) {
-        var delta = maybeDelta ?? Helpers.StepAtDirection(target.figure.location.position - figure.location.position);
+        var delta = maybeDelta ?? Helpers.StepAtDirection(target.figure.Location.position - figure.Location.position);
         if (!Game.CanAttack(this, target, null, AttackLocation(delta, target), DefenceLocation(delta, target))) {
             return false;
         }
@@ -58,7 +65,7 @@ public abstract class Monster : Unit
         PlayAttackSound();
 
         GetComponent<DangerSprite>().sprite.enabled = true;
-        await figure.FakeMove(target.figure.location.position - figure.location.position);
+        await figure.FakeMove(target.figure.Location.position - figure.Location.position);
         if (target == null || !target.alive) {
             return true;
         }
@@ -116,13 +123,13 @@ public abstract class Monster : Unit
             Debug.LogError("Dead monster moves");
         }
         GetComponent<DangerSprite>().sprite.enabled = false;
-        var figureLocation = figure.location;
+        var figureLocation = figure.Location;
         var board = figureLocation.board;
         var player = Player.instance;
         var playerFigure = player.figure;
-        var playerLocation = playerFigure.location;
+        var playerLocation = playerFigure.Location;
         var playerBoard = playerLocation.board;
-        if (!alive || figure.location.board != Player.instance.figure.location.board) {
+        if (!alive || figure.Location.board != Player.instance.figure.Location.board) {
             return;
         }
         await GetComponent<Invulnerability>().Spend(1);
@@ -151,13 +158,13 @@ public abstract class Monster : Unit
 
     protected override async Task AfterDie() {
         var reward = Money + (Money > 0 && Inventory.instance.GetItem<RingOfMidas>() != null ? 1 : 0);
-        Game.instance.AddGem(figure.location, reward);
+        Game.instance.AddGem(figure.Location, reward);
     }
 
     public void OnDestroy() {
         if (Game.instance != null && Game.instance.monsters.Contains(GetComponent<Monster>())) {
             Game.instance.monsters.Remove(GetComponent<Monster>());
-            Game.Debug($"Monster {gameObject} at ({figure.location}) removed from queue after death");
+            Game.Debug($"Monster {gameObject} at ({figure.Location}) removed from queue after death");
         }
     }
 }
