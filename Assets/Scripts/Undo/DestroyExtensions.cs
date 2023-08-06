@@ -13,6 +13,7 @@ public static class DestroyExtensions
         }
         if (gameObject.GetComponent<Item>() != null) {
             gameObject.GetComponent<Item>().icon.gameObject.SetActive(false);
+            Inventory.instance.items.Remove(gameObject.GetComponent<Item>());
         }
     }
 }
