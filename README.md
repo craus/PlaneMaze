@@ -1,6 +1,6 @@
 Download latest version of the game:
 
-Windows: [download](https://github.com/craus/PlaneMaze/releases/download/2023-08-05/PlaneMaze-2023-08-05.zip)
+Windows: [download](https://github.com/craus/PlaneMaze/releases/download/2023-08-06/PlaneMaze-2023-08-06.zip)
 
 Mac: no build ready yet
 
