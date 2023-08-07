@@ -36,7 +36,7 @@ public class Field : MonoBehaviour
     }
 
     private Color GenerateNewBiome() {
-        return new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
+        return new Color(Rand.Range(0, 1f), Rand.Range(0, 1f), Rand.Range(0, 1f));
     }
 
     private void EnsureBiome(int x, int y) {
@@ -97,7 +97,7 @@ public class Field : MonoBehaviour
             while (Rand.rndEvent(0.45f)) {
                 radius *= 2;
             }
-            var target = new Vector2Int(x + Random.Range(-radius, radius), y + Random.Range(-radius, radius));
+            var target = new Vector2Int(x + Rand.Range(-radius, radius), y + Rand.Range(-radius, radius));
             if (map[target.x, target.y] != null) {
                 return;
             }

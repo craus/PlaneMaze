@@ -12,7 +12,7 @@ public class RandomField
         get
         {
             if (f[x, y] == -1) {
-                f[x, y] = Random.Range(0, 1f);
+                f[x, y] = Rand.Range(0, 1f);
             }
             return f[x, y];
         }

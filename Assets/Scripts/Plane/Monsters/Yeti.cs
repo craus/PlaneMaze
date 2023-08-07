@@ -34,7 +34,7 @@ public class Yeti : Monster
             upSprite.flipX = true;
             downSprite.flipX = true;
         } else {
-            sprite.flipX = upSprite.flipX = downSprite.flipX = Rand.rndEvent(0.5f);
+            sprite.flipX = upSprite.flipX = downSprite.flipX = Rand.rndEvent(0.5f, Rand.visual);
         }
         upSprite.enabled = currentDirection.y > 0;
         downSprite.enabled = currentDirection.y < 0;

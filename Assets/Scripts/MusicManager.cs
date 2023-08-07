@@ -59,7 +59,7 @@ public class MusicManager : Singletone<MusicManager>
 
     public void ToRandomPlace() {
         if (last != null) {
-            last.timeSamples = UnityEngine.Random.Range(0, last.clip.samples);
+            last.timeSamples = Rand.Range(0, last.clip.samples);
         }
     }
 

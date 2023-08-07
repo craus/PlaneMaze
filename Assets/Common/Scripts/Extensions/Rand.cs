@@ -10,8 +10,11 @@ using UnityEditor;
 
 public static class Rand
 {
-	public static bool rndEvent(double p) {
-		return UnityEngine.Random.value < p;
+	public static RandomStateContainer gameplay = new RandomStateContainer();
+	public static RandomStateContainer visual = new RandomStateContainer();
+
+	public static bool rndEvent(double p, RandomStateContainer source = null) {
+		return Value(source) < p;
 	}
 
 	public static int rndEvents(double p, int cnt) {
@@ -27,7 +30,7 @@ public static class Rand
 	public static int d0(int cnt, int edges) {
 		int result = 0;
 		for (int i = 0; i < cnt; i++) {
-			result += UnityEngine.Random.Range(0, edges);
+			result += Rand.Range(0, edges);
 		}
 		return result;
 	}
@@ -41,7 +44,7 @@ public static class Rand
 	}
 
 	public static T rnd<T>(T[,] matrix) {
-		return matrix[UnityEngine.Random.Range(0, matrix.GetLength(0)), UnityEngine.Random.Range(0, matrix.GetLength(1))];
+		return matrix[Rand.Range(0, matrix.GetLength(0)), Rand.Range(0, matrix.GetLength(1))];
 	}
 
 	public static T rnd<T>(T[,] matrix, Func<T, bool> condition) {
@@ -65,7 +68,7 @@ public static class Rand
 		cnt = Mathf.Clamp(cnt, 0, collection.Count()); 
 		int trash = collection.Count() - cnt;
 		foreach (var x in collection) {
-			if (UnityEngine.Random.Range(0, cnt + trash) < cnt) {
+			if (Rand.Range(0, cnt + trash) < cnt) {
 				yield return x;
 				--cnt;
 			} else {
@@ -79,32 +82,32 @@ public static class Rand
 	}
 
 	public static double Rnd(double min, double max) {
-		return (double)(UnityEngine.Random.Range((float)min, (float)max));
+		return (double)(Rand.Range((float)min, (float)max));
 	}
 
 	public static float Rnd(float min, float max) {
-		return UnityEngine.Random.Range(min, max);
+		return Rand.Range(min, max);
 	}
 
 	public static float GaussianRnd() {
 		float sum = 0;
 		for (int i = 0; i < 12; i++) {
-			sum += UnityEngine.Random.Range(-1f, 1f);
+			sum += Rand.Range(-1f, 1f);
 		}
 		return sum;
 	}
 
 	public static T rnd<T>(this List<T> list) where T : class {
 		if (list.Count == 0) return null;
-		return list[UnityEngine.Random.Range(0, list.Count)];
+		return list[Rand.Range(0, list.Count)];
 	}
 
-	public static int rnd(int min, int max) => UnityEngine.Random.Range(min, max+1);
+	public static int rnd(int min, int max) => Rand.Range(min, max+1);
 
 	public static T rnd<T>(this List<T> list, Func<T, float> weight) where T : class {
 		if (list.Count == 0) return null;
 		float weightSum = list.Sum(weight);
-		float resultWeight = UnityEngine.Random.value * weightSum;
+		float resultWeight = Value() * weightSum;
 		float currentWeight = 0;
 		foreach (var x in list) {
 			currentWeight += weight(x);
@@ -115,10 +118,40 @@ public static class Rand
 		throw new Exception("Failed to normalize weights!");
 	}
 
+	public static float Range(float min, float max) {
+		Debug.LogFormat("Rand Range get");
+		return UnityEngine.Random.Range(min, max);
+	}
+
+	public static int Range(int min, int max) {
+		Debug.LogFormat("Rand Range get");
+		return UnityEngine.Random.Range(min, max);
+	}
+
+	public static float GetRandomFloat(RandomStateContainer source, Func<float> f) {
+		var oldState = UnityEngine.Random.state;
+		UnityEngine.Random.state = source.state;
+
+		var result = f();
+
+		source.state = UnityEngine.Random.state;
+		UnityEngine.Random.state = oldState;
+
+		return result;
+	}
+
+	public static float Value(RandomStateContainer source = null) {
+		if (source != null) {
+			return GetRandomFloat(source, () => UnityEngine.Random.value);
+		}
+		Debug.LogFormat("Rand Value get");
+		return UnityEngine.Random.value;
+	}
+
 	public static T weightedRnd<T>(this List<Weighted<T>> list) where T : class {
 		if (list.Count == 0) return null;
 		float weightSum = list.Sum(x => x.weight);
-		float resultWeight = UnityEngine.Random.value * weightSum;
+		float resultWeight = Value() * weightSum;
 		float currentWeight = 0;
 		foreach (var x in list) {
 			currentWeight += x.weight;

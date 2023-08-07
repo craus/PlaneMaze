@@ -12,6 +12,7 @@ namespace Common
         public override void Run() {
             target.rotation = Extensions.GenerateWithCondition(
                 () => {
+                    Debug.LogFormat("SetRandomRotation GenerateWithCondition");
                     Quaternion q = Quaternion.identity;
                     q.SetLookRotation(Random.onUnitSphere, Random.onUnitSphere);
                     return q;
