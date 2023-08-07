@@ -147,11 +147,14 @@ public class MainUI : Singletone<MainUI>
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Z)) {
-            if (Cheats.on) {
+        if (Cheats.on) {
+            if (Input.GetKeyDown(KeyCode.Z)) {
                 UndoManager.instance.Undo();
             }
-        }
+            if (Input.GetKeyDown(KeyCode.X)) {
+                Rand.Range(0, 1f);
+            }
+        } 
 
         if (Input.anyKeyDown) {
             if (ConfirmationManager.instance.AwaitingConfirmation && ConfirmationManager.instance.canConfirmByAnyButton) {
