@@ -199,7 +199,7 @@ public class Game : MonoBehaviour
     private float CalculateCellPriceGrid(Vector2Int cell) {
         Vector2 cv = cell;
 
-        return UnityEngine.Random.Range(0, 1f) + 0.5f * Mathf.Min(Mathf.Sin(cv.x / 4f), Mathf.Sin(cv.y / 4f));
+        return Rand.Range(0, 1f) + 0.5f * Mathf.Min(Mathf.Sin(cv.x / 4f), Mathf.Sin(cv.y / 4f));
     }
 
     private float CalculateCellPriceSpiralGrid(Vector2Int cell) {
@@ -207,7 +207,7 @@ public class Game : MonoBehaviour
 
         cv = Rotate(cv, cv.magnitude / 10f);
 
-        return UnityEngine.Random.Range(0, 1f) + 0.5f * Mathf.Min(Mathf.Sin(cv.x / 4f), Mathf.Sin(cv.y / 4f));
+        return Rand.Range(0, 1f) + 0.5f * Mathf.Min(Mathf.Sin(cv.x / 4f), Mathf.Sin(cv.y / 4f));
     }
 
     //public Color GetCellColor(Vector2Int cell) {
@@ -228,15 +228,15 @@ public class Game : MonoBehaviour
 
 
     //private float CalculateCellPriceImage(Vector2Int cell) {
-    //    return UnityEngine.Random.Range(0, 1f) + 5f * GetCellColor(cell).grayscale + (CellInsideImage(cell) ? 0 : 10);
+    //    return Rand.Range(0, 1f) + 5f * GetCellColor(cell).grayscale + (CellInsideImage(cell) ? 0 : 10);
     //}
 
     private float CalculateCellPriceRandom(Vector2Int cell) {
-        return UnityEngine.Random.Range(0, 1f);
+        return Rand.Range(0, 1f);
     }
 
     private float CalculateCellPriceSinTime(Vector2Int cell) {
-        return UnityEngine.Random.Range(0, 1f) + Mathf.Sin(Time.time);
+        return Rand.Range(0, 1f) + Mathf.Sin(Time.time);
     }
 
     public float CellPrice(Vector2Int cell) {

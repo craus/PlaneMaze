@@ -118,7 +118,7 @@ public class Item : MonoBehaviour, IExplainable
 
     private void UpdateModelVisible() {
         model.SetActive(!Inventory.instance.items.Contains(this));
-        model.transform.Rotate(Vector3.forward, UnityEngine.Random.Range(0, 360));
+        model.transform.Rotate(Vector3.forward, Rand.Range(0, 360));
     }
 
     public void OnDestroy() {

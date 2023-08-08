@@ -22,6 +22,8 @@ public class DebugManager : Singletone<DebugManager>
 
     private static int messageID = 0;
 
+    public static bool verbose = false;
+
     void Awake() {
         Promise.EnablePromiseTracking = true;
 		Promise.DoNotHandleExceptions = true;

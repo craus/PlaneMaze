@@ -99,9 +99,9 @@ public static class Extensions
 
     public static Vector3 RandomPointInBounds(Bounds bounds) {
         return new Vector3(
-            UnityEngine.Random.Range(bounds.min.x, bounds.max.x),
-            UnityEngine.Random.Range(bounds.min.y, bounds.max.y),
-            UnityEngine.Random.Range(bounds.min.z, bounds.max.z)
+            global::Rand.Range(bounds.min.x, bounds.max.x),
+            global::Rand.Range(bounds.min.y, bounds.max.y),
+            global::Rand.Range(bounds.min.z, bounds.max.z)
         );
     }
 
@@ -145,7 +145,7 @@ public static class Extensions
         List<T> result = new List<T>(list);
         for (int i = 0; i < result.Count; i++)
         {
-            int x = UnityEngine.Random.Range(i, result.Count);
+            int x = global::Rand.Range(i, result.Count);
             T buf = result[i];
             result[i] = result[x];
             result[x] = buf;
@@ -158,7 +158,7 @@ public static class Extensions
         List<T> result = new List<T>(list);
         for (int i = 0; i < swapsPerElement * result.Count; i++)
         {
-            var j = UnityEngine.Random.Range(0, result.Count - 1);
+            var j = global::Rand.Range(0, result.Count - 1);
             result.swap(j, j + 1);
         }
         return result;
@@ -170,7 +170,7 @@ public static class Extensions
         List<T> result = new List<T>(list);
         for (int i = from; i <= to; i++)
         {
-            int x = UnityEngine.Random.Range(i, to + 1);
+            int x = global::Rand.Range(i, to + 1);
             T buf = result[i];
             result[i] = result[x];
             result[x] = buf;
@@ -415,7 +415,7 @@ public static class Extensions
 
     public static T Rand<T>(this T[,] matrix)
     {
-        return matrix[UnityEngine.Random.Range(0, matrix.GetLength(0)), UnityEngine.Random.Range(0, matrix.GetLength(1))];
+        return matrix[global::Rand.Range(0, matrix.GetLength(0)), global::Rand.Range(0, matrix.GetLength(1))];
     }
 
     public static string ExtToString(this Transform t)
@@ -504,7 +504,7 @@ public static class Extensions
         {
             return default;
         }
-        return collection.ElementAt(UnityEngine.Random.Range(0, cnt));
+        return collection.ElementAt(global::Rand.Range(0, cnt));
     }
 
     public static T Rnd<T>(this IEnumerable<T> collection, Func<T, bool> preferrable) {
@@ -518,13 +518,13 @@ public static class Extensions
 
     public static T Rnd<T>(this List<T> collection)
     {
-        return collection[UnityEngine.Random.Range(0, collection.Count)];
+        return collection[global::Rand.Range(0, collection.Count)];
     }
 
     public static T Rnd<T>(this List<T> collection, Func<T, float> weight)
     {
         float totalWeight = collection.Sum(weight);
-        float rndValue = UnityEngine.Random.Range(0, totalWeight);
+        float rndValue = global::Rand.Range(0, totalWeight);
         float skipped = 0;
         for (int i = 0; i < collection.Count; i++)
         {

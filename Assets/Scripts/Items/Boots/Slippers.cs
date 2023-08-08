@@ -19,7 +19,12 @@ public class Slippers : MonoBehaviour, IBeforeWalk
         GetComponent<Item>().beforeDrop.Add(BeforeDrop); 
         new ValueTracker<Vector2Int>(() => chargeDirection, v => {
             chargeDirection = v;
+            UpdateSprite();
         });
+    }
+
+    private void UpdateSprite() {
+        activeIcon.SetActive(chargeDirection != Vector2Int.zero);
     }
 
     private async Task AfterPick() {
@@ -29,6 +34,7 @@ public class Slippers : MonoBehaviour, IBeforeWalk
     private async Task BeforeDrop() {
         GetComponent<Item>().Owner.afterTakeAction.Remove(AfterOwnerTakeAction);
         chargeDirection = Vector2Int.zero;
+        UpdateSprite();
     }
 
     public void OnDestroy() {
@@ -40,11 +46,11 @@ public class Slippers : MonoBehaviour, IBeforeWalk
     private async Task AfterOwnerTakeAction(MoveAction action) {
         if (action is FailedMove failedMove) {
             chargeDirection = failedMove.direction;
-            activeIcon.SetActive(true);
+            UpdateSprite();
             return;
         }
         chargeDirection = Vector2Int.zero;
-        activeIcon.SetActive(false);
+        UpdateSprite();
     }
 
     public async Task<bool> BeforeWalk(Vector2Int delta, int priority) {
@@ -56,6 +62,7 @@ public class Slippers : MonoBehaviour, IBeforeWalk
         }
         var result = await GetComponent<Item>().Owner.figure.TryWalk(chargeDirection + delta);
         chargeDirection = Vector2Int.zero;
+        UpdateSprite();
         return result;
     }
 }
