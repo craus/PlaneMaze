@@ -253,9 +253,21 @@ public class Player : Unit
     public override void Awake() {
         base.Awake();
         figure.afterBoardChange.Add(AfterBoardChange);
+        figure.afterMove.Add(AfterMove);
 
         new ValueTracker<int>(() => gems, v => gems = v);
         new ValueTracker<int>(() => totalGems, v => totalGems = v);
+    }
+
+    private async Task AfterMove(Cell from, Cell to) {
+        CheckInvisibilityInNeighbours(from);
+        CheckInvisibilityInNeighbours(to);
+    }
+
+    private void CheckInvisibilityInNeighbours(Cell cell) {
+        if (cell != null) {
+            cell.Neighbours().SelectMany(n => n.GetFigures<Invisibility>()).ForEach(i => i.Check());
+        }
     }
 
     private async Task AfterBoardChange(Board from, Board to) {
