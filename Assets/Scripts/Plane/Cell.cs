@@ -68,6 +68,9 @@ public class Cell : MonoBehaviour
         Destroy(wallModel);
         floorModel = Instantiate(biome.floorModel, transform);
         wallModel = Instantiate(biome.wallModel, transform);
+        foreach (var tileModel in GetComponentsInChildren<TileModel>()) {
+            tileModel.SetOffset(position);
+        }
     }
 
     public void UpdateCell() {

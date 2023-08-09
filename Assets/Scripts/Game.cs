@@ -80,6 +80,7 @@ public class Game : MonoBehaviour
         InfoPanel.instance.viewedInfo = new HashSet<IExplainable>();
 
         mainWorld = Instantiate(boardSample, transform);
+        mainWorld.currentBiome = Library.instance.dungeon;
         UnityEngine.Debug.LogFormat("New game started");
 
         player = Instantiate(playerSample, transform);
@@ -89,7 +90,7 @@ public class Game : MonoBehaviour
         speed = 10000;
 
         cellOrderList = new List<Cell>();
-        await GenerateBiome(Library.instance.darkrootForest, pauses: false);
+        await GenerateBiome(Library.instance.crypt, pauses: false);
         mainWorld.silentMode = true;
 
         for (int i = 0; i < storeCount; i++) {
@@ -153,6 +154,7 @@ public class Game : MonoBehaviour
 
     private void GenerateStore() {
         var newStore = Instantiate(boardSample, transform);
+        newStore.currentBiome = Library.instance.dungeon;
         newStore.silentMode = true;
         newStore.GetCell(Vector2Int.zero).Vicinity(storeRadius + 1).ForEach(cell => cell.gameObject.SetActive(true));
         newStore.GetCell(Vector2Int.zero).Vicinity(storeRadius).ForEach(cell => {
@@ -333,6 +335,8 @@ public class Game : MonoBehaviour
         if (cellOrderList.Count > 0) {
             start = CheapestBorderCell(cellOrderList);
         }
+
+        mainWorld.currentBiome = biome;
 
         var cellOrder = Algorithm.PrimDynamic(
             start: start,

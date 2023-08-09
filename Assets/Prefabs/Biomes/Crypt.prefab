@@ -18,7 +18,7 @@ PrefabInstance:
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: floorModel
       value: 
-      objectReference: {fileID: 5685242771666706728, guid: c86c625060ec41f4f91e98fe2ff96884, type: 3}
+      objectReference: {fileID: 5208807964473548006, guid: 8316ac2dadd9af343971ffea05637bd7, type: 3}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: ghostPower
       value: 2
