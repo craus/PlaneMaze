@@ -62,6 +62,8 @@ public abstract class Monster : Unit, IMovable
             return false;
         }
 
+        target.figure.Location.OnOccupyingUnitAttacked(target);
+
         PlayAttackSound();
 
         GetComponent<DangerSprite>().sprite.enabled = true;

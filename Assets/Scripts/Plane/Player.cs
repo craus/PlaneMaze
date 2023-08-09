@@ -93,7 +93,7 @@ public class Player : Unit
             Debug.LogFormat($"[{Game.instance.time}] DefaultAttack failed: cannot attack target");
             return false;
         }
-
+        target.figure.Location.OnOccupyingUnitAttacked(target);
         await figure.FakeMove(delta);
 
         if (target.figure.Location.Shift(delta).Free) {

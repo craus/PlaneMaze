@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
-public class Fog : Terrain, IMovable
+public class Fog : Terrain, IMovable, IOnOccupyingUnitAttackedListener
 {
     [SerializeField] private SpriteRenderer sprite;
 
@@ -23,14 +23,16 @@ public class Fog : Terrain, IMovable
             UpdateSprite();
         });
 
-        GetComponent<Figure>().collide = async (from, figure) => {
+        GetComponent<Figure>().collideEnd = async (to, figure) => {
             if (figure == null) {
                 return;
             }
-            var victim = figure.GetComponent<Unit>();
-            if (victim != null) {
-                on = false;
-                UpdateSprite();
+            if (GetComponent<Figure>().Location.Neighbours().Contains(to)) {
+                var victim = figure.GetComponent<Unit>();
+                if (victim != null) {
+                    on = false;
+                    UpdateSprite();
+                }
             }
         };
     }
@@ -46,5 +48,10 @@ public class Fog : Terrain, IMovable
                 UpdateSprite();
             }
         }
+    }
+
+    public void OnOccupyingUnitAttacked(Unit victim) {
+        on = false;
+        UpdateSprite();
     }
 }

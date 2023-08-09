@@ -117,6 +117,12 @@ public class Cell : MonoBehaviour
 
     public IEnumerable<Cell> Vicinity(int radius) => Vicinity(radius, radius);
 
+    internal void OnOccupyingUnitAttacked(Unit target) {
+        foreach (var f in GetFigures<IOnOccupyingUnitAttackedListener>()) {
+            f.OnOccupyingUnitAttacked(target);
+        }
+    }
+
     public IEnumerable<Cell> Vicinity(int maxDx, int maxDy) {
         for (int i = -maxDx; i <= maxDx; i++) {
             for (int j = -maxDy; j <= maxDy; j++) {
