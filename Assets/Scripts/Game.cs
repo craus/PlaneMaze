@@ -90,7 +90,7 @@ public class Game : MonoBehaviour
         speed = 10000;
 
         cellOrderList = new List<Cell>();
-        await GenerateBiome(Library.instance.crypt, pauses: false);
+        await GenerateBiome(Library.instance.darkrootForest, pauses: false);
         mainWorld.silentMode = true;
 
         for (int i = 0; i < storeCount; i++) {

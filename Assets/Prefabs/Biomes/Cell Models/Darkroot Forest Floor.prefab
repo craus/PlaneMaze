@@ -52,12 +52,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3435501005222484976, guid: a72d848a97e441643a22852c2d420db5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 38b2f309b12046e49903fad9c79252c9, type: 3}
+    - target: {fileID: 3435501005222484976, guid: a72d848a97e441643a22852c2d420db5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 601efc1fbe225224b8ae14b66866139c, type: 2}
+    - target: {fileID: 3575763572126261826, guid: a72d848a97e441643a22852c2d420db5, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 6260278853861599247, guid: a72d848a97e441643a22852c2d420db5, type: 3}
       propertyPath: m_Name
       value: Darkroot Forest Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 6831556227035917175, guid: a72d848a97e441643a22852c2d420db5, type: 3}
+      propertyPath: cellsPerTexture.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6831556227035917175, guid: a72d848a97e441643a22852c2d420db5, type: 3}
+      propertyPath: cellsPerTexture.y
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a72d848a97e441643a22852c2d420db5, type: 3}

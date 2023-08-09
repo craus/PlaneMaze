@@ -14,11 +14,11 @@ PrefabInstance:
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: wallModel
       value: 
-      objectReference: {fileID: 7220744591516548407, guid: 63bd1e1cc3cf48644b7b7cf1da144829, type: 3}
+      objectReference: {fileID: 35406900207276357, guid: 0f20346f74d1b4c4ca57448ee7c2f67b, type: 3}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: floorModel
       value: 
-      objectReference: {fileID: 5685242771666706728, guid: 1c2d1a0e625c71a4f97e0e1f56d6fc6c, type: 3}
+      objectReference: {fileID: 4829634426314978539, guid: df11cb02d52817d46be9cf8a81c38153, type: 3}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: ghostPower
       value: 1

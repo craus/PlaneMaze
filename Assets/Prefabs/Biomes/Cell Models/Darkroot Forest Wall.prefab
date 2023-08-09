@@ -7,14 +7,70 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2881934958637139082, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2881934958637139082, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2881934958637139082, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2881934958637139082, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3642075724326455278, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: cellsPerTexture.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3642075724326455278, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: cellsPerTexture.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4225830900905493654, guid: d3f438dc16695c8449a836431c785c98, type: 3}
       propertyPath: m_Name
       value: Darkroot Forest Wall
       objectReference: {fileID: 0}
     - target: {fileID: 4893311989273638761, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_Size.x
+      value: 2.4414062
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893311989273638761, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_Size.y
+      value: 2.4414062
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893311989273638761, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fce3592c0f8efd94c911bd160a4b8908, type: 3}
+    - target: {fileID: 4893311989273638761, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893311989273638761, guid: d3f438dc16695c8449a836431c785c98, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ce6ec10038c214545a6612d52d69fcb5, type: 2}
+    - target: {fileID: 6762852636640546523, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_Color.a
+      value: 0.84313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 6762852636640546523, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6762852636640546523, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6762852636640546523, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8972253749818445822, guid: d3f438dc16695c8449a836431c785c98, type: 3}
       propertyPath: m_RootOrder
       value: 0
