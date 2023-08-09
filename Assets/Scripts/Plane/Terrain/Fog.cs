@@ -10,18 +10,35 @@ public class Fog : Terrain, IMovable, IOnOccupyingUnitAttackedListener
 {
     [SerializeField] private SpriteRenderer sprite;
 
-    public bool on = false;
+    [SerializeField] private bool on = false;
+    public bool On {
+        get => on;
+        set {
+            on = value;
+            UpdateSprite();
+            CheckUnitsInvisibility();
+        }
+    }
     public float onProbability = 0.1f;
     public float changeProbability = 0.1f;
 
-    public void Awake() {
-        on = Rand.rndEvent(onProbability);
-        UpdateSprite();
+    public void OnGameStart() {
+        CheckUnitsInvisibility();
+    }
 
-        new ValueTracker<bool>(() => on, v => {
-            on = v;
-            UpdateSprite();
-        });
+    private void CheckUnitsInvisibility() {
+        var location = GetComponent<Figure>().Location;
+        if (location != null) {
+            foreach (var i in location.GetFigures<Invisibility>()) {
+                i.Check();
+            }
+        }
+    }
+
+    public void Awake() {
+        On = Rand.rndEvent(onProbability);
+
+        new ValueTracker<bool>(() => On, v => On = v);
 
         GetComponent<Figure>().collideEnd = async (to, figure) => {
             if (figure == null) {
@@ -30,28 +47,44 @@ public class Fog : Terrain, IMovable, IOnOccupyingUnitAttackedListener
             if (GetComponent<Figure>().Location.Neighbours().Contains(to)) {
                 var victim = figure.GetComponent<Unit>();
                 if (victim != null) {
-                    on = false;
-                    UpdateSprite();
+                    On = false;
                 }
+            }
+            {
+                var victim = figure.GetComponent<Unit>();
+                if (victim != null) {
+                    victim.GetComponent<Invisibility>().Check();
+                }
+            }
+        };
+
+        GetComponent<Figure>().collide = async (to, figure) => {
+            if (figure == null) {
+                return;
+            }
+            if (!On) {
+                return;
+            }
+            var victim = figure.GetComponent<Unit>();
+            if (victim != null) {
+                victim.GetComponent<Invisibility>().Check();
             }
         };
     }
 
     private void UpdateSprite() {
-        sprite.enabled = on;
+        sprite.enabled = On;
     }
 
     public async Task Move() {
         if (Rand.rndEvent(changeProbability)) {
-            if (Rand.rndEvent(onProbability) != on) {
-                on ^= true;
-                UpdateSprite();
+            if (Rand.rndEvent(onProbability) != On) {
+                On ^= true;
             }
         }
     }
 
     public void OnOccupyingUnitAttacked(Unit victim) {
-        on = false;
-        UpdateSprite();
+        On = false;
     }
 }

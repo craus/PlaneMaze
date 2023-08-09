@@ -178,5 +178,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 2532068689400690311}
   on: 0
-  onProbability: 0.1
+  onProbability: 0.2
   changeProbability: 0.1
