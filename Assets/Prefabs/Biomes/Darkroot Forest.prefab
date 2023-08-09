@@ -41,7 +41,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: terrainSamples.Array.size
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: terrainSamples.Array.data[6].to
@@ -137,3 +137,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+--- !u!1 &5259384351285925828 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9061059404449302191, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+  m_PrefabInstance: {fileID: 3837717479489835371}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8261362398480381255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5259384351285925828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4cea978ec07abc4cb203bc382cbcf6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fog: {fileID: 7572369134070121945, guid: 51c069f7a46e4d7439b882a915b55c59, type: 3}

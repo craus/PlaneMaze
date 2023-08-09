@@ -135,6 +135,14 @@ public class Cell : MonoBehaviour
         return null;
     }
 
+    public void AfterStoresAdded() {
+        if (biome.GetComponent<DarkrootForest>()) {
+            if (GetFigure<Terrain>() == null) {
+                Game.instance.GenerateFigure(this, biome.GetComponent<DarkrootForest>().fog);
+            }
+        }
+    }
+
     public T GetFigure<T>() => figures.Select(f => f.GetComponent<T>()).FirstOrDefault(t => t != null);
     public IEnumerable<T> GetFigures<T>() => figures.Select(f => f.GetComponent<T>()).Where(t => t != null);
     public T GetFigure<T>(Func<T, bool> criteria) => figures.Select(f => f.GetComponent<T>()).FirstOrDefault(t => t != null && criteria(t));

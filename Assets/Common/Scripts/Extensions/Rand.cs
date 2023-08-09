@@ -144,7 +144,6 @@ public static class Rand
 		if (source != null) {
 			return GetRandomFloat(source, () => UnityEngine.Random.value);
 		}
-		Debug.LogFormat("Rand Value get");
 		return UnityEngine.Random.value;
 	}
 

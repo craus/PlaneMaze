@@ -87,8 +87,8 @@ public class Unit : MonoBehaviour, IMortal
 
         await AfterDie();
 
-        if (Game.instance.monsters.Contains(GetComponent<Monster>())) {
-            Game.instance.monsters.Remove(GetComponent<Monster>());
+        if (Game.instance.movables.Contains(GetComponent<Monster>())) {
+            Game.instance.movables.Remove(GetComponent<Monster>());
             Game.Debug($"Monster {gameObject} at ({figure.Location}) removed from queue after death");
         }
         //Destroy(gameObject);

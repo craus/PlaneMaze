@@ -21,7 +21,7 @@ public class Game : MonoBehaviour
     public int storeCount = 4;
     public int storeRadius = 5;
 
-    public List<Monster> monsters;
+    public List<IMovable> movables;
 
     public List<Weapon> weaponSamples;
     public List<Item> itemSamples;
@@ -66,7 +66,8 @@ public class Game : MonoBehaviour
     public DateTime startTime;
 
     public void Awake() {
-        new ValueTracker<List<Monster>>(() => monsters.ToList(), v => monsters = v.ToList());
+        movables = new List<IMovable>();
+        new ValueTracker<List<IMovable>>(() => movables.ToList(), v => movables = v.ToList());
         new ValueTracker<int>(() => time, v => {
             time = v;
             completedTurns.Clear();
@@ -97,7 +98,11 @@ public class Game : MonoBehaviour
             GenerateStore(); 
         }
 
-        monsters.ToList().ForEach(m => {
+        foreach (var cell in cellOrderList) {
+            cell.AfterStoresAdded();
+        }
+
+        movables.ToList().ForEach(m => {
             m.OnGameStart();
         });
 
@@ -356,7 +361,11 @@ public class Game : MonoBehaviour
             c.biome = biome;
             c.UpdateBiome();
             c.UpdateCell();
-            AfterCellAdded(c);
+            if (biome.GetComponent<IAfterCellAdded>() != null) {
+                biome.GetComponent<IAfterCellAdded>().AfterCellAdded(c);
+            } else {
+                AfterCellAdded(c);
+            }
             CameraControl.instance.followPoint = true;
             CameraControl.instance.pointToFollow = c.transform.position;
 
@@ -420,9 +429,9 @@ public class Game : MonoBehaviour
             explainable.Sample = sample.GetComponent<IExplainable>();
         }
 
-        var monster = f.GetComponent<Monster>();
-        if (monster != null) {
-            monsters.Add(monster);
+        var iMovable = f.GetComponent<IMovable>();
+        if (iMovable != null) {
+            movables.Add(iMovable);
         }
 
         return f;
@@ -458,7 +467,7 @@ public class Game : MonoBehaviour
 
     private async Task MonstersAndItemsTick(int turnNumber) {
         Debug($"Monsters move");
-        await Task.WhenAll(monsters.ToList().Select(m => m.Move()).Concat(afterPlayerMove.Select(listener => listener(turnNumber))));
+        await Task.WhenAll(movables.ToList().Select(m => m.Move()).Concat(afterPlayerMove.Select(listener => listener(turnNumber))));
         if (this == null) {
             return;
         }

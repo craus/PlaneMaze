@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
-public abstract class Monster : Unit
+public abstract class Monster : Unit, IMovable
 {
     public virtual bool FreeCell(Cell cell) => cell.Free;
 
@@ -162,8 +162,8 @@ public abstract class Monster : Unit
     }
 
     public void OnDestroy() {
-        if (Game.instance != null && Game.instance.monsters.Contains(GetComponent<Monster>())) {
-            Game.instance.monsters.Remove(GetComponent<Monster>());
+        if (Game.instance != null && Game.instance.movables.Contains(GetComponent<Monster>())) {
+            Game.instance.movables.Remove(GetComponent<Monster>());
             Game.Debug($"Monster {gameObject} at ({figure.Location}) removed from queue after death");
         }
     }

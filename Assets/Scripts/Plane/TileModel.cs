@@ -13,6 +13,5 @@ public class TileModel : MonoBehaviour
     public void SetOffset(Vector2Int position) {
         sprite.material.mainTextureOffset += position / cellsPerTexture;
         sprite.material.mainTextureScale = Vector2.one / cellsPerTexture;
-        Debug.LogFormat($"Set texture offset for: {sprite}");
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
-public class Portal : MonoBehaviour
+public class Portal : Terrain
 {
     public Portal second;
 
