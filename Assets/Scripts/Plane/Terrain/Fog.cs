@@ -22,6 +22,17 @@ public class Fog : Terrain, IMovable
             on = v;
             UpdateSprite();
         });
+
+        GetComponent<Figure>().collide = async (from, figure) => {
+            if (figure == null) {
+                return;
+            }
+            var victim = figure.GetComponent<Unit>();
+            if (victim != null) {
+                on = false;
+                UpdateSprite();
+            }
+        };
     }
 
     private void UpdateSprite() {
