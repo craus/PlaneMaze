@@ -260,14 +260,7 @@ public class Player : Unit
     }
 
     private async Task AfterMove(Cell from, Cell to) {
-        CheckInvisibilityInNeighbours(from);
-        CheckInvisibilityInNeighbours(to);
-    }
-
-    private void CheckInvisibilityInNeighbours(Cell cell) {
-        if (cell != null) {
-            cell.Neighbours().SelectMany(n => n.GetFigures<Invisibility>()).ForEach(i => i.Check());
-        }
+        Game.instance.GetComponentsInChildren<Invisibility>().ForEach(i => i.Check());
     }
 
     private async Task AfterBoardChange(Board from, Board to) {
