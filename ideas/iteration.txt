@@ -1,0 +1,4 @@
+No free healing potions: раздавать всегда 4 бесплатные зелья
+Monsters Regenerate: уменьшить скорость регенерации
+ресток хотельных колец
+у Monsters Are Tougher плохая аббревиатура
