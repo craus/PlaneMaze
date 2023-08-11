@@ -22,6 +22,6 @@ public class Invisibility : MonoBehaviour
         return
             fog != null &&
             fog.On &&
-            !Player.instance.figure.Location.Neighbours().Contains(GetComponent<Figure>().Location);
+            (Player.instance.figure.Location.position - GetComponent<Figure>().Location.position).SumDelta() > 1;
     }
 }
