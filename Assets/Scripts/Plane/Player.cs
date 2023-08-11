@@ -261,6 +261,7 @@ public class Player : Unit
 
     private async Task AfterMove(Cell from, Cell to) {
         Game.instance.GetComponentsInChildren<Invisibility>().ForEach(i => i.Check());
+        FogPlane.instance.model.SetActive(figure.Location.GetFigure<Fog>(f => f.On));
     }
 
     private async Task AfterBoardChange(Board from, Board to) {
