@@ -126,12 +126,12 @@ public class WitchAndSister : Monster
         // Syncronized Attack
         if (SyncronizedAttackCondition) {
             Debug.LogFormat($"{this} syncronized teleport");
+            syncronizedAttackTime = Game.instance.time;
             await Helpers.Teleport(Another.figure, figure.Location.Shift(4 * PlayerDelta / 2));
             await Task.WhenAll(
                 ChargeAttack(AttackArea(PlayerDelta)),
                 Another.ChargeAttack(AttackArea(PlayerDelta))
             );
-            syncronizedAttackTime = Game.instance.time;
             return;
         }
         if (Another.SyncronizedAttackCondition) {
@@ -177,7 +177,7 @@ public class WitchAndSister : Monster
             if (await SmartWalkOrFakeMove(-Helpers.StepAtDirection(PlayerDelta))) {
                 Debug.LogFormat($"{this} flee success");
                 if (
-                    oldLocation.GetFigure<Terrain>() == null && 
+                    oldLocation.GetFigure<Terrain>(t => t.OccupiesTerrainPlace) == null && 
                     !oldLocation.Vicinity(4).Any(cell => cell.GetFigure<CursedSign>())
                 ) {
                     Debug.LogFormat($"{this} creates cursed sign");

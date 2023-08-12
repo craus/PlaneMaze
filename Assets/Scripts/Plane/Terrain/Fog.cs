@@ -10,6 +10,8 @@ public class Fog : Terrain, IMovable, IOnOccupyingUnitAttackedListener
 {
     [SerializeField] private SpriteRenderer sprite;
 
+    public override bool OccupiesTerrainPlace => base.OccupiesTerrainPlace && On;
+
     [SerializeField] private bool on = false;
     public bool On {
         get => on;

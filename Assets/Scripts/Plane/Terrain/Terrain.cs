@@ -7,4 +7,5 @@ using UnityEngine;
 
 public class Terrain : MonoBehaviour
 {
+    public virtual bool OccupiesTerrainPlace => true;
 }
