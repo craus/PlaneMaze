@@ -829,15 +829,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187696164521918999, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: description
-      value: '<b>Harpy</b>
+      value: '<b>The Sister</b>
 
 
-        Flying.
+        The final boss.
 
-        Wanders randomly.
+        Kill her and the
+        Witch to win.
 
-        Attacks
-        at distance 2.'
+        Creates illusions of yourself.
+
+        Curses you
+        when adjacent.
+
+        Charges syncronized attack with her Sister.
+
+        Teleports
+        you away on hit.
+
+        Creates cursed signs.'
       objectReference: {fileID: 0}
     - target: {fileID: 8430807191255413278, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1021,6 +1031,7 @@ MonoBehaviour:
   figure: {fileID: 0}
   alive: 1
   movesSinceLastHit: 100500
+  lastAttacker: {fileID: 0}
   movesSinceLastHeal: 100500
   movesSinceHitToHeal: 3
   healCooldown: 3

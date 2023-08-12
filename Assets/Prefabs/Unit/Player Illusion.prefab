@@ -235,6 +235,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6947227257763931431, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6947227257763931431, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7095600188239692362, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: rightSprites.Array.size
       value: 2
@@ -361,8 +369,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187696164521918999, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: description
-      value: "<b>Ent</b>\n\nStays in place. \nIf attacked, transforms to humanoid
-        form and follows you.\nSlow (moves once per two turns)."
+      value: '<b>Player illusion</b>
+
+
+        Moves opposite to player moves.
+
+        Dies
+        when attacks.
+
+        Turns into fog when dies.
+
+        When killed, attacks
+        killer by 1.'
       objectReference: {fileID: 0}
     - target: {fileID: 8430807191255413278, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_AnchorMax.y
@@ -535,6 +553,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 270529094164164945, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
   m_PrefabInstance: {fileID: 6920106804345873549}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2322474397870808617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7190054797756372444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e95d5f368cad7b42a3cb952293c3e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  createdFromSample: {fileID: 0}
 --- !u!114 &8234422707921031841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,22 +583,9 @@ MonoBehaviour:
   figure: {fileID: 0}
   alive: 1
   movesSinceLastHit: 100500
+  lastAttacker: {fileID: 0}
   movesSinceLastHeal: 100500
   movesSinceHitToHeal: 3
   healCooldown: 3
   attackProjectile: {fileID: 7558257676500238022, guid: cfc4e3f00b8a52448b747c87fa87ae29, type: 3}
   damage: 1
-  killer: {fileID: 0}
---- !u!114 &2322474397870808617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7190054797756372444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e95d5f368cad7b42a3cb952293c3e8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  createdFromSample: {fileID: 0}

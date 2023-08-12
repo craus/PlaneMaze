@@ -325,15 +325,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187696164521918999, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: description
-      value: '<b>Harpy</b>
+      value: '<b>Witch illusion</b>
 
 
-        Flying.
+        Flee from player.
 
-        Wanders randomly.
+        Dies when
+        attacks.
 
-        Attacks
-        at distance 2.'
+        Turns into fog when dies.
+
+        When killed, attacks
+        killer by 1.'
       objectReference: {fileID: 0}
     - target: {fileID: 8430807191255413278, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_AnchorMax.y
@@ -495,6 +498,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 270529094164164945, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
   m_PrefabInstance: {fileID: 6920106804345873549}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2542260264837865941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7190054797756372444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e95d5f368cad7b42a3cb952293c3e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  createdFromSample: {fileID: 0}
 --- !u!114 &6890977442324438375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,21 +528,9 @@ MonoBehaviour:
   figure: {fileID: 0}
   alive: 1
   movesSinceLastHit: 100500
+  lastAttacker: {fileID: 0}
   movesSinceLastHeal: 100500
   movesSinceHitToHeal: 3
   healCooldown: 3
   attackProjectile: {fileID: 7558257676500238022, guid: cfc4e3f00b8a52448b747c87fa87ae29, type: 3}
   damage: 1
---- !u!114 &2542260264837865941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7190054797756372444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e95d5f368cad7b42a3cb952293c3e8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  createdFromSample: {fileID: 0}
