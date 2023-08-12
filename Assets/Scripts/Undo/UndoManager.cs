@@ -31,7 +31,6 @@ public class UndoManager : Singletone<UndoManager>
         lastSaveIndex++;
         Debug.LogFormat($"Save {lastSaveIndex}");
         onSave.Invoke();
-        Debug.LogFormat($"Save {lastSaveIndex} completed ({GetInstanceID()})");
     }
 
     public void Load() {
