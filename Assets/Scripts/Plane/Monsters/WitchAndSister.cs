@@ -91,7 +91,7 @@ public class WitchAndSister : Monster, IInvisibilitySource
         // Execute Attack
         if (chargedArea != null && chargedArea.Count > 0) {
             Debug.LogFormat($"{this} attack charged area");
-            await Task.WhenAll(chargedArea.SelectMany(c => c.GetFigures<Unit>()).ToList().Select(u => Attack(u)));
+            await Task.WhenAll(chargedArea.SelectMany(c => c.GetFigures<Unit>(u => u.HasSoul)).ToList().Select(u => Attack(u)));
             chargedArea = null;
             UpdateIcons();
             return;
