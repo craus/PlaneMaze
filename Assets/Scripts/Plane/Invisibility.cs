@@ -17,6 +17,10 @@ public class Invisibility : MonoBehaviour
         Switch(CalculateInvisibility());
     }
 
+    public void Awake() {
+        GetComponent<Figure>().afterMove.Add(async (from, to) => Check());
+    }
+
     private bool HiddenInsideFog() {
         var fog = GetComponent<Figure>().Location.GetFigure<Fog>();
         return 

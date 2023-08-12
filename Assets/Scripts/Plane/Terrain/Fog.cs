@@ -28,10 +28,14 @@ public class Fog : Terrain, IMovable, IOnOccupyingUnitAttackedListener
 
     private void CheckUnitsInvisibility() {
         var location = GetComponent<Figure>().Location;
-        if (location != null) {
-            foreach (var i in location.GetFigures<Invisibility>()) {
-                i.Check();
-            }
+        if (location == null) {
+            return;
+        }
+        foreach (var i in location.GetFigures<Invisibility>()) {
+            i.Check();
+        }
+        if (location.GetFigure<Player>() != null) {
+            Player.instance.GlobalInvisibilityCheck();
         }
     }
 

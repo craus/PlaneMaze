@@ -260,6 +260,10 @@ public class Player : Unit
     }
 
     private async Task AfterMove(Cell from, Cell to) {
+        GlobalInvisibilityCheck();
+    }
+
+    public void GlobalInvisibilityCheck() {
         Game.instance.GetComponentsInChildren<Invisibility>().ForEach(i => i.Check());
         FogPlane.instance.model.SetActive(figure.Location.GetFigure<Fog>(f => f.On));
     }
