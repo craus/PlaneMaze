@@ -12,7 +12,8 @@ public class WolfTrap : Terrain, IMortal
 
     public GameObject attackProjectileSample;
 
-    public void Awake() {
+    public override void Awake() {
+        base.Awake();
 
         //Player.instance.figure.afterMove.Add(AfterPlayerMove);
 

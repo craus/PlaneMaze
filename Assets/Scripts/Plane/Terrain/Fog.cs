@@ -16,6 +16,14 @@ public class Fog : Terrain, IMovable, IOnOccupyingUnitAttackedListener
     public bool On {
         get => on;
         set {
+            if (value == true) {
+                if (
+                    figure.Location != null &&
+                    figure.Location.GetFigure<Figure>(f => f != GetComponent<Figure>())
+                ) {
+                    return;
+                }
+            }
             on = value;
             UpdateSprite();
             CheckUnitsInvisibility();
@@ -41,7 +49,8 @@ public class Fog : Terrain, IMovable, IOnOccupyingUnitAttackedListener
         }
     }
 
-    public void Awake() {
+    public override void Awake() {
+        base.Awake();
         On = Rand.rndEvent(onProbability);
 
         new ValueTracker<bool>(() => On, v => On = v);

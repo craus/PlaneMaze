@@ -10,7 +10,8 @@ public class Info : Terrain
 {
     public IExplainable explainable;
 
-    public void Awake() {
+    public override void Awake() {
+        base.Awake();
 
         //Player.instance.figure.afterMove.Add(AfterPlayerMove);
 

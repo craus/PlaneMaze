@@ -8,4 +8,9 @@ using UnityEngine;
 public class Terrain : MonoBehaviour
 {
     public virtual bool OccupiesTerrainPlace => true;
+    public Figure figure;
+
+    public virtual void Awake() {
+        figure = GetComponent<Figure>();
+    }
 }

@@ -8,7 +8,8 @@ public class Portal : Terrain
 {
     public Portal second;
 
-    public void Awake() {
+    public override void Awake() {
+        base.Awake();
         GetComponent<Figure>().collide = async (from, figure) => {
             if (from == second.GetComponent<Figure>().Location) {
                 return;

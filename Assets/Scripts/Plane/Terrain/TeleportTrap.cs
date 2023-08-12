@@ -10,7 +10,8 @@ public class TeleportTrap : Terrain
     public int teleportRadius = 6;
     public int invulnerabilityTurns = 1;
 
-    public void Awake() {
+    public override void Awake() {
+        base.Awake();
         GetComponent<Figure>().collide = async (from, figure) => {
             var victim = figure.GetComponent<Unit>();
             if (victim != null) {
