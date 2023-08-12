@@ -34,6 +34,7 @@ public class Unit : MonoBehaviour, IMortal
     public Figure figure;
 
     public bool alive = true;
+    public bool dying = false;
 
     public int movesSinceLastHit = 100500;
     public Unit lastAttacker;
@@ -90,9 +91,10 @@ public class Unit : MonoBehaviour, IMortal
     }
 
     public virtual async Task Die() {
-        if (!alive) {
+        if (!alive || dying) {
             return;
         }
+        dying = true;
         Debug.LogFormat($"[{Game.instance.time}] {gameObject} at ({figure.Location.position}) dies");
 
         PlayDeathSound();
