@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 270529094164164945, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_Name
-      value: Witch
+      value: Sister
       objectReference: {fileID: 0}
     - target: {fileID: 1427448197668522633, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_AnchorMax.y
@@ -358,18 +358,18 @@ PrefabInstance:
     - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d61b6dc8b02684d4bb7303cb288891eb, type: 3}
+      objectReference: {fileID: 21300000, guid: 537199272e89e904e89779695c031d7a, type: 3}
     - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_Color.b
-      value: 0.2264151
+      value: 0.13363296
       objectReference: {fileID: 0}
     - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_Color.g
-      value: 0.097187616
+      value: 0.19406208
       objectReference: {fileID: 0}
     - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_Color.r
-      value: 0.100722045
+      value: 0.1981132
       objectReference: {fileID: 0}
     - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -504,7 +504,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7190054797756372444}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b31bbbf934e51a4d9e1d590a14b6dbd, type: 3}
+  m_Script: {fileID: 11500000, guid: be76e797bf244dc479775a3a4a6399b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lastMove: {x: 0, y: 0}

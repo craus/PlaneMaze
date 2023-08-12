@@ -4,6 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class Witch : WitchAndSister
+public class Sister : WitchAndSister
 {
 }

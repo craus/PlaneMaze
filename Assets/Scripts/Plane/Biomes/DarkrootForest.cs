@@ -9,4 +9,5 @@ public class DarkrootForest : MonoBehaviour
     public Fog fog;
 
     public Witch witch;
+    public Sister sister;
 }

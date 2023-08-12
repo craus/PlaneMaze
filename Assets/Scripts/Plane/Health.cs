@@ -65,7 +65,7 @@ public class Health : MonoBehaviour
     public void Init() {
         if (GetComponent<Monster>() != null) {
             //current = max = ascentionHealth[Mathf.Clamp(Game.instance.Ascentions<MonstersHaveMoreHealth>(), 0, ascentionHealth.Count - 1)];
-            if (!Game.instance.Ascention<CommonEnemiesHaveMultipleHP>() && GetComponent<Lich>() == null) {
+            if (!Game.instance.Ascention<CommonEnemiesHaveMultipleHP>() && !GetComponent<Unit>().Boss) {
                 current = max = (max+1)/2;
             }
         }

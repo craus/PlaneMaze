@@ -81,7 +81,7 @@ public class Game : MonoBehaviour
         InfoPanel.instance.viewedInfo = new HashSet<IExplainable>();
 
         mainWorld = Instantiate(boardSample, transform);
-        mainWorld.currentBiome = Library.instance.dungeon;
+        mainWorld.currentBiome = Library.instance.darkrootForest;
         UnityEngine.Debug.LogFormat("New game started");
 
         player = Instantiate(playerSample, transform);
@@ -336,12 +336,12 @@ public class Game : MonoBehaviour
     }
 
     private async Task GenerateBiome(Biome biome, bool pauses = false) {
+        mainWorld.currentBiome = biome;
+
         var start = mainWorld.GetCell(Vector2Int.zero);
         if (cellOrderList.Count > 0) {
             start = CheapestBorderCell(cellOrderList);
         }
-
-        mainWorld.currentBiome = biome;
 
         var cellOrder = Algorithm.PrimDynamic(
             start: start,
@@ -349,7 +349,7 @@ public class Game : MonoBehaviour
                 .Select(c => new Algorithm.Weighted<Cell>(c, CellPrice(c.position))),
             antiEdges: c => Diagonals(c).Where(MakesCross).Union(Forbidden(c)),
             maxSteps: 100000
-        ).Take(biome.Size);
+        ).Take(biome.Size).ToList();
 
         int i = 0;
         foreach (Cell c in cellOrder) {
@@ -382,6 +382,16 @@ public class Game : MonoBehaviour
 
             ++i;
         }
+
+        if (biome == Library.instance.darkrootForest) {
+            var witch = GenerateFigure(cellOrder.Where(cell => cell.figures.Count() == 0).Rnd(), biome.GetComponent<DarkrootForest>().witch);
+            var sister = GenerateFigure(cellOrder.Where(cell => cell.figures.Count() == 0).Rnd(), biome.GetComponent<DarkrootForest>().sister);
+            witch.witch = witch;
+            witch.sister = sister;
+            sister.witch = witch;
+            sister.sister = sister;
+        }
+
         CameraControl.instance.followPoint = false;
 
         UnityEngine.Debug.LogFormat($"Cells: {i}");
@@ -450,7 +460,7 @@ public class Game : MonoBehaviour
         } else if (cell.biome == Library.instance.crypt && cell.orderInBiome == Library.instance.crypt.Size-1) {
             GenerateFigure(cell, lichSample);
             return;
-        }
+        } 
 
         if (cell.position.magnitude > 6 && Rand.rndEvent(Metagame.instance.MonsterProbability)) {
             GenerateFigure(cell, cell.biome.monsterSamples.weightedRnd());

@@ -160,3 +160,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fog: {fileID: 7572369134070121945, guid: 51c069f7a46e4d7439b882a915b55c59, type: 3}
   witch: {fileID: 6890977442324438375, guid: 5cd90158a7981db42ad6ecc85501d60e, type: 3}
+  sister: {fileID: 6890977442324438375, guid: 7b755fd98368a58479809760cb2df8bf, type: 3}
