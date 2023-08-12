@@ -43,7 +43,7 @@ public class Werewolf : Monster
             for (int i = 0; i < 2; i++) {
                 var delta = Moves.Rnd();
                 GetComponent<SpriteDirection>().SetDirection(delta);
-                if (!await figure.TryWalk(delta)) {
+                if (!await SmartWalk(delta)) {
                     await figure.FakeMove(delta);
                 }
             }
