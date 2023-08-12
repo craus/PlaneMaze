@@ -7,4 +7,6 @@ using UnityEngine;
 public class DarkrootForest : MonoBehaviour
 {
     public Fog fog;
+
+    public Witch witch;
 }
