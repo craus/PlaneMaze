@@ -80,6 +80,8 @@ public abstract class Monster : Unit, IMovable
             return false;
         }
 
+        await BeforeAttack(delta);
+
         target.figure.Location.OnOccupyingUnitAttacked(target);
 
         PlayAttackSound();
@@ -102,6 +104,8 @@ public abstract class Monster : Unit, IMovable
         if (ap != null) {
             Destroy(ap);
         }
+
+        await AfterAttack(delta);
 
         return true;
     }

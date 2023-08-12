@@ -11,6 +11,7 @@ public class Illusion : Monster
 
     public override async Task AfterAttack(Vector2Int delta) {
         await base.AfterAttack(delta);
+        Debug.LogFormat($"Illusion {this} dies after attack");
         await Die();
     }
 
