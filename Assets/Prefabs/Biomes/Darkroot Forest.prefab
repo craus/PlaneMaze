@@ -37,7 +37,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: monsterSamples.Array.size
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: terrainSamples.Array.size
@@ -60,12 +60,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6890977442324438375, guid: 1c2f82b9c5ff49e4d8328229fc5da492, type: 3}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: monsterSamples.Array.data[12].to
+      value: 
+      objectReference: {fileID: 6890977442324438375, guid: fcc35c7084a46544f933db5796e7f938, type: 3}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: monsterSamples.Array.data[5].weight
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: monsterSamples.Array.data[8].weight
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: terrainSamples.Array.data[6].weight
@@ -77,11 +81,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: monsterSamples.Array.data[10].weight
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: monsterSamples.Array.data[11].weight
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: monsterSamples.Array.data[12].weight
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4818233749255616864, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: m_RootOrder
