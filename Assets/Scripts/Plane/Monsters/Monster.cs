@@ -146,17 +146,11 @@ public abstract class Monster : Unit, IMovable
     }
 
     public async Task Move() {
-        if (this == null || !this.alive) {
-            Debug.LogError("Dead monster moves");
+        if (this == null || !alive) {
+            Debug.LogError($"{this}: Dead monster moves");
             return;
         }
         GetComponent<DangerSprite>().sprite.enabled = false;
-        var figureLocation = figure.Location;
-        var board = figureLocation.board;
-        var player = Player.instance;
-        var playerFigure = player.figure;
-        var playerLocation = playerFigure.Location;
-        var playerBoard = playerLocation.board;
         if (!alive || figure.Location.board != Player.instance.figure.Location.board) {
             return;
         }
