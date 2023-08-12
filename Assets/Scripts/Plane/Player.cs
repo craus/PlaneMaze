@@ -10,6 +10,8 @@ public class Player : Unit
 {
     public static Player instance => Game.instance ? Game.instance.player : null;
 
+    public override bool TrueSight => base.TrueSight || PlaneMaze.Cheats.instance.trueSight;
+
     public int totalGems;
     public int gems;
 
@@ -155,6 +157,7 @@ public class Player : Unit
         }
         await GetComponent<Disarm>().Spend(1);
         await GetComponent<Root>().Spend(1);
+        await GetComponent<Curse>().Spend(1);
         await GetComponent<Invulnerability>().Spend(1);
 
         UndoManager.instance.Save();

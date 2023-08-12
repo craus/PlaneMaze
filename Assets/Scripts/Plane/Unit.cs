@@ -19,6 +19,7 @@ public class Unit : MonoBehaviour, IMortal
     public virtual bool Movable => true;
     public virtual bool GhostForm => false;
     public virtual bool Boss => false;
+    public virtual bool TrueSight => false;
 
     public virtual bool Vulnerable => GetComponent<Invulnerability>().Current == 0;
     public virtual bool Disarmed => GetComponent<Disarm>().Current == 0;
@@ -35,6 +36,7 @@ public class Unit : MonoBehaviour, IMortal
     public bool alive = true;
 
     public int movesSinceLastHit = 100500;
+    public Unit lastAttacker;
 
     public List<Func<MoveAction, Task>> afterTakeAction = new List<Func<MoveAction, Task>>();
 
@@ -62,6 +64,7 @@ public class Unit : MonoBehaviour, IMortal
             return;
         }
         movesSinceLastHit = 0;
+        lastAttacker = attack.from.GetComponent<Unit>();
         Game.Debug($"{gameObject.name} hit by {attack}");
         await GetComponent<Health>().Hit(attack.damage);
     }
@@ -72,11 +75,28 @@ public class Unit : MonoBehaviour, IMortal
     protected virtual async Task AfterDie() {
     }
 
+    private void PlayDeathSound() {
+        if (GetComponent<Player>() != null) {
+            SoundManager.instance.playerDeath.Play();
+        } else if (GetComponent<Lich>() != null) {
+            SoundManager.instance.lichDeath.Play();
+        } else if (GetComponent<Monster>() != null) {
+            if (GetComponent<Tree>() != null || GetComponent<Coffin>() != null) {
+                SoundManager.instance.woodCrash.Play();
+            } else {
+                SoundManager.instance.monsterDeath.Play();
+            }
+        }
+    }
+
     public virtual async Task Die() {
         if (!alive) {
             return;
         }
         Debug.LogFormat($"[{Game.instance.time}] {gameObject} at ({figure.Location.position}) dies");
+
+        PlayDeathSound();
+
         await BeforeDie();
         alive = false;
 

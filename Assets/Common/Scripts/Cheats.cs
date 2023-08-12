@@ -43,7 +43,7 @@ public class Cheats : Singletone<Cheats>
         }
     }
 
-    public void Update() {
+    public virtual void Update() {
         CheckHack();
         if (hacked) {
             if (Input.GetKeyDown(KeyCode.F5)) {

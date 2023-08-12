@@ -13,17 +13,20 @@ public static class Helpers
     public async static Task TeleportAway(Figure figure, int radius) {
         var destination = figure.Location.Vicinity(maxDx: radius, maxDy: radius).Where(c => c.Free).Rnd();
 
-        if (
-            figure.GetComponent<BlackMage>() != null ||
-            figure.GetComponent<Lich>() != null ||
-            figure.GetComponent<Player>() != null
-        ) {
-            SoundManager.instance.teleport.Play();
-        }
+        await Teleport(
+            figure, 
+            destination,
+            sound: 
+                figure.GetComponent<BlackMage>() != null ||
+                figure.GetComponent<Lich>() != null ||
+                figure.GetComponent<Player>() != null
+        );
+    }
+
+    public async static Task Teleport(Figure figure, Cell destination, bool sound = true) {
+        SoundManager.instance.teleport.Play();
         Game.Debug($"{figure} teleports to {destination}");
-
-        _ = PlayTeleportExitAnimation(destination);
-
+        var teleportAnimation = PlayTeleportExitAnimation(destination); // TODO catch exceptions?
         await figure.Move(destination, isTeleport: true, teleportAnimation: true);
     }
 

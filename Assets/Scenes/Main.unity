@@ -8184,7 +8184,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1437658527}
-  - component: {fileID: 1437658526}
+  - component: {fileID: 1437658528}
   m_Layer: 0
   m_Name: Cheats
   m_TagString: Untagged
@@ -8192,22 +8192,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1437658526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1437658525}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4ba1502efe23c84da400b878cd00bad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hacked: 0
-  cheating: 0
-  hack: 6800000061000000630000006b000000
-  currentHackKey: 0
 --- !u!4 &1437658527
 Transform:
   m_ObjectHideFlags: 0
@@ -8223,6 +8207,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1437658528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437658525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b8b76d8ce682f4ab3fb722d425c2c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hacked: 0
+  cheating: 0
+  hack: 6800000061000000630000006b000000
+  currentHackKey: 0
+  trueSight: 0
 --- !u!1 &1465456494
 GameObject:
   m_ObjectHideFlags: 0

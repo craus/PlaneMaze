@@ -119,12 +119,10 @@ public static class Rand
 	}
 
 	public static float Range(float min, float max) {
-		Debug.LogFormat("Rand Range get");
 		return UnityEngine.Random.Range(min, max);
 	}
 
 	public static int Range(int min, int max) {
-		Debug.LogFormat("Rand Range get");
 		return UnityEngine.Random.Range(min, max);
 	}
 

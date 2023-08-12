@@ -432,6 +432,10 @@ public class Game : MonoBehaviour
 
     public T GenerateFigure<T>(Cell cell, T sample) where T: MonoBehaviour {
         var f = Instantiate(sample);
+        if (f.GetComponent<SampleTracker>() != null) {
+            f.GetComponent<SampleTracker>().createdFromSample = sample.GetComponent<SampleTracker>();
+        }
+
         _ = f.GetComponent<Figure>().Move(cell, isTeleport: true);
 
         var explainable = f.GetComponent<IExplainable>();

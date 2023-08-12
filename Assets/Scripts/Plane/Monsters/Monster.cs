@@ -30,6 +30,24 @@ public abstract class Monster : Unit, IMovable
         return await figure.TryWalk(delta, FreeCell);
     }
 
+    protected async Task<bool> WalkOrFakeMove(Vector2Int delta) {
+        if (await figure.TryWalk(delta)) {
+            return true;
+        } else {
+            await figure.FakeMove(delta);
+            return false;
+        }
+    }
+
+    protected async Task<bool> SmartWalkOrFakeMove(Vector2Int delta) {
+        if (await SmartWalk(delta)) {
+            return true;
+        } else {
+            await SmartFakeMove(delta);
+            return false;
+        }
+    }
+
     protected async Task<bool> SmartFakeMove(Vector2Int delta) {
         //if (figure.location.Shift(delta).GetFigure<WolfTrap>() != null) {
         //    return false;
@@ -95,6 +113,8 @@ public abstract class Monster : Unit, IMovable
         Vector2Int.left,
     };
 
+    protected Vector2Int PlayerDelta => Player.instance.figure.Location.position - figure.Location.position;
+
     protected virtual async Task MakeMove() {
     }
 
@@ -118,11 +138,13 @@ public abstract class Monster : Unit, IMovable
         if (this == null) return;
         await GetComponent<Disarm>().Spend(1);
         await GetComponent<Root>().Spend(1);
+        await GetComponent<Curse>().Spend(1);
     }
 
     public async Task Move() {
-        if (this == null) {
+        if (this == null || !this.alive) {
             Debug.LogError("Dead monster moves");
+            return;
         }
         GetComponent<DangerSprite>().sprite.enabled = false;
         var figureLocation = figure.Location;

@@ -23,19 +23,11 @@ public class Health : MonoBehaviour
         if (amount <= 0) {
             return;
         }
+        if (GetComponent<Curse>().Current > 0) {
+            await GetComponent<IMortal>().Die();
+        }
         current = Mathf.Clamp(current - amount, 0, max); 
         if (current <= 0) {
-            if (GetComponent<Player>() != null) {
-                SoundManager.instance.playerDeath.Play();
-            } else if (GetComponent<Lich>() != null) {
-                SoundManager.instance.lichDeath.Play();
-            } else if (GetComponent<Monster>() != null) {
-                if (GetComponent<Tree>() != null || GetComponent<Coffin>() != null) {
-                    SoundManager.instance.woodCrash.Play();
-                } else {
-                    SoundManager.instance.monsterDeath.Play();
-                }
-            }
             await GetComponent<IMortal>().Die();
         } else {
             if (GetComponent<Player>() != null) {
