@@ -25,6 +25,7 @@ public class Health : MonoBehaviour
         }
         if (GetComponent<Curse>().Current > 0) {
             await GetComponent<IMortal>().Die();
+            return;
         }
         current = Mathf.Clamp(current - amount, 0, max); 
         if (current <= 0) {

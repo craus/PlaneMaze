@@ -163,7 +163,6 @@ public class Figure : MonoBehaviour
             if (from != null) {
                 foreach (var f in from.figures.ToList()) {
                     if (f.collideEnd != null) {
-                        Game.Debug($"Figure {gameObject} ends collide with figure {f.gameObject}");
                         await f.collideEnd(Location, this);
                     }
                     if (this == null) {
