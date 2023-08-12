@@ -44,7 +44,7 @@ public class Invisibility : MonoBehaviour
     }
 
     private bool CalculateInvisibility() {
-        if (Player.instance.TrueSight) return false;
+        if (Player.instance != null && Player.instance.TrueSight) return false;
 
         if (HiddenInsideFog()) return true;
         if (HiddenOutsideFog()) return true;
