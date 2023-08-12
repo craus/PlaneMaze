@@ -5,10 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class WitchAndSister : Monster
+public class WitchAndSister : Monster, IInvisibilitySource
 {
     public override bool HasSoul => false;
     public override bool Boss => true;
+
+    public bool Invisible => (Player.instance.figure.Location.position - GetComponent<Figure>().Location.position).MaxDelta() > 2;
 
     public Witch witch;
     public Sister sister;
