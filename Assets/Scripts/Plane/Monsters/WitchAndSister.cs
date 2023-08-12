@@ -28,6 +28,7 @@ public class WitchAndSister : Monster, IInvisibilitySource
 
     [SerializeField] private List<Cell> chargedArea = null;
     [SerializeField] private int syncronizedAttackTime = int.MinValue;
+    [SerializeField] private int syncronizedNonAttackTime = int.MinValue;
 
     public override void Awake() {
         base.Awake();
@@ -126,7 +127,7 @@ public class WitchAndSister : Monster, IInvisibilitySource
         }
 
         // Syncronized Attack
-        if (SyncronizedAttackCondition) {
+        if (Another.syncronizedNonAttackTime != Game.instance.time && SyncronizedAttackCondition) {
             Debug.LogFormat($"{this} syncronized teleport");
             syncronizedAttackTime = Game.instance.time;
             await Helpers.Teleport(Another.figure, figure.Location.Shift(4 * PlayerDelta / 2));
@@ -144,6 +145,7 @@ public class WitchAndSister : Monster, IInvisibilitySource
             Debug.LogFormat($"{this} skips move because of syncronized attack from paired boss");
             return;
         }
+        syncronizedNonAttackTime = Game.instance.time;
 
         // Create Illusion
         var acceptableMoves = Moves.Where(move => figure.Location.Shift(move).FreeAndNoWolfTrap).ToList();
