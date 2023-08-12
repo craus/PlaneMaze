@@ -186,6 +186,7 @@ public class WitchAndSister : Monster, IInvisibilitySource
                 ) {
                     Debug.LogFormat($"{this} creates cursed sign");
                     Game.instance.GenerateFigure(oldLocation, cursedSignSample);
+                    Game.instance.GetComponent<CursedSignCounter>().cursedSignCount++;
                 }
             }
             return;

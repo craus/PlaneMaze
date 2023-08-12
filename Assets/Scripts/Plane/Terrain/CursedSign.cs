@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
-public class CursedSign : Terrain, IInvisibilitySource
+public class CursedSign : Terrain, IInvisibilitySource, IOnDestroyHandler
 {
     public bool Invisible => (Player.instance.figure.Location.position - GetComponent<Figure>().Location.position).MaxDelta() > 2;
 
@@ -24,5 +24,9 @@ public class CursedSign : Terrain, IInvisibilitySource
                 this.SoftDestroy(gameObject);
             }
         };
+    }
+
+    public void OnSoftDestroy() {
+        Game.instance.GetComponent<CursedSignCounter>().cursedSignCount--;
     }
 }

@@ -1571,6 +1571,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2069624272807861709}
   - component: {fileID: 2069624272807861708}
+  - component: {fileID: 6957792755753911196}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -1615,7 +1616,6 @@ MonoBehaviour:
   lastAttackedMonster: {fileID: 0}
   storeCount: 4
   storeRadius: 6
-  monsters: []
   weaponSamples:
   - {fileID: 8761000423821239552, guid: 0a90607df9e38f946b1b280e25a3780b, type: 3}
   - {fileID: 7529681463015247451, guid: af329877cfe40054aa444337a7d77b81, type: 3}
@@ -1672,6 +1672,19 @@ MonoBehaviour:
     keys: 
   speed: 1
   border: []
+--- !u!114 &6957792755753911196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069624272807861715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34d96762308b78e4388a8de247ef2571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursedSignCount: 0
 --- !u!1 &2461602445928022540
 GameObject:
   m_ObjectHideFlags: 0
