@@ -19,6 +19,8 @@ public class Invisibility : MonoBehaviour
 
     public void Awake() {
         GetComponent<Figure>().afterMove.Add(async (from, to) => Check());
+
+        new ValueTracker<bool>(() => model.activeSelf, v => model.SetActive(v));
     }
 
     private bool HiddenInsideFog() {

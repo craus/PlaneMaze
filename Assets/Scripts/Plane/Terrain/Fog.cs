@@ -53,7 +53,10 @@ public class Fog : Terrain, IMovable, IOnOccupyingUnitAttackedListener
         base.Awake();
         On = Rand.rndEvent(onProbability);
 
-        new ValueTracker<bool>(() => On, v => On = v);
+        new ValueTracker<bool>(() => On, v => {
+            on = v;
+            UpdateSprite();
+        });
 
         GetComponent<Figure>().collideEnd = async (to, figure) => {
             if (figure == null) {

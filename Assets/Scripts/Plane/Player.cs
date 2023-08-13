@@ -141,9 +141,6 @@ public class Player : Unit
             await MoveTakeActions(delta);
         }
         Game.instance.moveNumber++;
-        if (!alive) {
-            return;
-        }
         if (this == null) {
             return;
         }
@@ -261,6 +258,7 @@ public class Player : Unit
 
         new ValueTracker<int>(() => gems, v => gems = v);
         new ValueTracker<int>(() => totalGems, v => totalGems = v);
+        new ValueTracker<bool>(() => FogPlane.instance.model.activeSelf, FogPlane.instance.model.SetActive);
     }
 
     private async Task AfterMove(Cell from, Cell to) {
