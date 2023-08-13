@@ -10,7 +10,25 @@ public class CursedSignCounter : MonoBehaviour
 
     public int cursedSignCount = 0;
 
+    public Game game;
+
     public virtual void Awake() {
+        game = GetComponent<Game>();
+
         new ValueTracker<int>(() => cursedSignCount, v => cursedSignCount = v);
+
+        game.afterPlayerMove.Add(async (index) => {
+            if (cursedSignCount >= Max) {
+                CursedSignIndicator.instance.Attack();
+                await Player.instance.Hit(new Attack(
+                    Vector2Int.zero,
+                    null,
+                    Player.instance.figure,
+                    null,
+                    Player.instance.figure.Location,
+                    1
+                ));
+            }
+        });
     }
 }

@@ -16,8 +16,6 @@ public class Game : MonoBehaviour
     public Player player;
     public GameEvents gameEvents;
 
-    public Unit lastAttackedMonster = null;
-
     public int storeCount = 4;
     public int storeRadius = 5;
 
@@ -133,11 +131,11 @@ public class Game : MonoBehaviour
 
     public async Task Lose() {
         MusicManager.instance.Switch(MusicManager.instance.losePlaylist);
-        if (lastAttackedMonster != null) {
+        if (Player.instance.lastAttacker != null) {
             await ConfirmationManager.instance.AskConfirmation(
                 canCancel: false,
                 panel: ConfirmationManager.instance.infoPanel,
-                customShow: () => InfoPanel.instance.Show(lastAttackedMonster.GetComponent<IExplainable>()),
+                customShow: () => InfoPanel.instance.Show(Player.instance.lastAttacker.GetComponent<IExplainable>()),
                 canConfirmByAnyButton: true
             );
         }
@@ -430,8 +428,12 @@ public class Game : MonoBehaviour
         }
     }
 
+    private Map<Figure, List<Figure>> generatedFigures = new Map<Figure, List<Figure>>(() => new List<Figure>());
     public T GenerateFigure<T>(Cell cell, T sample) where T: MonoBehaviour {
         var f = Instantiate(sample);
+        f.gameObject.name = $"{sample.gameObject.name} #{generatedFigures[sample.GetComponent<Figure>()].Count}";
+        generatedFigures[sample.GetComponent<Figure>()].Add(f.GetComponent<Figure>());
+
         if (f.GetComponent<SampleTracker>() != null) {
             f.GetComponent<SampleTracker>().createdFromSample = sample.GetComponent<SampleTracker>();
         }

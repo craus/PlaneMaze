@@ -98,7 +98,6 @@ public abstract class Monster : Unit, IMovable
 
         await Helpers.Delay(0.1f);
 
-        Game.instance.lastAttackedMonster = this;
         await target.Hit(new Attack(delta, figure, target.figure, AttackLocation(delta, target), DefenceLocation(delta, target), damage));
 
         if (ap != null) {

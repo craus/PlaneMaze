@@ -54,7 +54,6 @@ public class WolfTrap : Terrain, IMortal
             return;
         }
 
-        Game.instance.lastAttackedMonster = null;
         await victim.Hit(new Attack(Vector2Int.zero, GetComponent<Figure>(), victim.figure, GetComponent<Figure>().Location, victim.figure.Location, damage));
         
     }
