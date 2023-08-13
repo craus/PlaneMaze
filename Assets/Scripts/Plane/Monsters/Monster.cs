@@ -74,6 +74,19 @@ public abstract class Monster : Unit, IMovable
     public virtual Cell AttackLocation(Vector2Int delta, Unit target) => figure.Location;
     public virtual Cell DefenceLocation(Vector2Int delta, Unit target) => target.figure.Location;
 
+    public async Task FakeAttack(Cell target) {
+        PlayAttackSound();
+        var ap = Instantiate(attackProjectile, Game.instance.transform);
+        ap.gameObject.SetActive(true); // object was inactive for unknown reason
+        ap.transform.position = target.transform.position;
+
+        await Helpers.Delay(0.1f);
+
+        if (ap != null) {
+            Destroy(ap);
+        }
+    }
+
     public async Task<bool> Attack(Unit target, Vector2Int? maybeDelta = null) {
         var delta = maybeDelta ?? Helpers.StepAtDirection(target.figure.Location.position - figure.Location.position);
         if (!Game.CanAttack(this, target, null, AttackLocation(delta, target), DefenceLocation(delta, target))) {
