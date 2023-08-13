@@ -23,7 +23,7 @@ public abstract class Monster : Unit, IMovable
         });
     }
 
-    protected async Task<bool> SmartWalk(Vector2Int delta) {
+    public async Task<bool> SmartWalk(Vector2Int delta) {
         if (!Flying && figure.Location.Shift(delta).GetFigure<WolfTrap>() != null) {
             return false;
         }

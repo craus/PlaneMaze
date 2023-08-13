@@ -68,9 +68,9 @@ public class WitchAndSister : Monster, IInvisibilitySource
 
     public override void PlayAttackSound() => SoundManager.instance.monsterRangedAttack.Play();
 
-    private async Task CreateIllusion(Cell destination) {
+    private async Task<Illusion> CreateIllusion(Cell destination) {
         SoundManager.instance.summonCreature.Play();
-        Game.instance.GenerateFigure(destination, illusionSample);
+        return Game.instance.GenerateFigure(destination, illusionSample);
     }
 
     private async Task ChargeAttack(IEnumerable<Cell> targetArea) {
@@ -167,10 +167,12 @@ public class WitchAndSister : Monster, IInvisibilitySource
         ) {
             var oldLocation = figure.Location;
             var selectedMoves = acceptableMoves.RndSelection(2).ToList();
-            var illusionDestination = figure.Location.Shift(selectedMoves[1]);
             Debug.LogFormat($"{this} creates illusion at {selectedMoves.ExtToString()}");
-            await SmartWalk(selectedMoves[0]);
-            await CreateIllusion(illusionDestination);
+            var illusion = await CreateIllusion(figure.Location);
+            await Task.WhenAll(
+                SmartWalk(selectedMoves[0]),
+                illusion.SmartWalk(selectedMoves[1])
+            );
             var fog = oldLocation.GetFigure<Fog>();
             if (fog != null) fog.On = true;
             return;
