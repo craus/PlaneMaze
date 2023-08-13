@@ -155,6 +155,7 @@ public class Player : Unit
         await GetComponent<Disarm>().Spend(1);
         await GetComponent<Root>().Spend(1);
         await GetComponent<Curse>().Spend(1);
+        await GetComponent<Curse>().Prepare();
         await GetComponent<Invulnerability>().Spend(1);
 
         UndoManager.instance.Save();

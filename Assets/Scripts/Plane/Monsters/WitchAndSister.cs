@@ -215,7 +215,7 @@ public class WitchAndSister : Monster, IInvisibilitySource
     public override async Task Die() {
         await base.Die();
         if (!witch.alive && !sister.alive) {
-            await Game.instance.Win();
+            var win = Game.instance.Win();
         }
     }
 }

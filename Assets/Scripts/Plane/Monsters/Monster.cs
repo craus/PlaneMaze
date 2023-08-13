@@ -155,6 +155,7 @@ public abstract class Monster : Unit, IMovable
         await GetComponent<Disarm>().Spend(1);
         await GetComponent<Root>().Spend(1);
         await GetComponent<Curse>().Spend(1);
+        await GetComponent<Curse>().Prepare();
     }
 
     public async Task Move() {
