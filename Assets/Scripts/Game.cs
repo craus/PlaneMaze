@@ -63,6 +63,8 @@ public class Game : MonoBehaviour
 
     public DateTime startTime;
 
+    public bool gameOver = false;
+
     public void Awake() {
         movables = new List<IMovable>();
         new ValueTracker<List<IMovable>>(() => movables.ToList(), v => movables = v.ToList());
@@ -71,6 +73,8 @@ public class Game : MonoBehaviour
             completedTurns.Clear();
         });
         new ValueTracker<int>(() => moveNumber, v => moveNumber = v);
+        new ValueTracker<bool>(() => gameOver, v => gameOver = v);
+        MusicManager.instance.CreateValueTrackers();
     }
 
     public async void Start() {
@@ -123,6 +127,8 @@ public class Game : MonoBehaviour
     }
 
     public async Task Win() {
+        if (gameOver) return;
+        gameOver = true;
         MusicManager.instance.Switch(MusicManager.instance.winPlaylist);
         await ConfirmationManager.instance.AskConfirmation(panel: ConfirmationManager.instance.winPanel, canCancel: false);
         await GameManager.instance.metagame.Win();
@@ -130,12 +136,17 @@ public class Game : MonoBehaviour
     }
 
     public async Task Lose() {
+        if (gameOver) return;
+        gameOver = true;
         MusicManager.instance.Switch(MusicManager.instance.losePlaylist);
         if (Player.instance.lastAttacker != null) {
             await ConfirmationManager.instance.AskConfirmation(
                 canCancel: false,
                 panel: ConfirmationManager.instance.infoPanel,
-                customShow: () => InfoPanel.instance.Show(Player.instance.lastAttacker.GetComponent<IExplainable>()),
+                customShow: () => InfoPanel.instance.Show(
+                    Player.instance.lastAttacker.GetComponent<IExplainable>(),
+                    repeatable: true
+                ),
                 canConfirmByAnyButton: true
             );
         }

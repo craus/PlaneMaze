@@ -289,6 +289,6 @@ public class Player : Unit
 
     protected override async Task AfterDie() {
         await base.AfterDie();
-        await Game.instance.Lose();
+        var lose = Game.instance.Lose();
     }
 }

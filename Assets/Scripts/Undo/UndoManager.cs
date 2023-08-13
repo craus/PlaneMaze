@@ -38,6 +38,7 @@ public class UndoManager : Singletone<UndoManager>
     }
 
     public void Undo(int count = 1) {
+        ConfirmationManager.instance.DropAllConfirmations();
         if (lastSaveIndex <= 1) return;
         lastSaveIndex -= count;
         Load();
