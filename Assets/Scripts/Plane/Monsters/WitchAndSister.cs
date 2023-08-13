@@ -66,6 +66,8 @@ public class WitchAndSister : Monster, IInvisibilitySource
         }
     }
 
+    public override void PlayAttackSound() => SoundManager.instance.monsterRangedAttack.Play();
+
     private async Task CreateIllusion(Cell destination) {
         SoundManager.instance.summonCreature.Play();
         Game.instance.GenerateFigure(destination, illusionSample);

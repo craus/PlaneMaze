@@ -8,4 +8,10 @@ using UnityEngine;
 public class Curse : Buff
 {
     public GenericAttacker attacker;
+
+    public override async Task Gain(int amount) {
+        await base.Gain(amount);
+        Debug.LogFormat($"{this} gain {amount} curse");
+        SoundManager.instance.gainCurse.Play();
+    }
 }

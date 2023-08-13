@@ -1030,12 +1030,12 @@ MonoBehaviour:
   soul: 1
   figure: {fileID: 0}
   alive: 1
+  dying: 0
   movesSinceLastHit: 100500
-  lastAttacker: {fileID: 0}
   movesSinceLastHeal: 100500
   movesSinceHitToHeal: 3
   healCooldown: 3
-  attackProjectile: {fileID: 7558257676500238022, guid: cfc4e3f00b8a52448b747c87fa87ae29, type: 3}
+  attackProjectile: {fileID: 7558257676500238022, guid: 578909be1a09acf4ab75f4bb4ee88f27, type: 3}
   damage: 1
   witch: {fileID: 0}
   sister: {fileID: 0}
@@ -1053,3 +1053,4 @@ MonoBehaviour:
   aggressiveTeleportProbability: 0.1
   chargedArea: []
   syncronizedAttackTime: -2147483648
+  syncronizedNonAttackTime: -2147483648
