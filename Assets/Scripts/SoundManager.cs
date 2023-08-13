@@ -36,9 +36,12 @@ public class SoundManager : Singletone<SoundManager>
     public AudioSource woodCrash;
     public AudioSource chargeMagicAttack;
     public AudioSource gainCurse;
+    public AudioSource haveCurse;
     public AudioSource summonCreature;
     public AudioSource witchDamaged;
     public AudioSource sisterDamaged;
+    public AudioSource witchDeath;
+    public AudioSource sisterDeath;
 
     public void Update() {
         if (Input.GetKeyDown(KeyCode.F4)) {

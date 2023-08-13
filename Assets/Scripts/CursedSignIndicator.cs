@@ -15,6 +15,7 @@ public class CursedSignIndicator : Singletone<CursedSignIndicator>
             return;
         }
         var cnt = Game.instance.GetComponent<CursedSignCounter>().cursedSignCount;
+        SoundManager.instance.haveCurse.volume = 0.2f * cnt;
         if (cnt <= 0) {
             animator.SetBool(warningBool, false);
             animator.SetBool(dangerBool, false);
