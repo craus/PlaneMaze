@@ -10,6 +10,8 @@ public class WitchAndSister : Monster, IInvisibilitySource
     public override bool HasSoul => false;
     public override bool Boss => true;
 
+    public static int CursedSignMinDistance => 2;
+
     public bool Invisible => (Player.instance.figure.Location.position - GetComponent<Figure>().Location.position).MaxDelta() > 2;
 
     public Witch witch;
@@ -182,7 +184,7 @@ public class WitchAndSister : Monster, IInvisibilitySource
                 Debug.LogFormat($"{this} flee success");
                 if (
                     oldLocation.GetFigure<Terrain>(t => t.OccupiesTerrainPlace) == null && 
-                    !oldLocation.Vicinity(4).Any(cell => cell.GetFigure<CursedSign>())
+                    !oldLocation.Vicinity(CursedSignMinDistance-1).Any(cell => cell.GetFigure<CursedSign>())
                 ) {
                     Debug.LogFormat($"{this} creates cursed sign");
                     Game.instance.GenerateFigure(oldLocation, cursedSignSample);

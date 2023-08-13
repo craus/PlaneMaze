@@ -18,7 +18,7 @@ public class CursedSignIndicator : Singletone<CursedSignIndicator>
         if (cnt <= 0) {
             animator.SetBool(warningBool, false);
             animator.SetBool(dangerBool, false);
-        } else if (cnt < 4) {
+        } else if (cnt < CursedSignCounter.Max) {
             animator.SetBool(warningBool, true);
             animator.SetBool(dangerBool, false);
         } else {
