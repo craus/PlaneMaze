@@ -14,6 +14,7 @@ public class Buff : MonoBehaviour
     public int Current => current;
 
     public async Task Gain(int amount) {
+        SoundManager.instance.gainCurse.Play();
         current = Mathf.Clamp(current + amount, 0, 999);
         UpdateIcons();
     }

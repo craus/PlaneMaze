@@ -67,6 +67,7 @@ public class WitchAndSister : Monster, IInvisibilitySource
     }
 
     private async Task CreateIllusion(Cell destination) {
+        SoundManager.instance.summonCreature.Play();
         Game.instance.GenerateFigure(destination, illusionSample);
     }
 

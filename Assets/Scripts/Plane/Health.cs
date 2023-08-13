@@ -35,6 +35,12 @@ public class Health : MonoBehaviour
             if (GetComponent<Player>() != null) {
                 SoundManager.instance.heroDamaged.Play();
             }
+            if (GetComponent<Witch>() != null) {
+                SoundManager.instance.witchDamaged.Play();
+            }
+            if (GetComponent<Sister>() != null) {
+                SoundManager.instance.sisterDamaged.Play();
+            }
             UpdateHearts();
         }
     }
