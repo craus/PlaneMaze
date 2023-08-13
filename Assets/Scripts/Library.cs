@@ -44,4 +44,5 @@ public class Library : Singletone<Library>
     public GameObject teleportExit;
 
     public CursedSign cursedSign;
+    public Tree tree;
 }

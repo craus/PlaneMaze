@@ -466,9 +466,11 @@ public class Game : MonoBehaviour
         } else if (cell.biome == Library.instance.crypt && cell.orderInBiome == Library.instance.crypt.Size-1) {
             GenerateFigure(cell, lichSample);
             return;
-        } 
+        }
 
-        if (cell.position.magnitude > 6 && Rand.rndEvent(Metagame.instance.MonsterProbability)) {
+        if (cell.biome == Library.instance.darkrootForest && Rand.rndEvent(0.1f)) {
+            GenerateFigure(cell, Library.instance.tree);
+        } else if (cell.position.magnitude > 6 && Rand.rndEvent(Metagame.instance.MonsterProbability)) {
             GenerateFigure(cell, cell.biome.monsterSamples.weightedRnd());
         } else if (Rand.rndEvent(0.004f)) {
             GenerateFigure(cell, weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().fieldWeight));
