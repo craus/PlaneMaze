@@ -22,7 +22,7 @@ public class CursedSignCounter : MonoBehaviour
                 CursedSignIndicator.instance.Attack();
                 await Player.instance.Hit(new Attack(
                     Vector2Int.zero,
-                    Game.instance.generatedFigures[Library.instance.cursedSign.GetComponent<Figure>()].First(),
+                    Game.instance.generatedFigures[Library.instance.cursedSign.GetComponent<Figure>()].First(c => c.gameObject.activeSelf),
                     Player.instance.figure,
                     null,
                     Player.instance.figure.Location,

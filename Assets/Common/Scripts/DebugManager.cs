@@ -90,6 +90,10 @@ public class DebugManager : Singletone<DebugManager>
 			slowAnimations ^= true;
 			DebugManager.LogFormat("Slow animations: {0}", slowAnimations);
         }
+        if (Input.GetKeyDown(KeyCode.V)) {
+            verbose ^= true;
+            DebugManager.LogFormat("Verbose: {0}", verbose);
+        }
         //if (VRControllers.Any(c => VRInput.GetMenuButtonDown
 
         TimeDebug();

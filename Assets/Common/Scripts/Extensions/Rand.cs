@@ -119,10 +119,16 @@ public static class Rand
 	}
 
 	public static float Range(float min, float max) {
+		if (DebugManager.verbose) {
+			Debug.LogFormat("Range");
+		}
 		return UnityEngine.Random.Range(min, max);
 	}
 
 	public static int Range(int min, int max) {
+		if (DebugManager.verbose) {
+			Debug.LogFormat("Range");
+		}
 		return UnityEngine.Random.Range(min, max);
 	}
 
@@ -139,6 +145,9 @@ public static class Rand
 	}
 
 	public static float Value(RandomStateContainer source = null) {
+		if (DebugManager.verbose) {
+			Debug.LogFormat("Value");
+		}
 		if (source != null) {
 			return GetRandomFloat(source, () => UnityEngine.Random.value);
 		}
