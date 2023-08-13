@@ -152,7 +152,7 @@ public class Player : Unit
         } else {
             await Game.instance.AfterPlayerMove();
         }
-        if (this == null || !alive) {
+        if (this == null) {
             return;
         }
         await GetComponent<Disarm>().Spend(1);
