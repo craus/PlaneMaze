@@ -468,6 +468,11 @@ public class Game : MonoBehaviour
             return;
         }
 
+        if (cell.biome == Library.instance.darkrootForest && cell.orderInBiome > Library.instance.darkrootForest.Size * 0.83f) {
+            GenerateFigure(cell, Library.instance.tree);
+            return;
+        }
+
         if (cell.biome == Library.instance.darkrootForest && Rand.rndEvent(0.1f)) {
             GenerateFigure(cell, Library.instance.tree);
         } else if (cell.position.magnitude > 6 && Rand.rndEvent(Metagame.instance.MonsterProbability)) {
