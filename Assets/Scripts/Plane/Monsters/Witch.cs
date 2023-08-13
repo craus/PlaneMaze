@@ -6,4 +6,5 @@ using UnityEngine;
 
 public class Witch : WitchAndSister
 {
+    protected override void PlayDeathSound() => SoundManager.instance.witchDeath.Play();
 }

@@ -77,7 +77,7 @@ public class Unit : MonoBehaviour, IMortal, IAttacker
     protected virtual async Task AfterDie() {
     }
 
-    private void PlayDeathSound() {
+    protected virtual void PlayDeathSound() {
         if (GetComponent<Player>() != null) {
             SoundManager.instance.playerDeath.Play();
         } else if (GetComponent<Lich>() != null) {
@@ -88,7 +88,7 @@ public class Unit : MonoBehaviour, IMortal, IAttacker
             } else {
                 SoundManager.instance.monsterDeath.Play();
             }
-        }
+        } 
     }
 
     public virtual async Task Die() {
