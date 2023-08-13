@@ -71,6 +71,7 @@ public class WitchAndSister : Monster, IInvisibilitySource
     }
 
     private async Task ChargeAttack(IEnumerable<Cell> targetArea) {
+        SoundManager.instance.chargeMagicAttack.Play();
         chargedArea = targetArea.ToList();
         UpdateIcons();
     }

@@ -146,7 +146,7 @@ public abstract class Monster : Unit, IMovable
 
     public async Task Move() {
         if (this == null || !alive) {
-            Debug.LogError($"{this}: Dead monster moves");
+            Debug.LogFormat($"{this}: Dead monster cannot move");
             return;
         }
         GetComponent<DangerSprite>().sprite.enabled = false;
