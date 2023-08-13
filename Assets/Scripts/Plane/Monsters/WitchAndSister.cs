@@ -70,7 +70,11 @@ public class WitchAndSister : Monster, IInvisibilitySource
 
     private async Task<Illusion> CreateIllusion(Cell destination) {
         SoundManager.instance.summonCreature.Play();
-        return Game.instance.GenerateFigure(destination, illusionSample);
+        var result = Game.instance.GenerateFigure(destination, illusionSample);
+        result.GetComponent<Health>().max = this.GetComponent<Health>().max;
+        result.GetComponent<Health>().current = this.GetComponent<Health>().current;
+        result.GetComponent<Health>().UpdateHearts();
+        return result;
     }
 
     private async Task ChargeAttack(IEnumerable<Cell> targetArea) {

@@ -9,6 +9,11 @@ public class Illusion : Monster
     public override bool HasSoul => false;
     public override int Money => 0;
 
+    public override async Task Hit(Attack attack) {
+        await base.Hit(attack);
+        await Die();
+    }
+
     public override async Task AfterAttack(Vector2Int delta) {
         await base.AfterAttack(delta);
         Debug.LogFormat($"Illusion {this} dies after attack");
