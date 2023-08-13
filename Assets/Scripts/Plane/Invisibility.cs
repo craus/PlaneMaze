@@ -36,7 +36,7 @@ public class Invisibility : MonoBehaviour
     private bool HiddenOutsideFog() => PlayerInsideFog() && FarFromPlayer();
 
     private bool PlayerInsideFog() {
-        if (!Player.instance.alive) {
+        if (Player.instance == null || !Player.instance.alive) {
             return false;
         }
         var playerFog = Player.instance.figure.Location.GetFigure<Fog>();
