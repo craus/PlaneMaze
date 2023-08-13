@@ -543,6 +543,8 @@ GameObject:
   - component: {fileID: 5944100512008291891}
   - component: {fileID: 4391770320823907514}
   - component: {fileID: 3238699324403230995}
+  - component: {fileID: 8518809764476022894}
+  - component: {fileID: 2458960814410589814}
   m_Layer: 7
   m_Name: Curse
   m_TagString: Untagged
@@ -608,6 +610,38 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8518809764476022894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761724519089423024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f71a5907f052504489b235a85559dadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 3238699324403230995}
+  description: '<b>Curse</b>
+
+
+    Witch and Sister curse you when adjacent.
+
+    Cursed
+    unit dies of any damage.'
+--- !u!114 &2458960814410589814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761724519089423024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3837d10e99d80e84384f1166fee39998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &997731438463305082
 GameObject:
   m_ObjectHideFlags: 0
@@ -792,6 +826,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 761724519089423024}
   current: 0
+  attacker: {fileID: 2458960814410589814}
 --- !u!114 &9203442263770805820
 MonoBehaviour:
   m_ObjectHideFlags: 0

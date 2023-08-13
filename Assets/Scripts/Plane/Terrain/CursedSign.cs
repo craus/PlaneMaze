@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
-public class CursedSign : Terrain, IInvisibilitySource, IOnDestroyHandler
+public class CursedSign : Terrain, IInvisibilitySource, IOnDestroyHandler, IAttacker
 {
     public bool Invisible => (Player.instance.figure.Location.position - GetComponent<Figure>().Location.position).MaxDelta() > 2;
 

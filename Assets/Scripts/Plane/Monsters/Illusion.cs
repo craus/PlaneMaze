@@ -17,9 +17,9 @@ public class Illusion : Monster
 
     protected override async Task BeforeDie() {
         await base.BeforeDie();
-        if (lastAttacker != null) {
+        if (lastAttacker != null && lastAttacker.GetComponent<Unit>() != null) {
             Debug.LogFormat($"{this} attacks killer {lastAttacker} before death");
-            await Attack(lastAttacker);
+            await Attack(lastAttacker.GetComponent<Unit>());
         }
     }
 

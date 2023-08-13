@@ -428,7 +428,7 @@ public class Game : MonoBehaviour
         }
     }
 
-    private Map<Figure, List<Figure>> generatedFigures = new Map<Figure, List<Figure>>(() => new List<Figure>());
+    public Map<Figure, List<Figure>> generatedFigures = new Map<Figure, List<Figure>>(() => new List<Figure>());
     public T GenerateFigure<T>(Cell cell, T sample) where T: MonoBehaviour {
         var f = Instantiate(sample);
         f.gameObject.name = $"{sample.gameObject.name} #{generatedFigures[sample.GetComponent<Figure>()].Count}";

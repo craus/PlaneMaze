@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
-public class Unit : MonoBehaviour, IMortal
+public class Unit : MonoBehaviour, IMortal, IAttacker
 {
     public Vector2Int lastMove;
 
@@ -37,7 +37,7 @@ public class Unit : MonoBehaviour, IMortal
     public bool dying = false;
 
     public int movesSinceLastHit = 100500;
-    public Unit lastAttacker;
+    public IAttacker lastAttacker;
 
     public List<Func<MoveAction, Task>> afterTakeAction = new List<Func<MoveAction, Task>>();
 
@@ -65,7 +65,7 @@ public class Unit : MonoBehaviour, IMortal
             return;
         }
         movesSinceLastHit = 0;
-        lastAttacker = attack.from.GetComponent<Unit>();
+        lastAttacker = attack.from.GetComponent<IAttacker>();
         Game.Debug($"{gameObject.name} hit by {attack}");
         await GetComponent<Health>().Hit(attack.damage);
     }

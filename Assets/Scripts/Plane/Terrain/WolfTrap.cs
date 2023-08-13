@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
-public class WolfTrap : Terrain, IMortal
+public class WolfTrap : Terrain, IMortal, IAttacker
 {
     public int damage = 1;
 

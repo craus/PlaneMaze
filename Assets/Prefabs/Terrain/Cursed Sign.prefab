@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 1244447042184805613}
   - component: {fileID: 4447655443262958513}
   - component: {fileID: 2495123108474143747}
+  - component: {fileID: 1638489122835865892}
   m_Layer: 7
   m_Name: Cursed Sign
   m_TagString: Untagged
@@ -237,3 +238,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createdFromSample: {fileID: 0}
+--- !u!114 &1638489122835865892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6325338422616382079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d032ae700f34e8c47abd16bd5d6801f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 2532068689400690311}
+  description: '<b>Cursed Sign</b>
+
+
+    Witch and Sister draw them on the ground.
+
+    When
+    you step on it, roots you by 1 and destroyed.
+
+    If there are 2 or more of
+    them, you take damage each turn.'

@@ -242,6 +242,7 @@ public class Player : Unit
             return;
         }
         Debug.LogFormat($"[{Game.instance.time}] Player hit by {attack}");
+        lastAttacker = attack.from.GetComponent<IAttacker>();
         await Task.WhenAll(
             Inventory.instance.items
                 .Select(item => item.GetComponent<IReceiveAttackModifier>())

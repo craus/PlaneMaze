@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(Figure))]
-public class Curse : Buff
+public class GenericAttacker : MonoBehaviour, IAttacker
 {
-    public GenericAttacker attacker;
 }

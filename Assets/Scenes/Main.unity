@@ -8533,6 +8533,7 @@ MonoBehaviour:
   - {fileID: -5041799447542232587, guid: 266966e486927434cb91dbd3b6c5a2dd, type: 3}
   - {fileID: -8726617746419102157, guid: af04308680961d04c92a09dab951102c, type: 3}
   teleportExit: {fileID: 4531213152577544949, guid: aac330b5c48ccd24d89197cfc487c7e9, type: 3}
+  cursedSign: {fileID: 9129382444693588269, guid: be6739058c4de1f4f9409d05569d30d5, type: 3}
 --- !u!1 &1515743436
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,6 +24,7 @@ public class Health : MonoBehaviour
             return;
         }
         if (GetComponent<Curse>().Current > 0) {
+            GetComponent<Unit>().lastAttacker = GetComponent<Curse>().attacker;
             await GetComponent<IMortal>().Die();
             return;
         }
