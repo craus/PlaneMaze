@@ -409,15 +409,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187696164521918999, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: description
-      value: '<b>Harpy</b>
+      value: '<b>Werewolf</b>
 
 
-        Flying.
+        Wolf which transforms when next to you.
 
-        Wanders randomly.
+        Follows
+        you and attacks.
 
-        Attacks
-        at distance 2.'
+        Transforms back and flee after attack.'
       objectReference: {fileID: 0}
     - target: {fileID: 8430807191255413278, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_AnchorMax.y
@@ -600,6 +600,7 @@ MonoBehaviour:
   soul: 1
   figure: {fileID: 0}
   alive: 1
+  dying: 0
   movesSinceLastHit: 100500
   movesSinceLastHeal: 100500
   movesSinceHitToHeal: 3
