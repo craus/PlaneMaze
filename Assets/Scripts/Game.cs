@@ -83,7 +83,7 @@ public class Game : MonoBehaviour
         InfoPanel.instance.viewedInfo = new HashSet<IExplainable>();
 
         mainWorld = Instantiate(boardSample, transform);
-        mainWorld.currentBiome = Library.instance.darkrootForest;
+        mainWorld.currentBiome = Library.instance.dungeon;
         UnityEngine.Debug.LogFormat("New game started");
 
         player = Instantiate(playerSample, transform);
@@ -93,6 +93,7 @@ public class Game : MonoBehaviour
         speed = 10000;
 
         cellOrderList = new List<Cell>();
+        await GenerateBiome(Library.instance.dungeon, pauses: false);
         await GenerateBiome(Library.instance.darkrootForest, pauses: false);
         mainWorld.silentMode = true;
 
