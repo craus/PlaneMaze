@@ -22,22 +22,6 @@ public static class Algorithm
 		return result;
 	}
 
-	[Serializable]
-	public class Weighted<Vertex> : IComparable
-	{
-		public Vertex to;
-		public float weight;
-		public Weighted(Vertex to, float weight) {
-			this.to = to;
-			this.weight = weight;
-		}
-
-		public int CompareTo(object obj) {
-			Weighted<Vertex> other = obj as Weighted<Vertex>;
-			return weight.CompareTo(other.weight);
-		}
-	}
-
 	public static Map<Vertex, Weighted<Vertex>> Dijkstra<Vertex>(Vertex start, Func<Vertex, IEnumerable<Weighted<Vertex>>> edges, int maxSteps = 10000) {
 		Map<Vertex, Weighted<Vertex>> result = new Map<Vertex, Weighted<Vertex>>(() => new Weighted<Vertex>(default(Vertex), float.PositiveInfinity));
 		HashSet<Vertex> relaxated = new HashSet<Vertex>();
@@ -118,10 +102,14 @@ public static class Algorithm
 		HashSet<Vertex> visited = new HashSet<Vertex>();
 		var steps = 0;
 
+		Debug.LogFormat($"Start from: {start}");
 		visited.Add(start);
+		Debug.LogFormat($"Visit: {start}");
 		yield return start;
 		edges(start).ForEach(c => {
 			candidates.Add(c);
+			Debug.LogFormat($"Added candidate: {c}");
+
 			vertexCandidates[c.to].Add(c);
 		});
 		antiEdges(start).ForEach(c => vertexCandidates[c].ForEach(cand => candidates.Remove(cand)));
@@ -139,12 +127,17 @@ public static class Algorithm
 			}
 
 			visited.Add(current.to);
+			Debug.LogFormat($"Visit: {current.to}");
 			yield return current.to;
 			edges(current.to).ForEach(c => {
 				candidates.Add(c);
+				Debug.LogFormat($"Added candidate: {c}");
 				vertexCandidates[c.to].Add(c);
 			});
-			antiEdges(current.to).ForEach(c => vertexCandidates[c].ForEach(cand => candidates.Remove(cand)));
+			antiEdges(current.to).ForEach(c => vertexCandidates[c].ForEach(cand => {
+				candidates.Remove(cand);
+				Debug.LogFormat($"Removed candidate: {c}");
+			}));
 			visit(current.to);
 			steps++;
 			if (steps == maxSteps) {

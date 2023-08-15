@@ -286,8 +286,16 @@ public class Game : MonoBehaviour
         }
     }
 
-    private bool MakesCross(Cell cell, Vector2Int direction) => cell.Shift(direction + direction.RotateRight()).Ordered && !cell.Shift(direction).Ordered && !cell.Shift(direction.RotateRight()).Ordered;
-    private bool MakesCross(Cell cell) => MakesCross(cell, Vector2Int.up) || MakesCross(cell, Vector2Int.right) || MakesCross(cell, Vector2Int.down) || MakesCross(cell, Vector2Int.left);
+    private bool MakesCross(Cell cell, Vector2Int direction) => 
+        cell.Shift(direction + direction.RotateRight()).Ordered && 
+        !cell.Shift(direction).Ordered && 
+        !cell.Shift(direction.RotateRight()).Ordered;
+    
+    private bool MakesCross(Cell cell) => 
+        MakesCross(cell, Vector2Int.up) ||
+        MakesCross(cell, Vector2Int.right) || 
+        MakesCross(cell, Vector2Int.down) ||
+        MakesCross(cell, Vector2Int.left);
 
     private bool MakesSquare(Cell cell, Vector2Int direction) => cell.Shift(direction + direction.RotateRight()).Ordered && cell.Shift(direction).Ordered && cell.Shift(direction.RotateRight()).Ordered;
     private bool MakesSquare(Cell cell) => MakesSquare(cell, Vector2Int.up) || MakesSquare(cell, Vector2Int.right) || MakesSquare(cell, Vector2Int.down) || MakesSquare(cell, Vector2Int.left);
@@ -342,7 +350,13 @@ public class Game : MonoBehaviour
     }
 
     private Cell CheapestBorderCell(IEnumerable<Cell> cells) {
-        return BorderCells(cells).MinBy((a,b) => CellPrice(a.position) < CellPrice(b.position));
+        var border = BorderCells(cells);
+        UnityEngine.Debug.LogFormat($"border: {border.ExtToString()}");
+        Map<Cell, float> fixedPrices = new Map<Cell, float>();
+        foreach (var c in border) {
+            fixedPrices[c] = CellPrice(c.position);
+        }
+        return border.MinBy((a,b) => fixedPrices[a] < fixedPrices[b]);
     }
 
     private async Task GenerateBiome(Biome biome, bool pauses = false) {
@@ -351,15 +365,27 @@ public class Game : MonoBehaviour
         var start = mainWorld.GetCell(Vector2Int.zero);
         if (cellOrderList.Count > 0) {
             start = CheapestBorderCell(cellOrderList);
+            Debug($"Start of biome: {start}");
         }
 
         var cellOrder = Algorithm.PrimDynamic(
             start: start,
-            edges: c => c.Neighbours().Where(c => c.Wall && !MakesCross(c) && !Forbidden(c).Any(f => f.Ordered))
-                .Select(c => new Algorithm.Weighted<Cell>(c, CellPrice(c.position))),
+            edges: c => c.Neighbours().Where(c => {
+                var result = c.Wall && !MakesCross(c) && !Forbidden(c).Any(f => f.Ordered);
+                if (result == false) {
+                    Debug("Cannot use edge");
+                    if (c.Wall == false) Debug($"Wall == false ({c})");
+                    if (!MakesCross(c) == false) Debug($"!MakesCross(c) ({c})");
+                    if (!Forbidden(c).Any(f => f.Ordered) == false) Debug($"!Forbidden(c).Any(f => f.Ordered) ({c})");
+                }
+                return result;
+            })
+                .Select(c => new Weighted<Cell>(c, CellPrice(c.position))),
             antiEdges: c => Diagonals(c).Where(MakesCross).Union(Forbidden(c)),
             maxSteps: 100000
-        ).Take(biome.Size).ToList();
+        ).Take(biome.Size);
+
+        var biomeCells = new List<Cell>();
 
         int i = 0;
         foreach (Cell c in cellOrder) {
@@ -369,6 +395,9 @@ public class Game : MonoBehaviour
             c.orderInBiome = i;
             c.fieldCell.wall = false;
             c.biome = biome;
+
+            biomeCells.Add(c);
+
             c.UpdateBiome();
             c.UpdateCell();
             if (biome.GetComponent<IAfterCellAdded>() != null) {
@@ -394,8 +423,8 @@ public class Game : MonoBehaviour
         }
 
         if (biome == Library.instance.darkrootForest) {
-            var witch = GenerateFigure(cellOrder.Where(cell => cell.figures.Count() == 0).Rnd(), biome.GetComponent<DarkrootForest>().witch);
-            var sister = GenerateFigure(cellOrder.Where(cell => cell.figures.Count() == 0).Rnd(), biome.GetComponent<DarkrootForest>().sister);
+            var witch = GenerateFigure(biomeCells.Where(cell => cell.figures.Count() == 0).Rnd(), biome.GetComponent<DarkrootForest>().witch);
+            var sister = GenerateFigure(biomeCells.Where(cell => cell.figures.Count() == 0).Rnd(), biome.GetComponent<DarkrootForest>().sister);
             witch.witch = witch;
             witch.sister = sister;
             sister.witch = witch;
