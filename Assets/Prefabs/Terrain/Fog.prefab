@@ -177,10 +177,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03c5ae5688114a64c86a2540566453c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  figure: {fileID: 0}
   sprite: {fileID: 2532068689400690311}
   on: 0
   onProbability: 0.2
-  changeProbability: 0.1
+  changeProbability: 0.05
 --- !u!114 &-3179786201405017898
 MonoBehaviour:
   m_ObjectHideFlags: 0
