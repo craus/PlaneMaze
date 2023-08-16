@@ -7,6 +7,7 @@ using UnityEngine;
 public class Lich : Monster
 {
     public override bool HasSoul => false;
+    public override bool Boss => true;
 
     public int teleportRadius = 8;
 

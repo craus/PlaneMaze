@@ -18,6 +18,8 @@ public class Board : MonoBehaviour
 
     public bool silentMode = false;
 
+    public Biome currentBiome;
+
     public Cell GetCell(Vector2Int position) {
         ShowCell(position.x, position.y);
         return map[position.x, position.y];
@@ -57,12 +59,13 @@ public class Board : MonoBehaviour
 
     private Cell GenerateCell(int x, int y) {
         var cell = Instantiate(cellSample);
-        cell.biome = Library.instance.dungeon;
         cells.Add(cell);
         if (silentMode) {
             cell.gameObject.SetActive(false);
         }
         cell.position = new Vector2Int(x, y);
+        cell.biome = currentBiome;
+        cell.UpdateBiome();
         cell.gameObject.name = $"Cell ({x}, {y})";
         field[x, y].wall = true;
         cell.SetFieldCell(field[x, y]);

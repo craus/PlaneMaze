@@ -13,16 +13,12 @@ public class UndoManager : Singletone<UndoManager>
     public List<BaseTracker> trackers = new List<BaseTracker>();
 
     public void CreateRandomStateTracker() {
-        DebugManager.verbose = true;
         var vt = new ValueTracker<UnityEngine.Random.State>(() => UnityEngine.Random.state, v => {
             UnityEngine.Random.state = v;
             Debug.LogFormat($"Set state: {v.GetHashCode().ToString()}");
             Debug.LogFormat($"State set to: {UnityEngine.Random.state.GetHashCode().ToString()}");
         });
-        DebugManager.verbose = false;
-        vt.verbose = true;
         vt.toString = v => v.GetHashCode().ToString();
-        Debug.LogFormat($"Track: {vt.TrackString}");
     }
 
     public void Update() {
@@ -35,7 +31,6 @@ public class UndoManager : Singletone<UndoManager>
         lastSaveIndex++;
         Debug.LogFormat($"Save {lastSaveIndex}");
         onSave.Invoke();
-        Debug.LogFormat($"Save {lastSaveIndex} completed ({GetInstanceID()})");
     }
 
     public void Load() {
@@ -43,6 +38,7 @@ public class UndoManager : Singletone<UndoManager>
     }
 
     public void Undo(int count = 1) {
+        ConfirmationManager.instance.DropAllConfirmations();
         if (lastSaveIndex <= 1) return;
         lastSaveIndex -= count;
         Load();

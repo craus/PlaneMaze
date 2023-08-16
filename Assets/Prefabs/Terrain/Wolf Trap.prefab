@@ -106,7 +106,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: bd1eb9ce6957f654c93cc498db2576f7, type: 3}
-  m_Color: {r: 0.6823447, g: 0.6886792, b: 0.63995194, a: 1}
+  m_Color: {r: 0.33444694, g: 0.33962262, b: 0.30598074, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -129,6 +129,8 @@ GameObject:
   - component: {fileID: 7331006735911305571}
   - component: {fileID: 1143973199772049189}
   - component: {fileID: 3670915208326457562}
+  - component: {fileID: 4800825515080089163}
+  - component: {fileID: 41293234044875042}
   m_Layer: 7
   m_Name: Wolf Trap
   m_TagString: Untagged
@@ -178,6 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0848984158a8c34f83fdb44cc438aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  figure: {fileID: 0}
   damage: 1
   attackProjectileSample: {fileID: 7558257676500238022, guid: b410f65947f832842abbf169e1296c59, type: 3}
 --- !u!114 &1143973199772049189
@@ -211,3 +214,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerVisibilityRadius: 4
   sprite: {fileID: 2172690894414466492}
+--- !u!114 &4800825515080089163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6325338422616382079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2b84b0531bf4524987c886dff2dd6ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 2172690894414466492}
+--- !u!114 &41293234044875042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6325338422616382079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d032ae700f34e8c47abd16bd5d6801f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 2532068689400690311}
+  description: '<b>Wolftrap</b>
+
+
+    It''s a trap.
+
+    When ground unit steps on
+    it, deals 1 damage to it and is destroyed.'

@@ -22,4 +22,8 @@ public class Weighted<Vertex> : IComparable
 		Weighted<Vertex> other = obj as Weighted<Vertex>;
 		return weight.CompareTo(other.weight);
 	}
+
+	public override string ToString() {
+		return $"{to} ({weight})";
+	}
 }

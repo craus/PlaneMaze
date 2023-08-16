@@ -24,11 +24,11 @@ public class Field : MonoBehaviour
         }
     }
 
-    private IEnumerable<Algorithm.Weighted<(int, int)>> Edges((int, int) from) {
-        yield return new Algorithm.Weighted<(int, int)>((from.Item1 + 1, from.Item2), rightCost[from.Item1, from.Item2]);
-        yield return new Algorithm.Weighted<(int, int)>((from.Item1 - 1, from.Item2), rightCost[from.Item1 - 1, from.Item2]);
-        yield return new Algorithm.Weighted<(int, int)>((from.Item1, from.Item2 + 1), upCost[from.Item1, from.Item2]);
-        yield return new Algorithm.Weighted<(int, int)>((from.Item1, from.Item2 - 1), upCost[from.Item1, from.Item2 - 1]);
+    private IEnumerable<Weighted<(int, int)>> Edges((int, int) from) {
+        yield return new Weighted<(int, int)>((from.Item1 + 1, from.Item2), rightCost[from.Item1, from.Item2]);
+        yield return new Weighted<(int, int)>((from.Item1 - 1, from.Item2), rightCost[from.Item1 - 1, from.Item2]);
+        yield return new Weighted<(int, int)>((from.Item1, from.Item2 + 1), upCost[from.Item1, from.Item2]);
+        yield return new Weighted<(int, int)>((from.Item1, from.Item2 - 1), upCost[from.Item1, from.Item2 - 1]);
     }
 
     private bool Core(int x, int y) {

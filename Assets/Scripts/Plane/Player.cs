@@ -10,6 +10,8 @@ public class Player : Unit
 {
     public static Player instance => Game.instance ? Game.instance.player : null;
 
+    public override bool TrueSight => base.TrueSight || PlaneMaze.Cheats.instance.trueSight;
+
     public int totalGems;
     public int gems;
 
@@ -93,7 +95,7 @@ public class Player : Unit
             Debug.LogFormat($"[{Game.instance.time}] DefaultAttack failed: cannot attack target");
             return false;
         }
-
+        target.figure.Location.OnOccupyingUnitAttacked(target);
         await figure.FakeMove(delta);
 
         if (target.figure.Location.Shift(delta).Free) {
@@ -139,9 +141,6 @@ public class Player : Unit
             await MoveTakeActions(delta);
         }
         Game.instance.moveNumber++;
-        if (!alive) {
-            return;
-        }
         if (this == null) {
             return;
         }
@@ -150,11 +149,13 @@ public class Player : Unit
         } else {
             await Game.instance.AfterPlayerMove();
         }
-        if (this == null || !alive) {
+        if (this == null) {
             return;
         }
         await GetComponent<Disarm>().Spend(1);
         await GetComponent<Root>().Spend(1);
+        await GetComponent<Curse>().Spend(1);
+        await GetComponent<Curse>().Prepare();
         await GetComponent<Invulnerability>().Spend(1);
 
         UndoManager.instance.Save();
@@ -239,6 +240,7 @@ public class Player : Unit
             return;
         }
         Debug.LogFormat($"[{Game.instance.time}] Player hit by {attack}");
+        lastAttacker = attack.from.GetComponent<IAttacker>();
         await Task.WhenAll(
             Inventory.instance.items
                 .Select(item => item.GetComponent<IReceiveAttackModifier>())
@@ -253,9 +255,20 @@ public class Player : Unit
     public override void Awake() {
         base.Awake();
         figure.afterBoardChange.Add(AfterBoardChange);
+        figure.afterMove.Add(AfterMove);
 
         new ValueTracker<int>(() => gems, v => gems = v);
         new ValueTracker<int>(() => totalGems, v => totalGems = v);
+        new ValueTracker<bool>(() => FogPlane.instance.model.activeSelf, FogPlane.instance.model.SetActive);
+    }
+
+    private async Task AfterMove(Cell from, Cell to) {
+        GlobalInvisibilityCheck();
+    }
+
+    public void GlobalInvisibilityCheck() {
+        Game.instance.GetComponentsInChildren<Invisibility>().ForEach(i => i.Check());
+        FogPlane.instance.model.SetActive(figure.Location.GetFigure<Fog>(f => f.On));
     }
 
     private async Task AfterBoardChange(Board from, Board to) {
@@ -275,6 +288,6 @@ public class Player : Unit
 
     protected override async Task AfterDie() {
         await base.AfterDie();
-        await Game.instance.Lose();
+        var lose = Game.instance.Lose();
     }
 }

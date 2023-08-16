@@ -42,4 +42,7 @@ public class Library : Singletone<Library>
     public IEnumerable<Ascention> AllAscentions => ascentions.Concat(additionalAscentions);
 
     public GameObject teleportExit;
+
+    public CursedSign cursedSign;
+    public Tree tree;
 }

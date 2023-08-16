@@ -15,5 +15,6 @@ public static class DestroyExtensions
             gameObject.GetComponent<Item>().icon.gameObject.SetActive(false);
             Inventory.instance.items.Remove(gameObject.GetComponent<Item>());
         }
+        gameObject.GetComponentsInChildren<IOnDestroyHandler>().ForEach(h => h.OnSoftDestroy());
     }
 }

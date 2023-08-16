@@ -14,6 +14,7 @@ public class Figure : MonoBehaviour
     public Cell savePoint;
 
     public Func<Cell, Figure, Task> collide = null;
+    public Func<Cell, Figure, Task> collideEnd = null;
 
     public List<Func<Board, Board, Task>> afterBoardChange = new List<Func<Board, Board, Task>>();
     public List<Func<Cell, Cell, Task>> afterMove = new List<Func<Cell, Cell, Task>>();
@@ -152,11 +153,21 @@ public class Figure : MonoBehaviour
         if (from != Location) {
             foreach (var f in Location.figures.ToList()) {
                 if (f != this && f.collide != null) {
-                    Game.Debug($"Figure {gameObject} collides with figure {f.gameObject}");
                     await f.collide(from, this);
                 }
                 if (this == null) {
                     return;
+                }
+            }
+
+            if (from != null) {
+                foreach (var f in from.figures.ToList()) {
+                    if (f.collideEnd != null) {
+                        await f.collideEnd(Location, this);
+                    }
+                    if (this == null) {
+                        return;
+                    }
                 }
             }
         }

@@ -23,23 +23,23 @@ public class Health : MonoBehaviour
         if (amount <= 0) {
             return;
         }
+        if (GetComponent<Curse>().Current > 0) {
+            GetComponent<Unit>().lastAttacker = GetComponent<Curse>().attacker;
+            await GetComponent<IMortal>().Die();
+            return;
+        }
         current = Mathf.Clamp(current - amount, 0, max); 
         if (current <= 0) {
-            if (GetComponent<Player>() != null) {
-                SoundManager.instance.playerDeath.Play();
-            } else if (GetComponent<Lich>() != null) {
-                SoundManager.instance.lichDeath.Play();
-            } else if (GetComponent<Monster>() != null) {
-                if (GetComponent<Tree>() != null || GetComponent<Coffin>() != null) {
-                    SoundManager.instance.woodCrash.Play();
-                } else {
-                    SoundManager.instance.monsterDeath.Play();
-                }
-            }
             await GetComponent<IMortal>().Die();
         } else {
             if (GetComponent<Player>() != null) {
                 SoundManager.instance.heroDamaged.Play();
+            }
+            if (GetComponent<Witch>() != null) {
+                SoundManager.instance.witchDamaged.Play();
+            }
+            if (GetComponent<Sister>() != null) {
+                SoundManager.instance.sisterDamaged.Play();
             }
             UpdateHearts();
         }
@@ -65,7 +65,7 @@ public class Health : MonoBehaviour
     public void Init() {
         if (GetComponent<Monster>() != null) {
             //current = max = ascentionHealth[Mathf.Clamp(Game.instance.Ascentions<MonstersHaveMoreHealth>(), 0, ascentionHealth.Count - 1)];
-            if (!Game.instance.Ascention<CommonEnemiesHaveMultipleHP>() && GetComponent<Lich>() == null) {
+            if (!Game.instance.Ascention<CommonEnemiesHaveMultipleHP>() && !GetComponent<Unit>().Boss) {
                 current = max = (max+1)/2;
             }
         }

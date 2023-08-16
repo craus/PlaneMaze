@@ -13,7 +13,7 @@ public class Buff : MonoBehaviour
 
     public int Current => current;
 
-    public async Task Gain(int amount) {
+    public virtual async Task Gain(int amount) {
         current = Mathf.Clamp(current + amount, 0, 999);
         UpdateIcons();
     }

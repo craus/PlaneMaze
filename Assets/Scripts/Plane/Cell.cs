@@ -68,6 +68,9 @@ public class Cell : MonoBehaviour
         Destroy(wallModel);
         floorModel = Instantiate(biome.floorModel, transform);
         wallModel = Instantiate(biome.wallModel, transform);
+        foreach (var tileModel in GetComponentsInChildren<TileModel>()) {
+            tileModel.SetOffset(position);
+        }
     }
 
     public void UpdateCell() {
@@ -114,6 +117,12 @@ public class Cell : MonoBehaviour
 
     public IEnumerable<Cell> Vicinity(int radius) => Vicinity(radius, radius);
 
+    internal void OnOccupyingUnitAttacked(Unit target) {
+        foreach (var f in GetFigures<IOnOccupyingUnitAttackedListener>()) {
+            f.OnOccupyingUnitAttacked(target);
+        }
+    }
+
     public IEnumerable<Cell> Vicinity(int maxDx, int maxDy) {
         for (int i = -maxDx; i <= maxDx; i++) {
             for (int j = -maxDy; j <= maxDy; j++) {
@@ -132,11 +141,21 @@ public class Cell : MonoBehaviour
         return null;
     }
 
+    public void AfterStoresAdded() {
+        if (biome.GetComponent<DarkrootForest>()) {
+            if (GetFigure<Terrain>() == null) {
+                Game.instance.GenerateFigure(this, biome.GetComponent<DarkrootForest>().fog);
+            }
+        }
+    }
+
     public T GetFigure<T>() => figures.Select(f => f.GetComponent<T>()).FirstOrDefault(t => t != null);
     public IEnumerable<T> GetFigures<T>() => figures.Select(f => f.GetComponent<T>()).Where(t => t != null);
     public T GetFigure<T>(Func<T, bool> criteria) => figures.Select(f => f.GetComponent<T>()).FirstOrDefault(t => t != null && criteria(t));
+    public IEnumerable<T> GetFigures<T>(Func<T, bool> criteria) => figures.Select(f => f.GetComponent<T>()).Where(t => t != null && criteria(t));
 
     public bool Free => !Wall && !Locked && !figures.Any(f => f.GetComponent<Unit>() != null && f.GetComponent<Unit>().OccupiesPlace);
+    public bool FreeAndNoWolfTrap => Free && GetFigure<WolfTrap>() == null;
 
     public override string ToString() => position.ToString();
 }

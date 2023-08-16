@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 1881276151569630265}
   - component: {fileID: 4744153755596459824}
   - component: {fileID: 1710125306432267668}
+  - component: {fileID: 2029768381183682137}
   m_Layer: 7
   m_Name: Item
   m_TagString: Untagged
@@ -220,6 +221,19 @@ MonoBehaviour:
   storeWeight: 1
   minPrice: 10
   maxPrice: 20
+--- !u!114 &2029768381183682137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6325338422616382079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2b84b0531bf4524987c886dff2dd6ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 7427004701293729960}
 --- !u!1 &7427004701293729960
 GameObject:
   m_ObjectHideFlags: 0

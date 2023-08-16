@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
-public class WolfTrap : Terrain, IMortal
+public class WolfTrap : Terrain, IMortal, IAttacker
 {
     public int damage = 1;
 
     public GameObject attackProjectileSample;
 
-    public void Awake() {
+    public override void Awake() {
+        base.Awake();
 
         //Player.instance.figure.afterMove.Add(AfterPlayerMove);
 
@@ -53,7 +54,6 @@ public class WolfTrap : Terrain, IMortal
             return;
         }
 
-        Game.instance.lastAttackedMonster = null;
         await victim.Hit(new Attack(Vector2Int.zero, GetComponent<Figure>(), victim.figure, GetComponent<Figure>().Location, victim.figure.Location, damage));
         
     }

@@ -16,12 +16,10 @@ public class Game : MonoBehaviour
     public Player player;
     public GameEvents gameEvents;
 
-    public Unit lastAttackedMonster = null;
-
     public int storeCount = 4;
     public int storeRadius = 5;
 
-    public List<Monster> monsters;
+    public List<IMovable> movables;
 
     public List<Weapon> weaponSamples;
     public List<Item> itemSamples;
@@ -65,13 +63,18 @@ public class Game : MonoBehaviour
 
     public DateTime startTime;
 
+    public bool gameOver = false;
+
     public void Awake() {
-        new ValueTracker<List<Monster>>(() => monsters.ToList(), v => monsters = v.ToList());
+        movables = new List<IMovable>();
+        new ValueTracker<List<IMovable>>(() => movables.ToList(), v => movables = v.ToList());
         new ValueTracker<int>(() => time, v => {
             time = v;
             completedTurns.Clear();
         });
         new ValueTracker<int>(() => moveNumber, v => moveNumber = v);
+        new ValueTracker<bool>(() => gameOver, v => gameOver = v);
+        MusicManager.instance.CreateValueTrackers();
     }
 
     public async void Start() {
@@ -80,6 +83,7 @@ public class Game : MonoBehaviour
         InfoPanel.instance.viewedInfo = new HashSet<IExplainable>();
 
         mainWorld = Instantiate(boardSample, transform);
+        mainWorld.currentBiome = Library.instance.dungeon;
         UnityEngine.Debug.LogFormat("New game started");
 
         player = Instantiate(playerSample, transform);
@@ -89,6 +93,7 @@ public class Game : MonoBehaviour
         speed = 10000;
 
         cellOrderList = new List<Cell>();
+        await GenerateBiome(Library.instance.dungeon, pauses: false);
         await GenerateBiome(Library.instance.darkrootForest, pauses: false);
         mainWorld.silentMode = true;
 
@@ -96,7 +101,11 @@ public class Game : MonoBehaviour
             GenerateStore(); 
         }
 
-        monsters.ToList().ForEach(m => {
+        foreach (var cell in cellOrderList) {
+            cell.AfterStoresAdded();
+        }
+
+        movables.ToList().ForEach(m => {
             m.OnGameStart();
         });
 
@@ -119,6 +128,8 @@ public class Game : MonoBehaviour
     }
 
     public async Task Win() {
+        if (gameOver) return;
+        gameOver = true;
         MusicManager.instance.Switch(MusicManager.instance.winPlaylist);
         await ConfirmationManager.instance.AskConfirmation(panel: ConfirmationManager.instance.winPanel, canCancel: false);
         await GameManager.instance.metagame.Win();
@@ -126,12 +137,17 @@ public class Game : MonoBehaviour
     }
 
     public async Task Lose() {
+        if (gameOver) return;
+        gameOver = true;
         MusicManager.instance.Switch(MusicManager.instance.losePlaylist);
-        if (lastAttackedMonster != null) {
+        if (Player.instance.lastAttacker != null) {
             await ConfirmationManager.instance.AskConfirmation(
                 canCancel: false,
                 panel: ConfirmationManager.instance.infoPanel,
-                customShow: () => InfoPanel.instance.Show(lastAttackedMonster.GetComponent<IExplainable>()),
+                customShow: () => InfoPanel.instance.Show(
+                    Player.instance.lastAttacker.GetComponent<IExplainable>(),
+                    repeatable: true
+                ),
                 canConfirmByAnyButton: true
             );
         }
@@ -153,6 +169,7 @@ public class Game : MonoBehaviour
 
     private void GenerateStore() {
         var newStore = Instantiate(boardSample, transform);
+        newStore.currentBiome = Library.instance.dungeon;
         newStore.silentMode = true;
         newStore.GetCell(Vector2Int.zero).Vicinity(storeRadius + 1).ForEach(cell => cell.gameObject.SetActive(true));
         newStore.GetCell(Vector2Int.zero).Vicinity(storeRadius).ForEach(cell => {
@@ -269,8 +286,16 @@ public class Game : MonoBehaviour
         }
     }
 
-    private bool MakesCross(Cell cell, Vector2Int direction) => cell.Shift(direction + direction.RotateRight()).Ordered && !cell.Shift(direction).Ordered && !cell.Shift(direction.RotateRight()).Ordered;
-    private bool MakesCross(Cell cell) => MakesCross(cell, Vector2Int.up) || MakesCross(cell, Vector2Int.right) || MakesCross(cell, Vector2Int.down) || MakesCross(cell, Vector2Int.left);
+    private bool MakesCross(Cell cell, Vector2Int direction) => 
+        cell.Shift(direction + direction.RotateRight()).Ordered && 
+        !cell.Shift(direction).Ordered && 
+        !cell.Shift(direction.RotateRight()).Ordered;
+    
+    private bool MakesCross(Cell cell) => 
+        MakesCross(cell, Vector2Int.up) ||
+        MakesCross(cell, Vector2Int.right) || 
+        MakesCross(cell, Vector2Int.down) ||
+        MakesCross(cell, Vector2Int.left);
 
     private bool MakesSquare(Cell cell, Vector2Int direction) => cell.Shift(direction + direction.RotateRight()).Ordered && cell.Shift(direction).Ordered && cell.Shift(direction.RotateRight()).Ordered;
     private bool MakesSquare(Cell cell) => MakesSquare(cell, Vector2Int.up) || MakesSquare(cell, Vector2Int.right) || MakesSquare(cell, Vector2Int.down) || MakesSquare(cell, Vector2Int.left);
@@ -325,22 +350,42 @@ public class Game : MonoBehaviour
     }
 
     private Cell CheapestBorderCell(IEnumerable<Cell> cells) {
-        return BorderCells(cells).MinBy((a,b) => CellPrice(a.position) < CellPrice(b.position));
+        var border = BorderCells(cells);
+        UnityEngine.Debug.LogFormat($"border: {border.ExtToString()}");
+        Map<Cell, float> fixedPrices = new Map<Cell, float>();
+        foreach (var c in border) {
+            fixedPrices[c] = CellPrice(c.position);
+        }
+        return border.MinBy((a,b) => fixedPrices[a] < fixedPrices[b]);
     }
 
     private async Task GenerateBiome(Biome biome, bool pauses = false) {
+        mainWorld.currentBiome = biome;
+
         var start = mainWorld.GetCell(Vector2Int.zero);
         if (cellOrderList.Count > 0) {
             start = CheapestBorderCell(cellOrderList);
+            Debug($"Start of biome: {start}");
         }
 
         var cellOrder = Algorithm.PrimDynamic(
             start: start,
-            edges: c => c.Neighbours().Where(c => c.Wall && !MakesCross(c) && !Forbidden(c).Any(f => f.Ordered))
-                .Select(c => new Algorithm.Weighted<Cell>(c, CellPrice(c.position))),
+            edges: c => c.Neighbours().Where(c => {
+                var result = c.Wall && !MakesCross(c) && !Forbidden(c).Any(f => f.Ordered);
+                if (result == false) {
+                    Debug("Cannot use edge");
+                    if (c.Wall == false) Debug($"Wall == false ({c})");
+                    if (!MakesCross(c) == false) Debug($"!MakesCross(c) ({c})");
+                    if (!Forbidden(c).Any(f => f.Ordered) == false) Debug($"!Forbidden(c).Any(f => f.Ordered) ({c})");
+                }
+                return result;
+            })
+                .Select(c => new Weighted<Cell>(c, CellPrice(c.position))),
             antiEdges: c => Diagonals(c).Where(MakesCross).Union(Forbidden(c)),
             maxSteps: 100000
         ).Take(biome.Size);
+
+        var biomeCells = new List<Cell>();
 
         int i = 0;
         foreach (Cell c in cellOrder) {
@@ -350,9 +395,16 @@ public class Game : MonoBehaviour
             c.orderInBiome = i;
             c.fieldCell.wall = false;
             c.biome = biome;
+
+            biomeCells.Add(c);
+
             c.UpdateBiome();
             c.UpdateCell();
-            AfterCellAdded(c);
+            if (biome.GetComponent<IAfterCellAdded>() != null) {
+                biome.GetComponent<IAfterCellAdded>().AfterCellAdded(c);
+            } else {
+                AfterCellAdded(c);
+            }
             CameraControl.instance.followPoint = true;
             CameraControl.instance.pointToFollow = c.transform.position;
 
@@ -369,6 +421,16 @@ public class Game : MonoBehaviour
 
             ++i;
         }
+
+        if (biome == Library.instance.darkrootForest) {
+            var witch = GenerateFigure(biomeCells.Where(cell => cell.figures.Count() == 0).Rnd(), biome.GetComponent<DarkrootForest>().witch);
+            var sister = GenerateFigure(biomeCells.Where(cell => cell.figures.Count() == 0).Rnd(), biome.GetComponent<DarkrootForest>().sister);
+            witch.witch = witch;
+            witch.sister = sister;
+            sister.witch = witch;
+            sister.sister = sister;
+        }
+
         CameraControl.instance.followPoint = false;
 
         UnityEngine.Debug.LogFormat($"Cells: {i}");
@@ -407,8 +469,16 @@ public class Game : MonoBehaviour
         }
     }
 
+    public Map<Figure, List<Figure>> generatedFigures = new Map<Figure, List<Figure>>(() => new List<Figure>());
     public T GenerateFigure<T>(Cell cell, T sample) where T: MonoBehaviour {
         var f = Instantiate(sample);
+        f.gameObject.name = $"{sample.gameObject.name} #{generatedFigures[sample.GetComponent<Figure>()].Count}";
+        generatedFigures[sample.GetComponent<Figure>()].Add(f.GetComponent<Figure>());
+
+        if (f.GetComponent<SampleTracker>() != null) {
+            f.GetComponent<SampleTracker>().createdFromSample = sample.GetComponent<SampleTracker>();
+        }
+
         _ = f.GetComponent<Figure>().Move(cell, isTeleport: true);
 
         var explainable = f.GetComponent<IExplainable>();
@@ -416,9 +486,9 @@ public class Game : MonoBehaviour
             explainable.Sample = sample.GetComponent<IExplainable>();
         }
 
-        var monster = f.GetComponent<Monster>();
-        if (monster != null) {
-            monsters.Add(monster);
+        var iMovable = f.GetComponent<IMovable>();
+        if (iMovable != null) {
+            movables.Add(iMovable);
         }
 
         return f;
@@ -439,7 +509,14 @@ public class Game : MonoBehaviour
             return;
         }
 
-        if (cell.position.magnitude > 6 && Rand.rndEvent(Metagame.instance.MonsterProbability)) {
+        if (cell.biome == Library.instance.darkrootForest && cell.orderInBiome > Library.instance.darkrootForest.Size * 0.83f) {
+            GenerateFigure(cell, Library.instance.tree);
+            return;
+        }
+
+        if (cell.biome == Library.instance.darkrootForest && Rand.rndEvent(0.1f)) {
+            GenerateFigure(cell, Library.instance.tree);
+        } else if (cell.position.magnitude > 6 && Rand.rndEvent(Metagame.instance.MonsterProbability)) {
             GenerateFigure(cell, cell.biome.monsterSamples.weightedRnd());
         } else if (Rand.rndEvent(0.004f)) {
             GenerateFigure(cell, weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().fieldWeight));
@@ -454,7 +531,7 @@ public class Game : MonoBehaviour
 
     private async Task MonstersAndItemsTick(int turnNumber) {
         Debug($"Monsters move");
-        await Task.WhenAll(monsters.ToList().Select(m => m.Move()).Concat(afterPlayerMove.Select(listener => listener(turnNumber))));
+        await Task.WhenAll(movables.ToList().Select(m => m.Move()).Concat(afterPlayerMove.Select(listener => listener(turnNumber))));
         if (this == null) {
             return;
         }

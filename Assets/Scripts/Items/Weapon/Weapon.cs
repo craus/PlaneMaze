@@ -60,7 +60,7 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
         return await Attack(delta, target, BeforeAttack, AfterAttack);
     }
 
-    public virtual async Task<bool> Attack(
+    public async Task<bool> Attack(
         Vector2Int delta, 
         Unit target,
         Func<Attack, Task> beforeAttack = null, 
@@ -73,6 +73,8 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
             Game.Debug($"Weapon {this}: cannot attack target");
             return false;
         }
+
+        target.figure.Location.OnOccupyingUnitAttacked(target);
 
         var attack = GetAttack(delta, target);
         await beforeAttack(attack);

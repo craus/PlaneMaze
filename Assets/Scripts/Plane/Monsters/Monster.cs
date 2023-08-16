@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
-public abstract class Monster : Unit
+public abstract class Monster : Unit, IMovable
 {
     public virtual bool FreeCell(Cell cell) => cell.Free;
 
@@ -23,11 +23,29 @@ public abstract class Monster : Unit
         });
     }
 
-    protected async Task<bool> SmartWalk(Vector2Int delta) {
+    public async Task<bool> SmartWalk(Vector2Int delta) {
         if (!Flying && figure.Location.Shift(delta).GetFigure<WolfTrap>() != null) {
             return false;
         }
         return await figure.TryWalk(delta, FreeCell);
+    }
+
+    protected async Task<bool> WalkOrFakeMove(Vector2Int delta) {
+        if (await figure.TryWalk(delta)) {
+            return true;
+        } else {
+            await figure.FakeMove(delta);
+            return false;
+        }
+    }
+
+    protected async Task<bool> SmartWalkOrFakeMove(Vector2Int delta) {
+        if (await SmartWalk(delta)) {
+            return true;
+        } else {
+            await SmartFakeMove(delta);
+            return false;
+        }
     }
 
     protected async Task<bool> SmartFakeMove(Vector2Int delta) {
@@ -56,11 +74,28 @@ public abstract class Monster : Unit
     public virtual Cell AttackLocation(Vector2Int delta, Unit target) => figure.Location;
     public virtual Cell DefenceLocation(Vector2Int delta, Unit target) => target.figure.Location;
 
+    public async Task FakeAttack(Cell target) {
+        PlayAttackSound();
+        var ap = Instantiate(attackProjectile, Game.instance.transform);
+        ap.gameObject.SetActive(true); // object was inactive for unknown reason
+        ap.transform.position = target.transform.position;
+
+        await Helpers.Delay(0.1f);
+
+        if (ap != null) {
+            Destroy(ap);
+        }
+    }
+
     public async Task<bool> Attack(Unit target, Vector2Int? maybeDelta = null) {
         var delta = maybeDelta ?? Helpers.StepAtDirection(target.figure.Location.position - figure.Location.position);
         if (!Game.CanAttack(this, target, null, AttackLocation(delta, target), DefenceLocation(delta, target))) {
             return false;
         }
+
+        await BeforeAttack(delta);
+
+        target.figure.Location.OnOccupyingUnitAttacked(target);
 
         PlayAttackSound();
 
@@ -76,12 +111,13 @@ public abstract class Monster : Unit
 
         await Helpers.Delay(0.1f);
 
-        Game.instance.lastAttackedMonster = this;
         await target.Hit(new Attack(delta, figure, target.figure, AttackLocation(delta, target), DefenceLocation(delta, target), damage));
 
         if (ap != null) {
             Destroy(ap);
         }
+
+        await AfterAttack(delta);
 
         return true;
     }
@@ -92,6 +128,8 @@ public abstract class Monster : Unit
         Vector2Int.right,
         Vector2Int.left,
     };
+
+    protected Vector2Int PlayerDelta => Player.instance.figure.Location.position - figure.Location.position;
 
     protected virtual async Task MakeMove() {
     }
@@ -116,19 +154,16 @@ public abstract class Monster : Unit
         if (this == null) return;
         await GetComponent<Disarm>().Spend(1);
         await GetComponent<Root>().Spend(1);
+        await GetComponent<Curse>().Spend(1);
+        await GetComponent<Curse>().Prepare();
     }
 
     public async Task Move() {
-        if (this == null) {
-            Debug.LogError("Dead monster moves");
+        if (this == null || !alive) {
+            Debug.LogFormat($"{this}: Dead monster cannot move");
+            return;
         }
         GetComponent<DangerSprite>().sprite.enabled = false;
-        var figureLocation = figure.Location;
-        var board = figureLocation.board;
-        var player = Player.instance;
-        var playerFigure = player.figure;
-        var playerLocation = playerFigure.Location;
-        var playerBoard = playerLocation.board;
         if (!alive || figure.Location.board != Player.instance.figure.Location.board) {
             return;
         }
@@ -162,8 +197,8 @@ public abstract class Monster : Unit
     }
 
     public void OnDestroy() {
-        if (Game.instance != null && Game.instance.monsters.Contains(GetComponent<Monster>())) {
-            Game.instance.monsters.Remove(GetComponent<Monster>());
+        if (Game.instance != null && Game.instance.movables.Contains(GetComponent<Monster>())) {
+            Game.instance.movables.Remove(GetComponent<Monster>());
             Game.Debug($"Monster {gameObject} at ({figure.Location}) removed from queue after death");
         }
     }

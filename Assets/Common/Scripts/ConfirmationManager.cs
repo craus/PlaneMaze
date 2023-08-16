@@ -83,4 +83,11 @@ public class ConfirmationManager : Singletone<ConfirmationManager>
     public void AnyButton() {
         if (canConfirmByAnyButton) OK();
     }
+
+    public void DropAllConfirmations() {
+        if (currentPanel != null) {
+            currentPanel.SetActive(false);
+        }
+        currentConfirmation = null;
+    }
 }

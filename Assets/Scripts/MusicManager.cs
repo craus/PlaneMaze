@@ -23,6 +23,10 @@ public class MusicManager : Singletone<MusicManager>
         all = playlist.Concat(winPlaylist).Concat(losePlaylist).Concat(storePlaylist).ToList();
     }
 
+    public void CreateValueTrackers() {
+        new ValueTracker<List<AudioSource>>(() => currentPlaylist, v => Switch(v));
+    }
+
     bool old = true;
     public void Update() {
         if (AudioListener.pause != old) {

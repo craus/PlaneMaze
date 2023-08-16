@@ -18,6 +18,7 @@ public class Ghost : Monster
             return;
         }
         if (await TryAttack(playerDelta)) {
+            if (this == null) return;
             await Die();
         } else {
             await SmartFakeMove(playerDelta);
