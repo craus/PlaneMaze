@@ -58,8 +58,9 @@ public class Player : Unit
         }
 
         var oldLocation = figure.Location;
+        var newLocation = oldLocation.Shift(delta);
         if (await figure.TryWalk(delta, c => c.Free && (c.GetFigure<PaidCell>() == null || c.GetFigure<PaidCell>().price <= gems))) {
-            await AfterTakeAction(new Walk(oldLocation, figure.Location));
+            await AfterTakeAction(new Walk(oldLocation, newLocation));
             Game.Debug($"Player move end: walk");
             return;
         }
