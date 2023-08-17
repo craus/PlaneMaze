@@ -18,7 +18,10 @@ public class BackArmor : MonoBehaviour, IReceiveAttackModifier, ISideDefence
     }
 
     public async Task ModifyAttack(Attack attack) {
-        if (GetComponent<Item>().Owner.lastMove.Codirected(attack.to.Location.position - attack.from.Location.position)) {
+        if (attack.attackLocation == null) {
+            return;
+        }
+        if (GetComponent<Item>().Owner.lastMove.Codirected(attack.defenceLocation.position - attack.attackLocation.position)) {
             attack.damage -= 1;
         }
     }
