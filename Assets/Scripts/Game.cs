@@ -86,24 +86,14 @@ public class Game : MonoBehaviour
         mainWorld.currentBiome = Library.instance.dungeon;
         UnityEngine.Debug.LogFormat("New game started");
 
-        player = Instantiate(playerSample, transform);
-        player.figure.savePoint = mainWorld.GetCell(Vector2Int.zero);
-        await player.figure.Move(mainWorld.GetCell(Vector2Int.zero), isTeleport: true);
+        player = GenerateFigure(mainWorld.GetCell(Vector2Int.zero), playerSample);
 
         speed = 10000;
 
-        cellOrderList = new List<Cell>();
-        await GenerateBiome(Library.instance.dungeon, pauses: false);
-        await GenerateBiome(Library.instance.darkrootForest, pauses: false);
+        //await GenerateTestWorld();
+        await GenerateWorld();
+
         mainWorld.silentMode = true;
-
-        for (int i = 0; i < storeCount; i++) {
-            GenerateStore(); 
-        }
-
-        foreach (var cell in cellOrderList) {
-            cell.AfterStoresAdded();
-        }
 
         movables.ToList().ForEach(m => {
             m.OnGameStart();
@@ -117,6 +107,28 @@ public class Game : MonoBehaviour
             canCancel: false,
             canConfirmByAnyButton: true
         );
+    }
+
+    private async Task GenerateTestWorld() {
+        AddFloorCell(mainWorld.GetCell(Vector2Int.zero));
+        AddFloorCell(mainWorld.GetCell(new Vector2Int(0, 1)));
+        AddFloorCell(mainWorld.GetCell(new Vector2Int(0, 2)));
+        GenerateFigure(Library.Get<BackArmor>(), 0, 1);
+        GenerateFigure(Library.Get<Harpy>(), 0, 2);
+    }
+
+    private async Task GenerateWorld() {
+        cellOrderList = new List<Cell>();
+        await GenerateBiome(Library.instance.dungeon, pauses: false);
+        await GenerateBiome(Library.instance.darkrootForest, pauses: false);
+
+        for (int i = 0; i < storeCount; i++) {
+            GenerateStore();
+        }
+
+        foreach (var cell in cellOrderList) {
+            cell.AfterStoresAdded();
+        }
     }
 
     public async Task AskForNextRun() {
@@ -390,16 +402,13 @@ public class Game : MonoBehaviour
         int i = 0;
         foreach (Cell c in cellOrder) {
 
-            cellOrderList.Add(c);
-            c.order = cellOrderList.Count-1;
             c.orderInBiome = i;
-            c.fieldCell.wall = false;
             c.biome = biome;
-
             biomeCells.Add(c);
-
             c.UpdateBiome();
-            c.UpdateCell();
+
+            AddFloorCell(c);
+
             if (biome.GetComponent<IAfterCellAdded>() != null) {
                 biome.GetComponent<IAfterCellAdded>().AfterCellAdded(c);
             } else {
@@ -437,6 +446,13 @@ public class Game : MonoBehaviour
         UnityEngine.Debug.LogFormat($"Taken Cells Max Price: {cellOrderList.Max(c => CellPrice(c.position))}");
     }
 
+    private void AddFloorCell(Cell c) {
+        cellOrderList.Add(c);
+        c.order = cellOrderList.Count - 1;
+        c.fieldCell.wall = false;
+        c.UpdateCell();
+    }
+
     public void Contaminate(Cell cell) {
         if (cell.figures.Any(f => f.GetComponent<Player>())) {
             return;
@@ -467,6 +483,11 @@ public class Game : MonoBehaviour
             newGem.amount = amount;
             newGem.UpdateSprite();
         }
+    }
+
+    public T GenerateFigure<T>(T sample, int x, int y, Board board = null) where T : MonoBehaviour {
+        board ??= mainWorld;
+        return GenerateFigure(board.GetCell(new Vector2Int(x, y)), sample);
     }
 
     public Map<Figure, List<Figure>> generatedFigures = new Map<Figure, List<Figure>>(() => new List<Figure>());

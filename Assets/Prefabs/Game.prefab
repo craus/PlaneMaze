@@ -1613,7 +1613,6 @@ MonoBehaviour:
   playerSample: {fileID: 2542263783767913581, guid: 370aeef2518095a448365046aa1e4453, type: 3}
   player: {fileID: 0}
   gameEvents: {fileID: 3746461997576402953}
-  lastAttackedMonster: {fileID: 0}
   storeCount: 4
   storeRadius: 6
   weaponSamples:
@@ -1670,8 +1669,11 @@ MonoBehaviour:
   stores: []
   completedTurns:
     keys: 
+  gameOver: 0
   speed: 1
   border: []
+  generatedFigures:
+    keys: []
 --- !u!114 &6957792755753911196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1685,6 +1687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursedSignCount: 0
+  game: {fileID: 0}
 --- !u!1 &2461602445928022540
 GameObject:
   m_ObjectHideFlags: 0

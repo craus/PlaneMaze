@@ -13,6 +13,9 @@ public class Library : Singletone<Library>
     public Gem gem;
 
     public List<Biome> biomes;
+
+    public List<Figure> figures;
+
     public Biome dungeon;
     public Biome crypt;
     public Biome darkrootForest;
@@ -45,4 +48,6 @@ public class Library : Singletone<Library>
 
     public CursedSign cursedSign;
     public Tree tree;
+
+    public static T Get<T>() => instance.figures.Select(f => f.GetComponent<T>()).FirstOrDefault(c => c != null);
 }

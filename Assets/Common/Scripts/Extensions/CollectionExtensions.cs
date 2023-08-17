@@ -67,4 +67,8 @@ public static class CollectionExtensions
         }
         return true;
     }
+
+    public static T2 First<T, T2>(this IEnumerable<T> collection) where T2 : class {
+        return collection.First(el => el is T2) as T2;
+    }
 }
