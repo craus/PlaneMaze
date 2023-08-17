@@ -24,7 +24,13 @@ public static class Helpers
     }
 
     public async static Task Teleport(Figure figure, Cell destination, bool sound = true) {
-        SoundManager.instance.teleport.Play();
+        if (
+            figure == Player.instance.figure ||
+            (figure.Location.position - Player.instance.figure.Location.position).MaxDelta() <= 4 ||
+            (destination.position - Player.instance.figure.Location.position).MaxDelta() <= 4
+        ) {
+            SoundManager.instance.teleport.Play();
+        }
         Game.Debug($"{figure} teleports to {destination}");
         var teleportAnimation = PlayTeleportExitAnimation(destination); // TODO catch exceptions?
         await figure.Move(destination, isTeleport: true, teleportAnimation: true);
