@@ -142,11 +142,12 @@ public class WitchAndSister : Monster, IInvisibilitySource
         // Syncronized Attack
         if (Another.syncronizedNonAttackTime != Game.instance.time && SyncronizedAttackCondition) {
             Debug.LogFormat($"{this} syncronized teleport");
+            var playerDelta = PlayerDelta;
             syncronizedAttackTime = Game.instance.time;
             await Helpers.Teleport(Another.figure, figure.Location.Shift(4 * PlayerDelta / 2));
             await Task.WhenAll(
-                ChargeAttack(AttackArea(PlayerDelta)),
-                Another.ChargeAttack(AttackArea(PlayerDelta))
+                ChargeAttack(AttackArea(playerDelta)),
+                Another.ChargeAttack(AttackArea(playerDelta))
             );
             return;
         }
