@@ -19,6 +19,10 @@ public class CursedSignCounter : MonoBehaviour
 
         game.afterPlayerMove.Add(async (index) => {
             if (cursedSignCount >= Max) {
+                if (!Game.CanAttack(null, Player.instance)) {
+                    Game.Debug($"CursedSignCounter cannot attack {Player.instance}");
+                    return;
+                }
                 CursedSignIndicator.instance.Attack();
                 await Player.instance.Hit(new Attack(
                     Vector2Int.zero,
