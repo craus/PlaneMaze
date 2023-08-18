@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BaseTracker 
+public abstract class BaseTracker 
 {
+    public abstract int TrackSize { get; }
 }

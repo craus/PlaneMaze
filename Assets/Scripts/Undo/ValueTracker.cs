@@ -8,6 +8,8 @@ public class ValueTracker<T> : BaseTracker
 {
     public List<(int index, T value)> track = new List<(int, T)>();
 
+    public override int TrackSize => track.Count;
+
     public Func<T> getter;
     public Action<T> setter;
     public EqualityComparer<T> equals;
@@ -30,6 +32,7 @@ public class ValueTracker<T> : BaseTracker
 
         UndoManager.instance.onSave += Save;
         UndoManager.instance.onLoad += Load;
+        UndoManager.instance.trackers.Add(this);
         if (DebugManager.verbose) {
             DebugManager.LogFormat($"Subscribed to events: {UndoManager.instance.GetInstanceID()}");
         }

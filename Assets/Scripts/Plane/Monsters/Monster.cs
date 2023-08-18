@@ -89,7 +89,9 @@ public abstract class Monster : Unit, IMovable
 
     public async Task<bool> Attack(Unit target, Vector2Int? maybeDelta = null) {
         var delta = maybeDelta ?? Helpers.StepAtDirection(target.figure.Location.position - figure.Location.position);
-        if (!Game.CanAttack(this, target, null, AttackLocation(delta, target), DefenceLocation(delta, target))) {
+        var attackLocation = AttackLocation(delta, target);
+        var defenceLocation = DefenceLocation(delta, target);
+        if (!Game.CanAttack(this, target, null, attackLocation, defenceLocation)) {
             return false;
         }
 
@@ -111,7 +113,7 @@ public abstract class Monster : Unit, IMovable
 
         await Helpers.Delay(0.1f);
 
-        await target.Hit(new Attack(delta, figure, target.figure, AttackLocation(delta, target), DefenceLocation(delta, target), damage));
+        await target.Hit(new Attack(delta, figure, target.figure, attackLocation, defenceLocation, damage));
 
         if (ap != null) {
             Destroy(ap);

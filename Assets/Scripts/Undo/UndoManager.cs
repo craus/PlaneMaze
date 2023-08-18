@@ -31,6 +31,9 @@ public class UndoManager : Singletone<UndoManager>
         lastSaveIndex++;
         Debug.LogFormat($"Save {lastSaveIndex}");
         onSave.Invoke();
+        Debug.LogFormat($"Total trackers: {trackers.Count}");
+        Debug.LogFormat($"Max track size: {trackers.Max(t => t.TrackSize)}");
+        Debug.LogFormat($"Total track size: {trackers.Sum(t => t.TrackSize)}");
     }
 
     public void Load() {

@@ -11,8 +11,6 @@ public class Figure : MonoBehaviour
     [SerializeField] private Cell location;
     public Cell Location => location;
 
-    public Cell savePoint;
-
     public Func<Cell, Figure, Task> collide = null;
     public Func<Cell, Figure, Task> collideEnd = null;
 
