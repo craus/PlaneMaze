@@ -10,10 +10,10 @@ public class Invisibility : MonoBehaviour
     [SerializeField] private GameObject model;
 
     public void Switch(bool on) {
-        model.SetActive(!on);
+        model.SetActive(!on); // TODO: slow
     }
 
-    public void Check() {
+    public void Check() { // TODO: slow
         Switch(CalculateInvisibility());
     }
 
@@ -23,8 +23,8 @@ public class Invisibility : MonoBehaviour
         new ValueTracker<bool>(() => model.activeSelf, v => model.SetActive(v));
     }
 
-    private bool HiddenInsideFog() {
-        var fog = GetComponent<Figure>().Location.GetFigure<Fog>();
+    private bool HiddenInsideFog() { // TODO: slow
+        var fog = GetComponent<Figure>().Location.GetFigure<Fog>(); // TODO: slow
         return 
             GetComponent<Unit>() != null &&
             fog != null &&
@@ -37,7 +37,7 @@ public class Invisibility : MonoBehaviour
 
     private bool HiddenOutsideFog() => PlayerInsideFog() && FarFromPlayer();
 
-    private bool PlayerInsideFog() {
+    private bool PlayerInsideFog() { // TODO: slow
         if (Player.instance == null || !Player.instance.alive) {
             return false;
         }

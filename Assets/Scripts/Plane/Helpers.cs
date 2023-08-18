@@ -60,7 +60,7 @@ public static class Helpers
         return null;
     }
 
-    public static async Task Delay(float seconds) {
+    public static async Task Delay(float seconds) { // Slow Player.instance
         await DelayManager.Delay(seconds / Mathf.Pow(2, Player.instance != null ? Player.instance.commands.Count : 0) / animationSpeed / 2);
     }
 

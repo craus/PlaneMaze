@@ -137,7 +137,7 @@ public abstract class Monster : Unit, IMovable
     }
 
     private async Task Regenerate() {
-        if (Metagame.instance.Ascention<MonstersHeal>()) {
+        if (Metagame.instance.Ascention<MonstersHeal>()) { // slow
             if (
                 movesSinceLastHit >= movesSinceHitToHeal &&
                 movesSinceLastHeal >= healCooldown
@@ -166,7 +166,7 @@ public abstract class Monster : Unit, IMovable
             return;
         }
         GetComponent<DangerSprite>().sprite.enabled = false;
-        if (!alive || figure.Location.board != Player.instance.figure.Location.board) {
+        if (!alive || figure.Location.board != Player.instance.figure.Location.board) { // TODO: slow
             return;
         }
         await GetComponent<Invulnerability>().Spend(1);
@@ -186,7 +186,7 @@ public abstract class Monster : Unit, IMovable
                 return;
             }
         }
-        if (Metagame.instance.Ascention<FasterMonsters>()) {
+        if (Metagame.instance.Ascention<FasterMonsters>()) { // TODO: slow
             if (Rand.rndEvent(0.1f)) {
                 await GetComponent<MovesReserve>().Haste(1);
             }

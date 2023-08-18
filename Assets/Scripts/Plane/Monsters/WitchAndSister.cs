@@ -97,7 +97,7 @@ public class WitchAndSister : Monster, IInvisibilitySource
         figure.Location.Shift(3 * PlayerDelta / 2).Free &&
         figure.Location.Shift(4 * PlayerDelta / 2).Free;
 
-    protected override async Task MakeMove() {
+    protected override async Task MakeMove() { // Slow debug calls
         // Execute Attack
         if (chargedArea != null && chargedArea.Count > 0) {
             Debug.LogFormat($"{this} attack charged area");

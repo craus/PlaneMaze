@@ -147,7 +147,7 @@ public class BlackMage : Monster
         var closestGhost = figure.Location.Vicinity(deathDetectionRadius)
             .Select(c => c.GetFigure<Ghost>())
             .Where(g => g != null)
-            .MinBy(g => (g.figure.Location.position - figure.Location.position).sqrMagnitude);
+            .MinBy(g => (g.figure.Location.position - figure.Location.position).sqrMagnitude); // TODO: slow
 
         if (closestGhost == null) {
             return;
