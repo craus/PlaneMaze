@@ -13,7 +13,9 @@ public class UI : MonoBehaviour
     public TextMeshProUGUI timeCounter;
     public TextMeshProUGUI commandQueueCounter;
     public TextMeshProUGUI animationSpeed;
-    public TextMeshProUGUI frameTime;
+    public TextMeshProUGUI longestFrame;
+    public TextMeshProUGUI longFrames;
+    public TextMeshProUGUI fps;
     public TextMeshProUGUI steps;
     public TextMeshProUGUI ghostProbability;
 
@@ -33,7 +35,9 @@ public class UI : MonoBehaviour
             commandQueueCounter.text = Player.instance.commands.Count.ToString();
         }
         animationSpeed.text = Helpers.animationSpeed.ToString("0.000");
-        frameTime.text = Time.deltaTime.ToString("0.000");
+        longestFrame.text = $"{FPSCounter.instance.longestFramePreviousSecond} ms";
+        longFrames.text = $"long {FPSCounter.instance.longFramesPreviousSecond}";
+        fps.text = $"total {FPSCounter.instance.framesPreviousSecond}";
         steps.text = Game.instance.time.ToString();
         ghostProbability.text = Game.instance.ghostSpawnProbabilityPerTurn.ToString("0.0000");
         foreach (var go in cheatUI) {

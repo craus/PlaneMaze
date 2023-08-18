@@ -27,17 +27,7 @@ public class MusicManager : Singletone<MusicManager>
         new ValueTracker<List<AudioSource>>(() => currentPlaylist, v => Switch(v));
     }
 
-    bool old = true;
     public void Update() {
-        if (AudioListener.pause != old) {
-            Debug.LogFormat($"AudioListener.pause = {AudioListener.pause}");
-        }
-        old = AudioListener.pause;
-
-        if (Input.GetKeyDown(KeyCode.P)) {
-            AudioListener.pause ^= true;
-        }
-
         if (all.Any(a => a.isPlaying)) {
             return;
         }
