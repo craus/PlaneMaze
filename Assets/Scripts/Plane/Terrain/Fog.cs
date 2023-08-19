@@ -22,9 +22,9 @@ public class Fog : Terrain, IMovable, IOnOccupyingUnitAttackedListener
                 !figure.Location.GetFigure<Figure>(f => f != GetComponent<Figure>())
             ) {
                 on = value;
-                UpdateSprite();
-                CheckUnitsInvisibility();
             }
+            UpdateSprite();
+            CheckUnitsInvisibility();
         }
     }
     public float onProbability = 0.1f;
@@ -65,6 +65,25 @@ public class Fog : Terrain, IMovable, IOnOccupyingUnitAttackedListener
                 if (victim != null) {
                     On = false;
                 }
+            }
+            {
+                var victim = figure.GetComponent<Unit>();
+                if (victim != null) {
+                    victim.GetComponent<Invisibility>().Check();
+                }
+            }
+        };
+
+        GetComponent<Figure>().collide = async (to, figure) => {
+            if (figure == null) {
+                return;
+            }
+            if (!On) {
+                return;
+            }
+            var victim = figure.GetComponent<Unit>();
+            if (victim != null) {
+                victim.GetComponent<Invisibility>().Check();
             }
         };
     }
