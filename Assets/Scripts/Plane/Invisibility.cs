@@ -10,7 +10,9 @@ public class Invisibility : MonoBehaviour
     [SerializeField] private GameObject model;
 
     public void Switch(bool on) {
-        model.SetActive(!on); // TODO: slow
+        if (model.activeSelf == on) {
+            model.SetActive(!on); // CHECK: slow?
+        }
     }
 
     public void Check() { // TODO: slow
