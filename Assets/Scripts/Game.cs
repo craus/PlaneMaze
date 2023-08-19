@@ -20,8 +20,6 @@ public class Game : MonoBehaviour
     public int storeCount = 4;
     public int storeRadius = 5;
 
-    public List<IMovable> movables;
-
     public List<Weapon> weaponSamples;
     public List<Item> itemSamples;
     public List<Figure> startingItemsSamples;
@@ -64,8 +62,6 @@ public class Game : MonoBehaviour
     public bool gameOver = false;
 
     public void Awake() {
-        movables = new List<IMovable>();
-        new ValueTracker<List<IMovable>>(() => movables.ToList(), v => movables = v.ToList());
         new ValueTracker<int>(() => time, v => {
             time = v;
             completedTurns.Clear();
@@ -96,7 +92,7 @@ public class Game : MonoBehaviour
 
         mainWorld.silentMode = true;
 
-        movables.ToList().ForEach(m => {
+        mainWorld.movables.ToList().ForEach(m => {
             m.OnGameStart();
         });
 
@@ -510,7 +506,7 @@ public class Game : MonoBehaviour
 
         var iMovable = f.GetComponent<IMovable>();
         if (iMovable != null) {
-            movables.Add(iMovable);
+            cell.board.movables.Add(iMovable);
         }
 
         return f;
@@ -553,7 +549,7 @@ public class Game : MonoBehaviour
 
     private async Task MonstersAndItemsTick(int turnNumber) {
         Debug($"Monsters move");
-        await Task.WhenAll(movables.ToList().Select(m => m.Move()).Concat(afterPlayerMove.Select(listener => listener(turnNumber))));
+        await Task.WhenAll(Player.instance.figure.Location.board.movables.ToList().Select(m => m.Move()).Concat(afterPlayerMove.Select(listener => listener(turnNumber))));
         if (this == null) {
             return;
         }

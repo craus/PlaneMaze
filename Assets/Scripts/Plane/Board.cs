@@ -16,6 +16,8 @@ public class Board : MonoBehaviour
 
     public List<Cell> cells;
 
+    public List<IMovable> movables;
+
     public bool silentMode = false;
 
     public Biome currentBiome;
@@ -28,6 +30,8 @@ public class Board : MonoBehaviour
     public Cell this[int x, int y] => GetCell(new Vector2Int(x, y));
 
     public void Awake() {
+        movables = new List<IMovable>();
+        new ValueTracker<List<IMovable>>(() => movables.ToList(), v => movables = v.ToList());
         new ValueTracker<bool>(() => gameObject.activeSelf, v => gameObject.SetActive(v));
     }
 
