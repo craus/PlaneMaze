@@ -11,7 +11,7 @@ public class Metagame : MonoBehaviour
 {
     public static Metagame instance => GameManager.instance.metagame;
 
-    private List<Ascention> ascentions;
+    private List<Ascention> ascentions = new List<Ascention>();
     public IEnumerable<Ascention> Ascentions => ascentions;
 
     public bool pickingPhase;
