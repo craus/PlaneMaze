@@ -9,6 +9,8 @@ using UnityEngine;
 public class Player : Unit
 {
     public static Player instance => Game.instance ? Game.instance.player : null;
+    public static bool insideFog = false;
+    public static bool trueSight = false;
 
     public override bool TrueSight => base.TrueSight || PlaneMaze.Cheats.instance.trueSight;
 
@@ -28,7 +30,7 @@ public class Player : Unit
 
     public override bool Vulnerable => base.Vulnerable && !permanentInvulnerability;
 
-    public override bool BenefitsFromTerrain => base.BenefitsFromTerrain && !GameManager.instance.metagame.Ascention<PlayerDontBenefitFromTerrain>();
+    public override bool BenefitsFromTerrain => base.BenefitsFromTerrain && !GameManager.instance.metagame.HasAscention<PlayerDontBenefitFromTerrain>();
 
     public async Task Take(Item item) {
         await item.Pick();

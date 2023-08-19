@@ -87,7 +87,6 @@ public class GameManager : Singletone<GameManager>
         game = Instantiate(gameSample, transform);
         metagame.runInProgress = true;
         SaveMetagame();
-        game.ascentions = metagame.ascentions;
         Inventory.instance = game.GetComponentInChildren<Inventory>();
         game.speed = 100;
     }

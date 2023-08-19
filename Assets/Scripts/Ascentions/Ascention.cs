@@ -26,10 +26,10 @@ public abstract class Ascention : MonoBehaviour
     }
 
     public virtual bool CanAdd(Metagame metagame) {
-        return metagame.ascentions.Count(x => x == this) < maxLevel && Dependencies.All(x => metagame.ascentions.Contains(x));
+        return metagame.Ascentions.Count(x => x == this) < maxLevel && Dependencies.All(x => metagame.Ascentions.Contains(x));
     }
 
     public virtual bool CanRemove(Metagame metagame) {
-        return metagame.ascentions.All(m => !m.Dependencies.Contains(this));
+        return metagame.Ascentions.All(m => !m.Dependencies.Contains(this));
     }
 }

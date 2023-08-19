@@ -14,7 +14,7 @@ public abstract class Monster : Unit, IMovable
     public int movesSinceHitToHeal = 3;
     public int healCooldown = 3;
 
-    public override bool BenefitsFromTerrain => base.BenefitsFromTerrain && GameManager.instance.metagame.Ascention<MonstersBenefitFromTerrain>();
+    public override bool BenefitsFromTerrain => base.BenefitsFromTerrain && GameManager.instance.metagame.HasAscention<MonstersBenefitFromTerrain>();
 
     public override void Awake() {
         base.Awake();
@@ -137,7 +137,7 @@ public abstract class Monster : Unit, IMovable
     }
 
     private async Task Regenerate() {
-        if (Metagame.instance.Ascention<MonstersHeal>()) { // slow
+        if (Game.monstersRegenerate) { // slow
             if (
                 movesSinceLastHit >= movesSinceHitToHeal &&
                 movesSinceLastHeal >= healCooldown
@@ -166,7 +166,7 @@ public abstract class Monster : Unit, IMovable
             return;
         }
         GetComponent<DangerSprite>().sprite.enabled = false;
-        if (!alive || figure.Location.board != Player.instance.figure.Location.board) { // TODO: slow
+        if (!alive) { 
             return;
         }
         await GetComponent<Invulnerability>().Spend(1);
@@ -186,7 +186,7 @@ public abstract class Monster : Unit, IMovable
                 return;
             }
         }
-        if (Metagame.instance.Ascention<FasterMonsters>()) { // TODO: slow
+        if (Game.fasterMonsters) { 
             if (Rand.rndEvent(0.1f)) {
                 await GetComponent<MovesReserve>().Haste(1);
             }

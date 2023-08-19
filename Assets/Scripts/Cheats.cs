@@ -16,6 +16,7 @@ namespace PlaneMaze
             if (hacked) {
                 if (Input.GetKeyDown(KeyCode.T)) {
                     trueSight ^= true;
+                    Player.trueSight = Player.instance.TrueSight;
                     Player.instance.GlobalInvisibilityCheck();
                     GameLog.Message($"trueSight: {trueSight}");
                 }

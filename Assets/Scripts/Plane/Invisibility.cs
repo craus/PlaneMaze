@@ -9,13 +9,23 @@ public class Invisibility : MonoBehaviour
 {
     [SerializeField] private GameObject model;
 
+    private bool insideFog = false;
+    public bool InsideFog {
+        set {
+            if (insideFog != value) {
+                insideFog = value;
+                Check();
+            }
+        }
+    }
+
     public void Switch(bool on) {
         if (model.activeSelf == on) {
             model.SetActive(!on); // CHECK: slow?
         }
     }
 
-    public void Check() { // TODO: slow
+    public void Check() { // CHECK: slow?
         Switch(CalculateInvisibility());
     }
 
@@ -25,12 +35,9 @@ public class Invisibility : MonoBehaviour
         new ValueTracker<bool>(() => model.activeSelf, v => model.SetActive(v));
     }
 
-    private bool HiddenInsideFog() { // TODO: slow
-        var fog = GetComponent<Figure>().Location.GetFigure<Fog>(); // TODO: slow
+    private bool HiddenInsideFog() { // CHECK: slow?
         return 
-            GetComponent<Unit>() != null &&
-            fog != null &&
-            fog.On &&
+            insideFog &&
             (Player.instance.figure.Location.position - GetComponent<Figure>().Location.position).SumDelta() > 1;
     }
 
@@ -39,16 +46,10 @@ public class Invisibility : MonoBehaviour
 
     private bool HiddenOutsideFog() => PlayerInsideFog() && FarFromPlayer();
 
-    private bool PlayerInsideFog() { // TODO: slow
-        if (Player.instance == null || !Player.instance.alive) {
-            return false;
-        }
-        var playerFog = Player.instance.figure.Location.GetFigure<Fog>();
-        return playerFog && playerFog.On;
-    }
+    private bool PlayerInsideFog() => Player.insideFog;
 
     private bool CalculateInvisibility() {
-        if (Player.instance != null && Player.instance.TrueSight) return false;
+        if (Player.trueSight) return false;
 
         if (HiddenInsideFog()) return true;
         if (HiddenOutsideFog()) return true;

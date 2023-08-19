@@ -10,7 +10,8 @@ public class Game : MonoBehaviour
 {
     public static Game instance => GameManager.instance ? GameManager.instance.game : null;
 
-    public List<Ascention> ascentions;
+    public static bool fasterMonsters;
+    public static bool monstersRegenerate;
 
     public Player playerSample;
     public Player player;
@@ -56,9 +57,6 @@ public class Game : MonoBehaviour
 
     public Map<int, TaskCompletionSource<bool>> completedTurns = new Map<int, TaskCompletionSource<bool>>(() => new TaskCompletionSource<bool>());
 
-    internal bool Ascention<T>() where T: Ascention => ascentions.Any(a => a is T);
-    internal int Ascentions<T>() where T: Ascention => ascentions.Count(a => a is T);
-
     public Metagame Metagame => GameManager.instance.metagame;
 
     public DateTime startTime;
@@ -75,6 +73,9 @@ public class Game : MonoBehaviour
         new ValueTracker<int>(() => moveNumber, v => moveNumber = v);
         new ValueTracker<bool>(() => gameOver, v => gameOver = v);
         MusicManager.instance.CreateValueTrackers();
+
+        fasterMonsters = Metagame.instance.HasAscention<FasterMonsters>();
+        monstersRegenerate = Metagame.instance.HasAscention<MonstersHeal>();
     }
 
     public async void Start() {
@@ -516,7 +517,7 @@ public class Game : MonoBehaviour
     }
 
     public void AfterCellAdded(Cell cell) {
-        if (cell.order == 1 && !Metagame.Ascention<NoStartingWeapon>()) {
+        if (cell.order == 1 && !Metagame.HasAscention<NoStartingWeapon>()) {
             GenerateFigure(cell, weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().startingWeight));
             return;
         } else if (cell.order == 0) {

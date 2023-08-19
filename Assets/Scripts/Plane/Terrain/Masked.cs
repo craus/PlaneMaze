@@ -19,7 +19,7 @@ public class Masked : MonoBehaviour
 
     public void Awake() {
         Player.instance.figure.afterMove.Add(AfterPlayerMove);
-        if (GetComponent<TeleportTrap>() == null && !Metagame.instance.Ascention<MaskedTerrain>()) {
+        if (GetComponent<TeleportTrap>() == null && !Metagame.instance.HasAscention<MaskedTerrain>()) {
             Show();
         } else {
             Hide();

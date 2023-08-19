@@ -11,7 +11,9 @@ public class Metagame : MonoBehaviour
 {
     public static Metagame instance => GameManager.instance.metagame;
 
-    public List<Ascention> ascentions;
+    private List<Ascention> ascentions;
+    public IEnumerable<Ascention> Ascentions => ascentions;
+
     public bool pickingPhase;
     public int losesWithNoPenalty = 0;
     public bool runInProgress = false;
@@ -21,8 +23,8 @@ public class Metagame : MonoBehaviour
 
     public Game game;
 
-    internal bool Ascention<T>() where T : Ascention => ascentions.Any(a => a is T);
-    internal int Ascentions<T>() where T : Ascention => ascentions.Count(a => a is T);
+    internal bool HasAscention<T>() where T : Ascention => ascentions.Any(a => a is T);
+    internal int AscentionsCount<T>() where T : Ascention => ascentions.Count(a => a is T);
 
 
     public int LosesRequiredForPenalty => hardcore ? 1 : 4;
@@ -34,20 +36,20 @@ public class Metagame : MonoBehaviour
     public float GhostSpawnTimeReductionHalfLife => 16000;
     public float StartGhostSpawnProbability => 0.01f;
     public float GhostSpawnAcceleration(int time) =>
-        Ascention<AcceleratingGhostSpawns>() ? 1 - Mathf.Pow(0.5f, time * 1f / GhostSpawnTimeReductionHalfLife) : 0;
+        HasAscention<AcceleratingGhostSpawns>() ? 1 - Mathf.Pow(0.5f, time * 1f / GhostSpawnTimeReductionHalfLife) : 0;
     public float GhostSpawnProbabilityPerTurn(int time) => 
         (StartGhostSpawnProbability + (1 - StartGhostSpawnProbability) * GhostSpawnAcceleration(time)) * GhostSpawnSpeedMultiplier;
 
-    public float HealingPotionSpawnProbability => Ascention<NoFreeHealingPotions>() ? 0 : 0.004f;
+    public float HealingPotionSpawnProbability => HasAscention<NoFreeHealingPotions>() ? 0 : 0.004f;
 
     public float PricesMultiplier => 
-        Mathf.Pow(4, Ascentions<QuadrupleMapAndPrices>()) *
-        Mathf.Pow(2, Ascentions<MoreMonsters>()) *
+        Mathf.Pow(4, AscentionsCount<QuadrupleMapAndPrices>()) *
+        Mathf.Pow(2, AscentionsCount<MoreMonsters>()) *
         0.25f;
 
-    public float WorldSizeMultiplier => Ascention<QuadrupleMapAndPrices>() ? 1 : 0.25f;
+    public float WorldSizeMultiplier => HasAscention<QuadrupleMapAndPrices>() ? 1 : 0.25f;
 
-    public float MonsterProbability => Ascention<MoreMonsters>() ? 0.2f : 0.1f;
+    public float MonsterProbability => HasAscention<MoreMonsters>() ? 0.2f : 0.1f;
     
     public MetagameModel ConvertToModel() {
         var result = new MetagameModel {

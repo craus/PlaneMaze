@@ -15,7 +15,7 @@ public class HealingPotion : MonoBehaviour
     public string fullHealDescription;
 
     public void Start() {
-        if (!GameManager.instance.metagame.Ascention<HealOnlyOneHP>()) {
+        if (!GameManager.instance.metagame.HasAscention<HealOnlyOneHP>()) {
             heal = 100500;
             GetComponent<Item>().description = fullHealDescription;
         }

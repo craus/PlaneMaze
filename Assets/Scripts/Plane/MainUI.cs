@@ -66,7 +66,7 @@ public class MainUI : Singletone<MainUI>
 
     public void UpdateAscentionsList() {
         ascentionsListText.text = GameManager.instance.metagame.AscentionsList();
-        ascentionsPanel.SetActive(GameManager.instance.metagame.ascentions.Count() > 0);
+        ascentionsPanel.SetActive(GameManager.instance.metagame.Ascentions.Count() > 0);
         ascensionsText.text = GameManager.instance.metagame.ShortAscensionsList();
         hardcoreLabel.SetActive(Metagame.instance.hardcore);
         softcore.interactable = Metagame.instance.hardcore;

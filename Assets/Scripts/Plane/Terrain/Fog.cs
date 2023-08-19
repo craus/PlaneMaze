@@ -67,10 +67,13 @@ public class Fog : Terrain, IMovable, IOnOccupyingUnitAttackedListener
                 }
             }
             {
-                var victim = figure.GetComponent<Unit>();
+                var victim = figure.GetComponent<Invisibility>();
                 if (victim != null) {
-                    victim.GetComponent<Invisibility>().Check();
+                    victim.InsideFog = false;
                 }
+            }
+            if (figure.GetComponent<Player>() != null) {
+                Player.insideFog = false;
             }
         };
 
@@ -81,9 +84,12 @@ public class Fog : Terrain, IMovable, IOnOccupyingUnitAttackedListener
             if (!On) {
                 return;
             }
-            var victim = figure.GetComponent<Unit>();
+            var victim = figure.GetComponent<Invisibility>();
             if (victim != null) {
-                victim.GetComponent<Invisibility>().Check();
+                victim.InsideFog = true;
+            }
+            if (figure.GetComponent<Player>() != null) {
+                Player.insideFog = true;
             }
         };
     }

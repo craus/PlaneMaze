@@ -114,7 +114,7 @@ public class Figure : MonoBehaviour
         return true;
     }
 
-    public async Task Move(Cell newPosition, bool isTeleport = false, Cell fakeMove = null, bool teleportAnimation = false) {
+    public async Task Move(Cell newLocation, bool isTeleport = false, Cell fakeMove = null, bool teleportAnimation = false) {
         if (!gameObject.activeSelf) return;
         
         var from = Location;
@@ -122,15 +122,14 @@ public class Figure : MonoBehaviour
         if (!fakeMove && Location != null) {
             Location.figures.Remove(this);
         }
-        if (newPosition == null) return;
+        if (newLocation == null) return;
 
-        location = newPosition;
+        location = newLocation;
         var toBoard = Location != null ? Location.board : null;
         transform.SetParent(Location.board.figureParent);
         if (fromBoard != toBoard) {
             await Task.WhenAll(afterBoardChange.Select(listener => listener(fromBoard, toBoard)));
         }
-        await Task.WhenAll(afterMove.Select(listener => listener(from, Location)));
 
         if (this == null || !gameObject.activeSelf) {
             return;
@@ -140,7 +139,7 @@ public class Figure : MonoBehaviour
             Location.figures.Add(this);
         }
 
-        if (newPosition != null) {
+        if (newLocation != null) {
             await UpdateTransform(fakeMove, isTeleport, teleportAnimation);
         }
 
@@ -149,15 +148,6 @@ public class Figure : MonoBehaviour
         }
 
         if (from != Location) {
-            foreach (var f in Location.figures.ToList()) {
-                if (f != this && f.collide != null) {
-                    await f.collide(from, this);
-                }
-                if (this == null) {
-                    return;
-                }
-            }
-
             if (from != null) {
                 foreach (var f in from.figures.ToList()) {
                     if (f.collideEnd != null) {
@@ -168,7 +158,18 @@ public class Figure : MonoBehaviour
                     }
                 }
             }
+
+            foreach (var f in Location.figures.ToList()) {
+                if (f != this && f.collide != null) {
+                    await f.collide(from, this);
+                }
+                if (this == null) {
+                    return;
+                }
+            }
         }
+
+        await Task.WhenAll(afterMove.Select(listener => listener(from, newLocation)));
     }
 
     private async Task UpdateTransform(Cell fakeMove, bool isTeleport, bool teleportAnimation = false) {

@@ -29,7 +29,7 @@ public class Lich : Monster
 
     public override void Awake() {
         base.Awake();
-        if (!GameManager.instance.metagame.Ascention<FasterBoss>()) {
+        if (!GameManager.instance.metagame.HasAscention<FasterBoss>()) {
             cooldown = 3;
         }
         currentCooldown = cooldown;

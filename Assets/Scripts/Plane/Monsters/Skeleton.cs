@@ -23,7 +23,7 @@ public class Skeleton : Monster
     public override bool Vulnerable => base.Vulnerable && active;
     public override bool ShowInvulnerability => active;
 
-    public bool Resurrectable => deathCount <= 1 || Game.instance.Ascention<EndlessSkeletonsResurrection>();
+    public bool Resurrectable => deathCount <= 1 || Metagame.instance.HasAscention<EndlessSkeletonsResurrection>();
 
     public override void Awake() {
         base.Awake();
