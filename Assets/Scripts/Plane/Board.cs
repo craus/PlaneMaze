@@ -9,8 +9,6 @@ public class Board : MonoBehaviour
 
     public Field field;
     public Cell cellSample;
-    public Figure cracksSample;
-    public Teleport teleportSample;
     public Transform cellParent;
     public Transform figureParent;
 
