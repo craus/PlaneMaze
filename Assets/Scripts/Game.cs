@@ -473,23 +473,6 @@ public class Game : MonoBehaviour
         c.UpdateCell();
     }
 
-    public void Contaminate(Cell cell) {
-        if (cell.figures.Any(f => f.GetComponent<Player>())) {
-            return;
-        }
-        if (cell.figures.Any(f => f.GetComponent<Wall>())) {
-            if (Rand.rndEvent(0.5f)) {
-                return;
-            }
-            cell.figures.First(f => f.GetComponent<Wall>()).GetComponent<Wall>().Hit();
-            return;
-        }
-        cell.Dark = true;
-        foreach (var f in cell.figures.Where(f => f.GetComponent<Building>())) {
-            Destroy(f.gameObject);
-        }
-    }
-
     public void AddGem(Cell cell, int amount) {
         if (amount <= 0) {
             return;
