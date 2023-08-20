@@ -36,16 +36,9 @@ public class WorldGenerator : Singletone<WorldGenerator>
 
     public static IEnumerable<Cell> AntiEdgesSquare(Cell cell) => cell.Neighbours().Where(MakesSquare).Union(Diagonals(cell).Where(MakesSquare));
 
-    public static bool Bad(Cell c) => !MakesCross(c);
+    public static bool Bad(Cell c) => MakesCross(c);
 
     private static Dictionary<Cell, float> cellPrices = new Dictionary<Cell, float>();
-
-    private static Vector2 Rotate(Vector2 v, float angle) {
-        return new Vector2(
-            v.x * Mathf.Cos(angle) - v.y * Mathf.Sin(angle),
-            v.x * Mathf.Sin(angle) + v.y * Mathf.Cos(angle)
-        );
-    }
 
     private static float CalculateCellPriceRandom(Cell cell) {
         return Rand.Range(0, 1f);
@@ -90,7 +83,7 @@ public class WorldGenerator : Singletone<WorldGenerator>
         Debug.LogFormat($"border: {border.ExtToString()}");
         Map<Cell, float> fixedPrices = new Map<Cell, float>();
         foreach (var c in border) {
-            fixedPrices[c] = WorldGenerator.CellPrice(c);
+            fixedPrices[c] = CellPrice(c);
         }
         return border.MinBy((a, b) => fixedPrices[a] < fixedPrices[b]);
     }
@@ -119,7 +112,7 @@ public class WorldGenerator : Singletone<WorldGenerator>
         var cellOrder = Algorithm.PrimDynamic(
             start: start,
             edges: c => c.Neighbours().Where(c => c.Wall)
-                .Select(c => new Weighted<Cell>(c, WorldGenerator.CellPrice(c, reroll: true))),
+                .Select(c => new Weighted<Cell>(c, CellPrice(c, reroll: true))),
             maxSteps: 100000
         ).Take(biome.Size);
 
@@ -187,12 +180,12 @@ public class WorldGenerator : Singletone<WorldGenerator>
             sister.sister = sister;
         }
 
-        var forestBorder = BorderCells(cellOrderList.Where(cell => cell.biome == Library.instance.darkrootForest))
-            .Where(cell => cell.Wall);
-        foreach (var cell in forestBorder) {
-            AddFloorCell(cell);
-            Game.GenerateFigure(cell, Library.instance.tree);
-        }
+        //var forestBorder = BorderCells(cellOrderList.Where(cell => cell.biome == Library.instance.darkrootForest))
+        //    .Where(cell => cell.Wall);
+        //foreach (var cell in forestBorder) {
+        //    AddFloorCell(cell);
+        //    Game.GenerateFigure(cell, Library.instance.tree);
+        //}
 
         for (int i = 0; i < storeCount; i++) {
             GenerateStore();

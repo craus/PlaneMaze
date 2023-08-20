@@ -129,6 +129,9 @@ public static class Algorithm
 
 			visited.Add(current.to);
 			Debug.LogFormat($"Visit: {current.to}");
+			if (current.weight > 1) {
+				Debug.LogFormat($"High price: {current.weight}");
+			}
 			yield return current.to;
 			edges(current.to).ForEach(c => {
 				candidates.Add(c);
