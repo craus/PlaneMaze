@@ -148,7 +148,7 @@ public class WorldGenerator : Singletone<WorldGenerator>
         CameraControl.instance.followPoint = false;
 
         Debug.LogFormat($"Cells: {i}");
-        Debug.LogFormat($"Taken Cells Max Price: {cellOrderList.Max(c => WorldGenerator.CellPrice(c))}");
+        Debug.LogFormat($"Taken Cells Max Price: {cellOrderList.Max(c => CellPrice(c))}");
     }
 
     public async Task GenerateWorld() {
@@ -213,6 +213,15 @@ public class WorldGenerator : Singletone<WorldGenerator>
         cellOrderList.Add(c);
         c.order = cellOrderList.Count - 1;
         c.fieldCell.wall = false;
+        c.gameObject.SetActive(true);
+        c.Neighbours8().ForEach(c2 => {
+            if (c2.fieldCell.wall) {
+                c2.biome = c.biome;
+                c2.UpdateBiome();
+                c2.UpdateCell();
+                c2.gameObject.SetActive(true);
+            }
+        });
         c.UpdateCell();
     }
 
@@ -249,7 +258,6 @@ public class WorldGenerator : Singletone<WorldGenerator>
         return Game.GenerateFigure(board.GetCell(new Vector2Int(x, y)), sample);
     }
 
-
     private void Sell(Cell location, MonoBehaviour sample, int price = -1) {
         var item = Game.GenerateFigure(location, sample);
         if (price == -1) {
@@ -264,7 +272,6 @@ public class WorldGenerator : Singletone<WorldGenerator>
     private void GenerateStore() {
         var newStore = Instantiate(Game.instance.boardSample, transform);
         newStore.currentBiome = Library.instance.dungeon;
-        newStore.silentMode = true;
         newStore.GetCell(Vector2Int.zero).Vicinity(storeRadius + 1).ForEach(cell => cell.gameObject.SetActive(true));
         newStore.GetCell(Vector2Int.zero).Vicinity(storeRadius).ForEach(cell => {
             cell.fieldCell.wall = false;

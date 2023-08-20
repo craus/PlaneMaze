@@ -36,9 +36,7 @@ public class Board : MonoBehaviour
     private Cell GenerateCell(int x, int y) {
         var cell = Instantiate(cellSample);
         cells.Add(cell);
-        if (silentMode) {
-            cell.gameObject.SetActive(false);
-        }
+        cell.gameObject.SetActive(false);
         cell.position = new Vector2Int(x, y);
         Debug.LogFormat($"Generate cell ({x}, {y})");
         cell.biome = currentBiome;

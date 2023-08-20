@@ -83,8 +83,6 @@ public class Game : MonoBehaviour
         //await GenerateTestWorld();
         await WorldGenerator.instance.GenerateWorld();
 
-        mainWorld.silentMode = true;
-
         mainWorld.movables.ToList().ForEach(m => {
             m.OnGameStart();
         });
@@ -98,9 +96,6 @@ public class Game : MonoBehaviour
             canConfirmByAnyButton: true
         );
     }
-
-
-
 
     public async Task AskForNextRun() {
         if (await ConfirmationManager.instance.AskConfirmation("Do you want to start another run? If you start, abandon run will be counted as a loss!")) {
