@@ -235,74 +235,6 @@ public class Game : MonoBehaviour
         Sell(newStore[2, -2], itemSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
     }
 
-    private void SecondStep(Cell cell) {
-        return;
-        if (!cell.Free || cell.Neighbours8().Any(c => !c.Free)) {
-            return;
-        }
-        if (Rand.rndEvent(0.05f)) {
-            GenerateFigure(cell, storeSamples.rnd());
-        }
-    }
-
-    private Dictionary<Cell, float> cellPrices = new Dictionary<Cell, float>();
-
-    private Vector2 Rotate(Vector2 v, float angle) {
-        return new Vector2(
-            v.x * Mathf.Cos(angle) - v.y * Mathf.Sin(angle),
-            v.x * Mathf.Sin(angle) + v.y * Mathf.Cos(angle)
-        );
-    }
-
-    private float CalculateCellPriceGrid(Vector2Int cell) {
-        Vector2 cv = cell;
-
-        return Rand.Range(0, 1f) + 0.5f * Mathf.Min(Mathf.Sin(cv.x / 4f), Mathf.Sin(cv.y / 4f));
-    }
-
-    private float CalculateCellPriceSpiralGrid(Vector2Int cell) {
-        Vector2 cv = cell;
-
-        cv = Rotate(cv, cv.magnitude / 10f);
-
-        return Rand.Range(0, 1f) + 0.5f * Mathf.Min(Mathf.Sin(cv.x / 4f), Mathf.Sin(cv.y / 4f));
-    }
-
-    //public Color GetCellColor(Vector2Int cell) {
-    //    var image = GameManager.instance.mazeSample;
-    //    var pixel = image.GetPixel(
-    //        (image.width / 2 + cell.x * 4) % image.width,
-    //        (image.height / 2 + cell.y * 4) % image.height
-    //    );
-    //    return pixel.withAlpha(1);
-    //}
-
-    //public bool CellInsideImage(Vector2Int cell) {
-    //    var image = GameManager.instance.mazeSample;
-    //    var x = image.width / 2 + cell.x * 4;
-    //    var y = image.height / 2 + cell.y * 4;
-    //    return 0 <= x && x < image.width && 0 <= y && y < image.height;
-    //}
-
-
-    //private float CalculateCellPriceImage(Vector2Int cell) {
-    //    return Rand.Range(0, 1f) + 5f * GetCellColor(cell).grayscale + (CellInsideImage(cell) ? 0 : 10);
-    //}
-
-    private float CalculateCellPriceRandom(Cell cell) {
-        return Rand.Range(0, 1f);
-    }
-
-    private float CalculateCellPriceSinTime(Vector2Int cell) {
-        return Rand.Range(0, 1f) + Mathf.Sin(Time.time);
-    }
-
-    public float CellPrice(Cell cell, bool reroll = false) {
-        if (!cellPrices.ContainsKey(cell) || reroll) {
-            cellPrices[cell] = CalculateCellPriceRandom(cell);
-        }
-        return cellPrices[cell] + (WorldGenerator.Bad(cell) ? 1 : 0);
-    }
 
     public float speed = 1;
     public Task commandToContinue;
@@ -368,7 +300,7 @@ public class Game : MonoBehaviour
         UnityEngine.Debug.LogFormat($"border: {border.ExtToString()}");
         Map<Cell, float> fixedPrices = new Map<Cell, float>();
         foreach (var c in border) {
-            fixedPrices[c] = CellPrice(c);
+            fixedPrices[c] = WorldGenerator.CellPrice(c);
         }
         return border.MinBy((a,b) => fixedPrices[a] < fixedPrices[b]);
     }
@@ -386,7 +318,7 @@ public class Game : MonoBehaviour
         var cellOrder = Algorithm.PrimDynamic(
             start: start,
             edges: c => c.Neighbours().Where(c => c.Wall)
-                .Select(c => new Weighted<Cell>(c, CellPrice(c, reroll: true))),
+                .Select(c => new Weighted<Cell>(c, WorldGenerator.CellPrice(c, reroll: true))),
             maxSteps: 100000
         ).Take(biome.Size);
 
@@ -422,7 +354,7 @@ public class Game : MonoBehaviour
         CameraControl.instance.followPoint = false;
 
         UnityEngine.Debug.LogFormat($"Cells: {i}");
-        UnityEngine.Debug.LogFormat($"Taken Cells Max Price: {cellOrderList.Max(c => CellPrice(c))}");
+        UnityEngine.Debug.LogFormat($"Taken Cells Max Price: {cellOrderList.Max(c => WorldGenerator.CellPrice(c))}");
     }
 
     private void AddFloorCell(Cell c) {

@@ -82,7 +82,7 @@ public class Cell : MonoBehaviour
         }
         if (priceText != null) {
             priceText.gameObject.SetActive(!Wall);
-            priceText.text = Game.instance.CellPrice(position).ToString("0.000");
+            priceText.text = WorldGenerator.CellPrice(this).ToString("0.000");
         }
     }
 
