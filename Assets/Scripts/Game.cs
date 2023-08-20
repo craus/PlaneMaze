@@ -130,6 +130,8 @@ public class Game : MonoBehaviour
         var start = cellOrderList.First(cell => cell.biome == Library.instance.dungeon && cell.orderInBiome == 0);
         player = GenerateFigure(start, playerSample);
 
+        foreach (var cell in cellOrderList) PopulateCell(cell);
+
         if (bossBiome == Library.instance.darkrootForest) {
             var witch = GenerateFigure(
                 cellOrderList.Where(cell => cell.biome == Library.instance.darkrootForest && cell.figures.Count() == 0).Rnd(),
@@ -144,7 +146,11 @@ public class Game : MonoBehaviour
             sister.sister = sister;
         }
 
-        foreach (var cell in cellOrderList) PopulateCell(cell);
+        var forestBorder = BorderCells(cellOrderList.Where(cell => cell.biome == Library.instance.darkrootForest)).Where(cell => cell.Wall);
+        foreach (var cell in forestBorder) {
+            AddFloorCell(cell);
+            GenerateFigure(cell, Library.instance.tree);
+        }
 
         for (int i = 0; i < storeCount; i++) {
             GenerateStore();
@@ -360,17 +366,20 @@ public class Game : MonoBehaviour
 
     public List<Cell> border;
     private IEnumerable<Cell> BorderCells(IEnumerable<Cell> cells) {
+        HashSet<Cell> inside = new HashSet<Cell>(cells);
+        Func<Cell, bool> outer = c => !inside.Contains(c);
+
         var start = cells.MinBy(c => c.position.x).Shift(Vector2Int.left);
         var current = start;
         var direction = Vector2Int.up;
         var result = new HashSet<Cell>();
         for (int i = 0; i < 1000000; i++) {
-            if (current.Shift(direction).Wall && current.Shift(direction + direction.RotateRight()).Wall) {
+            if (outer(current.Shift(direction)) && outer(current.Shift(direction + direction.RotateRight()))) {
                 current = current.Shift(direction + direction.RotateRight());
                 direction = direction.RotateRight();
                 result.Add(current);
                 border.Add(current);
-            } else if (current.Shift(direction).Wall) {
+            } else if (outer(current.Shift(direction))) {
                 current = current.Shift(direction);
                 result.Add(current);
                 border.Add(current);
@@ -536,11 +545,6 @@ public class Game : MonoBehaviour
             return;
         } else if (cell.biome == Library.instance.crypt && cell.orderInBiome == Library.instance.crypt.Size-1 && bossBiome == Library.instance.crypt) {
             GenerateFigure(cell, lichSample);
-            return;
-        }
-
-        if (cell.biome == Library.instance.darkrootForest && cell.orderInBiome > Library.instance.darkrootForest.Size * 0.83f) {
-            GenerateFigure(cell, Library.instance.tree);
             return;
         }
 
