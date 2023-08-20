@@ -180,12 +180,12 @@ public class WorldGenerator : Singletone<WorldGenerator>
             sister.sister = sister;
         }
 
-        //var forestBorder = BorderCells(cellOrderList.Where(cell => cell.biome == Library.instance.darkrootForest))
-        //    .Where(cell => cell.Wall);
-        //foreach (var cell in forestBorder) {
-        //    AddFloorCell(cell);
-        //    Game.GenerateFigure(cell, Library.instance.tree);
-        //}
+        var forestBorder = BorderCells(cellOrderList.Where(cell => cell.biome == Library.instance.darkrootForest))
+            .Where(cell => cell.Wall);
+        foreach (var cell in forestBorder) {
+            AddFloorCell(cell);
+            Game.GenerateFigure(cell, Library.instance.tree);
+        }
 
         for (int i = 0; i < storeCount; i++) {
             GenerateStore();
