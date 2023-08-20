@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class WorldGenerator : Singletone<WorldGenerator>
 {
@@ -36,16 +34,9 @@ public class WorldGenerator : Singletone<WorldGenerator>
         yield return cell.Shift(-1, 1);
     }
 
-    public static IEnumerable<Cell> Forbidden(Cell cell) {
-        yield break;
-        yield return cell.Shift(5, 0);
-        yield return cell.Shift(-5, 0);
-        yield return cell.Shift(0, 5);
-        yield return cell.Shift(0, -5);
-    }
     public static IEnumerable<Cell> AntiEdgesSquare(Cell cell) => cell.Neighbours().Where(MakesSquare).Union(Diagonals(cell).Where(MakesSquare));
 
-    public static bool Bad(Cell c) => !MakesCross(c) && !Forbidden(c).Any(f => f.Ordered);
+    public static bool Bad(Cell c) => !MakesCross(c);
 
     private static Dictionary<Cell, float> cellPrices = new Dictionary<Cell, float>();
 
@@ -56,54 +47,15 @@ public class WorldGenerator : Singletone<WorldGenerator>
         );
     }
 
-    private static float CalculateCellPriceGrid(Vector2Int cell) {
-        Vector2 cv = cell;
-
-        return Rand.Range(0, 1f) + 0.5f * Mathf.Min(Mathf.Sin(cv.x / 4f), Mathf.Sin(cv.y / 4f));
-    }
-
-    private static float CalculateCellPriceSpiralGrid(Vector2Int cell) {
-        Vector2 cv = cell;
-
-        cv = Rotate(cv, cv.magnitude / 10f);
-
-        return Rand.Range(0, 1f) + 0.5f * Mathf.Min(Mathf.Sin(cv.x / 4f), Mathf.Sin(cv.y / 4f));
-    }
-
-    //public Color GetCellColor(Vector2Int cell) {
-    //    var image = GameManager.instance.mazeSample;
-    //    var pixel = image.GetPixel(
-    //        (image.width / 2 + cell.x * 4) % image.width,
-    //        (image.height / 2 + cell.y * 4) % image.height
-    //    );
-    //    return pixel.withAlpha(1);
-    //}
-
-    //public bool CellInsideImage(Vector2Int cell) {
-    //    var image = GameManager.instance.mazeSample;
-    //    var x = image.width / 2 + cell.x * 4;
-    //    var y = image.height / 2 + cell.y * 4;
-    //    return 0 <= x && x < image.width && 0 <= y && y < image.height;
-    //}
-
-
-    //private float CalculateCellPriceImage(Vector2Int cell) {
-    //    return Rand.Range(0, 1f) + 5f * GetCellColor(cell).grayscale + (CellInsideImage(cell) ? 0 : 10);
-    //}
-
     private static float CalculateCellPriceRandom(Cell cell) {
         return Rand.Range(0, 1f);
-    }
-
-    private static float CalculateCellPriceSinTime(Vector2Int cell) {
-        return Rand.Range(0, 1f) + Mathf.Sin(Time.time);
     }
 
     public static float CellPrice(Cell cell, bool reroll = false) {
         if (!cellPrices.ContainsKey(cell) || reroll) {
             cellPrices[cell] = CalculateCellPriceRandom(cell);
         }
-        return cellPrices[cell] + (WorldGenerator.Bad(cell) ? 1 : 0);
+        return cellPrices[cell] + (Bad(cell) ? 1 : 0);
     }
 
     private static IEnumerable<Cell> BorderCells(IEnumerable<Cell> cells) {
@@ -129,13 +81,13 @@ public class WorldGenerator : Singletone<WorldGenerator>
                 return result;
             }
         }
-        UnityEngine.Debug.LogError("Too many iterations for border!");
+        Debug.LogError("Too many iterations for border!");
         return result;
     }
 
     private static Cell CheapestBorderCell(IEnumerable<Cell> cells) {
         var border = BorderCells(cells);
-        UnityEngine.Debug.LogFormat($"border: {border.ExtToString()}");
+        Debug.LogFormat($"border: {border.ExtToString()}");
         Map<Cell, float> fixedPrices = new Map<Cell, float>();
         foreach (var c in border) {
             fixedPrices[c] = WorldGenerator.CellPrice(c);
@@ -152,8 +104,6 @@ public class WorldGenerator : Singletone<WorldGenerator>
         } else {
             await Task.Delay((int)(1000 / speed));
         }
-        //commandToContinue = new Task(() => { });
-        //await commandToContinue;
     }
 
     private async Task GenerateBiome(Biome biome, bool pauses = false) {
@@ -204,8 +154,8 @@ public class WorldGenerator : Singletone<WorldGenerator>
 
         CameraControl.instance.followPoint = false;
 
-        UnityEngine.Debug.LogFormat($"Cells: {i}");
-        UnityEngine.Debug.LogFormat($"Taken Cells Max Price: {cellOrderList.Max(c => WorldGenerator.CellPrice(c))}");
+        Debug.LogFormat($"Cells: {i}");
+        Debug.LogFormat($"Taken Cells Max Price: {cellOrderList.Max(c => WorldGenerator.CellPrice(c))}");
     }
 
     public async Task GenerateWorld() {
@@ -237,7 +187,8 @@ public class WorldGenerator : Singletone<WorldGenerator>
             sister.sister = sister;
         }
 
-        var forestBorder = BorderCells(cellOrderList.Where(cell => cell.biome == Library.instance.darkrootForest)).Where(cell => cell.Wall);
+        var forestBorder = BorderCells(cellOrderList.Where(cell => cell.biome == Library.instance.darkrootForest))
+            .Where(cell => cell.Wall);
         foreach (var cell in forestBorder) {
             AddFloorCell(cell);
             Game.GenerateFigure(cell, Library.instance.tree);
