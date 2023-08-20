@@ -1735,6 +1735,7 @@ GameObject:
   - component: {fileID: 2069624272807861709}
   - component: {fileID: 2069624272807861708}
   - component: {fileID: 6957792755753911196}
+  - component: {fileID: 803078970002799977}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -1775,8 +1776,6 @@ MonoBehaviour:
   playerSample: {fileID: 2542263783767913581, guid: 370aeef2518095a448365046aa1e4453, type: 3}
   player: {fileID: 0}
   gameEvents: {fileID: 3746461997576402953}
-  storeCount: 4
-  storeRadius: 6
   weaponSamples:
   - {fileID: 8761000423821239552, guid: 0a90607df9e38f946b1b280e25a3780b, type: 3}
   - {fileID: 7529681463015247451, guid: af329877cfe40054aa444337a7d77b81, type: 3}
@@ -1820,8 +1819,6 @@ MonoBehaviour:
   ghostSample: {fileID: 5504667808349519680, guid: 26b7e0628829b604684f5107a4a9a1ff, type: 3}
   lichSample: {fileID: 8536777542681899615, guid: ece9098977d4b71458ae84b7d52f91f9, type: 3}
   gemSample: {fileID: 8666047310042790666, guid: c7a1fda42fc141744b8226f2fb08ee9a, type: 3}
-  cellOrderList: []
-  bossBiome: {fileID: 0}
   unlockedCells: 1000000000
   time: 0
   moveNumber: 0
@@ -1833,8 +1830,6 @@ MonoBehaviour:
   completedTurns:
     keys: 
   gameOver: 0
-  speed: 1
-  border: []
   generatedFigures:
     keys: []
 --- !u!114 &6957792755753911196
@@ -1851,6 +1846,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cursedSignCount: 0
   game: {fileID: 0}
+--- !u!114 &803078970002799977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069624272807861715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edd71a0c3bbd4804488cbb1be261283e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storeCount: 4
+  storeRadius: 5
+  cellOrderList: []
+  bossBiome: {fileID: 0}
+  biomesOrder: []
+  speed: 1
 --- !u!1 &2461602445928022540
 GameObject:
   m_ObjectHideFlags: 0

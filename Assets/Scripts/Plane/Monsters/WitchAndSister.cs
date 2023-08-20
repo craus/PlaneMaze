@@ -70,7 +70,7 @@ public class WitchAndSister : Monster, IInvisibilitySource
 
     private async Task<Illusion> CreateIllusion(Cell destination) {
         SoundManager.instance.summonCreature.Play();
-        var result = Game.instance.GenerateFigure(destination, illusionSample);
+        var result = Game.GenerateFigure(destination, illusionSample);
         result.GetComponent<Health>().max = this.GetComponent<Health>().max;
         result.GetComponent<Health>().current = this.GetComponent<Health>().current;
         result.GetComponent<Health>().UpdateHearts();
@@ -201,7 +201,7 @@ public class WitchAndSister : Monster, IInvisibilitySource
                     !oldLocation.Vicinity(CursedSignMinDistance-1).Any(cell => cell.GetFigure<CursedSign>())
                 ) {
                     Debug.LogFormat($"{this} creates cursed sign");
-                    Game.instance.GenerateFigure(oldLocation, cursedSignSample);
+                    Game.GenerateFigure(oldLocation, cursedSignSample);
                     Game.instance.GetComponent<CursedSignCounter>().cursedSignCount++;
                 }
             }

@@ -44,10 +44,10 @@ public class GameManager : Singletone<GameManager>
             MainUI.instance.RestartMetagameButton();
         }
         if (Input.GetKeyDown(KeyCode.PageUp)) {
-            Game.instance.speed *= 1.25f;
+            WorldGenerator.instance.speed *= 1.25f;
         }
         if (Input.GetKeyDown(KeyCode.PageDown)) {
-            Game.instance.speed /= 1.25f;
+            WorldGenerator.instance.speed /= 1.25f;
         }
 
         if (oldMousePosition != Input.mousePosition) {
@@ -88,7 +88,7 @@ public class GameManager : Singletone<GameManager>
         metagame.runInProgress = true;
         SaveMetagame();
         Inventory.instance = game.GetComponentInChildren<Inventory>();
-        game.speed = 100;
+        WorldGenerator.instance.speed = 100;
     }
 
     public void DestroyMetagame()

@@ -29,7 +29,7 @@ public class UI : MonoBehaviour
         if (Game.instance.player) {
             gemsCounter.text = Game.instance.player.gems.ToString();
         }
-        areaCounter.text = Game.instance.cellOrderList.Count.ToString();
+        areaCounter.text = WorldGenerator.instance.cellOrderList.Count.ToString();
         timeCounter.text = (Game.instance.startTime - DateTime.Now).ToString(@"h\:mm\:ss");
         if (Player.instance != null) {
             commandQueueCounter.text = Player.instance.commands.Count.ToString();

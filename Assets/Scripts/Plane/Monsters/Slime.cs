@@ -83,7 +83,7 @@ public class Slime : Monster
             Rand.RndSelection(figure.Location.SmallestVicinity(v => v.Count(c => c.Free) >= childrenCount)
             .Where(c => c.Free), childrenCount)
         ) {
-            var child = Game.instance.GenerateFigure(p, childSample);
+            var child = Game.GenerateFigure(p, childSample);
             child.size = size - 1;
             await child.GetComponent<MovesReserve>().Freeze(1);
             child.Init();

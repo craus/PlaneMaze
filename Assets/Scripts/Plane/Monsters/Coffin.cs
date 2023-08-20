@@ -19,7 +19,7 @@ public class Coffin : Monster
         if (childSample.gameObject == Library.instance.gem.gameObject) {
             Game.instance.AddGem(p, 1);
         } else {
-            var child = Game.instance.GenerateFigure(p, childSample);
+            var child = Game.GenerateFigure(p, childSample);
             if (child.GetComponent<MovesReserve>() != null) {
                 await child.GetComponent<MovesReserve>().Freeze(1);
             }
