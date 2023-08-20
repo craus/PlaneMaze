@@ -31,6 +31,10 @@ public class CameraControl : Singletone<CameraControl>
         if (Cheats.on) {
             if (Input.GetMouseButtonDown(1)) {
                 dragPoint = WorldMousePoint;
+                followPlayer = false;
+            }
+            if (Input.GetKeyDown(KeyCode.Home)) {
+                followPlayer = true;
             }
             if (Input.GetMouseButton(1)) {
                 RestoreCameraPosition(dragPoint);

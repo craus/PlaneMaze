@@ -37,6 +37,7 @@ public class Game : MonoBehaviour
 
     public List<Cell> cellOrderList;
     public Biome bossBiome;
+    public List<Biome> biomesOrder;
 
     public int unlockedCells = (int)1e9;
 
@@ -120,9 +121,9 @@ public class Game : MonoBehaviour
         cellOrderList = new List<Cell>();
         bossBiome = Library.instance.bossBiomes.Rnd();
 
-        var shuffled = Library.instance.biomes.Shuffled();
+        biomesOrder = Library.instance.biomes.Shuffled();
 
-        foreach (var biome in shuffled) {
+        foreach (var biome in biomesOrder) {
             await GenerateBiome(biome);
         }
 
@@ -290,8 +291,8 @@ public class Game : MonoBehaviour
         return Rand.Range(0, 1f) + Mathf.Sin(Time.time);
     }
 
-    public float CellPrice(Vector2Int cell) {
-        if (!cellPrices.ContainsKey(cell) || true) {
+    public float CellPrice(Vector2Int cell, bool reroll = false) {
+        if (!cellPrices.ContainsKey(cell) || reroll) {
             cellPrices[cell] = CalculateCellPriceRandom(cell);
         }
         return cellPrices[cell];
@@ -416,7 +417,7 @@ public class Game : MonoBehaviour
                 }
                 return result;
             })
-                .Select(c => new Weighted<Cell>(c, CellPrice(c.position))),
+                .Select(c => new Weighted<Cell>(c, CellPrice(c.position, reroll: true))),
             antiEdges: c => Diagonals(c).Where(MakesCross).Union(Forbidden(c)),
             maxSteps: 100000
         ).Take(biome.Size);
