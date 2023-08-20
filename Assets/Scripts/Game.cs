@@ -245,7 +245,7 @@ public class Game : MonoBehaviour
         }
     }
 
-    private Dictionary<Vector2Int, float> cellPrices = new Dictionary<Vector2Int, float>();
+    private Dictionary<Cell, float> cellPrices = new Dictionary<Cell, float>();
 
     private Vector2 Rotate(Vector2 v, float angle) {
         return new Vector2(
@@ -289,7 +289,7 @@ public class Game : MonoBehaviour
     //    return Rand.Range(0, 1f) + 5f * GetCellColor(cell).grayscale + (CellInsideImage(cell) ? 0 : 10);
     //}
 
-    private float CalculateCellPriceRandom(Vector2Int cell) {
+    private float CalculateCellPriceRandom(Cell cell) {
         return Rand.Range(0, 1f);
     }
 
@@ -297,11 +297,11 @@ public class Game : MonoBehaviour
         return Rand.Range(0, 1f) + Mathf.Sin(Time.time);
     }
 
-    public float CellPrice(Vector2Int cell, bool reroll = false) {
+    public float CellPrice(Cell cell, bool reroll = false) {
         if (!cellPrices.ContainsKey(cell) || reroll) {
             cellPrices[cell] = CalculateCellPriceRandom(cell);
         }
-        return cellPrices[cell];
+        return cellPrices[cell] + (WorldGenerator.Bad(cell) ? 1 : 0);
     }
 
     public float speed = 1;
@@ -328,41 +328,10 @@ public class Game : MonoBehaviour
         }
     }
 
-    private bool MakesCross(Cell cell, Vector2Int direction) => 
-        cell.Shift(direction + direction.RotateRight()).Ordered && 
-        !cell.Shift(direction).Ordered && 
-        !cell.Shift(direction.RotateRight()).Ordered;
-    
-    private bool MakesCross(Cell cell) => 
-        MakesCross(cell, Vector2Int.up) ||
-        MakesCross(cell, Vector2Int.right) || 
-        MakesCross(cell, Vector2Int.down) ||
-        MakesCross(cell, Vector2Int.left);
-
-    private bool MakesSquare(Cell cell, Vector2Int direction) => cell.Shift(direction + direction.RotateRight()).Ordered && cell.Shift(direction).Ordered && cell.Shift(direction.RotateRight()).Ordered;
-    private bool MakesSquare(Cell cell) => MakesSquare(cell, Vector2Int.up) || MakesSquare(cell, Vector2Int.right) || MakesSquare(cell, Vector2Int.down) || MakesSquare(cell, Vector2Int.left);
-
-
-    public IEnumerable<Cell> Diagonals(Cell cell) {
-        yield return cell.Shift(1, 1);
-        yield return cell.Shift(1, -1);
-        yield return cell.Shift(-1, -1);
-        yield return cell.Shift(-1, 1);
-    }
-
-    public IEnumerable<Cell> Forbidden(Cell cell) {
-        yield break;
-        yield return cell.Shift(5, 0);
-        yield return cell.Shift(-5, 0);
-        yield return cell.Shift(0, 5);
-        yield return cell.Shift(0, -5);
-    }
 
     public static void Debug(string message) {
         UnityEngine.Debug.LogFormat($"[{instance.time}] [{instance.moveNumber}] {message}");
     }
-
-    public IEnumerable<Cell> AntiEdgesSquare(Cell cell) => cell.Neighbours().Where(MakesSquare).Union(Diagonals(cell).Where(MakesSquare));
 
     public List<Cell> border;
     private IEnumerable<Cell> BorderCells(IEnumerable<Cell> cells) {
@@ -399,7 +368,7 @@ public class Game : MonoBehaviour
         UnityEngine.Debug.LogFormat($"border: {border.ExtToString()}");
         Map<Cell, float> fixedPrices = new Map<Cell, float>();
         foreach (var c in border) {
-            fixedPrices[c] = CellPrice(c.position);
+            fixedPrices[c] = CellPrice(c);
         }
         return border.MinBy((a,b) => fixedPrices[a] < fixedPrices[b]);
     }
@@ -416,18 +385,8 @@ public class Game : MonoBehaviour
 
         var cellOrder = Algorithm.PrimDynamic(
             start: start,
-            edges: c => c.Neighbours().Where(c => {
-                var result = c.Wall && !MakesCross(c) && !Forbidden(c).Any(f => f.Ordered);
-                if (result == false) {
-                    Debug("Cannot use edge");
-                    if (c.Wall == false) Debug($"Wall == false ({c})");
-                    if (!MakesCross(c) == false) Debug($"!MakesCross(c) ({c})");
-                    if (!Forbidden(c).Any(f => f.Ordered) == false) Debug($"!Forbidden(c).Any(f => f.Ordered) ({c})");
-                }
-                return result;
-            })
-                .Select(c => new Weighted<Cell>(c, CellPrice(c.position, reroll: true))),
-            antiEdges: c => Diagonals(c).Where(MakesCross).Union(Forbidden(c)),
+            edges: c => c.Neighbours().Where(c => c.Wall)
+                .Select(c => new Weighted<Cell>(c, CellPrice(c, reroll: true))),
             maxSteps: 100000
         ).Take(biome.Size);
 
@@ -463,7 +422,7 @@ public class Game : MonoBehaviour
         CameraControl.instance.followPoint = false;
 
         UnityEngine.Debug.LogFormat($"Cells: {i}");
-        UnityEngine.Debug.LogFormat($"Taken Cells Max Price: {cellOrderList.Max(c => CellPrice(c.position))}");
+        UnityEngine.Debug.LogFormat($"Taken Cells Max Price: {cellOrderList.Max(c => CellPrice(c))}");
     }
 
     private void AddFloorCell(Cell c) {

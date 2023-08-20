@@ -89,13 +89,14 @@ public static class Algorithm
 	public static IEnumerable<Vertex> PrimDynamic<Vertex>(
 		Vertex start,
 		Func<Vertex, IEnumerable<Weighted<Vertex>>> edges,
-		Func<Vertex, IEnumerable<Vertex>> antiEdges,
+		Func<Vertex, IEnumerable<Vertex>> antiEdges = null,
 		Func<Vertex, bool> terminalVertex = null,
 		int maxSteps = (int)1e9,
 		Action<Vertex> visit = null
 	) {
 		terminalVertex ??= v => false;
 		visit ??= v => { };
+		antiEdges ??= v => CollectionExtensions.Empty<Vertex>();
 
 		SortedSet<Weighted<Vertex>> candidates = new SortedSet<Weighted<Vertex>>();
 		Map<Vertex, List<Weighted<Vertex>>> vertexCandidates = new Map<Vertex, List<Weighted<Vertex>>>(() => new List<Weighted<Vertex>>());
