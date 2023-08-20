@@ -938,6 +938,7 @@ GameObject:
   - component: {fileID: 1649147265}
   - component: {fileID: 1649147266}
   - component: {fileID: 6061300121520356807}
+  - component: {fileID: 6248685127533674023}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -1006,6 +1007,29 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6248685127533674023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649147264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0.518
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!1 &1985205051
 GameObject:
   m_ObjectHideFlags: 0
@@ -1748,7 +1772,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f593587dd2421f246bea9652578e4734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ascentions: []
   playerSample: {fileID: 2542263783767913581, guid: 370aeef2518095a448365046aa1e4453, type: 3}
   player: {fileID: 0}
   gameEvents: {fileID: 3746461997576402953}
@@ -1798,6 +1821,7 @@ MonoBehaviour:
   lichSample: {fileID: 8536777542681899615, guid: ece9098977d4b71458ae84b7d52f91f9, type: 3}
   gemSample: {fileID: 8666047310042790666, guid: c7a1fda42fc141744b8226f2fb08ee9a, type: 3}
   cellOrderList: []
+  bossBiome: {fileID: 0}
   unlockedCells: 1000000000
   time: 0
   moveNumber: 0

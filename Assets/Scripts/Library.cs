@@ -13,6 +13,7 @@ public class Library : Singletone<Library>
     public Gem gem;
 
     public List<Biome> biomes;
+    public List<Biome> bossBiomes;
 
     public List<Figure> figures;
 

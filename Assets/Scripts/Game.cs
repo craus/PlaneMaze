@@ -36,6 +36,8 @@ public class Game : MonoBehaviour
     public Gem gemSample;
 
     public List<Cell> cellOrderList;
+    public Biome bossBiome;
+
     public int unlockedCells = (int)1e9;
 
     public int time = 0;
@@ -83,7 +85,6 @@ public class Game : MonoBehaviour
         mainWorld.currentBiome = Library.instance.dungeon;
         UnityEngine.Debug.LogFormat("New game started");
 
-        player = GenerateFigure(mainWorld.GetCell(Vector2Int.zero), playerSample);
 
         speed = 10000;
 
@@ -110,14 +111,39 @@ public class Game : MonoBehaviour
         AddFloorCell(mainWorld.GetCell(Vector2Int.zero));
         AddFloorCell(mainWorld.GetCell(new Vector2Int(0, 1)));
         AddFloorCell(mainWorld.GetCell(new Vector2Int(0, 2)));
+        player = GenerateFigure(playerSample, 0, 0);
         GenerateFigure(Library.Get<BackArmor>(), 0, 1);
         GenerateFigure(Library.Get<Harpy>(), 0, 2);
     }
 
     private async Task GenerateWorld() {
         cellOrderList = new List<Cell>();
-        await GenerateBiome(Library.instance.dungeon, pauses: false);
-        await GenerateBiome(Library.instance.darkrootForest, pauses: false);
+        bossBiome = Library.instance.bossBiomes.Rnd();
+
+        var shuffled = Library.instance.biomes.Shuffled();
+
+        foreach (var biome in shuffled) {
+            await GenerateBiome(biome);
+        }
+
+        var start = cellOrderList.First(cell => cell.biome == Library.instance.dungeon && cell.orderInBiome == 0);
+        player = GenerateFigure(start, playerSample);
+
+        if (bossBiome == Library.instance.darkrootForest) {
+            var witch = GenerateFigure(
+                cellOrderList.Where(cell => cell.biome == Library.instance.darkrootForest && cell.figures.Count() == 0).Rnd(),
+                Library.instance.darkrootForest.GetComponent<DarkrootForest>().witch);
+            var sister = GenerateFigure(
+                cellOrderList.Where(cell => cell.biome == Library.instance.darkrootForest && cell.figures.Count() == 0).Rnd(),
+                Library.instance.darkrootForest.GetComponent<DarkrootForest>().sister);
+
+            witch.witch = witch;
+            witch.sister = sister;
+            sister.witch = witch;
+            sister.sister = sister;
+        }
+
+        foreach (var cell in cellOrderList) PopulateCell(cell);
 
         for (int i = 0; i < storeCount; i++) {
             GenerateStore();
@@ -369,6 +395,7 @@ public class Game : MonoBehaviour
     }
 
     private async Task GenerateBiome(Biome biome, bool pauses = false) {
+        var boss = bossBiome == biome;
         mainWorld.currentBiome = biome;
 
         var start = mainWorld.GetCell(Vector2Int.zero);
@@ -406,11 +433,6 @@ public class Game : MonoBehaviour
 
             AddFloorCell(c);
 
-            if (biome.GetComponent<IAfterCellAdded>() != null) {
-                biome.GetComponent<IAfterCellAdded>().AfterCellAdded(c);
-            } else {
-                AfterCellAdded(c);
-            }
             CameraControl.instance.followPoint = true;
             CameraControl.instance.pointToFollow = c.transform.position;
 
@@ -426,15 +448,6 @@ public class Game : MonoBehaviour
             }
 
             ++i;
-        }
-
-        if (biome == Library.instance.darkrootForest) {
-            var witch = GenerateFigure(biomeCells.Where(cell => cell.figures.Count() == 0).Rnd(), biome.GetComponent<DarkrootForest>().witch);
-            var sister = GenerateFigure(biomeCells.Where(cell => cell.figures.Count() == 0).Rnd(), biome.GetComponent<DarkrootForest>().sister);
-            witch.witch = witch;
-            witch.sister = sister;
-            sister.witch = witch;
-            sister.sister = sister;
         }
 
         CameraControl.instance.followPoint = false;
@@ -512,17 +525,15 @@ public class Game : MonoBehaviour
         return f;
     }
 
-    public void AfterCellAdded(Cell cell) {
-        if (cell.order == 1 && !Metagame.HasAscention<NoStartingWeapon>()) {
+    public void PopulateCell(Cell cell) {
+        if (cell.orderInBiome == 1 && cell.biome == Library.instance.dungeon && !Metagame.HasAscention<NoStartingWeapon>()) {
             GenerateFigure(cell, weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().startingWeight));
             return;
-        } else if (cell.order == 0) {
-            return;
-        } else if (startingItemsSamples.Count() > 0) {
+        } else if (cell.biome == Library.instance.dungeon && startingItemsSamples.Count() > 0) {
             GenerateFigure(cell, startingItemsSamples.First());
             startingItemsSamples.RemoveAt(0);
             return;
-        } else if (cell.biome == Library.instance.crypt && cell.orderInBiome == Library.instance.crypt.Size-1) {
+        } else if (cell.biome == Library.instance.crypt && cell.orderInBiome == Library.instance.crypt.Size-1 && bossBiome == Library.instance.crypt) {
             GenerateFigure(cell, lichSample);
             return;
         }
@@ -534,7 +545,7 @@ public class Game : MonoBehaviour
 
         if (cell.biome == Library.instance.darkrootForest && Rand.rndEvent(0.1f)) {
             GenerateFigure(cell, Library.instance.tree);
-        } else if (cell.position.magnitude > 6 && Rand.rndEvent(Metagame.instance.MonsterProbability)) {
+        } else if ((player.figure.Location.position - cell.position).magnitude > 6 && Rand.rndEvent(Metagame.instance.MonsterProbability)) {
             GenerateFigure(cell, cell.biome.monsterSamples.weightedRnd());
         } else if (Rand.rndEvent(0.004f)) {
             GenerateFigure(cell, weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().fieldWeight));
