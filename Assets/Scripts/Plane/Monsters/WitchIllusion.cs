@@ -12,7 +12,7 @@ public class WitchIllusion : Illusion, IInvisibilitySource
         if (PlayerDelta.MaxDelta() <= 2) {
             await SmartWalkOrFakeMove(Helpers.StepAtDirection(-PlayerDelta));
         } else {
-            var selectedMove = Moves.Rnd();
+            var selectedMove = Helpers.Moves.Rnd();
             if (!await SmartWalkOrFakeMove(selectedMove)) {
                 await TryAttack(selectedMove);
             }

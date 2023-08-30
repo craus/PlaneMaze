@@ -26,7 +26,7 @@ public class Bat : Monster
         return false;
     }
 
-    protected override List<Vector2Int> Moves => new List<Vector2Int>() {
+    protected List<Vector2Int> Moves => new List<Vector2Int>() {
         new Vector2Int(1, 1),
         new Vector2Int(-1, 1),
         new Vector2Int(1, -1),

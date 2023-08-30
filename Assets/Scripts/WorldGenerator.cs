@@ -14,9 +14,9 @@ public class WorldGenerator : Singletone<WorldGenerator>
     public List<Biome> biomesOrder;
 
     private static bool MakesCross(Cell cell, Vector2Int direction) =>
-        cell.Shift(direction + direction.RotateRight()).Ordered &&
-        !cell.Shift(direction).Ordered &&
-        !cell.Shift(direction.RotateRight()).Ordered;
+        cell.Wall == cell.Shift(direction + direction.RotateRight()).Wall &&
+        cell.Wall != cell.Shift(direction).Wall &&
+        cell.Wall != cell.Shift(direction.RotateRight()).Wall;
 
     private static bool MakesCross(Cell cell) =>
         MakesCross(cell, Vector2Int.up) ||
@@ -24,8 +24,16 @@ public class WorldGenerator : Singletone<WorldGenerator>
         MakesCross(cell, Vector2Int.down) ||
         MakesCross(cell, Vector2Int.left);
 
-    private static bool MakesSquare(Cell cell, Vector2Int direction) => cell.Shift(direction + direction.RotateRight()).Ordered && cell.Shift(direction).Ordered && cell.Shift(direction.RotateRight()).Ordered;
-    private static bool MakesSquare(Cell cell) => MakesSquare(cell, Vector2Int.up) || MakesSquare(cell, Vector2Int.right) || MakesSquare(cell, Vector2Int.down) || MakesSquare(cell, Vector2Int.left);
+    private static bool MakesSquare(Cell cell, Vector2Int direction) => 
+        cell.Shift(direction + direction.RotateRight()).Wall && 
+        cell.Shift(direction).Wall && 
+        cell.Shift(direction.RotateRight()).Wall;
+
+    private static bool MakesSquare(Cell cell) => 
+        MakesSquare(cell, Vector2Int.up) || 
+        MakesSquare(cell, Vector2Int.right) || 
+        MakesSquare(cell, Vector2Int.down) || 
+        MakesSquare(cell, Vector2Int.left);
 
     public static IEnumerable<Cell> Diagonals(Cell cell) {
         yield return cell.Shift(1, 1);
@@ -112,7 +120,7 @@ public class WorldGenerator : Singletone<WorldGenerator>
         var cellOrder = Algorithm.PrimDynamic(
             start: start,
             edges: c => c.Neighbours().Where(c => c.Wall)
-                .Select(c => new Weighted<Cell>(c, CellPrice(c, reroll: true))),
+                .Select(c => new Weighted<Cell>(c, CellPrice(c, reroll: false))),
             maxSteps: 100000
         ).Take(biome.Size);
 
@@ -151,6 +159,51 @@ public class WorldGenerator : Singletone<WorldGenerator>
         Debug.LogFormat($"Taken Cells Max Price: {cellOrderList.Max(c => CellPrice(c))}");
     }
 
+    private bool MakeFloorCellIfCross(Cell from, Vector2Int direction) {
+        if (MakesCross(from, direction)) {
+            AddFloorCell(from.Shift(direction));
+            return true;
+        }
+        return false;
+    }
+
+    public bool RemoveCrossesIteration() {
+        Debug.LogFormat("RemoveCrossesIteration");
+        bool changed = false;
+        foreach (var cell in cellOrderList.ToList()) {
+            foreach (var move in Helpers.Moves) {
+                if (MakeFloorCellIfCross(cell, move)) {
+                    changed = true;
+                }
+            }
+        }
+        Debug.LogFormat(changed ? "Found some crosses" : "No crosses found");
+        return changed;
+    }
+
+    private void AddTreesNearForest() {
+        foreach (var cell in BorderCells(cellOrderList.Where(cell => cell.biome == Library.instance.darkrootForest))
+            .Where(cell => cell.Wall)
+        ) {
+            if (Rand.rndEvent(1f)) {
+                AddFloorCell(cell);
+                Game.GenerateFigure(cell, Library.instance.tree);
+            }
+        }
+    }
+
+    private void RemoveCrosses() {
+        for (int i = 0; i < 3; i++) {
+            if (!RemoveCrossesIteration()) return;
+        }
+        Debug.LogFormat("Not enough RemoveCrosses iterations");
+    }
+
+    private async Task Postprocess() {
+        AddTreesNearForest();
+        RemoveCrosses();
+    }
+
     public async Task GenerateWorld() {
         cellOrderList = new List<Cell>();
         bossBiome = Library.instance.bossBiomes.Rnd();
@@ -160,6 +213,8 @@ public class WorldGenerator : Singletone<WorldGenerator>
         foreach (var biome in biomesOrder) {
             await GenerateBiome(biome);
         }
+
+        await Postprocess();
 
         var start = cellOrderList.First(cell => cell.biome == Library.instance.dungeon && cell.orderInBiome == 0);
         Game.instance.player = Game.GenerateFigure(start, Game.instance.playerSample);
@@ -180,12 +235,6 @@ public class WorldGenerator : Singletone<WorldGenerator>
             sister.sister = sister;
         }
 
-        var forestBorder = BorderCells(cellOrderList.Where(cell => cell.biome == Library.instance.darkrootForest))
-            .Where(cell => cell.Wall);
-        foreach (var cell in forestBorder) {
-            AddFloorCell(cell);
-            Game.GenerateFigure(cell, Library.instance.tree);
-        }
 
         for (int i = 0; i < storeCount; i++) {
             GenerateStore();
@@ -210,6 +259,11 @@ public class WorldGenerator : Singletone<WorldGenerator>
     }
 
     public void AddFloorCell(Cell c) {
+        if (!c.Wall) {
+            Debug.LogFormat($"Attempt to make floor from floor: {c}");
+            return;
+        }
+        Debug.LogFormat($"Add floor cell {c}");
         cellOrderList.Add(c);
         c.order = cellOrderList.Count - 1;
         c.fieldCell.wall = false;
@@ -226,7 +280,9 @@ public class WorldGenerator : Singletone<WorldGenerator>
     }
 
     public void PopulateCell(Cell cell) {
-        if (cell.orderInBiome == 1 && cell.biome == Library.instance.dungeon && !Game.instance.Metagame.HasAscention<NoStartingWeapon>()) {
+        if (cell.GetFigure<Figure>() != null) {
+            return;
+        } else if (cell.orderInBiome == 1 && cell.biome == Library.instance.dungeon && !Game.instance.Metagame.HasAscention<NoStartingWeapon>()) {
             Game.GenerateFigure(cell, Game.instance.weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().startingWeight));
             return;
         } else if (cell.biome == Library.instance.dungeon && Game.instance.startingItemsSamples.Count() > 0) {
@@ -295,5 +351,11 @@ public class WorldGenerator : Singletone<WorldGenerator>
         Sell(newStore[-2, -2], Game.instance.itemSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
         Sell(newStore[0, -2], Game.instance.itemSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
         Sell(newStore[2, -2], Game.instance.itemSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
+    }
+
+    public void Update() {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            RemoveCrossesIteration();
+        }
     }
 }

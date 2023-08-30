@@ -14,7 +14,7 @@ public class Yeti : Monster
 
     public override void Awake() {
         base.Awake();
-        currentDirection = Moves.Rnd();
+        currentDirection = Helpers.Moves.Rnd();
         UpdateSprite();
         new ValueTracker<Vector2Int>(() => currentDirection, v => {
             currentDirection = v; UpdateSprite();

@@ -111,7 +111,7 @@ public class WitchAndSister : Monster, IInvisibilitySource
         }
 
         // Aggressive Teleport
-        var aggressiveTeleportDestinations = Moves.
+        var aggressiveTeleportDestinations = Helpers.Moves.
             Select(m => Player.instance.figure.Location.Shift(2 * m)).
             Where(cell =>
                 cell.biome == Library.instance.darkrootForest &&
@@ -162,7 +162,7 @@ public class WitchAndSister : Monster, IInvisibilitySource
         syncronizedNonAttackTime = Game.instance.time;
 
         // Create Illusion
-        var acceptableMoves = Moves.Where(move => figure.Location.Shift(move).FreeAndNoWolfTrap).ToList();
+        var acceptableMoves = Helpers.Moves.Where(move => figure.Location.Shift(move).FreeAndNoWolfTrap).ToList();
         if (
             PlayerDelta.MaxDelta() <= 2 &&
             acceptableMoves.Count() >= 2 &&
@@ -210,7 +210,7 @@ public class WitchAndSister : Monster, IInvisibilitySource
 
         // Wander randomly
         Debug.LogFormat($"{this} wanders randomly");
-        await SmartWalkOrFakeMove(Moves.Rnd());
+        await SmartWalkOrFakeMove(Helpers.Moves.Rnd());
     }
 
     public override async Task Die() {

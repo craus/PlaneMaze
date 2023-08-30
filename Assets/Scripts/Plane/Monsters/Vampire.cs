@@ -54,7 +54,7 @@ public class Vampire : Monster
         new Vector2Int(-1, -1),
     };
 
-    protected override List<Vector2Int> Moves => batForm ? BatMoves : base.Moves;
+    protected List<Vector2Int> Moves => batForm ? BatMoves : Helpers.Moves;
 
     private void ChangeForm(bool bat) {
         batForm = bat;

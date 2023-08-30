@@ -124,12 +124,7 @@ public abstract class Monster : Unit, IMovable
         return true;
     }
 
-    protected virtual List<Vector2Int> Moves => new List<Vector2Int>() {
-        Vector2Int.up,
-        Vector2Int.down,
-        Vector2Int.right,
-        Vector2Int.left,
-    };
+
 
     protected Vector2Int PlayerDelta => Player.instance.figure.Location.position - figure.Location.position;
 

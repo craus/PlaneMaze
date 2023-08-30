@@ -8,6 +8,13 @@ using UnityEngine.Events;
 
 public static class Helpers
 {
+    public static List<Vector2Int> Moves => new List<Vector2Int>() {
+        Vector2Int.up,
+        Vector2Int.down,
+        Vector2Int.right,
+        Vector2Int.left,
+    };
+
     public static float animationSpeed = 1;
 
     public async static Task TeleportAway(Figure figure, int radius) {

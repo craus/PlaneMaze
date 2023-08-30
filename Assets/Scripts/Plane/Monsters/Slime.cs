@@ -58,7 +58,7 @@ public class Slime : Monster
                 await figure.FakeMove(playerDelta);
             }
         } else {
-            var delta = Moves.Rnd();
+            var delta = Helpers.Moves.Rnd();
             if (!await TryAttack(delta)) {
                 if (!await SmartWalk(delta)) {
                     await figure.FakeMove(delta);
