@@ -120,7 +120,7 @@ public class WorldGenerator : Singletone<WorldGenerator>
         var cellOrder = Algorithm.PrimDynamic(
             start: start,
             edges: c => c.Neighbours().Where(c => c.Wall)
-                .Select(c => new Weighted<Cell>(c, CellPrice(c, reroll: false))),
+                .Select(c => new Weighted<Cell>(c, CellPrice(c, reroll: true))),
             maxSteps: 100000
         ).Take(biome.Size);
 
@@ -134,7 +134,7 @@ public class WorldGenerator : Singletone<WorldGenerator>
             biomeCells.Add(c);
             c.UpdateBiome();
 
-            AddFloorCell(c);
+            AddFloorCell(c, biome);
 
             CameraControl.instance.followPoint = true;
             CameraControl.instance.pointToFollow = c.transform.position;
@@ -161,7 +161,7 @@ public class WorldGenerator : Singletone<WorldGenerator>
 
     private bool MakeFloorCellIfCross(Cell from, Vector2Int direction) {
         if (MakesCross(from, direction)) {
-            AddFloorCell(from.Shift(direction));
+            AddFloorCell(from.Shift(direction), from.biome);
             return true;
         }
         return false;
@@ -186,7 +186,7 @@ public class WorldGenerator : Singletone<WorldGenerator>
             .Where(cell => cell.Wall)
         ) {
             if (Rand.rndEvent(1f)) {
-                AddFloorCell(cell);
+                AddFloorCell(cell, Library.instance.darkrootForest);
                 Game.GenerateFigure(cell, Library.instance.tree);
             }
         }
@@ -258,7 +258,9 @@ public class WorldGenerator : Singletone<WorldGenerator>
         speed = 10000;
     }
 
-    public void AddFloorCell(Cell c) {
+    public void AddFloorCell(Cell c, Biome biome = null) {
+        biome ??= Library.instance.dungeon;
+
         if (!c.Wall) {
             Debug.LogFormat($"Attempt to make floor from floor: {c}");
             return;
@@ -268,6 +270,10 @@ public class WorldGenerator : Singletone<WorldGenerator>
         c.order = cellOrderList.Count - 1;
         c.fieldCell.wall = false;
         c.gameObject.SetActive(true);
+        c.biome = biome;
+        c.UpdateBiome();
+        c.UpdateCell();
+
         c.Neighbours8().ForEach(c2 => {
             if (c2.fieldCell.wall) {
                 c2.biome = c.biome;
@@ -276,7 +282,6 @@ public class WorldGenerator : Singletone<WorldGenerator>
                 c2.gameObject.SetActive(true);
             }
         });
-        c.UpdateCell();
     }
 
     public void PopulateCell(Cell cell) {
