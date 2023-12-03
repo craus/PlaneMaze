@@ -185,7 +185,7 @@ public class Player : Unit
     }
 
     public void ReadKeys() {
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) && !Input.GetKey(KeyCode.LeftShift)) {
             Move(Vector2Int.up);
         }
         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {

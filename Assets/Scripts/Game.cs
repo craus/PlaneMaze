@@ -139,7 +139,7 @@ public class Game : MonoBehaviour
 
     public async void Update() {
         if (Cheats.on) {
-            if (Input.GetKeyDown(KeyCode.W)) {
+            if (Input.GetKeyDown(KeyCode.W) && Input.GetKey(KeyCode.LeftShift)) {
                 await Win();
             }
             if (Input.GetKeyDown(KeyCode.L)) {
