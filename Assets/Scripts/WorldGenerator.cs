@@ -205,6 +205,8 @@ public class WorldGenerator : Singletone<WorldGenerator>
     }
 
     public async Task GenerateWorld() {
+        Debug.LogFormat($"GenerateWorld, id = {this.GetInstanceID()}");
+
         cellOrderList = new List<Cell>();
         bossBiome = Library.instance.bossBiomes.Rnd();
 
@@ -235,9 +237,15 @@ public class WorldGenerator : Singletone<WorldGenerator>
             sister.sister = sister;
         }
 
-
         for (int i = 0; i < storeCount; i++) {
             GenerateStore();
+        }
+
+        for (int i = 0; i < Metagame.instance.FreeHealingPotionsCount; i++) {
+            var cell = cellOrderList.Where(cell => cell.figures.Count() == 0).Rnd();
+            if (cell != null) {
+                Game.GenerateFigure(cell, Game.instance.healingPotionSample);
+            }
         }
 
         foreach (var cell in cellOrderList) {
@@ -305,8 +313,6 @@ public class WorldGenerator : Singletone<WorldGenerator>
             Game.GenerateFigure(cell, cell.biome.monsterSamples.weightedRnd());
         } else if (Rand.rndEvent(0.004f)) {
             Game.GenerateFigure(cell, Game.instance.weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().fieldWeight));
-        } else if (Rand.rndEvent(Metagame.instance.HealingPotionSpawnProbability)) {
-            Game.GenerateFigure(cell, Game.instance.healingPotionSample);
         } else if (Rand.rndEvent(0)) {
             Game.GenerateFigure(cell, Game.instance.itemSamples.rnd());
         } else if (Rand.rndEvent(0.3f)) {

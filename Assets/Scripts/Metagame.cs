@@ -41,6 +41,7 @@ public class Metagame : MonoBehaviour
         (StartGhostSpawnProbability + (1 - StartGhostSpawnProbability) * GhostSpawnAcceleration(time)) * GhostSpawnSpeedMultiplier;
 
     public float HealingPotionSpawnProbability => HasAscention<NoFreeHealingPotions>() ? 0 : 0.004f;
+    public float FreeHealingPotionsCount => HasAscention<NoFreeHealingPotions>() ? 0 : 4;
 
     public float PricesMultiplier => 
         Mathf.Pow(4, AscentionsCount<QuadrupleMapAndPrices>()) *
