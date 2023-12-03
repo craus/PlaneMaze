@@ -105,11 +105,11 @@ public static class Algorithm
 
 		Debug.LogFormat($"Start from: {start}");
 		visited.Add(start);
-		Debug.LogFormat($"Visit: {start}");
+		//Debug.LogFormat($"Visit: {start}");
 		yield return start;
 		edges(start).ForEach(c => {
 			candidates.Add(c);
-			Debug.LogFormat($"Added candidate: {c}");
+			//Debug.LogFormat($"Added candidate: {c}");
 
 			vertexCandidates[c.to].Add(c);
 		});
@@ -128,19 +128,19 @@ public static class Algorithm
 			}
 
 			visited.Add(current.to);
-			Debug.LogFormat($"Visit: {current.to} (cost {current.weight})");
+			//Debug.LogFormat($"Visit: {current.to} (cost {current.weight})");
 			if (current.weight > 1) {
 				Debug.LogFormat($"High price: {current.weight}");
 			}
 			yield return current.to;
 			edges(current.to).ForEach(c => {
 				candidates.Add(c);
-				Debug.LogFormat($"Added candidate: {c}");
+				//Debug.LogFormat($"Added candidate: {c}");
 				vertexCandidates[c.to].Add(c);
 			});
 			antiEdges(current.to).ForEach(c => vertexCandidates[c].ForEach(cand => {
 				candidates.Remove(cand);
-				Debug.LogFormat($"Removed candidate: {c}");
+				//Debug.LogFormat($"Removed candidate: {c}");
 			}));
 			visit(current.to);
 			steps++;

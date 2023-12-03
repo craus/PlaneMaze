@@ -215,7 +215,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   location: {fileID: 0}
-  savePoint: {fileID: 0}
 --- !u!1 &5906058066734850240
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,7 +397,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   location: {fileID: 0}
-  savePoint: {fileID: 0}
 --- !u!1001 &6920106804345873549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -406,6 +404,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9180053629577040624, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: healCooldown
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: -9180053629577040624, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: movesSinceHitToHeal
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 270529094164164945, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_Name
       value: Lich
@@ -923,6 +929,7 @@ MonoBehaviour:
   soul: 1
   figure: {fileID: 0}
   alive: 1
+  dying: 0
   movesSinceLastHit: 100500
   movesSinceLastHeal: 100500
   movesSinceHitToHeal: 48

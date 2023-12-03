@@ -114,13 +114,13 @@ public class WitchAndSister : Monster, IInvisibilitySource
         var aggressiveTeleportDestinations = Helpers.Moves.
             Select(m => Player.instance.figure.Location.Shift(2 * m)).
             Where(cell =>
-                cell.biome == Library.instance.darkrootForest &&
+                cell.Biome == Library.instance.darkrootForest &&
                 cell.Free
             );
         if (
             (!witch.alive || !sister.alive) &&
             (Player.instance.figure.Location.position - figure.Location.position).MaxDelta() > 2 &&
-            Player.instance.figure.Location.biome == Library.instance.darkrootForest &&
+            Player.instance.figure.Location.Biome == Library.instance.darkrootForest &&
             aggressiveTeleportDestinations.Count() > 0
         ) {
             Debug.LogFormat($"{this} aggressive teleport roll");

@@ -38,9 +38,8 @@ public class Board : MonoBehaviour
         cells.Add(cell);
         cell.gameObject.SetActive(false);
         cell.position = new Vector2Int(x, y);
-        Debug.LogFormat($"Generate cell ({x}, {y})");
-        cell.biome = currentBiome;
-        cell.UpdateBiome();
+        //Debug.LogFormat($"Generate cell ({x}, {y})");
+        cell.Biome = currentBiome;
         cell.gameObject.name = $"Cell ({x}, {y})";
         field[x, y].wall = true;
         cell.SetFieldCell(field[x, y]);

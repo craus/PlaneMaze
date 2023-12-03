@@ -511,6 +511,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9180053629577040624, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: healCooldown
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: -9180053629577040624, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: movesSinceHitToHeal
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 270529094164164945, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_Name
       value: Witch

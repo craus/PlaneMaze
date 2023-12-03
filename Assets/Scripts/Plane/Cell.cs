@@ -10,7 +10,15 @@ public class Cell : MonoBehaviour
     public TMPro.TextMeshProUGUI orderText;
     public TMPro.TextMeshProUGUI priceText;
 
-    public Biome biome;
+    [SerializeField] private Biome biome;
+    public Biome Biome {
+        get => biome;
+        set {
+            if (biome == value) return;
+            biome = value;
+            UpdateBiome();
+        }
+    }
 
     public Color lockedColor;
     public Color darknessColor;

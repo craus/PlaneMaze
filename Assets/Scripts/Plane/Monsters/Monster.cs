@@ -11,15 +11,12 @@ public abstract class Monster : Unit, IMovable
 
     public int movesSinceLastHeal = 100500;
 
-    public int movesSinceHitToHeal = 3;
-    public int healCooldown = 3;
-
     public override bool BenefitsFromTerrain => base.BenefitsFromTerrain && GameManager.instance.metagame.HasAscention<MonstersBenefitFromTerrain>();
 
     public override void Awake() {
         base.Awake();
-        new ValueTracker<int>(() => movesSinceHitToHeal, v => {
-            movesSinceHitToHeal = v;
+        new ValueTracker<int>(() => movesSinceLastHeal, v => {
+            movesSinceLastHeal = v;
         });
     }
 
@@ -124,8 +121,6 @@ public abstract class Monster : Unit, IMovable
         return true;
     }
 
-
-
     protected Vector2Int PlayerDelta => Player.instance.figure.Location.position - figure.Location.position;
 
     protected virtual async Task MakeMove() {
@@ -134,8 +129,8 @@ public abstract class Monster : Unit, IMovable
     private async Task Regenerate() {
         if (Game.monstersRegenerate) { // slow
             if (
-                movesSinceLastHit >= movesSinceHitToHeal &&
-                movesSinceLastHeal >= healCooldown
+                movesSinceLastHit >= GetComponent<Regeneration>().movesSinceHitToHeal &&
+                movesSinceLastHeal >= GetComponent<Regeneration>().healCooldown
             ) {
                 await GetComponent<Health>().Heal(1);
                 movesSinceLastHeal = 0;

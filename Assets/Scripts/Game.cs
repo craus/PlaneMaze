@@ -192,7 +192,7 @@ public class Game : MonoBehaviour
 
         ghostSpawnProbabilityPerTurn = 1 - Mathf.Pow(
             1 - Metagame.GhostSpawnProbabilityPerTurn(time),
-            Player.instance.figure.Location.biome.ghostPower
+            Player.instance.figure.Location.Biome.ghostPower
         );
 
         for (int i = 0; i < Metagame.MaxGhostSpawnsPerTurn && Rand.rndEvent(ghostSpawnProbabilityPerTurn); i++) {
