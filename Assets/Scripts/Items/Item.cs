@@ -88,6 +88,7 @@ public class Item : MonoBehaviour, IExplainable
         } else {
             SoundManager.instance.itemPick.Play(); 
             icon.SetParent(Inventory.instance.itemsFolder);
+            icon.localScale = Vector3.one;
             Inventory.instance.items.Add(this);
         }
 
