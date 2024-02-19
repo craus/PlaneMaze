@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class MainUI : Singletone<MainUI>
 {
-    public GameObject mainMenu;
+    public GameObject pauseScreen;
 
     public Slider sounds;
     public Slider music;
@@ -23,7 +23,7 @@ public class MainUI : Singletone<MainUI>
 
     public string settingsFilename = "settings.dat";
 
-    public bool MainMenuShown => mainMenu.activeSelf;
+    public bool MainMenuShown => pauseScreen.activeSelf;
 
     public Button hardcore;
     public Button softcore;
@@ -32,7 +32,7 @@ public class MainUI : Singletone<MainUI>
     public TMP_Text ascensionsText;
 
     public void Start() {
-        mainMenu.SetActive(false);
+        pauseScreen.SetActive(false);
         UpdateAscentionsList();
 
         settings = FileManager.LoadFromFile<Settings>(settingsFilename);
@@ -74,7 +74,7 @@ public class MainUI : Singletone<MainUI>
     }
 
     public void MainMenuButton() {
-        mainMenu.SetActive(!MainMenuShown);
+        pauseScreen.SetActive(!MainMenuShown);
 
         UpdateAscentionsList();
 
