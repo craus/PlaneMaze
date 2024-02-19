@@ -12,7 +12,7 @@ public class RingOfTerraforming : MonoBehaviour, IBeforeWalk
             return false;
         }
         var target = GetComponent<Item>().Owner.figure.Location.Shift(delta).GetFigure<Terrain>();
-        if (target == null || target is Portal) {
+        if (target == null || target is Portal || target is Fog) {
             return false;
         }
 

@@ -56,7 +56,13 @@ public class Cell : MonoBehaviour
 
     public bool Locked => order >= Game.instance.unlockedCells;
 
+    [SerializeField] private List<Figure> debugFiguresList = new List<Figure>();
     public HashSet<Figure> figures = new HashSet<Figure>();
+
+    [ContextMenu("UpdateDebugInfo")]
+    public void UpdateDebugInfo() {
+        debugFiguresList = figures.ToList();
+    }
 
     public void Awake() {
         new ValueTracker<List<Figure>>(() => figures.ToList(), v => figures = new HashSet<Figure>(v), defaultValue: new List<Figure>());

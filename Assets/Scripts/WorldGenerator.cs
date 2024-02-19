@@ -322,6 +322,10 @@ public class WorldGenerator : Singletone<WorldGenerator>
         return Game.GenerateFigure(board.GetCell(new Vector2Int(x, y)), sample);
     }
 
+    public void RestockAllStores() {
+        Game.instance.stores.ForEach(RestockStore);
+    }
+
     private void Sell(Cell location, MonoBehaviour sample, int price = -1) {
         var item = Game.GenerateFigure(location, sample);
         if (price == -1) {
@@ -359,6 +363,13 @@ public class WorldGenerator : Singletone<WorldGenerator>
         Sell(newStore[-2, -2], Game.instance.itemSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
         Sell(newStore[0, -2], Game.instance.itemSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
         Sell(newStore[2, -2], Game.instance.itemSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().storeWeight));
+    }
+
+    private void RestockStore(Board store) {
+        var ringOfTerraformingPlace = store[2, 3];
+        if (ringOfTerraformingPlace.figures.Count == 0) {
+            Sell(ringOfTerraformingPlace, Game.instance.ringOfTerraformingSample);
+        }
     }
 
     public void Update() {
