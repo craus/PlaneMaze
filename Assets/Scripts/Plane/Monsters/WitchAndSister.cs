@@ -95,7 +95,8 @@ public class WitchAndSister : Monster, IInvisibilitySource
         figure.Location.Shift(PlayerDelta / 2).Free &&
         witch.alive && sister.alive &&
         figure.Location.Shift(3 * PlayerDelta / 2).Free &&
-        figure.Location.Shift(4 * PlayerDelta / 2).Free;
+        figure.Location.Shift(4 * PlayerDelta / 2).Free &&
+        figure.Location.Shift(4 * PlayerDelta / 2).GetFigure<TeleportTrap>() == null;
 
     protected override async Task MakeMove() { // Slow debug calls
         // Execute Attack
@@ -126,13 +127,16 @@ public class WitchAndSister : Monster, IInvisibilitySource
             Debug.LogFormat($"{this} aggressive teleport roll");
             if (Rand.rndEvent(aggressiveTeleportProbability)) {
                 Debug.LogFormat($"{this} aggressive teleport");
+                await GetComponent<Invulnerability>().Gain(1);
+                await Another.GetComponent<Invulnerability>().Gain(1);
                 await Helpers.Teleport(figure, aggressiveTeleportDestinations.Rnd());
                 var illusionDestinations =
                     (aggressiveTeleportDestinations.Count() >= 2 ?
                     aggressiveTeleportDestinations.RndSelection(2) :
                     aggressiveTeleportDestinations).ToList();
                 foreach (var cell in illusionDestinations) {
-                    await CreateIllusion(cell);
+                    var illusion = await CreateIllusion(cell);
+                    await illusion.GetComponent<Invulnerability>().Gain(1);
                 }
                 await ChargeAttack(AttackArea(PlayerDelta));
                 return;
@@ -144,6 +148,8 @@ public class WitchAndSister : Monster, IInvisibilitySource
             Debug.LogFormat($"{this} syncronized teleport");
             var playerDelta = PlayerDelta;
             syncronizedAttackTime = Game.instance.time;
+            await GetComponent<Invulnerability>().Gain(1);
+            await Another.GetComponent<Invulnerability>().Gain(1);
             await Helpers.Teleport(Another.figure, figure.Location.Shift(4 * PlayerDelta / 2));
             await Task.WhenAll(
                 ChargeAttack(AttackArea(playerDelta)),
