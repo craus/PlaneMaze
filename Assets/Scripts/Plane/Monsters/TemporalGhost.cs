@@ -10,6 +10,7 @@ public class TemporalGhost : Monster
     [SerializeField] private int minSafeDistance = 16;
     [SerializeField] private int teleportBackDistance = 16;
     [SerializeField] private int teleportAfterAttackMaxDistance = 16;
+    [SerializeField] private int teleportFromPathMaxDistance = 8;
 
     public override bool Flying => true;
     public override bool HasSoul => false;
@@ -44,6 +45,10 @@ public class TemporalGhost : Monster
         }
 
         if (await SmartWalk(playerDelta)) {
+            var anotherUnit = figure.Location.GetFigure<Unit>(u => u != this);
+            if (anotherUnit != null) {
+                await Helpers.TeleportAway(anotherUnit.figure, teleportFromPathMaxDistance);
+            }
             return;
         }
     }
