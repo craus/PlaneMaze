@@ -157,9 +157,7 @@ public class Cell : MonoBehaviour
 
     public void AfterStoresAdded() {
         if (biome.GetComponent<DarkrootForest>()) {
-            if (GetFigure<Terrain>() == null) {
-                Game.GenerateFigure(this, biome.GetComponent<DarkrootForest>().fog);
-            }
+            Game.GenerateFigure(this, biome.GetComponent<DarkrootForest>().fog);
         }
     }
 
