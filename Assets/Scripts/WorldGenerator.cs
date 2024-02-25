@@ -225,10 +225,12 @@ public class WorldGenerator : Singletone<WorldGenerator>
         if (bossBiome == Library.instance.darkrootForest) {
             var witch = Game.GenerateFigure(
                 cellOrderList.Where(cell => cell.Biome == Library.instance.darkrootForest && cell.figures.Count() == 0).Rnd(),
-                Library.instance.darkrootForest.GetComponent<DarkrootForest>().witch);
+                Library.instance.darkrootForest.GetComponent<DarkrootForest>().witch
+            );
             var sister = Game.GenerateFigure(
                 cellOrderList.Where(cell => cell.Biome == Library.instance.darkrootForest && cell.figures.Count() == 0).Rnd(),
-                Library.instance.darkrootForest.GetComponent<DarkrootForest>().sister);
+                Library.instance.darkrootForest.GetComponent<DarkrootForest>().sister
+            );
 
             witch.witch = witch;
             witch.sister = sister;
@@ -247,6 +249,12 @@ public class WorldGenerator : Singletone<WorldGenerator>
             }
         }
 
+        var temporalGhost = Game.GenerateFigure(
+            cellOrderList.Where(cell => cell.Biome == Library.instance.darkrootForest && cell.figures.Count() == 0).Rnd(),
+            Library.Get<TemporalGhost>()
+        );
+
+        // fog
         foreach (var cell in cellOrderList) {
             cell.AfterStoresAdded();
         }

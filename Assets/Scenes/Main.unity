@@ -4998,7 +4998,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -12.004257}
+  m_AnchoredPosition: {x: 0, y: -12.004196}
   m_SizeDelta: {x: 0, y: -24.0085}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &681579008
@@ -9619,6 +9619,7 @@ MonoBehaviour:
   - {fileID: 3322402838831270810, guid: 5cd90158a7981db42ad6ecc85501d60e, type: 3}
   - {fileID: 3322402838831270810, guid: 1c2f82b9c5ff49e4d8328229fc5da492, type: 3}
   - {fileID: 3322402838831270810, guid: 397be5e282dbe5c449605312aa07e719, type: 3}
+  - {fileID: 3322402838831270810, guid: 6ff60dd4d39dd534a9e644b061398694, type: 3}
   dungeon: {fileID: 4174912326676550625, guid: eef348039c147c841b33e3cb15447083, type: 3}
   crypt: {fileID: 3430537333489080336, guid: 9e85f7a7e336fd34da147bc7ab5a76ae, type: 3}
   darkrootForest: {fileID: 3430537333489080336, guid: fce3a8ef53bc90e4f8fb9c98f5d9e80b, type: 3}

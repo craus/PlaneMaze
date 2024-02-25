@@ -169,7 +169,9 @@ public class Figure : MonoBehaviour
             }
         }
 
-        await Task.WhenAll(afterMove.Select(listener => listener(from, newLocation)));
+        foreach (var t in afterMove.Select(listener => listener(from, newLocation))) {
+            await t;
+        }
     }
 
     private async Task UpdateTransform(Cell fakeMove, bool isTeleport, bool teleportAnimation = false) {
