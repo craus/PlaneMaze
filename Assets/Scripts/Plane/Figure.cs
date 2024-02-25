@@ -114,15 +114,16 @@ public class Figure : MonoBehaviour
         return true;
     }
 
-    public async Task Move(Cell newLocation, bool isTeleport = false, Cell fakeMove = null, bool teleportAnimation = false) {
-        if (!gameObject.activeSelf) return;
+    public async Task<bool> Move(Cell newLocation, bool isTeleport = false, Cell fakeMove = null, bool teleportAnimation = false) {
+        if (!gameObject.activeSelf) return false;
+        if (fakeMove == null && GetComponent<Root>() != null && GetComponent<Root>().Current > 0) return false;
         
         var from = Location;
         var fromBoard = from != null ? from.board : null;
         if (!fakeMove && Location != null) {
             Location.figures.Remove(this);
         }
-        if (newLocation == null) return;
+        if (newLocation == null) return false;
 
         location = newLocation;
         var toBoard = Location != null ? Location.board : null;
@@ -132,7 +133,7 @@ public class Figure : MonoBehaviour
         }
 
         if (this == null || !gameObject.activeSelf) {
-            return;
+            return true;
         }
 
         if (!fakeMove && Location != null) {
@@ -144,7 +145,7 @@ public class Figure : MonoBehaviour
         }
 
         if (this == null || !gameObject.activeSelf) {
-            return;
+            return true;
         }
 
         if (from != Location) {
@@ -154,7 +155,7 @@ public class Figure : MonoBehaviour
                         await f.collideEnd(Location, this);
                     }
                     if (this == null) {
-                        return;
+                        return true;
                     }
                 }
             }
@@ -164,7 +165,7 @@ public class Figure : MonoBehaviour
                     await f.collide(from, this);
                 }
                 if (this == null) {
-                    return;
+                    return true;
                 }
             }
         }
@@ -172,6 +173,8 @@ public class Figure : MonoBehaviour
         foreach (var t in afterMove.Select(listener => listener(from, newLocation))) {
             await t;
         }
+
+        return true;
     }
 
     private async Task UpdateTransform(Cell fakeMove, bool isTeleport, bool teleportAnimation = false) {

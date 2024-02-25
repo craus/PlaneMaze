@@ -46,8 +46,12 @@ public class Mantle : MonoBehaviour, IReceiveAttackModifier
         if (destinations.Count() > 0) {
             var destination = destinations.Rnd();
             Debug.LogFormat($"Mantle teleports player");
-            attack.damage = 0;
-            await GetComponent<Item>().Owner.figure.Move(destination, isTeleport: true, teleportAnimation: true);
+            if (await GetComponent<Item>().Owner.figure.Move(destination, isTeleport: true, teleportAnimation: true)) {
+                Debug.LogFormat($"Mantle teleported player");
+                attack.damage = 0;
+            } else {
+                Debug.LogFormat($"Teleportation failed");
+            }
         } else {
             Debug.LogFormat($"Mantle failed to find teleport destination");
             // do nothing

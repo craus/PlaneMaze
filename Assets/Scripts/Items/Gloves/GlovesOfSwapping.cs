@@ -36,6 +36,10 @@ public class GlovesOfSwapping : MonoBehaviour, IAttackModifier
                     return;
                 }
 
+                if (attack.from.GetComponent<Root>().Current > 0 || attack.to.GetComponent<Root>().Current > 0) {
+                    return;
+                }
+
                 List<Task> moves = new List<Task>();
                 if (attack.to != null && attack.to.gameObject.activeSelf) moves.Add(attack.to.Move(fromLocation));
                 if (attack.from != null && attack.from.gameObject.activeSelf) {
