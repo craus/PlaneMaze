@@ -43,12 +43,11 @@ public class WitchAndSister : Monster, IInvisibilitySource
 
     public override async Task Hit(Attack attack) {
         await base.Hit(attack);
-        if (alive) {
-            attack.afterAttack.Add(async () => {
-                await attack.from.GetComponent<Invulnerability>().Gain(playerInvulnerabilityDuration);
-                await Helpers.TeleportAway(attack.from, teleportRadius);
-            });
-        }
+        attack.afterAttack.Add(async () => {
+            TryGenerateCursedSign(attack.from.Location);
+            await attack.from.GetComponent<Invulnerability>().Gain(playerInvulnerabilityDuration);
+            await Helpers.TeleportAway(attack.from, teleportRadius);
+        });
     }
 
     private void UpdateIcons() {
@@ -97,6 +96,18 @@ public class WitchAndSister : Monster, IInvisibilitySource
         figure.Location.Shift(3 * PlayerDelta / 2).Free &&
         figure.Location.Shift(4 * PlayerDelta / 2).Free &&
         figure.Location.Shift(4 * PlayerDelta / 2).GetFigure<TeleportTrap>() == null;
+
+
+    private void TryGenerateCursedSign(Cell location) {
+        if (location.GetFigure<Terrain>(t => t.OccupiesTerrainPlace) != null) {
+            Debug.LogFormat($"{this} cannot create cursed sign: there is terrain here");
+            return;
+        }
+
+        Debug.LogFormat($"{this} creates cursed sign");
+        Game.GenerateFigure(location, cursedSignSample);
+        Game.instance.GetComponent<CursedSignCounter>().cursedSignCount++;
+    }
 
     protected override async Task MakeMove() { // Slow debug calls
         // Execute Attack
@@ -203,12 +214,9 @@ public class WitchAndSister : Monster, IInvisibilitySource
             if (await SmartWalkOrFakeMove(-Helpers.StepAtDirection(PlayerDelta))) {
                 Debug.LogFormat($"{this} flee success");
                 if (
-                    oldLocation.GetFigure<Terrain>(t => t.OccupiesTerrainPlace) == null && 
                     !oldLocation.Vicinity(CursedSignMinDistance-1).Any(cell => cell.GetFigure<CursedSign>())
                 ) {
-                    Debug.LogFormat($"{this} creates cursed sign");
-                    Game.GenerateFigure(oldLocation, cursedSignSample);
-                    Game.instance.GetComponent<CursedSignCounter>().cursedSignCount++;
+                    TryGenerateCursedSign(oldLocation);
                 }
             }
             return;
