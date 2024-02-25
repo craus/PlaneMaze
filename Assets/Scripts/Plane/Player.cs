@@ -258,15 +258,10 @@ public class Player : Unit
     public override void Awake() {
         base.Awake();
         figure.afterBoardChange.Add(AfterBoardChange);
-        figure.afterMove.Add(AfterMove);
 
         new ValueTracker<int>(() => gems, v => gems = v);
         new ValueTracker<int>(() => totalGems, v => totalGems = v);
         new ValueTracker<bool>(() => FogPlane.instance.model.activeSelf, FogPlane.instance.model.SetActive);
-    }
-
-    private async Task AfterMove(Cell from, Cell to) {
-        GlobalInvisibilityCheck();
     }
 
     public void GlobalInvisibilityCheck() {
