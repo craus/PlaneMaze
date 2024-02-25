@@ -184,6 +184,8 @@ public class Game : MonoBehaviour
         if (Metagame.SpawnGhosts) {
             await SpawnGhosts();
         }
+
+        Player.instance.GlobalInvisibilityCheck();
     }
 
     private async Task SpawnGhosts() {
