@@ -88,6 +88,7 @@ public class GameManager : Singletone<GameManager>
         metagame.runInProgress = true;
         SaveMetagame();
         Inventory.instance = game.GetComponentInChildren<Inventory>();
+        WorldGenerator.instance = game.GetComponentInChildren<WorldGenerator>();
         WorldGenerator.instance.speed = 100;
     }
 
