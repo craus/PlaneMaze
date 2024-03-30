@@ -33,6 +33,7 @@ public class Invisibility : MonoBehaviour
         GetComponent<Figure>().afterMove.Add(async (from, to) => Check());
 
         new ValueTracker<bool>(() => model.activeSelf, v => model.SetActive(v));
+        new ValueTracker<bool>(() => insideFog, v => insideFog = v);
     }
 
     private bool HiddenInsideFog() { // CHECK: slow?

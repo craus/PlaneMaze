@@ -262,6 +262,7 @@ public class Player : Unit
         new ValueTracker<int>(() => gems, v => gems = v);
         new ValueTracker<int>(() => totalGems, v => totalGems = v);
         new ValueTracker<bool>(() => FogPlane.instance.model.activeSelf, FogPlane.instance.model.SetActive);
+        new ValueTracker<bool>(() => insideFog, v => insideFog = v);
     }
 
     public void GlobalInvisibilityCheck() {
