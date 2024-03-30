@@ -164,7 +164,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   location: {fileID: 0}
-  savePoint: {fileID: 0}
 --- !u!114 &7572369134070121945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,7 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   figure: {fileID: 0}
   sprite: {fileID: 2532068689400690311}
-  on: 0
+  on: 1
   onProbability: 0.2
   changeProbability: 0.05
 --- !u!114 &-3179786201405017898
