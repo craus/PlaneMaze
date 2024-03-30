@@ -16,22 +16,38 @@ public class Fog : Terrain, IMovable, IOnOccupyingUnitAttackedListener
     public bool On {
         get => on;
         set {
+            if (value == on) return;
+
             if (
                 value == false ||
                 figure.Location != null &&
                 !figure.Location.GetFigure<Figure>(f => f != GetComponent<Figure>())
             ) {
                 on = value;
+
+                var invisibility = figure.Location.GetFigure<Invisibility>();
+                if (invisibility != null && invisibility.GetComponent<Fog>() == null) {
+                    invisibility.InsideFog = on;
+                }
+
+                if (Player.instance.figure.Location == figure.Location) {
+                    Player.insideFog = on;
+                }
+
+                UpdateSprite();
+                CheckUnitsInvisibility();
             }
-            UpdateSprite();
-            CheckUnitsInvisibility();
         }
     }
     public float onProbability = 0.1f;
     public float changeProbability = 0.1f;
 
     public void OnGameStart() {
-        On = Rand.rndEvent(onProbability);
+        if (figure.Location.GetFigure<Terrain>(f => f != this)) {
+            On = false;
+        } else {
+            On = Rand.rndEvent(onProbability);
+        }
         CheckUnitsInvisibility();
     }
 
@@ -99,6 +115,10 @@ public class Fog : Terrain, IMovable, IOnOccupyingUnitAttackedListener
     }
 
     public async Task Move() {
+        if (figure.Location.GetFigure<Terrain>(f => f != this)) {
+            On = false;
+            return;
+        }
         if (Rand.rndEvent(changeProbability)) {
             if (Rand.rndEvent(onProbability) != On) {
                 On ^= true;
