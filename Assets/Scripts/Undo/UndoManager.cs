@@ -53,5 +53,6 @@ public class UndoManager : Singletone<UndoManager>
         onLoad = () => { };
         lastSaveIndex = 0;
         CreateRandomStateTracker();
+        Debug.LogFormat("ResetTrackers end");
     }
 }
