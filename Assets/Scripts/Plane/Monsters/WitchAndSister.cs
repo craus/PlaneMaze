@@ -27,6 +27,8 @@ public class WitchAndSister : Monster, IInvisibilitySource
     [SerializeField] private int teleportRadius = 8;
     [SerializeField] private int playerInvulnerabilityDuration = 2;
     [SerializeField] private float aggressiveTeleportProbability = 0.1f;
+    [SerializeField] private float defensiveTeleportProbability = 0.25f;
+    [SerializeField] private int defensiveTeleportMaxDistance = 2;
 
     [SerializeField] private List<Cell> chargedArea = null;
     [SerializeField] private int syncronizedAttackTime = int.MinValue;
@@ -214,9 +216,13 @@ public class WitchAndSister : Monster, IInvisibilitySource
             if (await SmartWalkOrFakeMove(-Helpers.StepAtDirection(PlayerDelta))) {
                 Debug.LogFormat($"{this} flee success");
                 if (
-                    !oldLocation.Vicinity(CursedSignMinDistance-1).Any(cell => cell.GetFigure<CursedSign>())
+                    !oldLocation.Vicinity(CursedSignMinDistance - 1).Any(cell => cell.GetFigure<CursedSign>())
                 ) {
                     TryGenerateCursedSign(oldLocation);
+                }
+            } else {
+                if (Rand.rndEvent(defensiveTeleportProbability)) {
+                    await Helpers.TeleportAway(figure, defensiveTeleportMaxDistance);
                 }
             }
             return;
