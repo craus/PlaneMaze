@@ -43,9 +43,8 @@ public class Fog : Terrain, IMovable, IOnOccupyingUnitAttackedListener
     public float changeProbability = 0.1f;
 
     public void OnGameStart() {
-        if (figure.Location.GetFigure<Terrain>(f => f != this)) {
-            On = false;
-        } else {
+        On = false;
+        if (!figure.Location.GetFigure<Terrain>(f => f != this)) {
             On = Rand.rndEvent(onProbability);
         }
         CheckUnitsInvisibility();
