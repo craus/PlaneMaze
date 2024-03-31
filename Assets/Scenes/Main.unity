@@ -4998,7 +4998,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -12.004196}
+  m_AnchoredPosition: {x: 0, y: -12.004211}
   m_SizeDelta: {x: 0, y: -24.0085}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &681579008
@@ -9661,6 +9661,7 @@ MonoBehaviour:
   teleportExit: {fileID: 4531213152577544949, guid: aac330b5c48ccd24d89197cfc487c7e9, type: 3}
   cursedSign: {fileID: 9129382444693588269, guid: be6739058c4de1f4f9409d05569d30d5, type: 3}
   tree: {fileID: 8234422707921031841, guid: d7be61fe3df1d594f92d509649faff17, type: 3}
+  healSample: {fileID: 7558257676500238022, guid: 79599bf405c35dc44bc7c36a841474b8, type: 3}
 --- !u!1 &1515743436
 GameObject:
   m_ObjectHideFlags: 0
@@ -10330,7 +10331,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -6.035202}
+  m_AnchoredPosition: {x: 0, y: -6.0352173}
   m_SizeDelta: {x: 0, y: -12.0706}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1640807366

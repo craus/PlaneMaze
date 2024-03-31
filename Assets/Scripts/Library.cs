@@ -50,5 +50,7 @@ public class Library : Singletone<Library>
     public CursedSign cursedSign;
     public Tree tree;
 
+    public GameObject healSample;
+
     public static T Get<T>() => instance.figures.Select(f => f.GetComponent<T>()).FirstOrDefault(c => c != null);
 }
