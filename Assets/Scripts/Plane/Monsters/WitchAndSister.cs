@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class WitchAndSister : Monster, IInvisibilitySource
+public abstract class WitchAndSister : Monster, IInvisibilitySource
 {
     public override bool HasSoul => false;
     public override bool Boss => true;
@@ -204,9 +204,7 @@ public class WitchAndSister : Monster, IInvisibilitySource
         }
 
         // Curse player
-        if (PlayerDelta.SumDelta() <= 1 && Player.instance.GetComponent<Curse>().Current == 0) {
-            Debug.LogFormat($"{this} curses player");
-            await Player.instance.GetComponent<Curse>().Gain(13);
+        if (await CursePlayer()) {
             return;
         }
 
@@ -233,6 +231,8 @@ public class WitchAndSister : Monster, IInvisibilitySource
         Debug.LogFormat($"{this} wanders randomly");
         await SmartWalkOrFakeMove(Helpers.Moves.Rnd());
     }
+
+    protected abstract Task<bool> CursePlayer();
 
     public override async Task Die() {
         await base.Die();

@@ -97,8 +97,8 @@ public static class Rand
 		return sum;
 	}
 
-	public static T rnd<T>(this List<T> list) where T : class {
-		if (list.Count == 0) return null;
+	public static T rnd<T>(this List<T> list) {
+		if (list.Count == 0) return default;
 		return list[Rand.Range(0, list.Count)];
 	}
 
@@ -168,11 +168,11 @@ public static class Rand
 		throw new Exception("Failed to normalize weights!");
 	}
 
-	public static T rndExcept<T>(this List<T> list, IEnumerable<T> except) where T : class {
+	public static T rndExcept<T>(this List<T> list, IEnumerable<T> except)  {
 		return list.Except(except).ToList().rnd();
 	}
 
-	public static T rndExcept<T>(this List<T> list, params T[] except) where T : class {
+	public static T rndExcept<T>(this List<T> list, params T[] except) {
 		return list.Except(except).ToList().rnd();
 	}
 

@@ -40,6 +40,13 @@ public class Player : Unit
         await Task.WhenAll(afterTakeAction.Select(listener => listener(action)));
     }
 
+    private IEnumerable<Vector2Int> PossibleMoves() {
+        yield return Vector2Int.up;
+        yield return Vector2Int.down;
+        yield return Vector2Int.left;
+        yield return Vector2Int.right;
+    }
+
     /// <summary>
     /// priority 0 - rings
     /// priority 1 - weapons
@@ -48,6 +55,10 @@ public class Player : Unit
     /// <param name="delta"></param>
     /// <returns></returns>
     private async Task MoveTakeActions(Vector2Int delta) {
+        if (GetComponent<Confusion>().Current > 0) {
+            delta = PossibleMoves().ToList().rndExcept(delta);
+        }
+
         Game.Debug($"Player move take actions {delta}");
         lastMove = delta;
 
@@ -159,6 +170,7 @@ public class Player : Unit
         await GetComponent<Root>().Spend(1);
         await GetComponent<Curse>().Spend(1);
         await GetComponent<Curse>().Prepare();
+        await GetComponent<Confusion>().Spend(1);
         await GetComponent<Invulnerability>().Spend(1);
 
         UndoManager.instance.Save();
