@@ -10,7 +10,7 @@ public abstract class WitchAndSister : Monster, IInvisibilitySource
     public override bool HasSoul => false;
     public override bool Boss => true;
 
-    public static int CursedSignMinDistance => 2;
+    public static int CursedSignMinDistance => 3;
 
     public bool Invisible => (Player.instance.figure.Location.position - GetComponent<Figure>().Location.position).MaxDelta() > 2;
 
