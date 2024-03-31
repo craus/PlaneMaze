@@ -97,4 +97,11 @@ public static class Helpers
         if (v.y < 0) v.y = -1;
         return v;
     }
+
+    public static async Task RunAnimation(GameObject animation, Transform target) {
+        animation = UnityEngine.Object.Instantiate(animation, target);
+        animation.transform.position = target.position;
+        await Delay(0.1f);
+        UnityEngine.Object.Destroy(animation);
+    }
 }

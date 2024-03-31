@@ -92,10 +92,7 @@ public class BlackMage : Monster
     }
 
     public async Task Heal() {
-        var heal = Instantiate(healSample, Game.instance.transform);
-        heal.transform.position = transform.position;
-        await Helpers.Delay(0.1f);
-        Destroy(heal);
+        await Helpers.RunAnimation(Library.instance.healSample, transform);
         await GetComponent<Health>().Heal(1);
     }
 

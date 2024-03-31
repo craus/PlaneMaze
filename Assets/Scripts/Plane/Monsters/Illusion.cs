@@ -14,11 +14,9 @@ public class Illusion : Monster
 
     public override async Task Hit(Attack attack) {
         await base.Hit(attack);
+        await Helpers.RunAnimation(Library.instance.healSample, creator.transform);
         await creator.GetComponent<Health>().Heal(creatorHealAfterHit);
-        var heal = Instantiate(Library.instance.healSample, creator.transform);
-        heal.transform.position = creator.transform.position;
-        await Helpers.Delay(0.1f);
-        Destroy(heal);
+
         Debug.LogFormat($"creator healed: {creator}");
         await Die();
     }
