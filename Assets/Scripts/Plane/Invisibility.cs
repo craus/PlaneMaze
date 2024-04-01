@@ -31,6 +31,7 @@ public class Invisibility : MonoBehaviour
 
     public void Awake() {
         GetComponent<Figure>().afterMove.Add(async (from, to) => Check());
+        GetComponents<IInvisibilitySource>().ForEach(iis => iis.OnChange += Check);
 
         new ValueTracker<bool>(() => model.activeSelf, v => model.SetActive(v));
         new ValueTracker<bool>(() => insideFog, v => insideFog = v);

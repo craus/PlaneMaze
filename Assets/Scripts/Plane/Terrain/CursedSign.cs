@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Figure))]
@@ -8,8 +10,13 @@ public class CursedSign : Terrain, IInvisibilitySource, IOnDestroyHandler, IAtta
 {
     public bool Invisible => (Player.instance.figure.Location.position - GetComponent<Figure>().Location.position).MaxDelta() > 2;
 
+    public event Action OnChange;
+
     public override void Awake() {
         base.Awake();
+
+        Player.instance.figure.afterMove.Add(AfterPlayerMove);
+        figure.afterMove.Add(AfterPlayerMove);
 
         figure.collide = async (from, figure) => {
             if (figure == null) {
@@ -24,6 +31,10 @@ public class CursedSign : Terrain, IInvisibilitySource, IOnDestroyHandler, IAtta
                 this.SoftDestroy(gameObject);
             }
         };
+    }
+
+    private async Task AfterPlayerMove(Cell from, Cell to) {
+        OnChange();
     }
 
     public void OnSoftDestroy() {

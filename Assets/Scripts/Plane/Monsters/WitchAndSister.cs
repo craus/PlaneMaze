@@ -17,7 +17,7 @@ public abstract class WitchAndSister : Monster, IInvisibilitySource
     public Witch witch;
     public Sister sister;
 
-    public WitchAndSister Another => this == witch ? sister as WitchAndSister : witch;
+    public WitchAndSister Another => this == witch ? sister : witch;
 
     [SerializeField] private CursedSign cursedSignSample;
     [SerializeField] private Illusion illusionSample;
@@ -34,13 +34,22 @@ public abstract class WitchAndSister : Monster, IInvisibilitySource
     [SerializeField] private int syncronizedAttackTime = int.MinValue;
     [SerializeField] private int syncronizedNonAttackTime = int.MinValue;
 
+    public event Action OnChange;
+
     public override void Awake() {
         base.Awake();
+
+        Player.instance.figure.afterMove.Add(AfterPlayerMove);
+        figure.afterMove.Add(AfterPlayerMove);
 
         new ValueTracker<List<Cell>>(() => chargedArea, v => {
             chargedArea = v;
             UpdateIcons();
         });
+    }
+
+    private async Task AfterPlayerMove(Cell from, Cell to) {
+        OnChange();
     }
 
     public override async Task Hit(Attack attack) {
