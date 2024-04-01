@@ -163,6 +163,9 @@ public class Player : Unit
         } else {
             await Game.instance.AfterPlayerMove();
         }
+
+        GlobalInvisibilityCheck();
+
         if (this == null) {
             return;
         }

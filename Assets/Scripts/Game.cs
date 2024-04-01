@@ -184,7 +184,6 @@ public class Game : MonoBehaviour
         if (Metagame.SpawnGhosts) {
             await SpawnGhosts();
         }
-
     }
 
     private async Task SpawnGhosts() {
