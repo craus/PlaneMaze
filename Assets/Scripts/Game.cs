@@ -134,9 +134,6 @@ public class Game : MonoBehaviour
         await AskForNextRun();
     }
 
-
-
-
     public async void Update() {
         if (Cheats.on) {
             if (Input.GetKeyDown(KeyCode.W) && Input.GetKey(KeyCode.LeftShift)) {
@@ -168,6 +165,9 @@ public class Game : MonoBehaviour
     }
 
     private async Task MonstersAndItemsTick(int turnNumber) {
+        Debug($"Monsters before move");
+        await Task.WhenAll(Player.instance.figure.Location.board.movables.ToList().Select(m => m.BeforeMove()));
+
         Debug($"Monsters move");
         await Task.WhenAll(Player.instance.figure.Location.board.movables.ToList().Select(m => m.Move()).Concat(afterPlayerMove.Select(listener => listener(turnNumber))));
         if (this == null) {
@@ -185,7 +185,6 @@ public class Game : MonoBehaviour
             await SpawnGhosts();
         }
 
-        Player.instance.GlobalInvisibilityCheck();
     }
 
     private async Task SpawnGhosts() {

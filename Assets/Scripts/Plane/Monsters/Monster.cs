@@ -150,6 +150,10 @@ public abstract class Monster : Unit, IMovable
         await GetComponent<Curse>().Prepare();
     }
 
+    public async Task BeforeMove() {
+        await GetComponent<Invulnerability>().Spend(1);
+    }
+
     public async Task Move() {
         if (this == null || !alive) {
             Debug.LogFormat($"{this}: Dead monster cannot move");
@@ -159,7 +163,6 @@ public abstract class Monster : Unit, IMovable
         if (!alive) { 
             return;
         }
-        await GetComponent<Invulnerability>().Spend(1);
         if (GetComponent<MovesReserve>().Current < 0) {
             await GetComponent<MovesReserve>().Haste(1);
             return;

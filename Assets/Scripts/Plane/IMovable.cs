@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 public interface IMovable
 {
+    public async Task BeforeMove() {
+    }
+
     public async Task Move() {
     }
 
