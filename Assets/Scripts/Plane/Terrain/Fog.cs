@@ -25,10 +25,11 @@ public class Fog : Terrain, IMovable, IOnOccupyingUnitAttackedListener
             ) {
                 on = value;
 
-                var invisibility = figure.Location.GetFigure<Invisibility>();
-                if (invisibility != null && invisibility.GetComponent<Fog>() == null) {
-                    invisibility.InsideFog = on;
-                }
+                figure.Location.GetFigures<Invisibility>().ForEach(invisibility => {
+                    if (invisibility.GetComponent<Fog>() == null) {
+                        invisibility.InsideFog = on;
+                    }
+                });
 
                 if (Player.instance.figure.Location == figure.Location) {
                     Player.insideFog = on;
