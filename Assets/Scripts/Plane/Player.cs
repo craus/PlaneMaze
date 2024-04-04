@@ -281,8 +281,9 @@ public class Player : Unit
     }
 
     public void GlobalInvisibilityCheck() {
+        insideFog = figure.Location.GetFigure<Fog>(f => f.On);
         Game.instance.GetComponentsInChildren<Invisibility>().ForEach(i => i.Check());
-        FogPlane.instance.model.SetActive(figure.Location.GetFigure<Fog>(f => f.On));
+        FogPlane.instance.model.SetActive(insideFog);
     }
 
     private async Task AfterBoardChange(Board from, Board to) {
