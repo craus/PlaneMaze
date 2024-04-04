@@ -12,6 +12,10 @@ PrefabInstance:
       value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: bossName
+      value: Witch-and-Sister
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: wallModel
       value: 
       objectReference: {fileID: 35406900207276357, guid: 0f20346f74d1b4c4ca57448ee7c2f67b, type: 3}

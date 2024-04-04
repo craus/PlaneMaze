@@ -32,6 +32,7 @@ public class Game : MonoBehaviour
     public Lich lichSample;
     public Gem gemSample;
 
+    public string bossName;
 
     public int unlockedCells = (int)1e9;
 
@@ -109,7 +110,11 @@ public class Game : MonoBehaviour
         if (gameOver) return;
         gameOver = true;
         MusicManager.instance.Switch(MusicManager.instance.winPlaylist);
-        await ConfirmationManager.instance.AskConfirmation(panel: ConfirmationManager.instance.winPanel, canCancel: false);
+        await ConfirmationManager.instance.AskConfirmation(
+            message: $"Victory! You killed {bossName} and saved the world!",
+            panel: ConfirmationManager.instance.winPanel, 
+            canCancel: false
+        );
         await GameManager.instance.metagame.Win();
         await AskForNextRun();
     }

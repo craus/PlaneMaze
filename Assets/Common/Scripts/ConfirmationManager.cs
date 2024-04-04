@@ -6,6 +6,7 @@ using UnityEngine;
 public class ConfirmationManager : Singletone<ConfirmationManager>
 {
     [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private TextMeshProUGUI text2;
 
     public GameObject confirmationPanel;
     public GameObject winPanel;
@@ -47,6 +48,7 @@ public class ConfirmationManager : Singletone<ConfirmationManager>
         }
         if (message != null) {
             text.text = message;
+            text2.text = message;
         }
         currentPanel = panel;
         this.canCancel = canCancel;

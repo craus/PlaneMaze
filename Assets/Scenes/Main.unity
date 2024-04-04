@@ -4998,7 +4998,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -12.004211}
+  m_AnchoredPosition: {x: 0, y: -12.004242}
   m_SizeDelta: {x: 0, y: -24.0085}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &681579008
@@ -7299,6 +7299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 674192491}
+  text2: {fileID: 8872110800340474524}
   confirmationPanel: {fileID: 1777990907}
   winPanel: {fileID: 5508735108531036200}
   losePanel: {fileID: 43194348951214236}
@@ -13678,8 +13679,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game over! You died and now the Evil Lich will kill all living beings and
-    take over the world!
+  m_text: Game over! You died and now the ancient evil will kill all living beings
+    and take over the world!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -13788,8 +13789,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The Evil Lich strangled your relatives with his own hands and now he threatens
-    the whole world. You must find and kill him!
+  m_text: You descended into the dungeon to destroy the ancient evil which, as you
+    found out recently, may escape and destroy everything you love.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14704,7 +14705,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Victory! You killed the Evil Lich and saved the world!
+  m_text: Victory! You killed {bossName} and saved the world!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

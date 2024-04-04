@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Biome : MonoBehaviour
 {
+    public string bossName;
+
     [SerializeField] private int size;
     public int Size => (int)(Metagame.instance.WorldSizeMultiplier * size);
 

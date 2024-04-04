@@ -208,6 +208,7 @@ public class WorldGenerator : Singletone<WorldGenerator>
 
         cellOrderList = new List<Cell>();
         bossBiome = Library.instance.bossBiomes.Rnd();
+        Game.instance.bossName = bossBiome.bossName;
 
         biomesOrder = Library.instance.biomes.Shuffled();
 
