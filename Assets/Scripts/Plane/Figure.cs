@@ -170,7 +170,7 @@ public class Figure : MonoBehaviour
             }
         }
 
-        foreach (var t in afterMove.Select(listener => listener(from, newLocation))) {
+        foreach (var t in afterMove.ToList().Select(listener => listener(from, newLocation))) {
             await t;
         }
 
