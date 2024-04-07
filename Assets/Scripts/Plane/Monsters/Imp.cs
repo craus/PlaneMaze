@@ -38,11 +38,11 @@ public class Imp : Monster
         }
     }
 
-    //сделай паттерн движения такой: 
-    //пускай едет в каком-нибудь направлении, а когда не может, 
-    //меняет направление на случайное из тех, 
-    //в которые можно ехать.
-    //чтобы она не билась в стену много раз.
+    public override async Task AfterAttack(Vector2Int delta) {
+        await base.AfterAttack(delta);
+        Game.GenerateFigure(figure.Location.Shift(delta), Library.instance.fire);
+    }
+
     protected override async Task MakeMove() {
         if (!await SmartWalk(currentDirection)) {
             if (!await TryAttack(currentDirection)) {

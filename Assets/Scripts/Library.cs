@@ -52,5 +52,7 @@ public class Library : Singletone<Library>
 
     public GameObject healSample;
 
+    public Terrain fire;
+
     public static T Get<T>() => instance.figures.Select(f => f.GetComponent<T>()).FirstOrDefault(c => c != null);
 }
