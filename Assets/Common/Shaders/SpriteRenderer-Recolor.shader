@@ -19,6 +19,9 @@ SubShader {
     Tags {"Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"}
     LOD 100
 
+    // double sided (https://stackoverflow.com/questions/42253311/unity-how-to-make-material-double-sided)
+    Cull Off
+
     ZWrite Off
     Blend SrcAlpha OneMinusSrcAlpha
 
