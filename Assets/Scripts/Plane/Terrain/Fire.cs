@@ -33,10 +33,14 @@ public class Fire : Terrain, IAttacker
             }
             var victim = figure.GetComponent<Unit>();
             if (victim != null) {
-                gameObject.SetActive(false);
-                GetComponent<Figure>().OnDestroy();
+                OnLeave();
             }
         };
+    }
+
+    protected virtual void OnLeave() {
+        gameObject.SetActive(false);
+        GetComponent<Figure>().OnDestroy();
     }
 
     public void OnDestroy() {

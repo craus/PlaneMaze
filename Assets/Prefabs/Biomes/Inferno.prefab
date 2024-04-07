@@ -50,7 +50,11 @@ PrefabInstance:
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: terrainSamples.Array.data[6].to
       value: 
-      objectReference: {fileID: 8832303000250062519, guid: f5c10761811c02e43bb761a7b6ce8936, type: 3}
+      objectReference: {fileID: 7331006735911305571, guid: 8708e5dd951c69241876c9348e35db13, type: 3}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: terrainSamples.Array.data[4].weight
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: terrainSamples.Array.data[6].weight
       value: 1
