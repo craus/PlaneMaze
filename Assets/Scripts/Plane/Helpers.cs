@@ -98,10 +98,10 @@ public static class Helpers
         return v;
     }
 
-    public static async Task RunAnimation(GameObject animation, Transform target) {
+    public static async Task RunAnimation(GameObject animation, Transform target, float duration = 0.1f) {
         animation = UnityEngine.Object.Instantiate(animation, target);
         animation.transform.position = target.position;
-        await Delay(0.1f);
+        await Delay(duration);
         UnityEngine.Object.Destroy(animation);
     }
 }

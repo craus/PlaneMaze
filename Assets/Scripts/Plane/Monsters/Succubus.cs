@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,7 +19,19 @@ public class Succubus : Monster
                 return;
             }
             playerDelta = Helpers.StepAtDirection(playerDelta);
+
+            var playerMovement = new TaskCompletionSource<bool>();
+
+            Task previousPlayerEffect = Player.instance.runningEffect;
+
+            Player.instance.runningEffect = playerMovement.Task;
+
+            await previousPlayerEffect;
+
+            await Helpers.RunAnimation(Library.instance.charmSample, transform, 0.1f);
             await Player.instance.figure.TryWalk(-playerDelta);
+            playerMovement.SetResult(true);
+
             return;
         }
 

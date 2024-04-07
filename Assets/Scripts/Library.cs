@@ -53,6 +53,7 @@ public class Library : Singletone<Library>
 
     public GameObject healSample;
     public GameObject explosionSample;
+    public GameObject charmSample;
 
     public Terrain fire;
 

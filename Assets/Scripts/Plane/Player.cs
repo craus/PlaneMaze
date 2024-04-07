@@ -26,6 +26,8 @@ public class Player : Unit
 
     public Queue<Vector2Int> commands = new Queue<Vector2Int>();
 
+    public Task runningEffect = Task.CompletedTask;
+
     public bool permanentInvulnerability = false;
 
     public override bool Vulnerable => base.Vulnerable && !permanentInvulnerability;
