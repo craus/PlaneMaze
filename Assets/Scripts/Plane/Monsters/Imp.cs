@@ -68,8 +68,13 @@ public class Imp : Monster
             await Attack(u);
         }
         foreach (var cell in figure.Location.Vicinity(1).Where(c => c.Free && c.figures.Count == 0)) {
-            Game.GenerateFigure(cell, Library.instance.fire);
+            TryFire(cell);
         }
+    }
+
+    private void TryFire(Cell location) {
+        if (location.GetFigure<Terrain>() != null) return;
+        Game.GenerateFigure(location, Library.instance.fire);
     }
 
     protected override async Task MakeMove() {
@@ -88,7 +93,7 @@ public class Imp : Monster
 
         if (!await SmartWalk(currentDirection)) {
             if (await TryAttack(currentDirection)) {
-                Game.GenerateFigure(figure.Location.Shift(currentDirection), Library.instance.fire);
+                TryFire(figure.Location.Shift(currentDirection));
             } else {
                 await SmartFakeMove(currentDirection);
                 currentDirection = Helpers.Moves.Rnd(m => figure.Location.Shift(m).Free);
