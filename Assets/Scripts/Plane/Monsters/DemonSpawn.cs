@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class DemonSpawn : Monster
 {
+    public override bool FireImmune => true;
+
     public Vector2Int currentDirection;
     public SpriteRenderer sprite;
 
@@ -48,7 +50,7 @@ public class DemonSpawn : Monster
             if (Rand.rndEvent(0.5f)) {
                 var delta = Helpers.Moves.Rnd();
                 if (!await TryAttack(delta)) {
-                    if (!await figure.TryWalk(delta)) {
+                    if (!await SmartWalk(delta)) {
                         await figure.FakeMove(delta);
                     }
                 }
