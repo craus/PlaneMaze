@@ -16,7 +16,7 @@ public class Unit : MonoBehaviour, IMortal, IAttacker
     public virtual bool FireImmune => false;
     public virtual bool HasSoul => soul;
     public virtual bool SoulVulnerable => HasSoul;
-    public virtual int Money => 1;
+    public virtual int Money => poor ? 0 : 1;
     public virtual bool Movable => true;
     public virtual bool GhostForm => false;
     public virtual bool Boss => false;
@@ -36,6 +36,8 @@ public class Unit : MonoBehaviour, IMortal, IAttacker
 
     public bool alive = true;
     public bool dying = false;
+
+    public bool poor = false;
 
     public int movesSinceLastHit = 100500;
     public IAttacker lastAttacker;
