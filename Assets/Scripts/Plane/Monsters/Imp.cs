@@ -15,6 +15,8 @@ public class Imp : Monster
     public bool charged = false;
     public bool woundedLastTurn = false;
 
+    public override bool FireImmune => true;
+
     public override void Awake() {
         base.Awake();
         currentDirection = Helpers.Moves.Rnd();

@@ -22,7 +22,7 @@ public class Fire : Terrain, IAttacker
                 return;
             }
             var victim = figure.GetComponent<Unit>();
-            if (victim != null && !victim.Flying) {
+            if (victim != null && !victim.FireImmune) {
                 await Attack(victim);
                 if (this == null) {
                     return;
