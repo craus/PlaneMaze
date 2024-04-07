@@ -251,7 +251,7 @@ public class WorldGenerator : Singletone<WorldGenerator>
         }
 
         var temporalGhost = Game.GenerateFigure(
-            cellOrderList.Where(cell => cell.Biome == Library.instance.darkrootForest && cell.figures.Count() == 0).Rnd(),
+            cellOrderList.Where(cell => cell.figures.Count() == 0).Rnd(),
             Library.Get<TemporalGhost>()
         );
 
