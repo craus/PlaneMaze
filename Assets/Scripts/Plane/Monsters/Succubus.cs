@@ -19,6 +19,7 @@ public class Succubus : Monster
             }
             playerDelta = Helpers.StepAtDirection(playerDelta);
             await Player.instance.figure.TryWalk(-playerDelta);
+            return;
         }
 
         for (int i = 0; i < 1; i++) {
