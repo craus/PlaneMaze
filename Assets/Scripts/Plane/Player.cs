@@ -169,6 +169,8 @@ public class Player : Unit
         if (this == null) {
             return;
         }
+
+        await CheckFire();
         await GetComponent<Disarm>().Spend(1);
         await GetComponent<Root>().Spend(1);
         await GetComponent<Curse>().Spend(1);

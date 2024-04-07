@@ -145,6 +145,7 @@ public abstract class Monster : Unit, IMovable
         movesSinceLastHeal++;
         movesSinceLastHit++;
         await Regenerate();
+        await CheckFire();
         await MakeMove();
         if (this == null) return;
         await GetComponent<Disarm>().Spend(1);

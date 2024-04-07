@@ -40,6 +40,8 @@ public class Unit : MonoBehaviour, IMortal, IAttacker
     public int movesSinceLastHit = 100500;
     public IAttacker lastAttacker;
 
+    public bool inFire;
+
     public List<Func<MoveAction, Task>> afterTakeAction = new List<Func<MoveAction, Task>>();
 
     public virtual void OnGameStart() {
@@ -51,6 +53,7 @@ public class Unit : MonoBehaviour, IMortal, IAttacker
         new ValueTracker<bool>(() => alive, v => alive = v);
         new ValueTracker<bool>(() => dying, v => dying = v);
         new ValueTracker<bool>(() => soul, v => soul = v);
+        new ValueTracker<bool>(() => inFire, v => inFire = v);
         new ValueTracker<int>(() => movesSinceLastHit, v => movesSinceLastHit = v);
 
         new ValueTracker<List<Func<MoveAction, Task>>>(() => afterTakeAction.ToList(), v => afterTakeAction = v.ToList());
@@ -59,6 +62,31 @@ public class Unit : MonoBehaviour, IMortal, IAttacker
     public virtual async Task Attack(Attack attack) {
         await attack.to.GetComponent<Unit>().Hit(attack);
         await Task.WhenAll(attack.afterAttack.Select(listener => listener()));
+    }
+
+    public async Task AffectedByFire() {
+        if (FireImmune) return;
+
+        if (inFire) {
+            await Hit(new Attack(
+                Vector2Int.zero,
+                figure.Location.GetFigure<Fire>().figure,
+                figure,
+                figure.Location,
+                figure.Location,
+                1
+            ));
+        } else {
+            inFire = true;
+        }
+    }
+
+    public async Task CheckFire() {
+        if (figure.Location.GetFigure<Fire>() != null) {
+            await AffectedByFire();
+        } else {
+            inFire = false;
+        }
     }
 
     public virtual async Task Hit(Attack attack) {

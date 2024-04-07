@@ -80,6 +80,7 @@ public class Imp : Monster
     protected override async Task MakeMove() {
         if (charged) {
             charged = false;
+            UpdateSprite();
             await DealChargeDamage();
             return;
         }

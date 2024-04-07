@@ -17,17 +17,22 @@ public class Fire : Terrain, IAttacker
 
         //Player.instance.figure.afterMove.Add(AfterPlayerMove);
 
-        GetComponent<Figure>().collide = async (from, figure) => {
+        //GetComponent<Figure>().collide = async (from, figure) => {
+        //    if (figure == null) {
+        //        return;
+        //    }
+        //    var victim = figure.GetComponent<Unit>();
+        //    if (victim != null) {
+        //        await victim.AffectedByFire();
+        //    }
+        //};
+
+        GetComponent<Figure>().collideEnd = async (from, figure) => {
             if (figure == null) {
                 return;
             }
             var victim = figure.GetComponent<Unit>();
-            if (victim != null && !victim.FireImmune) {
-                await Attack(victim);
-                if (this == null) {
-                    return;
-                }
-                //Destroy(gameObject);
+            if (victim != null) {
                 gameObject.SetActive(false);
                 GetComponent<Figure>().OnDestroy();
             }
