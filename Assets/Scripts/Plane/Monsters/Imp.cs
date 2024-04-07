@@ -58,13 +58,8 @@ public class Imp : Monster
         chargedSprite.enabled = charged;
     }
 
-    public override async Task AfterAttack(Vector2Int delta) {
-        await base.AfterAttack(delta);
-        Game.GenerateFigure(figure.Location.Shift(delta), Library.instance.fire);
-    }
-
     public async Task DealChargeDamage() {
-        foreach (var u in figure.Location.Vicinity(1)
+        foreach (var u in figure.Location.Vicinity(1).Except(figure.Location)
             .SelectMany(c => c.GetFigures<Unit>())
             .ToList()
         ) {
@@ -90,7 +85,9 @@ public class Imp : Monster
         }
 
         if (!await SmartWalk(currentDirection)) {
-            if (!await TryAttack(currentDirection)) {
+            if (await TryAttack(currentDirection)) {
+                Game.GenerateFigure(figure.Location.Shift(currentDirection), Library.instance.fire);
+            } else {
                 await SmartFakeMove(currentDirection);
                 currentDirection = Helpers.Moves.Rnd(m => figure.Location.Shift(m).Free);
                 UpdateSprite();

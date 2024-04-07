@@ -19,6 +19,10 @@ public static class CollectionExtensions
         yield return element;
     }
 
+    public static IEnumerable<T> Except<T>(this IEnumerable<T> collection, params T[] exceptions) {
+        return collection.Except(exceptions.ToList());
+    }
+
     public static IEnumerable<T> Empty<T>() {
         yield break;
     }
