@@ -15,8 +15,8 @@ public class UndoManager : Singletone<UndoManager>
     public void CreateRandomStateTracker() {
         var vt = new ValueTracker<UnityEngine.Random.State>(() => UnityEngine.Random.state, v => {
             UnityEngine.Random.state = v;
-            Debug.LogFormat($"Set state: {v.GetHashCode().ToString()}");
-            Debug.LogFormat($"State set to: {UnityEngine.Random.state.GetHashCode().ToString()}");
+            //Debug.LogFormat($"Set state: {v.GetHashCode().ToString()}");
+            //Debug.LogFormat($"State set to: {UnityEngine.Random.state.GetHashCode().ToString()}");
         });
         vt.toString = v => v.GetHashCode().ToString();
     }
@@ -45,6 +45,7 @@ public class UndoManager : Singletone<UndoManager>
         if (lastSaveIndex <= 1) return;
         lastSaveIndex -= count;
         Load();
+        Debug.LogFormat($"Load {lastSaveIndex}");
     }
 
     public void ResetTrackers() {

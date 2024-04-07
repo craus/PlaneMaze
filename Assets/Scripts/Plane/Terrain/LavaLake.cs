@@ -11,4 +11,6 @@ public class LavaLake : Fire
     protected override void OnLeave() {
         // do nothing
     }
+
+    public override bool CanAffect(Unit unit) => base.CanAffect(unit) && !unit.Flying;
 }

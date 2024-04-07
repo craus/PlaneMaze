@@ -64,8 +64,8 @@ public class Unit : MonoBehaviour, IMortal, IAttacker
         await Task.WhenAll(attack.afterAttack.Select(listener => listener()));
     }
 
-    public async Task AffectedByFire() {
-        if (FireImmune) return;
+    public async Task AffectedByFire(Fire fire) {
+        if (!fire.CanAffect(this)) return;
 
         if (inFire) {
             await Hit(new Attack(
@@ -82,8 +82,9 @@ public class Unit : MonoBehaviour, IMortal, IAttacker
     }
 
     public async Task CheckFire() {
-        if (figure.Location.GetFigure<Fire>() != null) {
-            await AffectedByFire();
+        var fire = figure.Location.GetFigure<Fire>();
+        if (fire != null) {
+            await AffectedByFire(fire);
         } else {
             inFire = false;
         }

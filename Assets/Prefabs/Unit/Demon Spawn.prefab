@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 270529094164164945, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_Name
-      value: Hellhound
+      value: Demon Spawn
       objectReference: {fileID: 0}
     - target: {fileID: 1427448197668522633, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_AnchorMax.y
@@ -211,22 +211,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6947227257763931431, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6947227257763931431, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7095600188239692362, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
-      propertyPath: rightSprites.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7095600188239692362, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
-      propertyPath: rightSprites.Array.data[0]
-      value: 
-      objectReference: {fileID: 1667350527596083492}
     - target: {fileID: 7319073435507970628, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -240,6 +224,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7319073435507970628, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7482488753574916653, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7482488753574916653, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7482488753574916653, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7482488753574916653, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
@@ -257,10 +257,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7507723505816636335, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7618691182184183315, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7893248672002759264, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
@@ -325,15 +321,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187696164521918999, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: description
-      value: '<b>Hellhound</b>
+      value: '<b>Demon spawn</b>
 
 
         Wanders randomly.
 
-        Moves twice or
-        attacks once.
+        Immune to fire.
 
-        Ignites cells when ran through or attacked you.'
+        Launches
+        fireball into you when see you.'
       objectReference: {fileID: 0}
     - target: {fileID: 8430807191255413278, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_AnchorMax.y
@@ -352,20 +348,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 6c39bb77b8bbbf543814cb6b087a67db, type: 3}
+      objectReference: {fileID: 21300000, guid: 16fc8bdd5f343ac4a9f620e5d5337d34, type: 3}
     - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_Color.b
-      value: 0.018022425
+      value: 0.29803923
       objectReference: {fileID: 0}
     - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_Color.g
-      value: 0.018022425
+      value: 0.3647059
       objectReference: {fileID: 0}
     - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_Color.r
-      value: 0.764151
+      value: 0.42745098
       objectReference: {fileID: 0}
     - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -373,11 +377,23 @@ PrefabInstance:
       objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 8629693220871525368, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.02
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 8629693220871525368, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.02
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747549380610530154, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: max
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747549380610530154, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: current
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747549380610530154, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: ascentionHealth.Array.data[2]
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8920068641638795378, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_AnchorMax.y
@@ -471,7 +487,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 270529094164164945, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
   m_PrefabInstance: {fileID: 6920106804345873549}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6890977442324438375
+--- !u!114 &5504667808349519680
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -480,7 +496,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7190054797756372444}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29090f2fdf013e1459535ed6cea35646, type: 3}
+  m_Script: {fileID: 11500000, guid: c4628d1559d6d47449ec2bbc37318367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lastMove: {x: 0, y: 0}
@@ -493,3 +509,7 @@ MonoBehaviour:
   movesSinceLastHeal: 100500
   attackProjectile: {fileID: 7558257676500238022, guid: cfc4e3f00b8a52448b747c87fa87ae29, type: 3}
   damage: 1
+  currentDirection: {x: 0, y: 0}
+  sprite: {fileID: 1667350527596083492}
+  fireballSample: {fileID: 5504667808349519680, guid: f819e3041dae1144fae5b5ce6c387ef6, type: 3}
+  range: 18

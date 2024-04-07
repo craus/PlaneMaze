@@ -24,9 +24,17 @@ public abstract class Monster : Unit, IMovable
         if (!Flying && figure.Location.Shift(delta).GetFigure<WolfTrap>() != null) {
             return false;
         }
-        if (!FireImmune && figure.Location.Shift(delta).GetFigure<Fire>() != null) {
+
+        var fire = figure.Location.Shift(delta).GetFigure<Fire>();
+        if (fire != null && fire.CanAffect(this)) {
             return false;
         }
+
+        var fireball = figure.Location.Shift(delta).GetFigure<Fireball>();
+        if (fireball != null) {
+            return false;
+        }
+
         return await figure.TryWalk(delta, FreeCell);
     }
 

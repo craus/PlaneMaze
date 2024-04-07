@@ -30,7 +30,7 @@ public class Hornet : Monster
         for (int i = 0; i < 1; i++) {
             var delta = Helpers.Moves.Rnd();
             if (!await TryAttack(delta)) {
-                if (!await figure.TryWalk(delta)) {
+                if (!await SmartWalk(delta)) {
                     await figure.FakeMove(delta);
                 }
             }

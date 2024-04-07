@@ -52,6 +52,7 @@ public class Library : Singletone<Library>
     public Tree tree;
 
     public GameObject healSample;
+    public GameObject explosionSample;
 
     public Terrain fire;
 

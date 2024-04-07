@@ -42,10 +42,11 @@ public class SoundManager : Singletone<SoundManager>
     public AudioSource sisterDamaged;
     public AudioSource witchDeath;
     public AudioSource sisterDeath;
+    public AudioSource explode;
 
     public void Update() {
         if (Input.GetKeyDown(KeyCode.F4)) {
-            gemPick.Play();
+            explode.Play();
         }
     }
 }

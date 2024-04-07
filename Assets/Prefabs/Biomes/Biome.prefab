@@ -70,6 +70,7 @@ MonoBehaviour:
     weight: 1
   - to: {fileID: 6890977442324438375, guid: 397be5e282dbe5c449605312aa07e719, type: 3}
     weight: 1
+  additionalMonsterSamples:
   - to: {fileID: 792451774977223643, guid: 1c2cc50c85e99e84b802c55a7905b005, type: 3}
     weight: 1
   terrainSamples:

@@ -34,7 +34,7 @@ public class Harpy : Monster
         if (await TryAttack(delta)) {
             return;
         }
-        if (await figure.TryWalk(delta)) {
+        if (await SmartWalk(delta)) {
             return;
         } 
         await figure.FakeMove(delta);

@@ -409,8 +409,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187696164521918999, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: description
-      value: "<b>Goblin</b>\n\nWalks in one direction, changes it when stuck. \nAttacks
-        you only on the way."
+      value: "<b>Imp</b>\n\nWalks in one direction, changes it when stuck. \nAttacks
+        you only on the way.\nIgnites cells if attacks you.\nWhen attacked, charges
+        and then ignites nearby cells and deal damage to units there."
       objectReference: {fileID: 0}
     - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_FlipX
@@ -489,6 +490,7 @@ MonoBehaviour:
   alive: 1
   dying: 0
   movesSinceLastHit: 100500
+  inFire: 0
   movesSinceLastHeal: 100500
   attackProjectile: {fileID: 7558257676500238022, guid: cfc4e3f00b8a52448b747c87fa87ae29, type: 3}
   damage: 1
@@ -497,6 +499,7 @@ MonoBehaviour:
   sprite: {fileID: 6232422821123268445}
   chargedSprite: {fileID: 1269838183571590905}
   charged: 0
+  woundedLastTurn: 0
 --- !u!4 &7031912995906884415 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6206818734496144175, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}

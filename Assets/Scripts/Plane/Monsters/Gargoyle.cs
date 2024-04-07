@@ -7,6 +7,7 @@ using UnityEngine;
 public class Gargoyle : Monster
 {
     public override bool Flying => true;
+    public override bool FireImmune => true;
 
     public Vector2Int currentDirection;
     public SpriteRenderer sprite;

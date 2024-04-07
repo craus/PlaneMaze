@@ -17,5 +17,6 @@ public class Biome : MonoBehaviour
     public GameObject wallModel;
 
     public List<Weighted<Monster>> monsterSamples;
+    public List<Weighted<Monster>> additionalMonsterSamples;
     public List<Weighted<Terrain>> terrainSamples;
 }

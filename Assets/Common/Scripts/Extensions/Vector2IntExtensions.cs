@@ -19,6 +19,10 @@ public static class Vector2IntExtensions
         return new Vector2Int(v.y, -v.x);
     }
 
+    public static float PolarAngle(this Vector2Int v) {
+        return Mathf.Atan2(v.y, v.x) * 180 / Mathf.PI;
+    }
+
     public static Vector2Int Relative(this Vector2Int v, int x, int y) {
         return v * x + v.RotateLeft() * y;
     }

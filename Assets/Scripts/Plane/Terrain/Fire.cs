@@ -12,6 +12,8 @@ public class Fire : Terrain, IAttacker
 
     public GameObject attackProjectileSample;
 
+    public virtual bool CanAffect(Unit unit) => !unit.FireImmune;
+
     public override void Awake() {
         base.Awake();
 
