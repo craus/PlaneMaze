@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.2924528, g: 0.056559265, b: 0.06349732, a: 0.23921569}
+  m_Color: {r: 0.054901965, g: 0.0994994, b: 0.29411766, a: 0.23921569}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -931,9 +931,8 @@ MonoBehaviour:
   alive: 1
   dying: 0
   movesSinceLastHit: 100500
+  inFire: 0
   movesSinceLastHeal: 100500
-  movesSinceHitToHeal: 48
-  healCooldown: 48
   attackProjectile: {fileID: 67467469717759535, guid: a78f821786ba0264093e0de0aca7a282, type: 3}
   damage: 2
   teleportRadius: 8
