@@ -13,6 +13,7 @@ public class Unit : MonoBehaviour, IMortal, IAttacker
     public bool soul = true;
 
     public virtual bool Flying => false;
+    public virtual bool FireImmune => false;
     public virtual bool HasSoul => soul;
     public virtual bool SoulVulnerable => HasSoul;
     public virtual int Money => 1;
