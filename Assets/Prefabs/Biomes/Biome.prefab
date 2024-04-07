@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8e637bc03272340a63349af45592cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossName: 
   size: 1000
+  ghostPower: 1
   floorModel: {fileID: 5685242771666706728, guid: 1ea1a59afff5bbc49a8be1557dffced5, type: 3}
   wallModel: {fileID: 7220744591516548407, guid: 9199c06f2df328243ab9797e7b83c9d7, type: 3}
   monsterSamples:
@@ -67,6 +69,8 @@ MonoBehaviour:
   - to: {fileID: 8234422707921031841, guid: d7be61fe3df1d594f92d509649faff17, type: 3}
     weight: 1
   - to: {fileID: 6890977442324438375, guid: 397be5e282dbe5c449605312aa07e719, type: 3}
+    weight: 1
+  - to: {fileID: 792451774977223643, guid: 1c2cc50c85e99e84b802c55a7905b005, type: 3}
     weight: 1
   terrainSamples:
   - to: {fileID: 5501922713185124398, guid: c734a55bf5c27474c970bba43e557bb5, type: 3}

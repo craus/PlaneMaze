@@ -4998,7 +4998,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -12.004242}
+  m_AnchoredPosition: {x: 0, y: -12.004303}
   m_SizeDelta: {x: 0, y: -24.0085}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &681579008
@@ -9556,9 +9556,11 @@ MonoBehaviour:
   - {fileID: 4174912326676550625, guid: eef348039c147c841b33e3cb15447083, type: 3}
   - {fileID: 3430537333489080336, guid: 9e85f7a7e336fd34da147bc7ab5a76ae, type: 3}
   - {fileID: 3430537333489080336, guid: fce3a8ef53bc90e4f8fb9c98f5d9e80b, type: 3}
+  - {fileID: 3430537333489080336, guid: 2e6b615438e967d43b5c90e584600375, type: 3}
   bossBiomes:
   - {fileID: 3430537333489080336, guid: 9e85f7a7e336fd34da147bc7ab5a76ae, type: 3}
   - {fileID: 3430537333489080336, guid: fce3a8ef53bc90e4f8fb9c98f5d9e80b, type: 3}
+  - {fileID: 3430537333489080336, guid: 2e6b615438e967d43b5c90e584600375, type: 3}
   figures:
   - {fileID: 3303673112297539049, guid: aaf39e84a86d51e4eba1c7948a0c03a0, type: 3}
   - {fileID: 3303673112297539049, guid: 3b87fbe06cbe6674d86d2ebffa77ad1c, type: 3}
@@ -9624,6 +9626,7 @@ MonoBehaviour:
   dungeon: {fileID: 4174912326676550625, guid: eef348039c147c841b33e3cb15447083, type: 3}
   crypt: {fileID: 3430537333489080336, guid: 9e85f7a7e336fd34da147bc7ab5a76ae, type: 3}
   darkrootForest: {fileID: 3430537333489080336, guid: fce3a8ef53bc90e4f8fb9c98f5d9e80b, type: 3}
+  inferno: {fileID: 3430537333489080336, guid: 2e6b615438e967d43b5c90e584600375, type: 3}
   doubleGhostSpawns: {fileID: 8999616787668789769, guid: cc76c7370c691e143a5483ab3541ff8f, type: 3}
   ghostSpawns: {fileID: -8392404935275920455, guid: 13270185f31e9d94baafc24b892e459c, type: 3}
   monstersHaveMoreHealth: {fileID: 2218484981513858613, guid: ce9e3acc9a55e344f867b1a6c355694d, type: 3}
@@ -10333,7 +10336,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -6.0352173}
+  m_AnchoredPosition: {x: 0, y: -6.0352783}
   m_SizeDelta: {x: 0, y: -12.0706}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1640807366

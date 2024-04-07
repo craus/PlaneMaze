@@ -141,5 +141,9 @@ MonoBehaviour:
   soul: 1
   figure: {fileID: 0}
   alive: 1
+  dying: 0
+  movesSinceLastHit: 100500
+  inFire: 0
+  movesSinceLastHeal: 100500
   attackProjectile: {fileID: 0}
   damage: 1
