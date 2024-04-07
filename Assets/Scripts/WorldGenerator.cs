@@ -11,6 +11,7 @@ public class WorldGenerator : Singletone<WorldGenerator>
 
     public List<Cell> cellOrderList;
     public Biome bossBiome;
+    public Biome startBiome;
     public List<Biome> biomesOrder;
 
     private static bool MakesCross(Cell cell, Vector2Int direction) =>
@@ -181,6 +182,9 @@ public class WorldGenerator : Singletone<WorldGenerator>
     }
 
     private void AddTreesNearForest() {
+        if (cellOrderList.Where(cell => cell.Biome == Library.instance.darkrootForest).Count() == 0) {
+            return;
+        }
         foreach (var cell in BorderCells(cellOrderList.Where(cell => cell.Biome == Library.instance.darkrootForest))
             .Where(cell => cell.Wall)
         ) {
@@ -210,34 +214,41 @@ public class WorldGenerator : Singletone<WorldGenerator>
         bossBiome = Library.instance.bossBiomes.Rnd();
         Game.instance.bossName = bossBiome.bossName;
 
+        startBiome = Library.instance.inferno;
+
         biomesOrder = Library.instance.biomes.Shuffled();
 
-        foreach (var biome in biomesOrder) {
-            await GenerateBiome(biome);
-        }
+        //foreach (var biome in biomesOrder) {
+        //    await GenerateBiome(biome);
+        //}
+
+        await GenerateBiome(Library.instance.inferno);
 
         await Postprocess();
 
-        var start = cellOrderList.First(cell => cell.Biome == Library.instance.dungeon && cell.orderInBiome == 0);
+        var start = cellOrderList.FirstOrDefault(cell => cell.Biome == Library.instance.dungeon && cell.orderInBiome == 0);
+        if (start == null) {
+            start = cellOrderList.First(cell => cell.orderInBiome == 0);
+        }
         Game.instance.player = Game.GenerateFigure(start, Game.instance.playerSample);
 
         foreach (var cell in cellOrderList) PopulateCell(cell);
 
-        if (bossBiome == Library.instance.darkrootForest) {
-            var witch = Game.GenerateFigure(
-                cellOrderList.Where(cell => cell.Biome == Library.instance.darkrootForest && cell.figures.Count() == 0).Rnd(),
-                Library.instance.darkrootForest.GetComponent<DarkrootForest>().witch
-            );
-            var sister = Game.GenerateFigure(
-                cellOrderList.Where(cell => cell.Biome == Library.instance.darkrootForest && cell.figures.Count() == 0).Rnd(),
-                Library.instance.darkrootForest.GetComponent<DarkrootForest>().sister
-            );
+        //if (bossBiome == Library.instance.darkrootForest) {
+        //    var witch = Game.GenerateFigure(
+        //        cellOrderList.Where(cell => cell.Biome == Library.instance.darkrootForest && cell.figures.Count() == 0).Rnd(),
+        //        Library.instance.darkrootForest.GetComponent<DarkrootForest>().witch
+        //    );
+        //    var sister = Game.GenerateFigure(
+        //        cellOrderList.Where(cell => cell.Biome == Library.instance.darkrootForest && cell.figures.Count() == 0).Rnd(),
+        //        Library.instance.darkrootForest.GetComponent<DarkrootForest>().sister
+        //    );
 
-            witch.witch = witch;
-            witch.sister = sister;
-            sister.witch = witch;
-            sister.sister = sister;
-        }
+        //    witch.witch = witch;
+        //    witch.sister = sister;
+        //    sister.witch = witch;
+        //    sister.sister = sister;
+        //}
 
         for (int i = 0; i < storeCount; i++) {
             GenerateStore();
@@ -301,10 +312,10 @@ public class WorldGenerator : Singletone<WorldGenerator>
     public void PopulateCell(Cell cell) {
         if (cell.GetFigure<Figure>() != null) {
             return;
-        } else if (cell.orderInBiome == 1 && cell.Biome == Library.instance.dungeon && !Game.instance.Metagame.HasAscention<NoStartingWeapon>()) {
+        } else if (cell.orderInBiome == 1 && cell.Biome == startBiome && !Game.instance.Metagame.HasAscention<NoStartingWeapon>()) {
             Game.GenerateFigure(cell, Game.instance.weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().startingWeight));
             return;
-        } else if (cell.Biome == Library.instance.dungeon && Game.instance.startingItemsSamples.Count() > 0) {
+        } else if (cell.Biome == startBiome && Game.instance.startingItemsSamples.Count() > 0) {
             Game.GenerateFigure(cell, Game.instance.startingItemsSamples.First());
             Game.instance.startingItemsSamples.RemoveAt(0);
             return;
@@ -316,7 +327,7 @@ public class WorldGenerator : Singletone<WorldGenerator>
         if (cell.Biome == Library.instance.darkrootForest && Rand.rndEvent(0.1f)) {
             Game.GenerateFigure(cell, Library.instance.tree);
         } else if ((Game.instance.player.figure.Location.position - cell.position).magnitude > 6 && Rand.rndEvent(Metagame.instance.MonsterProbability)) {
-            Game.GenerateFigure(cell, cell.Biome.monsterSamples.weightedRnd());
+            Game.GenerateFigure(cell, cell.Biome.monsterSamples.Concat(cell.Biome.additionalMonsterSamples).ToList().weightedRnd());
         } else if (Rand.rndEvent(0.004f)) {
             Game.GenerateFigure(cell, Game.instance.weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().fieldWeight));
         } else if (Rand.rndEvent(0)) {
