@@ -181,6 +181,11 @@ public class Game : MonoBehaviour
         await Task.WhenAll(afterMonsterMove.Select(listener => listener(turnNumber)));
     }
 
+    private void TryFire(Cell location) {
+        if (location.figures.Count != 0) return;
+        GenerateFigure(location, Library.instance.fire);
+    }
+
     public async Task AfterPlayerMove() {
         await MonstersAndItemsTick(time);
         completedTurns[time].SetResult(true);
@@ -189,6 +194,8 @@ public class Game : MonoBehaviour
         if (Metagame.SpawnGhosts) {
             await SpawnGhosts();
         }
+
+        TryFire(WorldGenerator.instance.GetBiome<Biome>(b => b.GetComponent<Inferno>() != null).cells.rnd());
     }
 
     private async Task SpawnGhosts() {

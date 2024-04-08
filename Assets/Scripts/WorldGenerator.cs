@@ -14,6 +14,12 @@ public class WorldGenerator : Singletone<WorldGenerator>
     public Biome startBiome;
     public List<Biome> biomesOrder;
 
+    public List<Biome> generatedBiomes;
+
+    public T GetBiome<T>(Predicate<T> predicate) where T : Biome {
+        return generatedBiomes.FirstOrDefault(biome => biome is T t && predicate(t)) as T;
+    }
+
     private static bool MakesCross(Cell cell, Vector2Int direction) =>
         cell.Wall == cell.Shift(direction + direction.RotateRight()).Wall &&
         cell.Wall != cell.Shift(direction).Wall &&
@@ -105,6 +111,9 @@ public class WorldGenerator : Singletone<WorldGenerator>
         var boss = bossBiome == biome;
         Game.instance.mainWorld.currentBiome = biome;
 
+        var newBiome = Instantiate(biome, transform);
+        generatedBiomes.Add(newBiome);
+
         var start = Game.instance.mainWorld.GetCell(Vector2Int.zero);
         if (cellOrderList.Count > 0) {
             start = CheapestBorderCell(cellOrderList);
@@ -118,14 +127,12 @@ public class WorldGenerator : Singletone<WorldGenerator>
             maxSteps: 100000
         ).Take(biome.Size);
 
-        var biomeCells = new List<Cell>();
-
         int i = 0;
         foreach (Cell c in cellOrder) {
 
             c.orderInBiome = i;
             c.Biome = biome;
-            biomeCells.Add(c);
+            newBiome.cells.Add(c);
 
             AddFloorCell(c, biome);
 
@@ -309,7 +316,7 @@ public class WorldGenerator : Singletone<WorldGenerator>
 
         if (cell.Biome == Library.instance.darkrootForest && Rand.rndEvent(0.1f)) {
             Game.GenerateFigure(cell, Library.instance.tree);
-        } else if ((Game.instance.player.figure.Location.position - cell.position).magnitude > 6 && Rand.rndEvent(Metagame.instance.MonsterProbability)) {
+        } else if ((Game.instance.player.figure.Location.position - cell.position).magnitude > 6 && false && Rand.rndEvent(Metagame.instance.MonsterProbability)) {
             Game.GenerateFigure(cell, cell.Biome.monsterSamples.Concat(cell.Biome.additionalMonsterSamples).ToList().weightedRnd());
         } else if (Rand.rndEvent(0.004f)) {
             Game.GenerateFigure(cell, Game.instance.weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().fieldWeight));

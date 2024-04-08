@@ -19,4 +19,6 @@ public class Biome : MonoBehaviour
     public List<Weighted<Monster>> monsterSamples;
     public List<Weighted<Monster>> additionalMonsterSamples;
     public List<Weighted<Terrain>> terrainSamples;
+
+    public List<Cell> cells = new List<Cell>();
 }
