@@ -10,6 +10,7 @@ public class Fireball : Monster
     public override bool Vulnerable => false;
     public override bool OccupiesPlace => false;
     public override int Money => 0;
+    public override bool HasSoul => false;
 
     public Vector2Int currentDirection;
     public Transform spriteParent;
