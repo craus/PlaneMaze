@@ -2717,25 +2717,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187696164521918999, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: description
-      value: '<b>The Witch</b>
+      value: '<b>The Archdevil</b>
 
 
         The final boss.
 
-        Kill her and her
-        Sister to win.
+        Immune to fire.
 
-        Creates illusions of herself.
+        Creates
+        hellgates and teleport traps.
 
-        Curses you
-        when adjacent.
+        Fires ground between you.
 
-        Charges syncronized attack with her Sister.
-
-        Teleports
-        you away on hit.
-
-        Creates cursed signs.'
+        Charges
+        attacks in line or when hit.'
       objectReference: {fileID: 0}
     - target: {fileID: 8430807191255413278, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_AnchorMax.y
