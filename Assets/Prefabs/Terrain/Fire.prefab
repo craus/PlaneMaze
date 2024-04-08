@@ -239,10 +239,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconImage: {fileID: 2532068689400690311}
-  description: '<b>Wolftrap</b>
+  description: '<b>Fire</b>
 
 
-    It''s a trap.
+    If you start second turn in a row in fire or lava,
+    you take 1 fire damage.
 
-    When ground unit steps on
-    it, deals 1 damage to it and is destroyed.'
+    Extinguish by leaving its cell.'
