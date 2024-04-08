@@ -49,6 +49,7 @@ public class Archdevil : Monster
     }
 
     public override void PlayAttackSound() => SoundManager.instance.monsterRangedAttack.Play();
+    protected override void PlayDeathSound() => SoundManager.instance.archDevilDeath.Play();
 
     private async Task ChargeAttack(IEnumerable<Cell> targetArea) {
         SoundManager.instance.chargeMagicAttack.Play();

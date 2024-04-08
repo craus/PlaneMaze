@@ -43,6 +43,7 @@ public class SoundManager : Singletone<SoundManager>
     public AudioSource witchDeath;
     public AudioSource sisterDeath;
     public AudioSource explode;
+    public AudioSource archDevilDeath;
 
     public void Update() {
         if (Input.GetKeyDown(KeyCode.F4)) {
