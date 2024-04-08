@@ -49,14 +49,7 @@ public class Fireball : Monster
         await Helpers.RunAnimation(Library.instance.explosionSample, transform);
 
         if (victim != null) {
-            await victim.Hit(new Attack(
-                delta: Vector2Int.zero,
-                figure,
-                victim.figure,
-                figure.Location,
-                victim.figure.Location,
-                1
-            ));
+            await Attack(victim);
         }
 
         foreach (var cell in figure.Location.Vicinity(1).Where(c => c.Free && c.figures.Count == 0)) {
