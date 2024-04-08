@@ -8,6 +8,13 @@ using UnityEngine.Events;
 
 public static class Helpers
 {
+    public static IEnumerable<Cell> Diagonals(Cell cell) {
+        yield return cell.Shift(1, 1);
+        yield return cell.Shift(1, -1);
+        yield return cell.Shift(-1, -1);
+        yield return cell.Shift(-1, 1);
+    }
+
     public static List<Vector2Int> Moves => new List<Vector2Int>() {
         Vector2Int.up,
         Vector2Int.down,

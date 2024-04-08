@@ -20,10 +20,12 @@ public class Board : MonoBehaviour
 
     public Biome currentBiome;
 
-    public Cell GetCell(Vector2Int position) {
-        ShowCell(position.x, position.y);
-        return map[position.x, position.y];
+    public Cell GetCell(int x, int y) {
+        ShowCell(x, y);
+        return map[x, y];
     }
+
+    public Cell GetCell(Vector2Int position) => GetCell(position.x, position.y);
 
     public Cell this[int x, int y] => GetCell(new Vector2Int(x, y));
 
