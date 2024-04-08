@@ -632,10 +632,11 @@ MonoBehaviour:
   figure: {fileID: 0}
   alive: 1
   dying: 0
+  poor: 0
   movesSinceLastHit: 100500
   inFire: 0
   movesSinceLastHeal: 100500
-  attackProjectile: {fileID: 7558257676500238022, guid: cfc4e3f00b8a52448b747c87fa87ae29, type: 3}
+  attackProjectile: {fileID: 0}
   damage: 1
   currentDirection: {x: 0, y: 0}
   spriteParent: {fileID: 5702919228670866925}

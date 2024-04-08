@@ -43,6 +43,10 @@ public class Fireball : Monster
         Game.GenerateFigure(location, Library.instance.fire);
     }
 
+    public override void PlayAttackSound() {
+        // do nothing
+    }
+
     private async Task Explode() {
         var victim = figure.Location.GetFigure<Unit>(u => u != this && u.OccupiesPlace);
 

@@ -25,7 +25,7 @@ PrefabInstance:
       objectReference: {fileID: 5208807964473548006, guid: 67264d8cbcead6c4984db03f33f3f1d8, type: 3}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: ghostPower
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: emptyColor.b

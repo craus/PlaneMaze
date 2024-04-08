@@ -115,9 +115,12 @@ public abstract class Monster : Unit, IMovable
             return true;
         }
 
-        var ap = Instantiate(attackProjectile, Game.instance.transform);
-        ap.gameObject.SetActive(true); // object was inactive for unknown reason
-        ap.transform.position = target.transform.position;
+        GameObject ap = null;
+        if (attackProjectile != null) {
+            ap = Instantiate(attackProjectile, Game.instance.transform);
+            ap.gameObject.SetActive(true); // object was inactive for unknown reason
+            ap.transform.position = target.transform.position;
+        }
 
         await Helpers.Delay(0.1f);
 
@@ -204,7 +207,12 @@ public abstract class Monster : Unit, IMovable
     }
 
     public void OnDestroy() {
-        if (Game.instance != null && figure.Location.board.movables.Contains(GetComponent<Monster>())) {
+        Debug.Log(this);
+        var l = figure.Location;
+        if (l == null) {
+            return;
+        }
+        if (Game.instance != null && l.board.movables.Contains(GetComponent<Monster>())) {
             figure.Location.board.movables.Remove(GetComponent<Monster>());
             Game.Debug($"Monster {gameObject} at ({figure.Location}) removed from queue after death");
         }
