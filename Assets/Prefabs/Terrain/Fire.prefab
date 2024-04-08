@@ -181,7 +181,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   figure: {fileID: 0}
   damage: 1
+  lifetime: 0
   attackProjectileSample: {fileID: 7558257676500238022, guid: b410f65947f832842abbf169e1296c59, type: 3}
+  sprite: {fileID: 2532068689400690311}
 --- !u!114 &1143973199772049189
 MonoBehaviour:
   m_ObjectHideFlags: 0

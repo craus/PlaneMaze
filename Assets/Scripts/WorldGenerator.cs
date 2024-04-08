@@ -309,7 +309,7 @@ public class WorldGenerator : Singletone<WorldGenerator>
 
         if (cell.Biome == Library.instance.darkrootForest && Rand.rndEvent(0.1f)) {
             Game.GenerateFigure(cell, Library.instance.tree);
-        } else if ((Game.instance.player.figure.Location.position - cell.position).magnitude > 6 && false && Rand.rndEvent(Metagame.instance.MonsterProbability)) {
+        } else if ((Game.instance.player.figure.Location.position - cell.position).magnitude > 6 && Rand.rndEvent(Metagame.instance.MonsterProbability)) {
             Game.GenerateFigure(cell, cell.Biome.monsterSamples.Concat(cell.Biome.additionalMonsterSamples).ToList().weightedRnd());
         } else if (Rand.rndEvent(0.004f)) {
             Game.GenerateFigure(cell, Game.instance.weaponSamples.rnd(weight: w => w.GetComponent<ItemGenerationRules>().fieldWeight));

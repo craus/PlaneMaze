@@ -12,5 +12,9 @@ public class LavaLake : Fire
         // do nothing
     }
 
+    public override async Task Move() {
+        // do nothing
+    }
+
     public override bool CanAffect(Unit unit) => base.CanAffect(unit) && !unit.Flying;
 }

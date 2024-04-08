@@ -66,6 +66,7 @@ public class WolfTrap : Terrain, IMortal, IAttacker
 
     public async Task Die() {
         SoundManager.instance.wolftrapAttack.Play();
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        GetComponent<Figure>().OnDestroy();
     }
 }
