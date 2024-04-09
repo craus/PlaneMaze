@@ -195,7 +195,10 @@ public class Game : MonoBehaviour
             await SpawnGhosts();
         }
 
-        TryFire(WorldGenerator.instance.GetBiome<Biome>(b => b.GetComponent<Inferno>() != null).cells.rnd());
+        var inferno = WorldGenerator.instance.GetBiome<Biome>(b => b.GetComponent<Inferno>() != null);
+        if (inferno != null) {
+            TryFire(inferno.cells.rnd());
+        }
     }
 
     private async Task SpawnGhosts() {

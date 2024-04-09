@@ -21,6 +21,7 @@ public class Library : Singletone<Library>
     public Biome crypt;
     public Biome darkrootForest;
     public Biome inferno;
+    public Biome bitterMire;
 
     public DoubleGhostSpawns doubleGhostSpawns;
     public GhostSpawns ghostSpawns;

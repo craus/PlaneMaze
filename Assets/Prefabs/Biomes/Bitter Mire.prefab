@@ -1,0 +1,151 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3837717479489835371
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: size
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: bossName
+      value: the King Slime
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: wallModel
+      value: 
+      objectReference: {fileID: 6163224922197522622, guid: 9ed442eff9311a445affcf929d8291d7, type: 3}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: floorModel
+      value: 
+      objectReference: {fileID: 5208807964473548006, guid: ea27348fc85db8c4d842c2d2648188c8, type: 3}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: ghostPower
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: emptyColor.b
+      value: 0.36405307
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: emptyColor.g
+      value: 0.36405307
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: emptyColor.r
+      value: 0.764151
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: monsterSamples.Array.size
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: terrainSamples.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: monsterSamples.Array.data[8].to
+      value: 
+      objectReference: {fileID: 7662973946557245431, guid: 9b95688080905dd4a8f2e43a9f02ad55, type: 3}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: terrainSamples.Array.data[6].to
+      value: 
+      objectReference: {fileID: 7331006735911305571, guid: 8708e5dd951c69241876c9348e35db13, type: 3}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: monsterSamples.Array.data[10].to
+      value: 
+      objectReference: {fileID: 6890977442324438375, guid: 80a5ba08a7fe3444fba7c8ff0d9e99fa, type: 3}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: monsterSamples.Array.data[11].to
+      value: 
+      objectReference: {fileID: 5504667808349519680, guid: 2a353a9a71228d543b47f53064d4fc81, type: 3}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: monsterSamples.Array.data[12].to
+      value: 
+      objectReference: {fileID: 5504667808349519680, guid: 43e048860c91ca14c8925879d300e784, type: 3}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: monsterSamples.Array.data[13].to
+      value: 
+      objectReference: {fileID: 8536777542681899615, guid: 79d19b61323433b42b343ddaf83aaa78, type: 3}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: terrainSamples.Array.data[4].weight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: terrainSamples.Array.data[6].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: monsterSamples.Array.data[10].weight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: monsterSamples.Array.data[11].weight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: monsterSamples.Array.data[12].weight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: monsterSamples.Array.data[13].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: additionalMonsterSamples.Array.data[0].weight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818233749255616864, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818233749255616864, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818233749255616864, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818233749255616864, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818233749255616864, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818233749255616864, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818233749255616864, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818233749255616864, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818233749255616864, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818233749255616864, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818233749255616864, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9061059404449302191, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: m_Name
+      value: Bitter Mire
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}

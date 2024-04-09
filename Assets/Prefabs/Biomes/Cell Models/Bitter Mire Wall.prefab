@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8011066704861707304
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2881934958637139082, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2881934958637139082, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3642075724326455278, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: cellsPerTexture.x
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3642075724326455278, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: cellsPerTexture.y
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4225830900905493654, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_Name
+      value: Bitter Mire Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893311989273638761, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4e57cfa387e9c1c4fbcbf0417e260c22, type: 3}
+    - target: {fileID: 4893311989273638761, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893311989273638761, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 32d7723482dacf14993be1086acbd263, type: 2}
+    - target: {fileID: 6762852636640546523, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6762852636640546523, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6762852636640546523, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972253749818445822, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972253749818445822, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972253749818445822, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972253749818445822, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972253749818445822, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972253749818445822, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972253749818445822, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972253749818445822, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972253749818445822, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972253749818445822, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972253749818445822, guid: d3f438dc16695c8449a836431c785c98, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d3f438dc16695c8449a836431c785c98, type: 3}

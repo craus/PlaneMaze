@@ -212,16 +212,17 @@ public class WorldGenerator : Singletone<WorldGenerator>
 
         cellOrderList = new List<Cell>();
         bossBiome = Library.instance.bossBiomes.Rnd();
-        bossBiome = Library.instance.inferno;
+        bossBiome = Library.instance.bitterMire;
         Game.instance.bossName = bossBiome.bossName;
 
-        startBiome = Library.instance.dungeon;
+        startBiome = Library.instance.bitterMire;
 
         biomesOrder = Library.instance.biomes.Shuffled();
 
-        foreach (var biome in biomesOrder) {
-            await GenerateBiome(biome);
-        }
+        //foreach (var biome in biomesOrder) {
+        //    await GenerateBiome(biome);
+        //}
+        await GenerateBiome(startBiome);
 
         await Postprocess();
 
