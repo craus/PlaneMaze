@@ -167,7 +167,7 @@ public class Figure : MonoBehaviour
 
     public void OnDestroy() {
         if (Location != null) {
-            Location.figures.Remove(this);
+            OccupiedArea(Location).ForEach(cell => cell.figures.Remove(this));
         }
     }
 
