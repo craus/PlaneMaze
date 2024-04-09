@@ -78,8 +78,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5504667808349519680, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
+      propertyPath: size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5504667808349519680, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
       propertyPath: childSample
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5504667808349519680, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
+      propertyPath: childrenCount
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7190054797756372444, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
       propertyPath: m_Name

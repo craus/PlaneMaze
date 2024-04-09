@@ -4,14 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class Slime : Monster
+public class KingSlime : Monster
 {
     public int size = 1;
     public int childrenCount = 2;
-    public KingSlime king = null;
 
     public int cooldown;
     public int currentCooldown;
+
+    [SerializeField] private List<Monster> minions;
 
     [SerializeField] private Slime childSample;
     [SerializeField] private Transform slimeSizeTransform;
@@ -20,10 +21,11 @@ public class Slime : Monster
     public override bool PoisonImmune => true;
 
     public GameObject activeModel;
-    public GameObject crown;
 
     public override bool HasSoul => base.HasSoul && size == 0;
     public override int Money => size == 0 ? 1 : 0;
+
+    public List<Slime> deadChildren = new List<Slime>();
 
     public override void Awake() {
         base.Awake();
@@ -33,6 +35,8 @@ public class Slime : Monster
             currentCooldown = v;
             UpdateSprite();
         });
+
+        new ValueTracker<List<Slime>>(() => deadChildren.ToList(), v => deadChildren = v.ToList());
     }
 
     public void Init() {
@@ -52,7 +56,27 @@ public class Slime : Monster
     private void UpdateSprite() {
         slimeSizeTransform.localScale = (sizeMultiplier * Vector3.one).Change(z: 1);
         activeModel.SetActive(currentCooldown <= 1);
-        crown.SetActive(king != null);
+    }
+
+    private void SpawnMinion(Cell cell) {
+        Game.GenerateFigure(cell, minions.rnd());
+    }
+
+    public async override Task Hit(Attack attack) {
+        await base.Hit(attack);
+        var delta = PlayerDelta;
+
+        if (delta.MaxDelta() == 1) {
+            if (!await Player.instance.figure.TryWalk(delta)) {
+                await Attack(Player.instance);
+            }
+        }
+
+        figure.Location.Vicinity(-1, 2, -1, 2).ForEach(cell => {
+            if (cell.Free) {
+                SpawnMinion(cell);
+            }
+        });
     }
 
     protected override async Task MakeMove() {
@@ -84,24 +108,22 @@ public class Slime : Monster
         UpdateSprite();
     }
 
+    public async Task CheckWin(Slime child) {
+        deadChildren.Add(child);
+        if (deadChildren.Count == 16) {
+            await Game.instance.Win();
+        }
+    }
+
     protected async override Task AfterDie() {
         await base.AfterDie();
-        if (size == 0) {
-            if (king != null) {
-                await king.CheckWin(this);
-            }
-            return;
-        }
-        foreach (
-            var p in 
-            Rand.RndSelection(figure.Location.SmallestVicinity(v => v.Count(c => c.Free) >= childrenCount)
-            .Where(c => c.Free), childrenCount)
-        ) {
-            var child = Game.GenerateFigure(p, childSample);
+
+        figure.OccupiedArea(figure.Location).ForEach(async cell => {
+            var child = Game.GenerateFigure(cell, childSample); 
             child.size = size - 1;
-            child.king = king;
+            child.king = this;
             await child.GetComponent<MovesReserve>().Freeze(1);
             child.Init();
-        }
+        });
     }
 }

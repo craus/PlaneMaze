@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -125,7 +126,14 @@ public abstract class Monster : Unit, IMovable
         return true;
     }
 
-    protected Vector2Int PlayerDelta => Player.instance.figure.Location.position - figure.Location.position;
+    protected Vector2Int PlayerDelta {
+        get {
+            var result = Player.instance.figure.Location.position - figure.Location.position;
+            result.x -= Math.Min(result.x, figure.size - 1);
+            result.y -= Math.Min(result.y, figure.size - 1);
+            return result;
+        }
+    }
 
     protected virtual async Task MakeMove() {
     }
