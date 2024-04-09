@@ -59,6 +59,9 @@ public class Figure : MonoBehaviour
     }
 
     public IEnumerable<Cell> OccupiedArea(Cell baseCell) {
+        if (baseCell == null) {
+            yield break;
+        }
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 yield return baseCell.Shift(i, j);
@@ -101,6 +104,9 @@ public class Figure : MonoBehaviour
         }
 
         if (from != Location) {
+            var previousArea = OccupiedArea(from);
+            var newArea = OccupiedArea(Location);
+
             if (from != null) {
                 foreach (var f in from.figures.ToList()) {
                     if (f.collideEnd != null) {
