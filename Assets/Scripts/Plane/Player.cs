@@ -114,7 +114,7 @@ public class Player : Unit
         target.figure.Location.OnOccupyingUnitAttacked(target);
         await figure.FakeMove(delta);
 
-        if (target.figure.Location.Shift(delta).Free) {
+        if (await target.figure.CheckWalk(delta)) {
             SoundManager.instance.push.Play();
             await target.figure.TryWalk(delta);
             Debug.LogFormat($"[{Game.instance.time}] DefaultAttack push");

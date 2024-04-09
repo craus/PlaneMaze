@@ -36,7 +36,11 @@ public class Figure : MonoBehaviour
         transform.position = location.transform.position;
     }
 
-    public async Task<bool> TryWalk(Vector2Int delta, Func<Cell, bool> free = null) {
+    public async Task<bool> CheckWalk(Vector2Int delta, Func<Cell, bool> free = null) {
+        return await TryWalk(delta, free, checkOnly: true);
+    }
+
+    public async Task<bool> TryWalk(Vector2Int delta, Func<Cell, bool> free = null, bool checkOnly = false) {
         if (GetComponent<Root>().Current > 0) {
             return false;
         }
@@ -45,7 +49,9 @@ public class Figure : MonoBehaviour
         var oldPosition = Location;
         var newPosition = Location.Shift(delta);
         if (OccupiedArea(newPosition).All(free)) {
-            await Move(newPosition);
+            if (!checkOnly) {
+                await Move(newPosition);
+            }
             return true;
         }
         return false;
