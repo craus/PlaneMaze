@@ -25,7 +25,7 @@ public class Fire : Terrain, IAttacker, IMovable
         lifetime = Rand.rnd(16, 32);
         UpdateSprite();
 
-        GetComponent<Figure>().collideEnd = async (from, figure) => {
+        GetComponent<Figure>().collideEnd = async (to, figure) => {
             if (figure == null) {
                 return;
             }

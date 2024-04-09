@@ -93,7 +93,7 @@ public class Fog : Terrain, IMovable, IOnOccupyingUnitAttackedListener
             }
         };
 
-        GetComponent<Figure>().collide = async (to, figure) => {
+        GetComponent<Figure>().collide = async (from, figure) => {
             if (figure == null) {
                 return;
             }
