@@ -16,6 +16,7 @@ public class Slime : Monster
     [SerializeField] private Transform slimeSizeTransform;
 
     public override bool SoulVulnerable => true;
+    public override bool PoisonImmune => true;
 
     public GameObject activeModel;
 
