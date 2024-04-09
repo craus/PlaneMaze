@@ -21,7 +21,7 @@ public abstract class Monster : Unit, IMovable
     }
 
     public async Task<bool> SmartWalk(Vector2Int delta) {
-        if (figure.Location.Shift(delta).GetFigures<IScaring>().Any(s => s.Scaring(this))) {
+        if (figure.OccupiedArea(figure.Location.Shift(delta)).SelectMany(c => c.GetFigures<IScaring>()).Any(s => s.Scaring(this))) {
             return false;
         }
 
