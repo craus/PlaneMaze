@@ -10,7 +10,7 @@ public class Katar : Weapon
     public async Task<bool> TryShortAttack(Vector2Int delta) {
         var shortTarget = Owner.figure.Location.Shift(delta).GetFigure<Unit>(u => u.Vulnerable);
         if (shortTarget != null) {
-            if (!await Attack(delta, shortTarget)) {
+            if (!await Attack(delta, shortTarget, Owner.figure.Location.Shift(delta))) {
                 return false;
             }
             if (Owner.alive) {
@@ -30,7 +30,7 @@ public class Katar : Weapon
         }
         var longTarget = Owner.figure.Location.Shift(2 * delta).GetFigure<Unit>(u => u.Vulnerable);
         if (longTarget != null) {
-            return await Attack(delta, longTarget, beforeAttack: attack => Owner.figure.TryWalk(attack.delta));
+            return await Attack(delta, longTarget, Owner.figure.Location.Shift(2 * delta), beforeAttack: attack => Owner.figure.TryWalk(attack.delta));
         }
         Game.Debug("Katar failed long attack: no target");
         return false;

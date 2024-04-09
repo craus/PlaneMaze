@@ -17,9 +17,10 @@ public class Flail : Weapon
 
     public override async Task<bool> Attack(
         Vector2Int delta, 
-        Unit target
+        Unit target,
+        Cell targetCell
     ) {
-        if (!await base.Attack(delta, target)) {
+        if (!await base.Attack(delta, target, targetCell)) {
             return false;
         }
         if (target.alive) {

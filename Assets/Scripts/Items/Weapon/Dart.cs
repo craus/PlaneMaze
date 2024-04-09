@@ -11,24 +11,23 @@ public class Dart : Weapon
 
     public override bool CanAttackOnHill => true;
 
-    public override async Task<bool> Attack(Vector2Int delta, Unit target) {
+    public override async Task<bool> Attack(Vector2Int delta, Unit target, Cell targetCell) {
         if (!Game.CanAttack(Owner, target, this)) {
             return false;
         }
 
-        var transformDelta = target.transform.position - Owner.transform.position;
-        var direction = Helpers.StepAtDirection(target.figure.Location.position - Owner.figure.Location.position);
-        var attackPosition = target.figure.Location;
+        var transformDelta = targetCell.transform.position - Owner.transform.position;
+        var direction = Helpers.StepAtDirection(targetCell.position - Owner.figure.Location.position);
 
         SoundManager.instance.rangedAttack.Play();
 
         var ap = Instantiate(attackProjectileSample);
         ap.transform.rotation = Quaternion.LookRotation(Vector3.forward, transformDelta.normalized);
         ap.transform.position = Owner.transform.position + transformDelta.normalized * 0.5f;
-        await ap.transform.Move(target.transform.position, 0.02f * transformDelta.magnitude);
+        await ap.transform.Move(targetCell.transform.position, 0.02f * transformDelta.magnitude);
 
         await GetComponent<Item>().Drop();
-        await GetComponent<Figure>().Move(attackPosition.Shift(-direction), isTeleport: true);
+        await GetComponent<Figure>().Move(targetCell.Shift(-direction), isTeleport: true);
 
         if (ap != null) {
             Destroy(ap);
@@ -44,11 +43,8 @@ public class Dart : Weapon
         var currentPosition = Owner.figure.Location;
         for (int i = 0; i < range; i++) {
             currentPosition = currentPosition.Shift(delta);
-            var enemy = currentPosition.GetFigure<Monster>(m => m.Vulnerable);
-            if (enemy != null) {
-                if (await Attack(delta, enemy)) {
-                    return true;
-                }
+            if (await Attack(delta, currentPosition)) {
+                return true;
             }
             if (!currentPosition.Free) {
                 return false;

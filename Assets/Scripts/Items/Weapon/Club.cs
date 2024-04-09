@@ -16,7 +16,7 @@ public class Club : Weapon
         if (!Game.CanAttack(Owner, target, this)) {
             return false;
         }
-        var attack = Attack(delta, target);
+        var attack = Attack(delta, target, newPosition);
         if (target.Movable && await target.figure.TryWalk(delta)) {
             if (target.alive) {
                 await target.GetComponent<MovesReserve>().Freeze(1);

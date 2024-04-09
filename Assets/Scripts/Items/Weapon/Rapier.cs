@@ -27,10 +27,6 @@ public class Rapier : Weapon
         if (!Owner.figure.Location.Shift(delta).Free) {
             return false;
         }
-        var longTarget = Owner.figure.Location.Shift(2 * delta).GetFigure<Unit>(u => u.Vulnerable);
-        if (longTarget) {
-            return await Attack(delta, longTarget);
-        }
-        return false;
+        return await Attack(delta, Owner.figure.Location.Shift(2 * delta));
     }
 }

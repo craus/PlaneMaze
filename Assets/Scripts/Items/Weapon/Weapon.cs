@@ -23,8 +23,7 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
 
     public virtual async Task<bool> TryAttack(Vector2Int delta) {
         var targets = AttackVectors()
-            .Select(d => Owner.figure.Location.Shift(delta.Relative(d)).GetFigure<Unit>(u => u.Vulnerable))
-            .Where(u => u != null);
+            .Select(d => Owner.figure.Location.Shift(delta.Relative(d)));
 
         return await MultipleAttack(delta, targets);
     }
@@ -44,7 +43,7 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
     public virtual Cell AttackLocation(Vector2Int delta, Unit target) => Owner.figure.Location;
     public virtual Cell DefenceLocation(Vector2Int delta, Unit target) => target.figure.Location;
 
-    public virtual async Task<bool> MultipleAttack(Vector2Int delta, IEnumerable<Unit> targets) {
+    public virtual async Task<bool> MultipleAttack(Vector2Int delta, IEnumerable<Cell> targets) {
         await BeforeMultipleAttack(delta);
         var result = (await Task.WhenAll(targets.Select(t => Attack(delta, t)))).Any(a => a);
         if (!result) return false;
@@ -52,17 +51,27 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
         return true;
     }
 
+    public virtual async Task<bool> Attack(Vector2Int delta, Cell targetCell) {
+        var target = targetCell.GetFigure<Unit>(u => u.Vulnerable);
+        if (target != null) {
+            return await Attack(delta, target, targetCell);
+        }
+        return false;
+    }
+
     public virtual async Task<bool> Attack(
         Vector2Int delta,
-        Unit target
+        Unit target,
+        Cell targetCell
     ) {
         if (target == null) return false;
-        return await Attack(delta, target, BeforeAttack, AfterAttack);
+        return await Attack(delta, target, targetCell, BeforeAttack, AfterAttack);
     }
 
     public async Task<bool> Attack(
         Vector2Int delta, 
         Unit target,
+        Cell targetCell,
         Func<Attack, Task> beforeAttack = null, 
         Func<Attack, Task> afterAttack = null 
     ) {
@@ -86,8 +95,8 @@ public abstract class Weapon : MonoBehaviour, IBeforeWalk, IAfterFailedWalk
         SoundManager.instance.meleeAttack.Play();
 
         var ap = Instantiate(attackProjectileSample);
-        ap.transform.rotation = Quaternion.LookRotation(Vector3.forward, target.transform.position - Owner.transform.position);
-        ap.transform.position = Vector3.Lerp(Owner.transform.position, target.transform.position, 0.75f);
+        ap.transform.rotation = Quaternion.LookRotation(Vector3.forward, targetCell.transform.position - Owner.transform.position);
+        ap.transform.position = Vector3.Lerp(Owner.transform.position, targetCell.transform.position, 0.75f);
 
         await Helpers.Delay(0.1f);
         if (ap != null) {
