@@ -12,6 +12,8 @@ public class WolfTrap : Terrain, IMortal, IAttacker
 
     public GameObject attackProjectileSample;
 
+    public override bool Scaring(Unit unit) => !unit.Flying;
+
     public override void Awake() {
         base.Awake();
 

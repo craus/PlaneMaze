@@ -21,17 +21,7 @@ public abstract class Monster : Unit, IMovable
     }
 
     public async Task<bool> SmartWalk(Vector2Int delta) {
-        if (!Flying && figure.Location.Shift(delta).GetFigure<WolfTrap>() != null) {
-            return false;
-        }
-
-        var fire = figure.Location.Shift(delta).GetFigure<Fire>();
-        if (fire != null && fire.CanAffect(this)) {
-            return false;
-        }
-
-        var fireball = figure.Location.Shift(delta).GetFigure<Fireball>();
-        if (fireball != null) {
+        if (figure.Location.Shift(delta).GetFigures<IScaring>().Any(s => s.Scaring(this))) {
             return false;
         }
 
@@ -161,6 +151,7 @@ public abstract class Monster : Unit, IMovable
         if (this == null) return;
         await GetComponent<Disarm>().Spend(1);
         await GetComponent<Root>().Spend(1);
+        await GetComponent<Poison>().Spend(1);
         await GetComponent<Curse>().Spend(1);
         await GetComponent<Curse>().Prepare();
     }

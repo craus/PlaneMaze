@@ -54,7 +54,7 @@ PrefabInstance:
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: terrainSamples.Array.data[6].to
       value: 
-      objectReference: {fileID: 7331006735911305571, guid: 8708e5dd951c69241876c9348e35db13, type: 3}
+      objectReference: {fileID: 6966650289289424777, guid: e52efee2c473ecf45add835f803cf8f7, type: 3}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: monsterSamples.Array.data[10].to
       value: 
@@ -72,12 +72,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8536777542681899615, guid: 79d19b61323433b42b343ddaf83aaa78, type: 3}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
-      propertyPath: terrainSamples.Array.data[4].weight
+      propertyPath: monsterSamples.Array.data[7].weight
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
-      propertyPath: terrainSamples.Array.data[6].weight
+      propertyPath: terrainSamples.Array.data[3].weight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: terrainSamples.Array.data[4].weight
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
+      propertyPath: terrainSamples.Array.data[6].weight
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: monsterSamples.Array.data[10].weight

@@ -18,7 +18,7 @@ public class Buff : MonoBehaviour
         UpdateIcons();
     }
 
-    public async Task Spend(int amount) {
+    public virtual async Task Spend(int amount) {
         current = Mathf.Clamp(current - amount, 0, 999);
         UpdateIcons();
     }

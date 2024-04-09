@@ -175,6 +175,7 @@ public class Player : Unit
         await CheckFire();
         await GetComponent<Disarm>().Spend(1);
         await GetComponent<Root>().Spend(1);
+        await GetComponent<Poison>().Spend(1);
         await GetComponent<Curse>().Spend(1);
         await GetComponent<Curse>().Prepare();
         await GetComponent<Confusion>().Spend(1);

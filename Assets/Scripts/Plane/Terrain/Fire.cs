@@ -17,6 +17,7 @@ public class Fire : Terrain, IAttacker, IMovable
     public SpriteRenderer sprite;
 
     public virtual bool CanAffect(Unit unit) => !unit.FireImmune && unit.Vulnerable;
+    public override bool Scaring(Unit unit) => CanAffect(unit);
 
     public override void Awake() {
         base.Awake();

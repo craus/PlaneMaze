@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class Fireball : Monster
+public class Fireball : Monster, IScaring
 {
     public override bool Flying => true;
     public override bool Vulnerable => false;
@@ -14,6 +14,8 @@ public class Fireball : Monster
 
     public Vector2Int currentDirection;
     public Transform spriteParent;
+
+    public bool Scaring(Unit unit) => true;
 
     protected override void PlayDeathSound() => SoundManager.instance.explode.Play();
 
