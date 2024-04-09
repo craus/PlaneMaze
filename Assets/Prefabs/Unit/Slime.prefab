@@ -215,7 +215,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   location: {fileID: 0}
-  savePoint: {fileID: 0}
 --- !u!1 &5293405876500279630
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,15 +380,17 @@ PrefabInstance:
       value: '<b>Slime</b>
 
 
+        Damage 2.
+
         Wanders randomly.
 
-        Splits into two lesser
-        slimes when dead.
+        Splits
+        into two lesser slimes when dead.
 
         Skips each second turn.
 
-        Always attacks
-        if able.'
+        Always
+        attacks if able.'
       objectReference: {fileID: 0}
     - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_FlipX
@@ -470,10 +471,11 @@ MonoBehaviour:
   soul: 1
   figure: {fileID: 0}
   alive: 1
+  dying: 0
+  poor: 0
   movesSinceLastHit: 100500
+  inFire: 0
   movesSinceLastHeal: 100500
-  movesSinceHitToHeal: 3
-  healCooldown: 3
   attackProjectile: {fileID: 7558257676500238022, guid: cfc4e3f00b8a52448b747c87fa87ae29, type: 3}
   damage: 1
   size: 1

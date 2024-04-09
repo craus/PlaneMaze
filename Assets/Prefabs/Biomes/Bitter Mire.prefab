@@ -41,7 +41,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: monsterSamples.Array.size
-      value: 14
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: terrainSamples.Array.size
@@ -58,7 +58,7 @@ PrefabInstance:
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: monsterSamples.Array.data[10].to
       value: 
-      objectReference: {fileID: 6890977442324438375, guid: 80a5ba08a7fe3444fba7c8ff0d9e99fa, type: 3}
+      objectReference: {fileID: 9086831583858137432, guid: 189e2e558b8f0c34f8943fcaa17d17eb, type: 3}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: monsterSamples.Array.data[11].to
       value: 
