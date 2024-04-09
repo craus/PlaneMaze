@@ -9928,6 +9928,7 @@ MonoBehaviour:
   teleportExit: {fileID: 4531213152577544949, guid: aac330b5c48ccd24d89197cfc487c7e9, type: 3}
   cursedSign: {fileID: 9129382444693588269, guid: be6739058c4de1f4f9409d05569d30d5, type: 3}
   tree: {fileID: 8234422707921031841, guid: d7be61fe3df1d594f92d509649faff17, type: 3}
+  gelatinousCube: {fileID: 8234422707921031841, guid: 3c7cb671fae4ba241977c270b74013c4, type: 3}
   healSample: {fileID: 7558257676500238022, guid: 79599bf405c35dc44bc7c36a841474b8, type: 3}
   explosionSample: {fileID: 7558257676500238022, guid: e16a2056e0dc49f479e3f81dcb0f3c1f, type: 3}
   charmSample: {fileID: 7558257676500238022, guid: 6e8470fadff946443bc5bbfc21d9a624, type: 3}

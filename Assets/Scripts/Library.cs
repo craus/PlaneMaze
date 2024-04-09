@@ -51,6 +51,7 @@ public class Library : Singletone<Library>
 
     public CursedSign cursedSign;
     public Tree tree;
+    public GelatinousCube gelatinousCube;
 
     public GameObject healSample;
     public GameObject explosionSample;

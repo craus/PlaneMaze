@@ -19,15 +19,25 @@ public class GelatinousCube : Monster
         //});
     }
 
-    protected override Task MakeMove() {
+    private async Task GenerateCube(Cell cell) {
+        await Helpers.Delay(0.1f);
+        if (!cell.Wall && cell.figures.Count == 0) {
+            if (Rand.rndEvent(0.2f)) {
+                Game.GenerateFigure(cell, Library.instance.gelatinousCube);
+            }
+        }
+    }
+
+    protected override async Task MakeMove() {
+        List<Task> generateCubes = new List<Task>();
         figure.Location.Vicinity(1).ForEach(cell => {
             if (!cell.Wall && cell.figures.Count == 0) {
                 if (cell.Vicinity(1).SelectMany(cell => cell.GetFigures<GelatinousCube>()).Count() >= 3) {
-                    Game.GenerateFigure(cell, this);
+                    generateCubes.Add(GenerateCube(cell)); 
                 }
             }
         });
 
-        return Task.CompletedTask;
+        await Task.WhenAll(generateCubes);
     }
 }
