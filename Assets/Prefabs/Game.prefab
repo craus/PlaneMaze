@@ -1758,6 +1758,7 @@ Transform:
   - {fileID: 4678629832259045826}
   - {fileID: 2828773098761964938}
   - {fileID: 912064834}
+  - {fileID: 148497857138653135}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1819,6 +1820,7 @@ MonoBehaviour:
   ghostSample: {fileID: 5504667808349519680, guid: 26b7e0628829b604684f5107a4a9a1ff, type: 3}
   lichSample: {fileID: 8536777542681899615, guid: ece9098977d4b71458ae84b7d52f91f9, type: 3}
   gemSample: {fileID: 8666047310042790666, guid: c7a1fda42fc141744b8226f2fb08ee9a, type: 3}
+  bossName: 
   unlockedCells: 1000000000
   time: 0
   moveNumber: 0
@@ -1862,7 +1864,9 @@ MonoBehaviour:
   storeRadius: 5
   cellOrderList: []
   bossBiome: {fileID: 0}
+  startBiome: {fileID: 0}
   biomesOrder: []
+  generatedBiomes: []
   speed: 1
 --- !u!1 &2461602445928022540
 GameObject:
@@ -3162,6 +3166,51 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7879513366763234123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 148497857138653135}
+  - component: {fileID: 640462863505526008}
+  m_Layer: 0
+  m_Name: GelatinousCubesManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &148497857138653135
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7879513366763234123}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2069624272807861709}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &640462863505526008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7879513366763234123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eef74a8bf40ff948a766d81f1b3ef35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gelatinousCubeSample: {fileID: 8234422707921031841, guid: 3c7cb671fae4ba241977c270b74013c4, type: 3}
 --- !u!1 &7958938835182006288
 GameObject:
   m_ObjectHideFlags: 0

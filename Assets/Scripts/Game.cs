@@ -47,6 +47,7 @@ public class Game : MonoBehaviour
 
     public List<Func<int, Task>> afterPlayerMove = new List<Func<int, Task>>();
     public List<Func<int, Task>> afterMonsterMove = new List<Func<int, Task>>();
+    public List<Func<Task>> afterGameStart = new List<Func<Task>>();
 
     public HashSet<(Cell, Cell)> contaminations = new HashSet<(Cell, Cell)>();
     public HashSet<Cell> clearedCells = new HashSet<Cell>();
@@ -87,6 +88,8 @@ public class Game : MonoBehaviour
         mainWorld.movables.ToList().ForEach(m => {
             m.OnGameStart();
         });
+
+        await Task.WhenAll(afterGameStart.Select(f => f()));
 
         MusicManager.instance.Switch(MusicManager.instance.playlist);
         UndoManager.instance.Save();

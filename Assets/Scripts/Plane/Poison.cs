@@ -19,6 +19,7 @@ public class Poison : Buff
         var old = Current;
         await base.Spend(amount);
         if (old > 0 && Current == 0 && GetComponent<Unit>().Vulnerable && !GetComponent<Unit>().PoisonImmune) {
+            await Helpers.RunAnimation(Library.instance.poisonDamageSample, transform);
             await GetComponent<Health>().Hit(1);
         }
     }

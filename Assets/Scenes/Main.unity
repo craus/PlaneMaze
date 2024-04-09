@@ -9931,6 +9931,7 @@ MonoBehaviour:
   healSample: {fileID: 7558257676500238022, guid: 79599bf405c35dc44bc7c36a841474b8, type: 3}
   explosionSample: {fileID: 7558257676500238022, guid: e16a2056e0dc49f479e3f81dcb0f3c1f, type: 3}
   charmSample: {fileID: 7558257676500238022, guid: 6e8470fadff946443bc5bbfc21d9a624, type: 3}
+  poisonDamageSample: {fileID: 7558257676500238022, guid: c24708e6648317148ae675f627fda2f7, type: 3}
   fire: {fileID: 7331006735911305571, guid: 08d3fdc43754b4147a49753e5a7d1e25, type: 3}
 --- !u!1 &1515743436
 GameObject:
