@@ -1,0 +1,151 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6920106804345873549
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 270529094164164945, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_Name
+      value: Giant Mosquito
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185433379572143715, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185433379572143715, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185433379572143715, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185433379572143715, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185433379572143715, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185433379572143715, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185433379572143715, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185433379572143715, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185433379572143715, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185433379572143715, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185433379572143715, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187696164521918999, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: description
+      value: '<b>Giant Mosquito</b>
+
+
+        Flying.
+
+        Wanders randomly.
+
+        Attacks
+        diagonally.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9dd9b120d3574c047bdeedc38fa262b9, type: 3}
+    - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 8629693220871525368, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 8629693220871525368, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747549380610530154, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: max
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747549380610530154, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: current
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747549380610530154, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: ascentionHealth.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747549380610530154, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+      propertyPath: ascentionHealth.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+--- !u!1 &7190054797756372444 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 270529094164164945, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
+  m_PrefabInstance: {fileID: 6920106804345873549}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6890977442324438375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7190054797756372444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: debde8ce9127b6745bb9a43c2b5a5050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastMove: {x: 0, y: 0}
+  soul: 1
+  figure: {fileID: 0}
+  alive: 1
+  dying: 0
+  poor: 0
+  movesSinceLastHit: 100500
+  inFire: 0
+  movesSinceLastHeal: 100500
+  attackProjectile: {fileID: 7558257676500238022, guid: cfc4e3f00b8a52448b747c87fa87ae29, type: 3}
+  damage: 1
