@@ -72,16 +72,18 @@ public class Fog : Terrain, IMovable, IOnOccupyingUnitAttackedListener
             UpdateSprite();
         });
 
-        GetComponent<Figure>().collideEnd = async (to, figure) => {
+        GetComponent<Figure>().collideEnd = async (figure) => {
             if (figure == null) {
                 return;
             }
-            if (GetComponent<Figure>().Location.Neighbours().Contains(to)) {
+
+            {
                 var victim = figure.GetComponent<Unit>();
                 if (victim != null) {
                     On = false;
                 }
             }
+
             {
                 var victim = figure.GetComponent<Invisibility>();
                 if (victim != null) {
@@ -93,7 +95,7 @@ public class Fog : Terrain, IMovable, IOnOccupyingUnitAttackedListener
             }
         };
 
-        GetComponent<Figure>().collide = async (from, figure) => {
+        GetComponent<Figure>().collide = async (figure) => {
             if (figure == null) {
                 return;
             }

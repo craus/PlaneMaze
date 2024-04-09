@@ -48,12 +48,12 @@ public class Item : MonoBehaviour, IExplainable
     public void Awake() {
         iconCanvas.enabled = false;
 
-        GetComponent<Figure>().collide = async (from, figure) => {
+        GetComponent<Figure>().collide = async (figure) => {
             if (figure == null) {
                 return;
             }
             var player = figure.GetComponent<Player>();
-            if (player != null && from != GetComponent<Figure>().Location) {
+            if (player != null) {
                 await Pick();
             }
         };

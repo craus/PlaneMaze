@@ -20,7 +20,7 @@ public class PaidCell : MonoBehaviour
         GetComponent<Figure>().collide = Collide;
     }
 
-    private async Task Collide(Cell from, Figure victim) {
+    private async Task Collide(Figure victim) {
         var player = victim.GetComponent<Player>();
         if (player == null) {
             return;

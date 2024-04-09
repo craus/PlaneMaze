@@ -27,7 +27,7 @@ public class Fireball : Monster, IScaring
             currentDirection = v; UpdateSprite();
         });
 
-        GetComponent<Figure>().collide = async (from, figure) => {
+        GetComponent<Figure>().collide = async (figure) => {
             if (figure == null) {
                 return;
             }

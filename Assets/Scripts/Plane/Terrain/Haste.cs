@@ -8,7 +8,7 @@ public class Haste : Terrain
 {
     public override void Awake() {
         base.Awake();
-        GetComponent<Figure>().collide = async (from, figure) => {
+        GetComponent<Figure>().collide = async (figure) => {
             var victim = figure.GetComponent<Unit>();
             if (victim != null) {
                 if (victim.BenefitsFromTerrain) {

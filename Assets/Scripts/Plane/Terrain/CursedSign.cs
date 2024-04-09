@@ -18,7 +18,7 @@ public class CursedSign : Terrain, IInvisibilitySource, IOnDestroyHandler, IAtta
         Player.instance.figure.afterMove.Add(AfterPlayerMove);
         figure.afterMove.Add(AfterPlayerMove);
 
-        figure.collide = async (from, figure) => {
+        figure.collide = async (figure) => {
             if (figure == null) {
                 return;
             }

@@ -13,8 +13,8 @@ public class Figure : MonoBehaviour
     [SerializeField] private Cell location;
     public Cell Location => location;
 
-    public Func<Cell, Figure, Task> collide = null;
-    public Func<Cell, Figure, Task> collideEnd = null;
+    public Func<Figure, Task> collide = null;
+    public Func<Figure, Task> collideEnd = null;
 
     public List<Func<Board, Board, Task>> afterBoardChange = new List<Func<Board, Board, Task>>();
     public List<Func<Cell, Cell, Task>> afterMove = new List<Func<Cell, Cell, Task>>();
@@ -107,20 +107,18 @@ public class Figure : MonoBehaviour
             var previousArea = OccupiedArea(from);
             var newArea = OccupiedArea(Location);
 
-            if (from != null) {
-                foreach (var f in from.figures.ToList()) {
-                    if (f.collideEnd != null) {
-                        await f.collideEnd(Location, this);
-                    }
-                    if (this == null) {
-                        return true;
-                    }
+            foreach (var f in from.figures.ToList()) {
+                if (f.collideEnd != null) {
+                    await f.collideEnd(this);
+                }
+                if (this == null) {
+                    return true;
                 }
             }
 
             foreach (var f in Location.figures.ToList()) {
                 if (f != this && f.collide != null) {
-                    await f.collide(from, this);
+                    await f.collide(this);
                 }
                 if (this == null) {
                     return true;

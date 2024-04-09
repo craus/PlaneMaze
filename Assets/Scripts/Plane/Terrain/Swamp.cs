@@ -8,7 +8,7 @@ public class Swamp : Terrain
 {
     public override void Awake() {
         base.Awake();
-        GetComponent<Figure>().collide = async (from, figure) => {
+        GetComponent<Figure>().collide = async (figure) => {
             var victim = figure.GetComponent<Unit>();
             if (victim != null && !victim.Flying) {
                 if (victim.GetComponent<Player>()) {

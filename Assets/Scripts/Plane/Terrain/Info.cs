@@ -15,7 +15,7 @@ public class Info : Terrain
 
         //Player.instance.figure.afterMove.Add(AfterPlayerMove);
 
-        GetComponent<Figure>().collide = async (from, figure) => {
+        GetComponent<Figure>().collide = async (figure) => {
             if (figure == null) {
                 return;
             }
