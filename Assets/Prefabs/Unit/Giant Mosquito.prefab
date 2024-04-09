@@ -62,10 +62,13 @@ PrefabInstance:
 
         Flying.
 
-        Wanders randomly.
+        When adjacent, moves
+        away from you.
 
-        Attacks
-        diagonally.'
+        When at distance 2, moves to you and bites.
+
+        Heals
+        after attack.'
       objectReference: {fileID: 0}
     - target: {fileID: 8586875758731861417, guid: 502aff0b2d018d54d8a0478afa3c061e, type: 3}
       propertyPath: m_FlipX
