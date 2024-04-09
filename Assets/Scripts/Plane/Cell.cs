@@ -137,9 +137,11 @@ public class Cell : MonoBehaviour
         }
     }
 
-    public IEnumerable<Cell> Vicinity(int maxDx, int maxDy) {
-        for (int i = -maxDx; i <= maxDx; i++) {
-            for (int j = -maxDy; j <= maxDy; j++) {
+    public IEnumerable<Cell> Vicinity(int maxDx, int maxDy) => Vicinity(-maxDx, maxDx, -maxDy, maxDy);
+
+    public IEnumerable<Cell> Vicinity(int minDx, int maxDx, int minDy, int maxDy) {
+        for (int i = minDx; i <= maxDx; i++) {
+            for (int j = minDy; j <= maxDy; j++) {
                 yield return Shift(i, j);
             }
         }
@@ -165,6 +167,15 @@ public class Cell : MonoBehaviour
     public IEnumerable<T> GetFigures<T>() => figures.Select(f => f.GetComponent<T>()).Where(t => t != null);
     public T GetFigure<T>(Func<T, bool> criteria) => figures.Select(f => f.GetComponent<T>()).FirstOrDefault(t => t != null && criteria(t));
     public IEnumerable<T> GetFigures<T>(Func<T, bool> criteria) => figures.Select(f => f.GetComponent<T>()).Where(t => t != null && criteria(t));
+
+    public bool FreeFor(Unit unit) => 
+        !Wall && 
+        !Locked && 
+        !figures.Any(f => 
+            f.GetComponent<Unit>() != null && 
+            f.GetComponent<Unit>() != unit && 
+            f.GetComponent<Unit>().OccupiesPlace
+        );
 
     public bool Free => !Wall && !Locked && !figures.Any(f => f.GetComponent<Unit>() != null && f.GetComponent<Unit>().OccupiesPlace);
     public bool FreeAndNoWolfTrap => Free && GetFigure<WolfTrap>() == null;

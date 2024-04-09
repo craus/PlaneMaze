@@ -40,8 +40,15 @@ public class Slime : Monster
         UpdateSprite();
     }
 
+    private float sizeMultiplier {
+        get {
+            if (size == 3) return 2.5f;
+            return 0.7f + 0.3f * size;
+        }
+    }
+
     private void UpdateSprite() {
-        slimeSizeTransform.localScale = ((0.7f + 0.3f * size) * Vector3.one).Change(z: 1);
+        slimeSizeTransform.localScale = (sizeMultiplier * Vector3.one).Change(z: 1);
         activeModel.SetActive(currentCooldown <= 1);
     }
 

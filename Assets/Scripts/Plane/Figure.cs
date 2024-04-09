@@ -8,6 +8,8 @@ using UnityEngine.Events;
 
 public class Figure : MonoBehaviour
 {
+    public int size = 1;
+
     [SerializeField] private Cell location;
     public Cell Location => location;
 
@@ -40,10 +42,11 @@ public class Figure : MonoBehaviour
         if (GetComponent<Root>().Current > 0) {
             return false;
         }
-        free ??= c => c.Free;
+        var unit = GetComponent<Unit>();
+        free ??= c => unit != null ? c.FreeFor(unit) : c.Free;
         var oldPosition = Location;
         var newPosition = Location.Shift(delta);
-        if (free(newPosition)) {
+        if (OccupiedArea(newPosition).All(free)) {
             await Move(newPosition);
             return true;
         }
@@ -55,6 +58,14 @@ public class Figure : MonoBehaviour
         return true;
     }
 
+    public IEnumerable<Cell> OccupiedArea(Cell baseCell) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                yield return baseCell.Shift(i, j);
+            }
+        }
+    }
+
     public async Task<bool> Move(Cell newLocation, bool isTeleport = false, Cell fakeMove = null, bool teleportAnimation = false) {
         if (!gameObject.activeSelf) return false;
         if (fakeMove == null && GetComponent<Root>() != null && GetComponent<Root>().Current > 0) return false;
@@ -62,7 +73,7 @@ public class Figure : MonoBehaviour
         var from = Location;
         var fromBoard = from != null ? from.board : null;
         if (!fakeMove && Location != null) {
-            Location.figures.Remove(this);
+            OccupiedArea(Location).ForEach(cell => cell.figures.Remove(this));
         }
         if (newLocation == null) return false;
 
@@ -78,7 +89,7 @@ public class Figure : MonoBehaviour
         }
 
         if (!fakeMove && Location != null) {
-            Location.figures.Add(this);
+            OccupiedArea(Location).ForEach(cell => cell.figures.Add(this));
         }
 
         if (newLocation != null) {

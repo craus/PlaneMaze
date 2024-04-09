@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(Figure))]
 public abstract class Monster : Unit, IMovable
 {
-    public virtual bool FreeCell(Cell cell) => cell.Free;
+    public virtual bool FreeCell(Cell cell) => cell.FreeFor(this);
 
     public int movesSinceLastHeal = 100500;
 

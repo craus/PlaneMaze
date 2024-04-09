@@ -97,11 +97,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1265977908116681454, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1265977908116681454, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1265977908116681454, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1657085753969230435, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1832016898988326887, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
       propertyPath: max
       value: 4
@@ -155,6 +159,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3322402838831270810, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
+      propertyPath: size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3929324821560630356, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -166,6 +174,14 @@ PrefabInstance:
     - target: {fileID: 7190054797756372444, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
       propertyPath: m_Name
       value: King Slime
+      objectReference: {fileID: 0}
+    - target: {fileID: 8590397742989534751, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8590397742989534751, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8730206545564625714, guid: 8495ab0ba112d9d4aa7584653ac466e7, type: 3}
       propertyPath: m_Color.b
