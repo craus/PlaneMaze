@@ -104,8 +104,10 @@ public class Figure : MonoBehaviour
         if (from != Location) {
             var previousArea = OccupiedArea(from);
             var newArea = OccupiedArea(Location);
+            var leavingArea = previousArea.Except(newArea);
+            var enteringArea = newArea.Except(previousArea);
 
-            foreach (var f in from.figures.ToList()) {
+            foreach (var f in leavingArea.SelectMany(c => c.figures).ToList()) {
                 if (f.collideEnd != null) {
                     await f.collideEnd(this);
                 }
@@ -114,7 +116,7 @@ public class Figure : MonoBehaviour
                 }
             }
 
-            foreach (var f in Location.figures.ToList()) {
+            foreach (var f in enteringArea.SelectMany(c => c.figures).ToList()) {
                 if (f != this && f.collide != null) {
                     await f.collide(this);
                 }
