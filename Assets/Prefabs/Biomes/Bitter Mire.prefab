@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: size
-      value: 500
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: bossName
@@ -50,7 +50,7 @@ PrefabInstance:
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: monsterSamples.Array.data[8].to
       value: 
-      objectReference: {fileID: 7662973946557245431, guid: 9b95688080905dd4a8f2e43a9f02ad55, type: 3}
+      objectReference: {fileID: 1730671305658406662, guid: c9904c93cc451b74884f5223b970a620, type: 3}
     - target: {fileID: 1934850406519245179, guid: a7583b375f81e7841b2e760e835efbb3, type: 3}
       propertyPath: terrainSamples.Array.data[6].to
       value: 
