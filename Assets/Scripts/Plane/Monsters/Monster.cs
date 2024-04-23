@@ -126,12 +126,13 @@ public abstract class Monster : Unit, IMovable
         return true;
     }
 
-    protected Vector2Int PlayerDelta {
+    protected Vector2Int PlayerDelta => Player.instance.figure.Location.position - ClosestPointToPlayer.position;
+
+    protected Cell ClosestPointToPlayer {
         get {
-            var result = Player.instance.figure.Location.position - figure.Location.position;
-            result.x -= Math.Clamp(result.x, 0, figure.size - 1);
-            result.y -= Math.Clamp(result.y, 0, figure.size - 1);
-            return result;
+            return figure.OccupiedArea(figure.Location).MinBy(
+                cell => (Player.instance.figure.Location.position - cell.position).sqrMagnitude
+            );
         }
     }
 

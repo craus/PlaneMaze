@@ -119,6 +119,18 @@ public class KingSlime : Monster
         await Attack(target);
     }
 
+    private IEnumerable<Cell> DirectAttackArea(Vector2Int playerDelta) =>
+        new List<Cell> {
+            ClosestPointToPlayer.Shift(playerDelta),
+            ClosestPointToPlayer.Shift(2*playerDelta)
+        };
+
+    private async Task ChargeAttack(IEnumerable<Cell> targetArea) {
+        SoundManager.instance.chargeMagicAttack.Play();
+        chargedArea = targetArea.ToList();
+        UpdateIcons();
+    }
+
     protected override async Task MakeMove() {
         // Execute Attack
         if (chargedArea != null && chargedArea.Count > 0) {
@@ -133,20 +145,52 @@ public class KingSlime : Monster
         }
 
         var playerDelta = PlayerDelta;
+        var closestPointToPlayer = ClosestPointToPlayer;
 
         Debug.LogFormat($"playerDelta = {playerDelta}");
 
         if (playerDelta.SumDelta() == 1) {
             if (await figure.CheckWalk(playerDelta, free: cell => cell.FreeExcept(this, Player.instance))) {
+
+                Debug.LogFormat($"Push attack");
                 if (!await Player.instance.figure.CheckWalk(playerDelta)) {
+                    Debug.LogFormat($"Push attack - attack");
                     await Attack(Player.instance);
                 } else {
+                    Debug.LogFormat($"Push attack - push");
                     var movePlayer = Player.instance.figure.TryWalk(playerDelta);
                     var moveSelf = figure.TryWalk(playerDelta);
                     await Task.WhenAll(movePlayer, moveSelf);
                 }
+                return;
             }
         }
+
+        if (playerDelta.MaxDelta() <= 2 && playerDelta.MinDelta() == 0) {
+            playerDelta = playerDelta.StepAtDirection();
+            Debug.LogFormat($"Check direct attack charge: playerDelta = {playerDelta}");
+            if (
+                !DirectAttackArea(playerDelta).Any(cell => cell.GetFigure<Unit>(u => u != Player.instance) != null)
+            ) {
+                Debug.LogFormat($"ChargeAttack: playerDelta = {playerDelta}");
+                await ChargeAttack(DirectAttackArea(playerDelta));
+                return;
+            }
+        }
+
+        if (playerDelta.MaxDelta() <= 4) {
+            Debug.LogFormat($"Check spawn minion");
+            var targetCell = figure.OccupiedArea(figure.Location)
+                .SelectMany(cell => cell.Neighbours())
+                .Where(cell => cell.Free).Rnd();
+
+            if (targetCell != null) {
+                Debug.LogFormat($"Spawn minion: {targetCell}");
+                SpawnMinion(targetCell);
+                return;
+            }
+        }
+            
     }
 
     public async Task CheckWin(Slime child) {
