@@ -9,10 +9,8 @@ public class KingSlime : Monster
     public int size = 1;
     public int childrenCount = 2;
 
-    public int cooldown;
-    public int currentCooldown;
-
     [SerializeField] private List<Monster> minions;
+    [SerializeField] private GelatinousCube gelatinousCubeSample;
 
     [SerializeField] private Slime childSample;
     [SerializeField] private Transform slimeSizeTransform;
@@ -25,24 +23,41 @@ public class KingSlime : Monster
     public override bool HasSoul => base.HasSoul && size == 0;
     public override int Money => size == 0 ? 1 : 0;
 
+    [SerializeField] private List<Transform> targets;
+
     public List<Slime> deadChildren = new List<Slime>();
+
+    [SerializeField] private List<Cell> chargedArea = null;
 
     public override void Awake() {
         base.Awake();
         Init(); 
         
-        new ValueTracker<int>(() => currentCooldown, v => {
-            currentCooldown = v;
-            UpdateSprite();
-        });
-
         new ValueTracker<List<Slime>>(() => deadChildren.ToList(), v => deadChildren = v.ToList());
+
+        new ValueTracker<List<Cell>>(() => chargedArea, v => {
+            chargedArea = v;
+            UpdateIcons();
+        });
+    }
+
+    private void UpdateIcons() {
+        if (chargedArea == null) {
+            targets.ForEach(t => t.gameObject.SetActive(false));
+            return;
+        }
+        for (int i = 0; i < targets.Count; i++) {
+            if (i < chargedArea.Count()) {
+                targets[i].gameObject.SetActive(true);
+                targets[i].position = chargedArea[i].transform.position.Change(z: targets[i].position.z);
+            } else {
+                targets[i].gameObject.SetActive(false);
+            }
+        }
     }
 
     public void Init() {
         damage = 1 + size;
-        cooldown = 1 + size;
-        currentCooldown = cooldown;
         UpdateSprite();
     }
 
@@ -55,11 +70,15 @@ public class KingSlime : Monster
 
     private void UpdateSprite() {
         slimeSizeTransform.localScale = (sizeMultiplier * Vector3.one).Change(z: 1);
-        activeModel.SetActive(currentCooldown <= 1);
+        activeModel.SetActive(true);
     }
 
     private void SpawnMinion(Cell cell) {
         Game.GenerateFigure(cell, minions.rnd());
+    }
+
+    private void SpawnGelatinousCube(Cell cell) {
+        Game.GenerateFigure(cell, gelatinousCubeSample);
     }
 
     public async override Task Hit(Attack attack) {
@@ -79,33 +98,55 @@ public class KingSlime : Monster
         });
     }
 
+    private async Task<bool> TryMoveAway(Unit target) {
+        if (target.figure.size != 1) return false;
+
+        var oldPosition = target.figure.Location;
+        var newPosition = target.figure.Location.Neighbours().Where(cell => !chargedArea.Contains(cell) && cell.FreeFor(target)).Rnd();
+        
+        if (newPosition == null) return false;
+
+        await target.figure.Move(newPosition);
+
+        SpawnGelatinousCube(oldPosition);
+
+        return true;
+    }
+
+    private async Task MoveAwayOrAttack(Unit target) {
+        if (await TryMoveAway(target)) return;
+
+        await Attack(target);
+    }
+
     protected override async Task MakeMove() {
-        --currentCooldown;
-        UpdateSprite();
-        if (currentCooldown > 0) {
+        // Execute Attack
+        if (chargedArea != null && chargedArea.Count > 0) {
+            Debug.LogFormat($"{this} attack charged area");
+            await Task.WhenAll(
+                chargedArea.SelectMany(c => c.GetFigures<Unit>(u => u.SoulVulnerable)).ToList().Select(u => MoveAwayOrAttack(u)).
+                Concat(chargedArea.Select(FakeAttack))
+            );
+            chargedArea = null;
+            UpdateIcons();
             return;
         }
 
-        Vector2Int playerDelta = Player.instance.figure.Location.position - figure.Location.position;
+        var playerDelta = PlayerDelta;
+
+        Debug.LogFormat($"playerDelta = {playerDelta}");
 
         if (playerDelta.SumDelta() == 1) {
-            if (!await TryAttack(playerDelta)) {
-                await figure.FakeMove(playerDelta);
-            }
-        } else {
-            var delta = Helpers.Moves.Rnd();
-            if (!await TryAttack(delta)) {
-                if (!await SmartWalk(delta)) {
-                    await figure.FakeMove(delta);
+            if (await figure.CheckWalk(playerDelta, free: cell => cell.FreeExcept(this, Player.instance))) {
+                if (!await Player.instance.figure.CheckWalk(playerDelta)) {
+                    await Attack(Player.instance);
+                } else {
+                    var movePlayer = Player.instance.figure.TryWalk(playerDelta);
+                    var moveSelf = figure.TryWalk(playerDelta);
+                    await Task.WhenAll(movePlayer, moveSelf);
                 }
             }
         }
-        if (this == null || !alive) {
-            return;
-        }
-
-        currentCooldown = cooldown;
-        UpdateSprite();
     }
 
     public async Task CheckWin(Slime child) {

@@ -177,6 +177,15 @@ public class Cell : MonoBehaviour
             f.GetComponent<Unit>().OccupiesPlace
         );
 
+    public bool FreeExcept(params Unit[] exceptions) =>
+        !Wall &&
+        !Locked &&
+        !figures.Any(f =>
+            f.GetComponent<Unit>() != null &&
+            !exceptions.Contains(f.GetComponent<Unit>()) &&
+            f.GetComponent<Unit>().OccupiesPlace
+        );
+
     public bool Free => !Wall && !Locked && !figures.Any(f => f.GetComponent<Unit>() != null && f.GetComponent<Unit>().OccupiesPlace);
     public bool FreeAndNoWolfTrap => Free && GetFigure<WolfTrap>() == null;
 

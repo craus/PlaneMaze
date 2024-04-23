@@ -129,8 +129,8 @@ public abstract class Monster : Unit, IMovable
     protected Vector2Int PlayerDelta {
         get {
             var result = Player.instance.figure.Location.position - figure.Location.position;
-            result.x -= Math.Min(result.x, figure.size - 1);
-            result.y -= Math.Min(result.y, figure.size - 1);
+            result.x -= Math.Clamp(result.x, 0, figure.size - 1);
+            result.y -= Math.Clamp(result.y, 0, figure.size - 1);
             return result;
         }
     }
