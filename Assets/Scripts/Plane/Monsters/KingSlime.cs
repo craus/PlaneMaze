@@ -190,7 +190,13 @@ public class KingSlime : Monster
                 return;
             }
         }
-            
+
+        // Wander randomly
+        Debug.LogFormat($"{this} wanders randomly");
+        var delta = Helpers.Moves.Rnd();
+        if (!await SmartWalk(delta)) {
+            await figure.FakeMove(delta);
+        }
     }
 
     public async Task CheckWin(Slime child) {
