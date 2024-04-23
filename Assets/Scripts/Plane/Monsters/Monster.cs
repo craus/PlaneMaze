@@ -206,7 +206,7 @@ public abstract class Monster : Unit, IMovable
     }
 
     public void OnDestroy() {
-        Debug.Log(this);
+        Debug.Log($"OnDestroy({this})");
         var l = figure.Location;
         if (l == null) {
             return;

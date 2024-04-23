@@ -111,7 +111,7 @@ public class KingSlime : Monster
     public async Task CheckWin(Slime child) {
         deadChildren.Add(child);
         if (deadChildren.Count == 16) {
-            await Game.instance.Win();
+            var win = Game.instance.Win();
         }
     }
 

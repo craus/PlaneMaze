@@ -22,7 +22,7 @@ public class Player : Unit
     public Wall wallSample;
     public Building markSample;
 
-    public bool ongoingAnimations = false;
+    public Task ongoingAnimations = Task.CompletedTask;
 
     public Queue<Vector2Int> commands = new Queue<Vector2Int>();
 
@@ -157,7 +157,7 @@ public class Player : Unit
             await MoveTakeActions(delta);
         }
         Game.instance.moveNumber++;
-        if (this == null) {
+        if (Game.instance.gameOver || this == null) {
             return;
         }
         if (GetComponent<MovesReserve>().Current > 0) {
@@ -195,13 +195,12 @@ public class Player : Unit
             return;
         }
         Cursor.visible = false;
-        if (ongoingAnimations == true) {
+        if (!ongoingAnimations.IsCompleted) {
             commands.Enqueue(delta);
             return;
         }
-        ongoingAnimations = true;
-        await MoveInternal(delta);
-        ongoingAnimations = false;
+        ongoingAnimations = MoveInternal(delta);
+        await ongoingAnimations;
     }
 
     public void ReadKeys() {
@@ -220,7 +219,7 @@ public class Player : Unit
     }
 
     public void Update() {
-        if (ongoingAnimations == false && commands.Count > 0) {
+        if (ongoingAnimations.IsCompleted && commands.Count > 0) {
             Move(commands.Dequeue());
         }
 

@@ -112,6 +112,11 @@ public class Game : MonoBehaviour
     public async Task Win() {
         if (gameOver) return;
         gameOver = true;
+
+        Debug("Win");
+        await Player.instance.ongoingAnimations;
+        Debug("Player move completed, continue to win sequence");
+
         MusicManager.instance.Switch(MusicManager.instance.winPlaylist);
         await ConfirmationManager.instance.AskConfirmation(
             message: $"Victory! You killed {bossName} and saved the world!",
@@ -125,6 +130,10 @@ public class Game : MonoBehaviour
     public async Task Lose() {
         if (gameOver) return;
         gameOver = true;
+        Debug("Lose");
+        await Player.instance.ongoingAnimations;
+        Debug("Player move completed, continue to lose sequence");
+
         MusicManager.instance.Switch(MusicManager.instance.losePlaylist);
         if (Player.instance.lastAttacker != null) {
             await ConfirmationManager.instance.AskConfirmation(

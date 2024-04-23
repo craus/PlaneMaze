@@ -106,6 +106,6 @@ public class Lich : Monster
 
     public override async Task Die() {
         await base.Die();
-        await Game.instance.Win();
+        var win = Game.instance.Win();
     }
 }
