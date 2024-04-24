@@ -698,7 +698,7 @@ MonoBehaviour:
   cooldown: 4
   currentCooldown: 0
   aggroRadius: 4
-  spawnRadius: 4
+  spawnRadius: 1
   charged: {fileID: 6615835817230833952}
   monsterSamples:
   - {fileID: 5504667808349519680, guid: 2a353a9a71228d543b47f53064d4fc81, type: 3}

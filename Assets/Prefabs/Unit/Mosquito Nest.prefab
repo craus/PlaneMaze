@@ -94,6 +94,10 @@ PrefabInstance:
       value: Mosquito Nest
       objectReference: {fileID: 0}
     - target: {fileID: 8536777542681899615, guid: 79d19b61323433b42b343ddaf83aaa78, type: 3}
+      propertyPath: spawnRadius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8536777542681899615, guid: 79d19b61323433b42b343ddaf83aaa78, type: 3}
       propertyPath: monsterSamples.Array.size
       value: 1
       objectReference: {fileID: 0}
