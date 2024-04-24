@@ -7,7 +7,6 @@ using UnityEngine;
 public class HellGate : Monster
 {
     public override bool HasSoul => false;
-    public override int Money => 0;
     public override bool FireImmune => true;
     public override bool Movable => false;
 

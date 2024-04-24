@@ -22,8 +22,8 @@ public class Slime : Monster
     public GameObject activeModel;
     public GameObject crown;
 
-    public override bool HasSoul => base.HasSoul && size == 0;
-    public override int Money => size == 0 ? 1 : 0;
+    public override bool HasSoul => base.HasSoul && king == null && size == 0;
+    public override int Money => size == 0 && king == null ? 1 : 0;
 
     public override void Awake() {
         base.Awake();

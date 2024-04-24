@@ -118,7 +118,8 @@ public class Archdevil : Monster
         if (PlayerDelta.MaxDelta() <= 4 && !figure.Location.Vicinity(4).Any(cell => cell.GetFigure<HellGate>())) {
             var targetCell = figure.Location.Vicinity(4).Where(cell => cell.Free && cell.figures.Count == 0).Rnd();
             if (targetCell != null) {
-                Game.GenerateFigure(targetCell, hellGateSample);
+                var hellGate = Game.GenerateFigure(targetCell, hellGateSample);
+                hellGate.poor = true;
                 return;
             }
         }

@@ -15,12 +15,11 @@ public class KingSlime : Monster
     [SerializeField] private Slime childSample;
     [SerializeField] private Transform slimeSizeTransform;
 
-    public override bool SoulVulnerable => true;
     public override bool PoisonImmune => true;
 
     public GameObject activeModel;
 
-    public override bool HasSoul => base.HasSoul && size == 0;
+    public override bool HasSoul => false;
     public override int Money => size == 0 ? 1 : 0;
 
     [SerializeField] private List<Transform> targets;
@@ -74,7 +73,8 @@ public class KingSlime : Monster
     }
 
     private void SpawnMinion(Cell cell) {
-        Game.GenerateFigure(cell, minions.rnd());
+        var minion = Game.GenerateFigure(cell, minions.rnd());
+        minion.poor = true;
     }
 
     private void SpawnGelatinousCube(Cell cell) {
