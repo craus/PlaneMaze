@@ -19,6 +19,10 @@ public class GlovesOfSwapping : MonoBehaviour, IAttackModifier
                 if (attack.from != null) fromLocation = attack.from.Location;
                 if (attack.to != null) toLocation = attack.to.Location;
 
+                if (!attack.from.Congruent(attack.to)) {
+                    return;
+                }
+
                 var anotherUnit = toLocation.GetFigures<Unit>().FirstOrDefault(u => u.OccupiesPlace && u.figure != attack.to);
                 if (anotherUnit != null) {
                     Debug.LogFormat($"Swap cancelled: another unit on toLocation: {anotherUnit}");

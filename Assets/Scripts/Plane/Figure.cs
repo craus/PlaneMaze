@@ -62,6 +62,10 @@ public class Figure : MonoBehaviour
         return true;
     }
 
+    public bool Congruent(Figure another) {
+        return size == another.size;
+    }
+
     public IEnumerable<Cell> OccupiedArea(Cell baseCell) {
         if (baseCell == null) {
             yield break;
