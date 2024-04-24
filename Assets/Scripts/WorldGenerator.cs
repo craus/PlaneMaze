@@ -215,7 +215,7 @@ public class WorldGenerator : Singletone<WorldGenerator>
         bossBiome = Library.instance.bitterMire;
         Game.instance.bossName = bossBiome.bossName;
 
-        startBiome = Library.instance.bitterMire;
+        startBiome = Library.instance.dungeon;
 
         biomesOrder = Library.instance.biomes.Shuffled();
 
@@ -223,6 +223,7 @@ public class WorldGenerator : Singletone<WorldGenerator>
         //    await GenerateBiome(biome);
         //}
         await GenerateBiome(startBiome);
+        await GenerateBiome(bossBiome);
 
         await Postprocess();
 
