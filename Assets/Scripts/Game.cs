@@ -57,8 +57,11 @@ public class Game : MonoBehaviour
     public Metagame Metagame => GameManager.instance.metagame;
 
     public DateTime startTime;
+    public DateTime endTime;
 
     public bool gameOver = false;
+
+    public TimeSpan RealTime => gameOver ? endTime - startTime : DateTime.Now - startTime;
 
     public void Awake() {
         new ValueTracker<int>(() => time, v => {
@@ -112,6 +115,7 @@ public class Game : MonoBehaviour
     public async Task Win() {
         if (gameOver) return;
         gameOver = true;
+        endTime = DateTime.Now;
 
         Debug("Win");
         await Player.instance.ongoingAnimations;
@@ -130,6 +134,7 @@ public class Game : MonoBehaviour
     public async Task Lose() {
         if (gameOver) return;
         gameOver = true;
+        endTime = DateTime.Now;
         Debug("Lose");
         await Player.instance.ongoingAnimations;
         Debug("Player move completed, continue to lose sequence");
