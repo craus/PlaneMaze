@@ -212,7 +212,7 @@ public class WorldGenerator : Singletone<WorldGenerator>
 
         cellOrderList = new List<Cell>();
         bossBiome = Library.instance.bossBiomes.Rnd();
-        bossBiome = Library.instance.crypt;
+        bossBiome = Library.instance.darkrootForest;
         Game.instance.bossName = bossBiome.bossName;
 
         startBiome = Library.instance.dungeon;

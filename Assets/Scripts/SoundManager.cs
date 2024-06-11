@@ -36,6 +36,7 @@ public class SoundManager : Singletone<SoundManager>
     public AudioSource woodCrash;
     public AudioSource chargeMagicAttack;
     public AudioSource gainCurse;
+    public AudioSource gainConfusion;
     public AudioSource haveCurse;
     public AudioSource summonCreature;
     public AudioSource witchDamaged;
