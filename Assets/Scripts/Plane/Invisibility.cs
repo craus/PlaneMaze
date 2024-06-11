@@ -9,6 +9,10 @@ public class Invisibility : MonoBehaviour
 {
     [SerializeField] private GameObject model;
 
+    private Invulnerability invulnerability;
+
+    public bool Visible => model.activeSelf;
+
     private bool insideFog = false;
     public bool InsideFog {
         set {
@@ -23,6 +27,13 @@ public class Invisibility : MonoBehaviour
         if (model.activeSelf == on) {
             model.SetActive(!on); // CHECK: slow?
         }
+        UpdateInvulnerabilityIcons();
+    }
+
+    private void UpdateInvulnerabilityIcons() {
+        if (model.activeSelf && invulnerability != null) {
+            invulnerability.UpdateIcons();
+        }
     }
 
     public void Check() { // CHECK: slow?
@@ -33,8 +44,14 @@ public class Invisibility : MonoBehaviour
         GetComponent<Figure>().afterMove.Add(async (from, to) => Check());
         GetComponents<IInvisibilitySource>().ForEach(iis => iis.OnChange += Check);
 
-        new ValueTracker<bool>(() => model.activeSelf, v => model.SetActive(v));
+        new ValueTracker<bool>(() => model.activeSelf, v => { model.SetActive(v); UpdateInvulnerabilityIcons(); });
         new ValueTracker<bool>(() => insideFog, v => insideFog = v);
+
+        invulnerability = GetComponent<Invulnerability>();
+    }
+
+    public void Start() {
+        Check();
     }
 
     private bool HiddenInsideFog() { // CHECK: slow?

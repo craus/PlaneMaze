@@ -23,7 +23,10 @@ public class Unit : MonoBehaviour, IMortal, IAttacker
     public virtual bool Boss => false;
     public virtual bool TrueSight => false;
 
-    public virtual bool Vulnerable => GetComponent<Invulnerability>().Current == 0;
+    public virtual bool Vulnerable => 
+        GetComponent<Invulnerability>().Current == 0 
+        && GetComponent<Invisibility>().Visible;
+
     public virtual bool Disarmed => GetComponent<Disarm>().Current == 0;
 
     public virtual bool ShowInvulnerability => true;
