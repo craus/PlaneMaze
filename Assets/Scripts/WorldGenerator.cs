@@ -212,18 +212,20 @@ public class WorldGenerator : Singletone<WorldGenerator>
 
         cellOrderList = new List<Cell>();
         bossBiome = Library.instance.bossBiomes.Rnd();
-        bossBiome = Library.instance.bitterMire;
+        bossBiome = Library.instance.crypt;
         Game.instance.bossName = bossBiome.bossName;
 
         startBiome = Library.instance.dungeon;
 
-        biomesOrder = Library.instance.biomes.Shuffled();
+        //biomesOrder = Library.instance.biomes;
+        biomesOrder.Add(startBiome);
+        biomesOrder.Add(bossBiome);
 
-        //foreach (var biome in biomesOrder) {
-        //    await GenerateBiome(biome);
-        //}
-        await GenerateBiome(startBiome);
-        await GenerateBiome(bossBiome);
+        biomesOrder = biomesOrder.Shuffled();
+
+        foreach (var biome in biomesOrder) {
+            await GenerateBiome(biome);
+        }
 
         await Postprocess();
 
@@ -308,9 +310,6 @@ public class WorldGenerator : Singletone<WorldGenerator>
         } else if (cell.Biome == startBiome && Game.instance.startingItemsSamples.Count() > 0) {
             Game.GenerateFigure(cell, Game.instance.startingItemsSamples.First());
             Game.instance.startingItemsSamples.RemoveAt(0);
-            return;
-        } else if (cell.Biome == Library.instance.crypt && cell.orderInBiome == Library.instance.crypt.Size - 1 && bossBiome == Library.instance.crypt) {
-            Game.GenerateFigure(cell, Game.instance.lichSample);
             return;
         }
 
