@@ -26,6 +26,12 @@ public class Figure : MonoBehaviour
             v => gameObject.SetActive(v), 
             defaultValue: false
         );
+
+        new ValueTracker<List<Func<Cell, Cell, Task>>>(
+            () => afterMove.ToList(),
+            v => afterMove = v.ToList(),
+            defaultValue: new List<Func<Cell, Cell, Task>>()
+        );
     }
 
     private void SetLocation(Cell newPosition) {
