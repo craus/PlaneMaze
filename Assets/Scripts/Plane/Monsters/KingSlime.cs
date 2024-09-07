@@ -20,7 +20,7 @@ public class KingSlime : Monster
     public GameObject activeModel;
 
     public override bool HasSoul => false;
-    public override int Money => size == 0 ? 1 : 0;
+    public override bool Boss => true;
 
     [SerializeField] private List<Transform> targets;
 
