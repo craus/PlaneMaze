@@ -59,6 +59,17 @@ public class WorldGenerator : Singletone<WorldGenerator>
         return cellPrices[cell] + (Bad(cell) ? 1 : 0);
     }
 
+    public static float CellPriceWithBorder(Cell cell, IEnumerable<Cell> border, bool reroll = false) {
+        if (!cellPrices.ContainsKey(cell) || reroll) {
+            cellPrices[cell] = CalculateCellPriceRandom(cell);
+        }
+        var borderPenalty = border.Contains(cell) ? 1000 : 0;
+        if (borderPenalty > 0) {
+            Debug.LogFormat($"Border penalty! {cell}");
+        }
+        return cellPrices[cell] + (Bad(cell) ? 1 : 0) + borderPenalty; 
+    }
+
     private static IEnumerable<Cell> BorderCells(IEnumerable<Cell> cells) {
         HashSet<Cell> inside = new HashSet<Cell>(cells);
         Func<Cell, bool> outer = c => !inside.Contains(c);
@@ -86,8 +97,21 @@ public class WorldGenerator : Singletone<WorldGenerator>
         return result;
     }
 
+    private static IEnumerable<Cell> ExtremumCells(IEnumerable<Cell> cells) {
+        var xmin = cells.Min(cell => cell.position.x);
+        var ymin = cells.Min(cell => cell.position.y);
+        var xmax = cells.Max(cell => cell.position.x);
+        var ymax = cells.Max(cell => cell.position.y);
+        return cells.Where(cell => 
+            cell.position.x == xmin || 
+            cell.position.x == xmax || 
+            cell.position.y == ymin || 
+            cell.position.y == ymax
+        );
+    }
+
     private static Cell CheapestBorderCell(IEnumerable<Cell> cells) {
-        var border = BorderCells(cells);
+        var border = ExtremumCells(BorderCells(cells));
         Debug.LogFormat($"border: {border.ExtToString()}");
         Map<Cell, float> fixedPrices = new Map<Cell, float>();
         foreach (var c in border) {
@@ -120,10 +144,15 @@ public class WorldGenerator : Singletone<WorldGenerator>
             Game.Debug($"Start of biome: {start}");
         }
 
+        var border = cellOrderList.Count > 0 ? new HashSet<Cell>(BorderCells(cellOrderList)) : new HashSet<Cell>();
+        if (cellOrderList.Count > 0) {
+            Debug.LogFormat($"Border: {BorderCells(cellOrderList).ToList().ExtToString()}");
+        }
+
         var cellOrder = Algorithm.PrimDynamic(
             start: start,
             edges: c => c.Neighbours().Where(c => c.Wall)
-                .Select(c => new Weighted<Cell>(c, CellPrice(c, reroll: true))),
+                .Select(c => new Weighted<Cell>(c, CellPriceWithBorder(c, border, reroll: true))),
             maxSteps: 100000
         ).Take(biome.Size);
 
@@ -162,6 +191,7 @@ public class WorldGenerator : Singletone<WorldGenerator>
     private bool MakeFloorCellIfCross(Cell from, Vector2Int direction) {
         if (MakesCross(from, direction)) {
             AddFloorCell(from.Shift(direction), from.Biome);
+            Debug.LogFormat($"Cell {from.Shift(direction)} made floor: cross removal");
             return true;
         }
         return false;
@@ -212,7 +242,7 @@ public class WorldGenerator : Singletone<WorldGenerator>
 
         cellOrderList = new List<Cell>();
         bossBiome = Library.instance.bossBiomes.Rnd();
-        bossBiome = Library.instance.darkrootForest;
+        bossBiome = Library.instance.crypt;
         Game.instance.bossName = bossBiome.bossName;
 
         startBiome = Library.instance.dungeon;
